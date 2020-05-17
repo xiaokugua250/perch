@@ -16,3 +16,6 @@
 .idea
 deploy/config/
 samples/
+
+go.sum
+src/common/
