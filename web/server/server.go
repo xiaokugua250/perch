@@ -2,10 +2,7 @@ package main
 
 import (
 	"context"
-	"femail/src/cliemail/mailgun"
-	"femail/src/cliemail/mailjet"
-	"femail/src/cliemail/sendgrid"
-	"femail/src/middleware"
+	_ "expvar"
 	"flag"
 	"fmt"
 	"github.com/gorilla/mux"
@@ -13,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"perch/web/middleware"
 	"strings"
 	"time"
 )
@@ -23,14 +21,14 @@ func main() {
 	flag.Parse()
 
 	router := mux.NewRouter()
-	router.HandleFunc("/mg/send/email", mailgun.SendEmailMG)
-	router.HandleFunc("/mg/send/emails", mailgun.SendEmailsMG)
+	//	router.HandleFunc("/mg/send/email", mailgun.SendEmailMG)
+	//router.HandleFunc("/mg/send/emails", mailgun.SendEmailsMG)
 
-	router.HandleFunc("/mj/send/email", mailjet.SendEmailMJ)
-	router.HandleFunc("/mj/send/emails", mailjet.SendEmailsMJ)
+	//router.HandleFunc("/mj/send/email", mailjet.SendEmailMJ)
+	//router.HandleFunc("/mj/send/emails", mailjet.SendEmailsMJ)
 
-	router.HandleFunc("/sg/send/email", sendgrid.SendEmailSG)
-	router.HandleFunc("/sg/send/emails", sendgrid.EmailsStatusSG)
+	//router.HandleFunc("/sg/send/email", sendgrid.SendEmailSG)
+	//router.HandleFunc("/sg/send/emails", sendgrid.EmailsStatusSG)
 
 	router.Use(middleware.CROSMiddleware)
 	router.Use(middleware.MetricMiddleWare)

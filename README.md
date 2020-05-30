@@ -6,3 +6,4 @@ Golang Code And Others
 https://github.com/golang-standards/project-layout
 
 * [ ] 去除src目录
+* [ ]  使用expvar包进行服务监控

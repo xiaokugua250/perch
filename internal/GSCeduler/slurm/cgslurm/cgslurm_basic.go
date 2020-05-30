@@ -14,7 +14,6 @@ package cgslurm
 import (
 	"C"
 	"errors"
-	"starlight/common/model"
 )
 
 //获取slurm api version
