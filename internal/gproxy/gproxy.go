@@ -26,12 +26,12 @@ const P2PROXY_Protocol = "/p2p/proxy/1.0.0"
 // HTTP server which tunnels the requests to a destination peer running
 // ProxyService too.
 type P2ProxyServer struct {
-	host      host.Host
-	dest      peer.ID
-	proxyAddr ma.Multiaddr
-	//Encryption bool	 //是否对流量加密
-	//	RandPort bool 	//是否使用随机端口
-	//	WhiteList []string //白名单
+	host       host.Host
+	dest       peer.ID
+	proxyAddr  ma.Multiaddr
+	Encryption bool     //是否对流量加密
+	RandPort   bool     //是否使用随机端口
+	WhiteList  []string //白名单
 
 }
 
