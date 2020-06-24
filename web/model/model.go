@@ -13,7 +13,9 @@ type EmailBody struct {
 
 type ResultReponse struct {
 	Message string      `json:"message"`
+	Kind    string      `json:"kind"`
 	Code    int         `json:"code"`
 	ErrMsg  error       `json:"errMsg"`
+	Total   int         `json:"total"`
 	Spec    interface{} `json:"spec"`
 }
