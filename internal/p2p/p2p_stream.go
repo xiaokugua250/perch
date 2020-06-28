@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"errors"
+	"github.com/libp2p/go-yamux"
 
 	"time"
 
@@ -31,7 +32,8 @@ type StarfsDataStream struct {
 }
 
 type NetworkStream struct {
-	Stream network.Stream
+	Stream     network.Stream
+	YmuxStream yamux.Stream
 }
 
 /**
@@ -93,93 +95,65 @@ func ReadFromNetWorkStreamServerSide(rw *bufio.ReadWriter) {
 			if len(cmds) > 1 {
 				params = cmds[1:]
 			}
-			if strings.ToLower(cmds[0]) != filesystem.FsGet { //todo support ls、pwd...
-				go func() {
-					result := filesystem.FileSystemOptHander(cmds[0], params...)
-					/*	if result. != nil {
-						panic(err)
-						rw.WriteString(err.Error())
-						rw.Flush()
-
-					}*/
-					resultByte, err := json.Marshal(result)
-					if err != nil {
-						utils.Logger.Error(err)
-						panic(err)
-						//return
-					}
-					utils.Logger.Printf("data to client is %#v", string(resultByte))
-					//todo 將處理結果返回到客戶端
-					rw.WriteString(string(resultByte) + "\n")
-
-					rw.Flush()
-					if err != nil {
-						panic(err)
-					}
-				}()
-
-			} else { //對應fsget需要進行文件傳輸  todo 讀取服務端文件將其進行解析，並寫入到文件stream流中
-				//	done := make(chan struct{})
-				if len(params) <= 0 {
-					rw.WriteString(string("please input your command params(get command must with get filename,i.e get fileA)....") + "\n")
-					rw.Flush()
-				} else {
-					go func() { //目前只能處理單個文件，後續需要處理文件夾和多個文件
-						fileStat, err := os.Stat(params[0])
-						if err != nil { //文件不存在
-							if os.IsNotExist(err) {
-								return
-							}
-						}
-						if fileStat.IsDir() { //only support file now
+			//對應fsget需要進行文件傳輸  todo 讀取服務端文件將其進行解析，並寫入到文件stream流中
+			//	done := make(chan struct{})
+			if len(params) <= 0 {
+				rw.WriteString(string("please input your command params(get command must with get filename,i.e get fileA)....") + "\n")
+				rw.Flush()
+			} else {
+				go func() { //目前只能處理單個文件，後續需要處理文件夾和多個文件
+					fileStat, err := os.Stat(params[0])
+					if err != nil { //文件不存在
+						if os.IsNotExist(err) {
 							return
 						}
-						fileToSend, err := os.Open(params[0])
-						if err != nil {
-							return
+					}
+					if fileStat.IsDir() { //only support file now
+						return
+					}
+					fileToSend, err := os.Open(params[0])
+					if err != nil {
+						return
+					}
+					defer func() {
+						if err := fileToSend.Close(); err != nil {
+							panic(err)
 						}
-						defer func() {
-							if err := fileToSend.Close(); err != nil {
-								panic(err)
-							}
-						}()
-
-						fileReader := bufio.NewReader(fileToSend)
-						buf := make([]byte, 1024)
-						for {
-							n, err := fileReader.Read(buf)
-							if err != nil {
-								if err != io.EOF {
-									panic(err)
-								}
-							}
-							if n == 0 {
-								break
-							}
-							//	io.CopyBuffer(rw.Writer,fileReader,buf)
-							if _, err := rw.Write(buf[:n]); err != nil {
-								panic(err)
-							}
-
-							//todo 需要注意写入缓冲区时的时机
-
-							if n < 1024 {
-								//	close(done)
-								rw.Flush()
-								break
-							}
-						}
-
-						//close(done)
-
 					}()
-				}
 
+					fileReader := bufio.NewReader(fileToSend)
+					buf := make([]byte, 1024)
+					for {
+						n, err := fileReader.Read(buf)
+						if err != nil {
+							if err != io.EOF {
+								panic(err)
+							}
+						}
+						if n == 0 {
+							break
+						}
+						//	io.CopyBuffer(rw.Writer,fileReader,buf)
+						if _, err := rw.Write(buf[:n]); err != nil {
+							panic(err)
+						}
+
+						//todo 需要注意写入缓冲区时的时机
+
+						if n < 1024 {
+							//	close(done)
+							rw.Flush()
+							break
+						}
+					}
+
+					//close(done)
+
+				}()
 			}
-		} else {
-			//rw.WriteString("\n")
-			rw.Flush()
+
 		}
+
 		//go WriteToNetWorkStreamServerSide(rw)
 	}
 }

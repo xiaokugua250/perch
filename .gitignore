@@ -19,3 +19,13 @@ samples/
 
 go.sum
 src/common/
+asserts/
+build/
+configs/
+examples/
+init/
+pkg/general/storage/
+test/
+third_party/
+tools/
+website/

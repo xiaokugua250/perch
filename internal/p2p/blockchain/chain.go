@@ -24,7 +24,7 @@ type Block struct {
 }
 
 var BlockChain []Block
-
+var BlockChainServer chan []Block //// bcServer handles incoming concurrent Blocks
 var mutex = &sync.Mutex{}
 
 /**
