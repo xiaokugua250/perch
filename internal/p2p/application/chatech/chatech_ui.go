@@ -6,12 +6,13 @@ package main
 import (
 	"fmt"
 	"github.com/gdamore/tcell"
-	_ "github.com/libp2p/go-libp2p-core/peer"
 	"github.com/rivo/tview"
 	"io"
 	"strings"
 	"time"
 )
+
+var done = make(chan struct{})
 
 // ChatUI is a Text User Interface (TUI) for a ChatRoom.
 // The Run method will draw the UI to the terminal in "fullscreen"
@@ -41,7 +42,7 @@ func NewChatUI(chatroom *ChatRoom) *ChatUI {
 		})
 
 	inputChannel := make(chan string, 32)
-	input := tview.NewInputField().SetLabel(chatroom.nickName + ">").SetFieldWidth(0).SetFieldBackgroundColor(tcell.ColorBlack)
+	input := tview.NewInputField().SetLabel(chatroom.nickName + ">").SetFieldWidth(0).SetFieldBackgroundColor(tcell.ColorIndianRed)
 
 	input.SetDoneFunc(func(key tcell.Key) {
 		if key != tcell.KeyEnter {
@@ -84,8 +85,9 @@ func NewChatUI(chatroom *ChatRoom) *ChatUI {
 // Run starts the chat event loop in the background, then starts
 // the event loop for the text UI.
 func (ui *ChatUI) Run() error {
-
+	go ui.handleEvents()
 	defer ui.end()
+
 	return ui.app.Run()
 }
 
@@ -100,8 +102,14 @@ func (ui *ChatUI) refreshPeers() {
 	for i, p := range peers {
 		idStrs[i] = shortID(p)
 	}
-	ui.peersList.SetText(strings.Join(idStrs, "\n"))
+
+	//cause data race
+	ui.app.QueueUpdate(func() { // clean data race https://github.com/rivo/tview/issues/197
+		ui.peersList.SetText(strings.Join(idStrs, "\n"))
+
+	})
 	ui.app.Draw()
+
 }
 
 func (ui *ChatUI) displayChatMessage(cm *ChatMessage) {
@@ -110,8 +118,9 @@ func (ui *ChatUI) displayChatMessage(cm *ChatMessage) {
 }
 
 func (ui *ChatUI) handleEvents() {
-	peerRefreshTicher := time.NewTicker(time.Second)
+	peerRefreshTicher := time.NewTicker(time.Second * 2)
 	defer peerRefreshTicher.Stop()
+
 	for {
 		select {
 		case input := <-ui.inputChannel:
@@ -124,7 +133,9 @@ func (ui *ChatUI) handleEvents() {
 		case m := <-ui.chatroom.Messages:
 			ui.displayChatMessage(m)
 		case <-peerRefreshTicher.C:
+
 			ui.refreshPeers()
+
 		case <-ui.chatroom.ctx.Done():
 			return
 		case <-ui.doneChannel:
