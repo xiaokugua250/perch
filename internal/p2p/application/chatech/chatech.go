@@ -78,6 +78,7 @@ func (n *discoveryNotifee) HandlePeerFound(peer peer.AddrInfo) {
 	if err != nil {
 		fmt.Printf("error connecting to peer %s:%s\n", peer.ID.Pretty(), err)
 	}
+
 }
 
 // setupDiscovery creates an mDNS discovery service and attaches it to the libp2p Host.

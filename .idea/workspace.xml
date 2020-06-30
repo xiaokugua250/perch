@@ -19,10 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad9f3790-1e21-4fef-9f4c-259608952763" name="Default Changelist" comment="">
+    <list default="true" id="ad9f3790-1e21-4fef-9f4c-259608952763" name="Default Changelist" comment="1、解決datarace 數據競爭問題">
+      <change afterPath="$PROJECT_DIR$/internal/p2p/application/chatech/chatech_helper.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/p2p/application/chatech/chatech.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/application/chatech/chatech.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/p2p/application/chatech/chatech_ui.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/application/chatech/chatech_ui.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,26 +72,26 @@
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/internal/p2p/application/chatech" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\p2p\application" />
-      <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\p2p" />
-      <recent name="E:\WorksSpaces\GoWorkSpaces\perch\web\server" />
-      <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\spider" />
-      <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\gproxy" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\p2p\application" />
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\api\blockchain_api" />
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\pkg" />
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal" />
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\web" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/internal/p2p/application/chatech" />
+      <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\p2p\application" />
+      <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\p2p" />
+      <recent name="E:\WorksSpaces\GoWorkSpaces\perch\web\server" />
+      <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\spider" />
     </key>
   </component>
   <component name="RunManager" selected="Go Build.go build p2p_network.go">
@@ -162,6 +162,14 @@
       <option name="presentableId" value="Default" />
       <updated>1593414252025</updated>
     </task>
+    <task id="LOCAL-00001" summary="1、解決datarace 數據競爭問題">
+      <created>1593483665277</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1593483665277</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -213,7 +221,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="1、添加项目结构" />
     <MESSAGE value="1、添加项目结构,增加libp2p代理" />
-    <option name="LAST_COMMIT_MESSAGE" value="1、添加项目结构,增加libp2p代理" />
+    <MESSAGE value="1、解決datarace 數據競爭問題" />
+    <option name="LAST_COMMIT_MESSAGE" value="1、解決datarace 數據競爭問題" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -224,6 +233,10 @@
       <screen x="72" y="27" width="2482" height="1220" />
     </state>
     <state x="1108" y="566" key="#GOROOT/72.27.2482.1220@72.27.2482.1220" timestamp="1593414257479" />
+    <state x="942" y="318" width="732" height="644" key="#Inspections" timestamp="1593486978318">
+      <screen x="72" y="27" width="2482" height="1220" />
+    </state>
+    <state x="942" y="318" width="732" height="644" key="#Inspections/72.27.2482.1220@72.27.2482.1220" timestamp="1593486978318" />
     <state x="1200" y="503" width="216" height="281" key="EnvironmentVariablesDialog" timestamp="1593414455061">
       <screen x="72" y="27" width="2482" height="1220" />
     </state>
@@ -232,6 +245,10 @@
       <screen x="72" y="27" width="2482" height="1220" />
     </state>
     <state x="802" y="272" width="1022" height="737" key="SettingsEditor/72.27.2482.1220@72.27.2482.1220" timestamp="1593414458109" />
+    <state x="908" y="369" width="800" height="543" key="Vcs.Push.Dialog.v2" timestamp="1593483667190">
+      <screen x="72" y="27" width="2482" height="1220" />
+    </state>
+    <state x="908" y="369" width="800" height="543" key="Vcs.Push.Dialog.v2/72.27.2482.1220@72.27.2482.1220" timestamp="1593483667190" />
     <state x="1038" y="525" width="540" height="231" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1593480120607">
       <screen x="72" y="27" width="2482" height="1220" />
     </state>

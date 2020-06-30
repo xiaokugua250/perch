@@ -42,7 +42,9 @@ func NewChatUI(chatroom *ChatRoom) *ChatUI {
 		})
 
 	inputChannel := make(chan string, 32)
-	input := tview.NewInputField().SetLabel(chatroom.nickName + ">").SetFieldWidth(0).SetFieldBackgroundColor(tcell.ColorIndianRed)
+	//	input := tview.NewInputField().SetLabel(chatroom.nickName + ">").SetFieldWidth(0).SetFieldBackgroundColor(tcell.ColorBlack)
+
+	input := tview.NewInputField().SetFieldWidth(0).SetFieldBackgroundColor(tcell.ColorBlack)
 
 	input.SetDoneFunc(func(key tcell.Key) {
 		if key != tcell.KeyEnter {
@@ -66,11 +68,49 @@ func NewChatUI(chatroom *ChatRoom) *ChatUI {
 	peersList.SetBorder(true)
 	peersList.SetTitle("Peers")
 
-	chatPannel := tview.NewFlex().AddItem(msgBox, 0, 1, false).AddItem(peersList, 20, 1, false)
+	msgBox_tips := tview.NewTextView()
+	msgBox_tips.SetDynamicColors(true)
+	msgBox_tips.SetBorder(true)
+	msgBox_tips.SetTitle("tips")
+	//msgBox_tips.SetText(time.Now().String())
+	var chatinputform ChatInputForm
+	input_form := tview.NewForm().
+		AddInputField("nick name", "", 20, nil, func(text string) {
+			chatinputform.ChatUserNickName = text
+		}).
+		AddInputField("room name", "", 20, nil, func(text string) {
+			chatinputform.ChatRoomName = text
+		}).
+		AddPasswordField("Password", "", 10, '*', func(text string) {
+			chatinputform.ChatUserPasswd = text
+		}).
+		AddButton("conform", func() { //對名字做檢查
 
-	flex := tview.NewFlex().SetDirection(tview.FlexRow).AddItem(chatPannel, 0, 1, false).AddItem(input, 1, 1, true)
+			ChatRoomJoinHelper(chatinputform)
+			input.SetLabel(chatroom.nickName + " with nick name " + chatinputform.ChatUserNickName + "says: >")
 
-	app.SetRoot(flex, true)
+			//input.SetText(fmt.Sprintf("%v\n",chatinputform))
+			app.SetFocus(input)
+		}).AddButton("quit", func() {
+		app.Stop()
+	})
+	// text views are io.Writers, but they don't automatically refresh.
+	// this sets a change handler to force the app to redraw when we get
+	// new messages to display.
+	msgBox_tips.SetChangedFunc(
+		func() {
+			app.Draw()
+		})
+	flex := tview.NewFlex().
+		AddItem(tview.NewBox().SetBorder(true).SetTitle("avaliable rooms"), 50, 1, false).
+		AddItem(tview.NewFlex().SetDirection(tview.FlexRow).
+			AddItem(msgBox_tips, 0, 1, false).
+			AddItem(msgBox, 0, 3, false).
+			AddItem(input_form, 0, 3, true).
+			AddItem(input, 6, 1, true), 0, 2, true).
+		AddItem(peersList, 20, 1, false)
+
+	app.SetRoot(flex, true).EnableMouse(true)
 	return &ChatUI{
 		chatroom:     chatroom,
 		app:          app,
@@ -155,4 +195,9 @@ func withColor(color, msg string) string {
 func (ui *ChatUI) displaySelfMessage(msg string) {
 	prompt := withColor("yellow", fmt.Sprintf("<%s>:", ui.chatroom.nickName))
 	fmt.Fprintf(ui.msgWriter, "%s %s\n", prompt, msg)
+}
+
+func currentTimeString() string {
+	t := time.Now()
+	return fmt.Sprintf(t.Format("Current time is 15:04:05"))
 }
