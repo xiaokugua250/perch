@@ -20,9 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad9f3790-1e21-4fef-9f4c-259608952763" name="Default Changelist" comment="1、解決datarace 數據競爭問題">
-      <change afterPath="$PROJECT_DIR$/internal/p2p/application/chatech/chatech_helper.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/p2p/application/chatech/chatech.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/application/chatech/chatech.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/p2p/application/chatech/chatech_room.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/application/chatech/chatech_room.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/p2p/application/chatech/chatech_ui.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/application/chatech/chatech_ui.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +94,7 @@
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\spider" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Build.go build p2p_network.go">
+  <component name="RunManager" selected="Go Build.go build perch/internal/p2p/application/chatech">
     <configuration name="go build p2p_network.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="perch" />
       <working_directory value="$PROJECT_DIR$" />
@@ -110,6 +110,15 @@
       <kind value="FILE" />
       <filePath value="$PROJECT_DIR$/internal/p2p/application/p2p_network_mux.go" />
       <package value="perch" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build perch/internal/p2p/application/chatech" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="perch" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/internal/p2p/application/chatech/hel.go" />
+      <package value="perch/internal/p2p/application/chatech" />
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
@@ -133,24 +142,13 @@
       <pattern value="^TestP2PHostFactory$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestSpiderEvaluetStatus in perch/internal/spider" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="perch" />
-      <working_directory value="$PROJECT_DIR$/internal/spider" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="perch/internal/spider" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestSpiderEvaluetStatus$" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build perch/internal/p2p/application/chatech" />
         <item itemvalue="Go Build.go build p2p_network.go" />
         <item itemvalue="Go Build.go build p2p_network_mux.go" />
         <item itemvalue="Go Test.TestP2PHostFactory in perch/internal/p2p" />
         <item itemvalue="Go Build.go build server.go" />
-        <item itemvalue="Go Test.TestSpiderEvaluetStatus in perch/internal/spider" />
       </list>
     </recent_temporary>
   </component>
@@ -169,7 +167,21 @@
       <option name="project" value="LOCAL" />
       <updated>1593483665277</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="1、解決datarace 數據競爭問題">
+      <created>1593511884243</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1593511884243</updated>
+    </task>
+    <task id="LOCAL-00003" summary="1、解決datarace 數據競爭問題">
+      <created>1593590060681</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1593590060681</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -237,6 +249,10 @@
       <screen x="72" y="27" width="2482" height="1220" />
     </state>
     <state x="942" y="318" width="732" height="644" key="#Inspections/72.27.2482.1220@72.27.2482.1220" timestamp="1593486978318" />
+    <state x="973" y="350" width="676" height="773" key="#go_build_perch/internal/p2p/application/chatech" timestamp="1593576055342">
+      <screen x="72" y="27" width="2488" height="1413" />
+    </state>
+    <state x="973" y="350" width="676" height="773" key="#go_build_perch/internal/p2p/application/chatech/72.27.2488.1413@72.27.2488.1413" timestamp="1593576055342" />
     <state x="1200" y="503" width="216" height="281" key="EnvironmentVariablesDialog" timestamp="1593414455061">
       <screen x="72" y="27" width="2482" height="1220" />
     </state>
@@ -245,10 +261,15 @@
       <screen x="72" y="27" width="2482" height="1220" />
     </state>
     <state x="802" y="272" width="1022" height="737" key="SettingsEditor/72.27.2482.1220@72.27.2482.1220" timestamp="1593414458109" />
-    <state x="908" y="369" width="800" height="543" key="Vcs.Push.Dialog.v2" timestamp="1593483667190">
-      <screen x="72" y="27" width="2482" height="1220" />
+    <state x="910" y="423" width="800" height="543" key="Vcs.Push.Dialog.v2" timestamp="1593590066466">
+      <screen x="72" y="27" width="2488" height="1413" />
     </state>
-    <state x="908" y="369" width="800" height="543" key="Vcs.Push.Dialog.v2/72.27.2482.1220@72.27.2482.1220" timestamp="1593483667190" />
+    <state x="908" y="369" width="800" height="543" key="Vcs.Push.Dialog.v2/72.27.2482.1220@72.27.2482.1220" timestamp="1593511885672" />
+    <state x="910" y="423" key="Vcs.Push.Dialog.v2/72.27.2488.1413@72.27.2488.1413" timestamp="1593590066452" />
+    <state x="1008" y="456" width="616" height="554" key="find.popup" timestamp="1593586727044">
+      <screen x="72" y="27" width="2488" height="1413" />
+    </state>
+    <state x="1008" y="456" width="616" height="554" key="find.popup/72.27.2488.1413@72.27.2488.1413" timestamp="1593586727044" />
     <state x="1038" y="525" width="540" height="231" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1593480120607">
       <screen x="72" y="27" width="2482" height="1220" />
     </state>
