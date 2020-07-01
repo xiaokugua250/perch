@@ -77,6 +77,9 @@ func (chatRoom *ChatRoom) Publish(message string) error {
 func (chatRoom *ChatRoom) ListPeers() []peer.ID {
 	return chatRoom.pubs.ListPeers(topicName(chatRoom.roomName))
 }
+func (chatRoom *ChatRoom) ListRooms() []string {
+	return chatRoom.pubs.GetTopics()
+}
 
 func (chatRoom *ChatRoom) readLoop() {
 	for {

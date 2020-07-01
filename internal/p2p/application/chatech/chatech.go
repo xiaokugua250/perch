@@ -49,11 +49,14 @@ func main() {
 		nick = defaultNick(h.ID())
 	}
 	room := *roomFlag
+
 	chatroom, err := JoinChatRoom(ctx, ps, h.ID(), nick, room)
 	if err != nil {
 		panic(err)
 	}
-	ui := NewChatUI(chatroom)
+
+	ui := InitChatUI(chatroom)
+
 	if err = ui.Run(); err != nil {
 		fmt.Printf("error in running text ui %s", err)
 	}
