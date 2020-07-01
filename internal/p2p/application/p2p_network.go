@@ -5,10 +5,13 @@ import (
 	"fmt"
 	"github.com/libp2p/go-libp2p"
 	multiplex "github.com/libp2p/go-libp2p-mplex"
+	pubsub "github.com/libp2p/go-libp2p-pubsub"
 	secio "github.com/libp2p/go-libp2p-secio"
 	yamux "github.com/libp2p/go-libp2p-yamux"
 	"github.com/libp2p/go-tcp-transport"
 	ws "github.com/libp2p/go-ws-transport"
+	"time"
+
 	//"github.com/libp2p/go-ud"
 	"log"
 	"os"
@@ -47,6 +50,18 @@ func main() {
 	for _, addr := range p2pnetwork.NetworkPeer.Addrs() {
 		fmt.Printf("Listening P2P on %s/p2p/%s\n", addr.String(), p2pnetwork.NetworkPeer.ID().String())
 	}
+
+	//	pubs ,err := pubsub.NewGossipSub(ctx,p2pnetwork.NetworkPeer)
+	_, err := pubsub.NewGossipSub(ctx, p2pnetwork.NetworkPeer)
+
+	if err != nil {
+		log.Println(err)
+	}
+	err = p2p.MDNSDiscoverySetup(ctx, p2pnetwork.NetworkPeer, time.Second*2, "mdns")
+	if err != nil {
+		panic(err)
+	}
+
 	signalChan := make(chan os.Signal, 1)
 	errChan := make(chan error, 1)
 	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
