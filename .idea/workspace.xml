@@ -1,16 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="ad9f3790-1e21-4fef-9f4c-259608952763" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+=======
+    <list default="true" id="ad9f3790-1e21-4fef-9f4c-259608952763" name="Default Changelist" comment="1、解決datarace 數據競爭問題">
+      <change afterPath="$PROJECT_DIR$/internal/p2p/application/chatech/chatech_helper.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/p2p/application/chatech/chatech.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/application/chatech/chatech.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/p2p/application/chatech/chatech_ui.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/application/chatech/chatech_ui.go" afterDir="false" />
+>>>>>>> a2882f702214104079ae43951896425f466194eb
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
@@ -110,6 +136,8 @@
       </file>
     </leaf>
   </component>
+=======
+>>>>>>> a2882f702214104079ae43951896425f466194eb
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -117,15 +145,7 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>Mux</find>
-    </findStrings>
-    <dirStrings>
-      <dir>E:\WorksSpaces\GoWorkSpaces\perch</dir>
-    </dirStrings>
-  </component>
-  <component name="GOROOT" path="C:\Go" />
+  <component name="GOROOT" path="/usr/local/go" />
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
@@ -143,6 +163,7 @@
     </option>
     <option name="useGoPathFromSystemEnvironment" value="false" />
   </component>
+<<<<<<< HEAD
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -312,6 +333,12 @@
         </subPane>
       </pane>
     </panes>
+=======
+  <component name="ProjectId" id="1dz3mOFCZ0cgQk7B8cUalvQnvfe" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+>>>>>>> a2882f702214104079ae43951896425f466194eb
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
@@ -329,9 +356,10 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoLibrariesConfigurableProvider" />
+    <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="RecentsManager">
+<<<<<<< HEAD
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\p2p\application\chatech" />
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\p2p\application" />
@@ -339,6 +367,8 @@
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\web\server" />
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\spider" />
     </key>
+=======
+>>>>>>> a2882f702214104079ae43951896425f466194eb
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\p2p\application" />
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\api\blockchain_api" />
@@ -346,18 +376,13 @@
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal" />
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\web" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/internal/p2p/application/chatech" />
+      <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\p2p\application" />
+      <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\p2p" />
+      <recent name="E:\WorksSpaces\GoWorkSpaces\perch\web\server" />
+      <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\spider" />
+    </key>
   </component>
   <component name="RunManager" selected="Go Build.go build chatech.go">
     <configuration name="go build chatech.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
@@ -417,6 +442,24 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ad9f3790-1e21-4fef-9f4c-259608952763" name="Default Changelist" comment="" />
+      <created>1593414252025</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1593414252025</updated>
+    </task>
+    <task id="LOCAL-00001" summary="1、解決datarace 數據競爭問題">
+      <created>1593483665277</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1593483665277</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
   <component name="TestHistory">
     <history-entry file="TestExecuteCmdWithParams_in_perch_src_general_system - 2020.05.16 at 15h 46m 04s.xml">
       <configuration name="TestExecuteCmdWithParams in perch/src/general/system" configurationId="GoTestRunConfiguration" />
@@ -449,6 +492,7 @@
       <configuration name="TestP2PHostFactory in perch/internal/p2p" configurationId="GoTestRunConfiguration" />
     </history-entry>
   </component>
+<<<<<<< HEAD
   <component name="ToolWindowManager">
     <frame x="2552" y="336" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
@@ -476,18 +520,33 @@
       <window_info anchor="right" id="Database" order="4" />
     </layout>
   </component>
+=======
+>>>>>>> a2882f702214104079ae43951896425f466194eb
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="1、添加项目结构" />
     <MESSAGE value="1、添加项目结构,增加libp2p代理" />
-    <option name="LAST_COMMIT_MESSAGE" value="1、添加项目结构,增加libp2p代理" />
+    <MESSAGE value="1、解決datarace 數據競爭問題" />
+    <option name="LAST_COMMIT_MESSAGE" value="1、解決datarace 數據競爭問題" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
     <proxy>https://goproxy.io</proxy>
   </component>
+<<<<<<< HEAD
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/internal/GSCeduler/slurm/cgslurm/cgslurm_node.go">
       <provider selected="true" editor-type-id="text-editor">
@@ -864,5 +923,32 @@
         </state>
       </provider>
     </entry>
+=======
+  <component name="WindowStateProjectService">
+    <state x="1108" y="566" key="#GOROOT" timestamp="1593414257479">
+      <screen x="72" y="27" width="2482" height="1220" />
+    </state>
+    <state x="1108" y="566" key="#GOROOT/72.27.2482.1220@72.27.2482.1220" timestamp="1593414257479" />
+    <state x="942" y="318" width="732" height="644" key="#Inspections" timestamp="1593486978318">
+      <screen x="72" y="27" width="2482" height="1220" />
+    </state>
+    <state x="942" y="318" width="732" height="644" key="#Inspections/72.27.2482.1220@72.27.2482.1220" timestamp="1593486978318" />
+    <state x="1200" y="503" width="216" height="281" key="EnvironmentVariablesDialog" timestamp="1593414455061">
+      <screen x="72" y="27" width="2482" height="1220" />
+    </state>
+    <state x="1200" y="503" width="216" height="281" key="EnvironmentVariablesDialog/72.27.2482.1220@72.27.2482.1220" timestamp="1593414455061" />
+    <state x="802" y="272" width="1022" height="737" key="SettingsEditor" timestamp="1593414458109">
+      <screen x="72" y="27" width="2482" height="1220" />
+    </state>
+    <state x="802" y="272" width="1022" height="737" key="SettingsEditor/72.27.2482.1220@72.27.2482.1220" timestamp="1593414458109" />
+    <state x="908" y="369" width="800" height="543" key="Vcs.Push.Dialog.v2" timestamp="1593483667190">
+      <screen x="72" y="27" width="2482" height="1220" />
+    </state>
+    <state x="908" y="369" width="800" height="543" key="Vcs.Push.Dialog.v2/72.27.2482.1220@72.27.2482.1220" timestamp="1593483667190" />
+    <state x="1038" y="525" width="540" height="231" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1593480120607">
+      <screen x="72" y="27" width="2482" height="1220" />
+    </state>
+    <state x="1038" y="525" width="540" height="231" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/72.27.2482.1220@72.27.2482.1220" timestamp="1593480120607" />
+>>>>>>> a2882f702214104079ae43951896425f466194eb
   </component>
 </project>

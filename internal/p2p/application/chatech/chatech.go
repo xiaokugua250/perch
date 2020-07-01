@@ -49,11 +49,14 @@ func main() {
 		nick = defaultNick(h.ID())
 	}
 	room := *roomFlag
+
 	chatroom, err := JoinChatRoom(ctx, ps, h.ID(), nick, room)
 	if err != nil {
 		panic(err)
 	}
-	ui := NewChatUI(chatroom)
+	fmt.Printf("host listening to %s",h.Addrs)
+	ui := InitChatUI(chatroom)
+
 	if err = ui.Run(); err != nil {
 		fmt.Printf("error in running text ui %s", err)
 	}
@@ -78,6 +81,7 @@ func (n *discoveryNotifee) HandlePeerFound(peer peer.AddrInfo) {
 	if err != nil {
 		fmt.Printf("error connecting to peer %s:%s\n", peer.ID.Pretty(), err)
 	}
+
 }
 
 // setupDiscovery creates an mDNS discovery service and attaches it to the libp2p Host.

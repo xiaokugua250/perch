@@ -1,10 +1,13 @@
 module perch
 
-go 1.13
+go 1.14
 
 require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/gdamore/tcell v1.3.0
+
+	github.com/go-delve/delve v1.4.1 // indirect
+
 	github.com/gorilla/mux v1.7.4
 	github.com/libp2p/go-libp2p v0.9.6
 	github.com/libp2p/go-libp2p-core v0.6.0
