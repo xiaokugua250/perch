@@ -6,6 +6,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"github.com/libp2p/go-libp2p-core/host"
 	"github.com/libp2p/go-libp2p-core/peer"
 	pubsub "github.com/libp2p/go-libp2p-pubsub"
 )
@@ -20,7 +21,7 @@ type ChatRoom struct {
 	topic    *pubsub.Topic
 	sub      *pubsub.Subscription
 	roomName string
-	self     peer.ID
+	self     host.Host
 	nickName string
 }
 
@@ -33,7 +34,7 @@ type ChatMessage struct {
 
 // JoinChatRoom tries to subscribe to the PubSub topic for the room name, returning
 // a ChatRoom on success.
-func JoinChatRoom(ctx context.Context, pubs *pubsub.PubSub, selfID peer.ID, nickName string, roomName string) (*ChatRoom, error) {
+func JoinChatRoom(ctx context.Context, pubs *pubsub.PubSub, selfID host.Host, nickName string, roomName string) (*ChatRoom, error) {
 	// join the pubsub topic
 
 	topic, err := pubs.Join(topicName(roomName))
@@ -64,7 +65,7 @@ func JoinChatRoom(ctx context.Context, pubs *pubsub.PubSub, selfID peer.ID, nick
 func (chatRoom *ChatRoom) Publish(message string) error {
 	msg := ChatMessage{
 		Message:        message,
-		SenderID:       chatRoom.self.Pretty(),
+		SenderID:       chatRoom.self.ID().Pretty(),
 		SenderNickName: chatRoom.nickName,
 	}
 	msgBytes, err := json.Marshal(msg)
@@ -91,7 +92,7 @@ func (chatRoom *ChatRoom) readLoop() {
 		}
 
 		// only forward messages delivered by others
-		if msg.ReceivedFrom == chatRoom.self {
+		if msg.ReceivedFrom == chatRoom.self.ID() {
 			continue
 		}
 		cm := new(ChatMessage)

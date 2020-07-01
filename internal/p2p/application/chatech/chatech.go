@@ -50,7 +50,7 @@ func main() {
 	}
 	room := *roomFlag
 
-	chatroom, err := JoinChatRoom(ctx, ps, h.ID(), nick, room)
+	chatroom, err := JoinChatRoom(ctx, ps, h, nick, room)
 	if err != nil {
 		panic(err)
 	}

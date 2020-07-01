@@ -79,6 +79,11 @@ func InitChatUI(chatroom *ChatRoom) *ChatUI {
 	msgboxTips.SetDynamicColors(true)
 	msgboxTips.SetBorder(true)
 	msgboxTips.SetTitle("tips")
+	var listening string
+	for _, addr := range chatroom.self.Addrs() {
+		listening += addr.String()
+	}
+	msgboxTips.SetText(chatroom.self.ID().Pretty() + "\n" + listening)
 	//msgBox_tips.SetText(time.Now().String())
 	var chatinputform ChatInputForm
 	inputForm := tview.NewForm().
@@ -102,7 +107,7 @@ func InitChatUI(chatroom *ChatRoom) *ChatUI {
 			} else {
 				//inputLabel = chatroom.nickName+">"
 				//chatroom.nickName= chatroom.nickName
-				inputLabel = chatroom.self.Pretty() + ">"
+				inputLabel = chatroom.self.ID().Pretty() + ">"
 
 			}
 			if chatinputform.ChatRoomName != "" {
