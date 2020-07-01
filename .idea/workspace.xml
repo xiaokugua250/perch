@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad9f3790-1e21-4fef-9f4c-259608952763" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/p2p/application/p2p_network.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/p2p/application/p2p_network_mux.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/p2p/p2p_comunication/p2p_comnuicate.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/p2p/p2p_node_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/p2p/p2p_yamux.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/p2p/blockchain/chain.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/blockchain/chain.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/p2p/p2p.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/p2p.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/p2p/p2p_node.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/p2p_node.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/p2p/p2p_stream.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/p2p_stream.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,31 +14,19 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internal/p2p/p2p.go">
+        <entry file="file://$PROJECT_DIR$/../pkg/mod/github.com/libp2p/go-libp2p@v0.8.3/options.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="42" column="38" selection-start-line="42" selection-start-column="38" selection-end-line="42" selection-end-column="38" />
-              <folding>
-                <element signature="e#29#87#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="135">
+              <caret line="129" column="36" selection-start-line="129" selection-start-column="36" selection-end-line="129" selection-end-column="36" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../pkg/mod/github.com/libp2p/go-libp2p@v0.8.3/options.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="26">
-              <caret line="129" column="36" lean-forward="true" selection-start-line="129" selection-start-column="36" selection-end-line="129" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/internal/p2p/application/p2p_network.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="864">
-              <caret line="32" column="34" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
+            <state relative-caret-position="1204">
+              <caret line="43" selection-start-line="43" selection-end-line="43" />
               <folding>
                 <element signature="e#14#372#0" expanded="true" />
               </folding>
@@ -56,54 +35,65 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internal/p2p/application/p2p_network_mux.go">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="19" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="10" />
+            <state relative-caret-position="3">
+              <caret line="21" column="8" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../pkg/mod/github.com/libp2p/go-yamux@v1.3.5/mux.go">
+        <entry file="file://$PROJECT_DIR$/internal/p2p/application/p2p_network_pubsub.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2539">
-              <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+            <state relative-caret-position="28">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/internal/p2p/application/chatech/chatech.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="404">
+              <caret line="38" column="19" lean-forward="true" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
               <folding>
-                <element signature="e#15#59#0" expanded="true" />
+                <element signature="e#41#296#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internal/p2p/p2p_stream.go">
+        <entry file="file://$PROJECT_DIR$/internal/p2p/application/chatech/chatech_ui.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1663">
-              <caret line="96" column="13" selection-start-line="96" selection-start-column="13" selection-end-line="96" selection-end-column="13" />
-              <folding>
-                <element signature="e#13#209#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-57">
+              <caret line="24" column="28" lean-forward="true" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internal/p2p/p2p_yamux.go">
+        <entry file="file://$PROJECT_DIR$/go.sum">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/go.mod">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="4" selection-start-line="4" selection-end-line="4" />
+            <state relative-caret-position="-280">
+              <caret line="20" column="22" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internal/p2p/p2p_node.go">
+        <entry file="file://$PROJECT_DIR$/internal/p2p/application/chatech/chatech_room.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
+            <state relative-caret-position="223">
+              <caret line="35" column="12" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
               <folding>
-                <element signature="e#36#176#0" expanded="true" />
+                <element signature="e#44#170#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -114,18 +104,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="868">
               <caret line="41" column="61" selection-start-line="41" selection-start-column="61" selection-end-line="41" selection-end-column="61" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internal/p2p/p2p_node_test.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="19" column="18" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
-              <folding>
-                <element signature="e#34#66#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -168,11 +146,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/general/system/sysfile.go" />
-        <option value="$PROJECT_DIR$/src/general/network/net.go" />
-        <option value="$PROJECT_DIR$/src/general/network/network_test.go" />
-        <option value="$PROJECT_DIR$/src/general/network/network.go" />
-        <option value="$PROJECT_DIR$/web/pkg/pkg_utils.go" />
         <option value="$PROJECT_DIR$/cmd/main.go" />
         <option value="$PROJECT_DIR$/pkg/general/flags/cmd.go" />
         <option value="$PROJECT_DIR$/scripts/self-signedx509.sh" />
@@ -189,7 +162,6 @@
         <option value="$PROJECT_DIR$/internal/GSCeduler/slurm/cgslurm/cgslurm_node.go" />
         <option value="$PROJECT_DIR$/internal/GSCeduler/slurm/cgslurm/cgslurm_partition.go" />
         <option value="$PROJECT_DIR$/go.sum" />
-        <option value="$PROJECT_DIR$/go.mod" />
         <option value="$PROJECT_DIR$/cmd/gproxy/gproxy.go" />
         <option value="$PROJECT_DIR$/internal/gproxy/gproxy.go" />
         <option value="$PROJECT_DIR$/scripts/rename.sh" />
@@ -215,18 +187,24 @@
         <option value="$PROJECT_DIR$/internal/p2p/p2p_network.go" />
         <option value="$PROJECT_DIR$/internal/p2p/p2p_yamux.go" />
         <option value="$PROJECT_DIR$/internal/p2p/p2p_stream.go" />
-        <option value="$PROJECT_DIR$/internal/p2p/application/p2p_network_mux.go" />
         <option value="$PROJECT_DIR$/internal/p2p/p2p.go" />
         <option value="$PROJECT_DIR$/internal/p2p/p2p_node.go" />
         <option value="$PROJECT_DIR$/internal/p2p/application/p2p_network.go" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/internal/p2p/application/p2p_network_mux.go" />
+        <option value="$PROJECT_DIR$/internal/p2p/application/p2p_network_pubsub.go" />
+        <option value="$PROJECT_DIR$/go.mod" />
+        <option value="$PROJECT_DIR$/internal/p2p/application/chatech/chatech_room.go" />
+        <option value="$PROJECT_DIR$/internal/p2p/application/chatech/chatech_ui.go" />
+        <option value="$PROJECT_DIR$/internal/p2p/application/chatech/chatech.go" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="2552" />
     <option name="y" value="336" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="1452" />
+    <option name="height" value="790" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -251,22 +229,6 @@
               <item name="perch" type="462c0819:PsiDirectoryNode" />
               <item name="api" type="462c0819:PsiDirectoryNode" />
               <item name="chain_api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="perch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="perch" type="462c0819:PsiDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="perch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="perch" type="462c0819:PsiDirectoryNode" />
-              <item name="cmd" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="perch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="perch" type="462c0819:PsiDirectoryNode" />
-              <item name="cmd" type="462c0819:PsiDirectoryNode" />
-              <item name="gproxy" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="perch" type="b2602c69:ProjectViewProjectNode" />
@@ -296,6 +258,14 @@
               <item name="internal" type="462c0819:PsiDirectoryNode" />
               <item name="p2p" type="462c0819:PsiDirectoryNode" />
               <item name="application" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="perch" type="b2602c69:ProjectViewProjectNode" />
+              <item name="perch" type="462c0819:PsiDirectoryNode" />
+              <item name="internal" type="462c0819:PsiDirectoryNode" />
+              <item name="p2p" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="chatech" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="perch" type="b2602c69:ProjectViewProjectNode" />
@@ -355,7 +325,7 @@
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/internal/p2p/application" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/internal/p2p/application/chatech" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -363,11 +333,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\p2p\application\chatech" />
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\p2p\application" />
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\p2p" />
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\web\server" />
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\spider" />
-      <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\gproxy" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\p2p\application" />
@@ -389,7 +359,16 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Build.go build p2p_network.go">
+  <component name="RunManager" selected="Go Build.go build chatech.go">
+    <configuration name="go build chatech.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="perch" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/internal/p2p/application/chatech/chatech.go" />
+      <package value="perch" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
     <configuration name="go build p2p_network.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="perch" />
       <working_directory value="$PROJECT_DIR$" />
@@ -428,24 +407,13 @@
       <pattern value="^TestP2PHostFactory$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestSpiderEvaluetStatus in perch/internal/spider" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="perch" />
-      <working_directory value="$PROJECT_DIR$/internal/spider" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="perch/internal/spider" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestSpiderEvaluetStatus$" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build chatech.go" />
         <item itemvalue="Go Build.go build p2p_network.go" />
         <item itemvalue="Go Build.go build p2p_network_mux.go" />
         <item itemvalue="Go Test.TestP2PHostFactory in perch/internal/p2p" />
         <item itemvalue="Go Build.go build server.go" />
-        <item itemvalue="Go Test.TestSpiderEvaluetStatus in perch/internal/spider" />
       </list>
     </recent_temporary>
   </component>
@@ -483,13 +451,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="2552" y="336" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2739872" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.35368422" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.35368422" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -498,7 +467,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Statistic" order="10" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.38062623" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.38" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -520,34 +489,6 @@
     <proxy>https://goproxy.io</proxy>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/cmd/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internal/gproxy/gproxy.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="33" column="28" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/self-signedx509.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="9" selection-start-column="9" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../pkg/mod/github.com/libp2p/go-libp2p-interface-pnet@v0.1.0/deprecated.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internal/GSCeduler/slurm/cgslurm/cgslurm_node.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="588">
@@ -559,16 +500,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="588">
           <caret line="21" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/go.sum">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/go.mod">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="14" column="44" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
         </state>
       </provider>
     </entry>
@@ -865,26 +796,70 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internal/p2p/application/p2p_network_mux.go">
+    <entry file="file://$PROJECT_DIR$/../pkg/mod/github.com/libp2p/go-libp2p@v0.8.3/options.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="19" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="10" />
+        <state relative-caret-position="135">
+          <caret line="129" column="36" selection-start-line="129" selection-start-column="36" selection-end-line="129" selection-end-column="36" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../pkg/mod/github.com/libp2p/go-libp2p@v0.8.3/options.go">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="129" column="36" lean-forward="true" selection-start-line="129" selection-start-column="36" selection-end-line="129" selection-end-column="36" />
+        <state relative-caret-position="3">
+          <caret line="21" column="8" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internal/p2p/application/p2p_network.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="864">
-          <caret line="32" column="34" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
+        <state relative-caret-position="1204">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
           <folding>
             <element signature="e#14#372#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internal/p2p/application/p2p_network_pubsub.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/go.sum">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/go.mod">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-280">
+          <caret line="20" column="22" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internal/p2p/application/chatech/chatech_room.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="35" column="12" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
+          <folding>
+            <element signature="e#44#170#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internal/p2p/application/chatech/chatech_ui.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-57">
+          <caret line="24" column="28" lean-forward="true" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internal/p2p/application/chatech/chatech.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="38" column="19" lean-forward="true" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
+          <folding>
+            <element signature="e#41#296#0" expanded="true" />
           </folding>
         </state>
       </provider>
