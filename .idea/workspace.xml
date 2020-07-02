@@ -20,11 +20,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad9f3790-1e21-4fef-9f4c-259608952763" name="Default Changelist" comment="1、解決datarace 數據競爭問題">
-      <change afterPath="$PROJECT_DIR$/internal/p2p/p2p_discovery.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/p2p/p2_pubsub.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/general/log/log.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/GRocker/Readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/Readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/cgoslurm.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/cgslurm/cgoslurm_adm.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/cgslurm/cgslurm_basic.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/cgslurm/cgslurm_job.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/cgslurm/cgslurm_node.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/cgslurm/cgslurm_partition.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/include/pmi.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/include/slurm.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/include/slurm.h.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/include/slurm_errno.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/include/slurmdb.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/include/smd_ns.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/include/spank.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/include/stamp-h2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/GSKRources/Readme.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/p2p/application/p2p_network.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/application/p2p_network.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/p2p/application/p2p_network_pubsub.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/application/p2p_network_pubsub.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/p2p/p2p_discovery.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/p2p_discovery.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,7 +209,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593591484304</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="1、解決datarace 數據競爭問題">
+      <created>1593593044624</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1593593044624</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -285,11 +312,11 @@
       <screen x="72" y="27" width="2482" height="1220" />
     </state>
     <state x="802" y="272" width="1022" height="737" key="SettingsEditor/72.27.2482.1220@72.27.2482.1220" timestamp="1593414458109" />
-    <state x="910" y="423" width="800" height="543" key="Vcs.Push.Dialog.v2" timestamp="1593591485745">
+    <state x="910" y="423" width="800" height="543" key="Vcs.Push.Dialog.v2" timestamp="1593593047511">
       <screen x="72" y="27" width="2488" height="1413" />
     </state>
     <state x="908" y="369" width="800" height="543" key="Vcs.Push.Dialog.v2/72.27.2482.1220@72.27.2482.1220" timestamp="1593511885672" />
-    <state x="910" y="423" width="800" height="543" key="Vcs.Push.Dialog.v2/72.27.2488.1413@72.27.2488.1413" timestamp="1593591485745" />
+    <state x="910" y="423" width="800" height="543" key="Vcs.Push.Dialog.v2/72.27.2488.1413@72.27.2488.1413" timestamp="1593593047511" />
     <state x="1008" y="456" width="616" height="554" key="find.popup" timestamp="1593586727044">
       <screen x="72" y="27" width="2488" height="1413" />
     </state>
