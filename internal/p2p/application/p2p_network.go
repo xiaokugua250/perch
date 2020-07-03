@@ -4,13 +4,16 @@ import (
 	"context"
 	"fmt"
 	"github.com/libp2p/go-libp2p"
+
+	ds "github.com/ipfs/go-datastore"
+	dsync "github.com/ipfs/go-datastore/sync"
+	dht "github.com/libp2p/go-libp2p-kad-dht"
 	multiplex "github.com/libp2p/go-libp2p-mplex"
 	secio "github.com/libp2p/go-libp2p-secio"
 	yamux "github.com/libp2p/go-libp2p-yamux"
 	"github.com/libp2p/go-tcp-transport"
 	ws "github.com/libp2p/go-ws-transport"
 	"time"
-
 	//"github.com/libp2p/go-ud"
 	log "github.com/sirupsen/logrus"
 	"os"
@@ -36,6 +39,7 @@ func main() {
 		libp2p.Transport(tcp.NewTCPTransport),
 		libp2p.Transport(ws.New),
 	)
+
 	listenAddr := libp2p.ListenAddrStrings(
 		"/ip4/0.0.0.0/tcp/0", "/ip6/::/tcp/0/ws")
 
@@ -46,15 +50,30 @@ func main() {
 		NetworkOptions: p2pOptions,
 	}
 
-	p2pnetwork.StartNetworkP2P(options)
+	p2pnetwork.StartBasicNetworkP2P(options)
 
-	for _, addr := range p2pnetwork.NetworkPeer.Addrs() {
-		fmt.Printf("Listening P2P on %s/p2p/%s\n", addr.String(), p2pnetwork.NetworkPeer.ID().String())
+	for _, addr := range p2pnetwork.NetworkBasicHost.Addrs() {
+		fmt.Printf("Listening P2P on %s/p2p/%s\n", addr.String(), p2pnetwork.NetworkBasicHost.ID().String())
+	}
+	// Construct a datastore (needed by the DHT). This is just a simple, in-memory thread-safe datastore.
+	dstore := dsync.MutexWrap(ds.NewMapDatastore())
+	// Make the DHT NOTE - Using Client constructor
+	dhtobj := dht.NewDHT(ctx, p2pnetwork.NetworkBasicHost, dstore)
+	routedHost, err := p2p.MakeRoutedNetworkP2P(p2pnetwork.NetworkBasicHost, ctx)
+	if err != nil {
+		log.Error(err)
 	}
 
-	//	pubs ,err := pubsub.NewGossipSub(ctx,p2pnetwork.NetworkPeer)
-	//pubs, err := pubsub.NewGossipSub(ctx, p2pnetwork.NetworkPeer)
-	pubs, err := p2p.PubsubgossipGen(ctx, p2pnetwork.NetworkPeer)
+	/*
+		p2pnetwork.NetworkBasicHost= rhost.Wrap(p2pnetwork.NetworkBasicHost, dhtobj)
+		err = dhtobj.Bootstrap(ctx)
+		if err!= nil{
+			panic(err)
+		}
+	*/
+	//	pubs ,err := pubsub.NewGossipSub(ctx,p2pnetwork.NetworkBasicHost)
+	//pubs, err := pubsub.NewGossipSub(ctx, p2pnetwork.NetworkBasicHost)
+	pubs, err := p2p.PubsubgossipGen(ctx, p2pnetwork.NetworkBasicHost)
 	if err != nil {
 		log.Error(err)
 	}
@@ -63,14 +82,15 @@ func main() {
 		log.Error(err)
 	}
 
-	err = p2p.MDNSDiscoverySetup(ctx, p2pnetwork.NetworkPeer, p2p.DiscoveryInterval, p2p.DiscoveryServiceTag)
+	err = p2p.MDNSDiscoverySetup(ctx, p2pnetwork.NetworkBasicHost, p2p.DiscoveryInterval, p2p.DiscoveryServiceTag)
 	if err != nil {
 		log.Error(err)
 	}
+
 	go func() {
 		for {
 			msg := new(p2p.PubsubMessage)
-			msg.SenderPeer = p2pnetwork.NetworkPeer.ID().Pretty()
+			msg.SenderPeer = p2pnetwork.NetworkBasicHost.ID().Pretty()
 			msg.PMessageStr = "hello world"
 			msg.SenderFrom = "from localhost"
 			err = p2p.PubsubTopicPubish(ctx, *msg, topsub, nil)
@@ -82,7 +102,8 @@ func main() {
 
 	}()
 	msgChan := make(chan interface{})
-	go p2p.PubsubMsgHandler(sub, ctx, p2pnetwork.NetworkPeer, msgChan)
+
+	go p2p.PubsubMsgHandler(sub, ctx, p2pnetwork.NetworkBasicHost, msgChan)
 	/*	for {
 		select {
 		case msg := <- msgChan:
@@ -99,6 +120,17 @@ func main() {
 		select {
 		case msg := <-msgChan:
 			fmt.Println("msg from msg chan is:", msg)
+			for _, peersFind := range p2p.PubsubPeersList(pubs, p2p.Pubsub_Default_Topic) {
+				peerinfo, err := dhtobj.FindPeer(ctx, peersFind)
+				if err != nil {
+					continue
+				}
+				if err = routedHost.Connect(ctx, peerinfo); err != nil {
+					fmt.Print("connect b")
+				}
+				fmt.Printf("peer found by dht is %s", peerinfo.String())
+			}
+			//	fmt.Print("====>",dhtobj.RoutingTable().ListPeers())
 
 		case err := <-errChan:
 			if err != nil {
@@ -108,11 +140,11 @@ func main() {
 			for _, clean := range p2pnetwork.NetworkCleanFunc {
 				clean()
 			}
-			p2pnetwork.NetworkPeer.Close()
+			p2pnetwork.NetworkBasicHost.Close()
 			return
 		case s := <-signalChan:
 			log.Printf("捕获到信号%v，准备停止服务\n", s)
-			p2pnetwork.NetworkPeer.Close()
+			p2pnetwork.NetworkBasicHost.Close()
 			return
 		}
 	}

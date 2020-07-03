@@ -11,7 +11,7 @@ import (
 )
 
 type NetworkP2P struct {
-	NetworkPeer      host.Host `json:"network_peer"`
+	NetworkBasicHost host.Host `json:"network_peer"`
 	NetworkInitFunc  []func() error
 	NetworkCleanFunc []func() error
 }
@@ -36,15 +36,15 @@ func (p2pnetwork *NetworkP2P) InitialNetworkP2P() {
 
 }
 
-func (p2pnetwork *NetworkP2P) StartNetworkP2P(options NetworkRuntimeOptions) {
+func (p2pnetwork *NetworkP2P) StartBasicNetworkP2P(options NetworkRuntimeOptions) {
 	var err error
 	p2pnetwork.InitialNetworkP2P()
 
-	p2pnetwork.NetworkPeer, err = P2PHostFactory(options.Ctx, "", options.NetworkOptions)
+	p2pnetwork.NetworkBasicHost, err = P2PBasicHostFactory(options.Ctx, "", options.NetworkOptions)
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("network node id is %s, network listening at %s\n", p2pnetwork.NetworkPeer.ID(), p2pnetwork.NetworkPeer.Addrs())
+	log.Printf("network node id is %s, network listening at %s\n", p2pnetwork.NetworkBasicHost.ID(), p2pnetwork.NetworkBasicHost.Addrs())
 	// 捕获退出信号
 
 }

@@ -5,10 +5,11 @@ go 1.14
 require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/gdamore/tcell v1.3.0
-	github.com/go-delve/delve v1.4.1 // indirect
 	github.com/gorilla/mux v1.7.4
+	github.com/ipfs/go-datastore v0.4.4
 	github.com/libp2p/go-libp2p v0.9.6
 	github.com/libp2p/go-libp2p-core v0.5.7
+	github.com/libp2p/go-libp2p-kad-dht v0.8.2
 	github.com/libp2p/go-libp2p-mplex v0.2.3
 	github.com/libp2p/go-libp2p-pubsub v0.3.2
 	github.com/libp2p/go-libp2p-secio v0.2.2
