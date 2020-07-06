@@ -4,7 +4,9 @@ import (
 	"context"
 	"fmt"
 	"github.com/libp2p/go-libp2p"
+	discovery "github.com/libp2p/go-libp2p-discovery"
 
+	cid "github.com/ipfs/go-cid"
 	ds "github.com/ipfs/go-datastore"
 	dsync "github.com/ipfs/go-datastore/sync"
 	dht "github.com/libp2p/go-libp2p-kad-dht"
@@ -13,6 +15,8 @@ import (
 	yamux "github.com/libp2p/go-libp2p-yamux"
 	"github.com/libp2p/go-tcp-transport"
 	ws "github.com/libp2p/go-ws-transport"
+	_ "github.com/multiformats/go-multibase"
+	mh "github.com/multiformats/go-multihash"
 	"time"
 	//"github.com/libp2p/go-ud"
 	log "github.com/sirupsen/logrus"
@@ -57,12 +61,26 @@ func main() {
 	}
 	// Construct a datastore (needed by the DHT). This is just a simple, in-memory thread-safe datastore.
 	dstore := dsync.MutexWrap(ds.NewMapDatastore())
+
 	// Make the DHT NOTE - Using Client constructor
 	dhtobj := dht.NewDHT(ctx, p2pnetwork.NetworkBasicHost, dstore)
-	routedHost, err := p2p.MakeRoutedNetworkP2P(p2pnetwork.NetworkBasicHost, ctx)
+	data := []byte("this is some test content")
+	hash, _ := mh.Sum(data, mh.SHA2_256, -1)
+
+	contentId := cid.NewCidV1(cid.DagCBOR, hash)
+	fmt.Printf("contend is is %s\n", contentId.String(), contentId.Bytes())
+	if err = dhtobj.Provide(ctx, contentId, false); err != nil {
+		log.Error(err)
+	}
+
+	routedHost, err := p2p.MakeRoutedNetworkP2P(p2pnetwork.NetworkBasicHost, ctx, dhtobj)
 	if err != nil {
 		log.Error(err)
 	}
+	routingDiscovery := discovery.NewRoutingDiscovery(dhtobj)
+
+	discovery.Advertise(ctx, routingDiscovery, "meet me here")
+	log.Println("Successfully announced!")
 
 	/*
 		p2pnetwork.NetworkBasicHost= rhost.Wrap(p2pnetwork.NetworkBasicHost, dhtobj)
@@ -128,8 +146,9 @@ func main() {
 				if err = routedHost.Connect(ctx, peerinfo); err != nil {
 					fmt.Print("connect b")
 				}
-				fmt.Printf("peer found by dht is %s", peerinfo.String())
+				fmt.Printf("peer found by dht is %s\n", peerinfo.String())
 			}
+
 			//	fmt.Print("====>",dhtobj.RoutingTable().ListPeers())
 
 		case err := <-errChan:

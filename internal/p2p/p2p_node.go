@@ -6,8 +6,6 @@ package p2p
 
 import (
 	"context"
-	ds "github.com/ipfs/go-datastore"
-	dsync "github.com/ipfs/go-datastore/sync"
 	"github.com/libp2p/go-libp2p"
 	"github.com/libp2p/go-libp2p-core/host"
 	dht "github.com/libp2p/go-libp2p-kad-dht"
@@ -57,14 +55,14 @@ func newAddrsFactory(advertiseAddrs []multiaddr.Multiaddr) func([]multiaddr.Mult
 	}
 }
 
-func MakeRoutedNetworkP2P(basichost host.Host, ctx context.Context) (*rhost.RoutedHost, error) {
+func MakeRoutedNetworkP2P(basichost host.Host, ctx context.Context, dhtObj *dht.IpfsDHT) (*rhost.RoutedHost, error) {
 	var err error
 
 	// Construct a datastore (needed by the DHT). This is just a simple, in-memory thread-safe datastore.
-	dstore := dsync.MutexWrap(ds.NewMapDatastore())
+	//dstore := dsync.MutexWrap(ds.NewMapDatastore())
 
 	// Make the DHT
-	dhtObj := dht.NewDHT(ctx, basichost, dstore)
+	//dhtObj := dht.NewDHT(ctx, basichost, dstore)
 
 	// Make the routed host
 	routedHost := rhost.Wrap(basichost, dhtObj)

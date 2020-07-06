@@ -19,32 +19,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad9f3790-1e21-4fef-9f4c-259608952763" name="Default Changelist" comment="1、解決datarace 數據競爭問題">
-      <change afterPath="$PROJECT_DIR$/internal/p2p/p2_pubsub.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/general/log/log.go" afterDir="false" />
+    <list default="true" id="ad9f3790-1e21-4fef-9f4c-259608952763" name="Default Changelist" comment="1、添加pubsub">
+      <change afterPath="$PROJECT_DIR$/internal/p2p/p2p_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/GRocker/Readme.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/Readme.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/cgoslurm.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/cgslurm/cgoslurm_adm.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/cgslurm/cgslurm_basic.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/cgslurm/cgslurm_job.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/cgslurm/cgslurm_node.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/cgslurm/cgslurm_partition.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/include/pmi.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/include/slurm.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/include/slurm.h.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/include/slurm_errno.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/include/slurmdb.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/include/smd_ns.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/include/spank.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/GSCeduler/slurm/include/stamp-h2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/GSKRources/Readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/p2p/application/p2p_network.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/application/p2p_network.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/p2p/application/p2p_network_pubsub.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/application/p2p_network_pubsub.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/p2p/p2p_discovery.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/p2p_discovery.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/p2p/p2p_node.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/p2p_node.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/p2p/p2p_node_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/p2p_node_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/p2p/p2p_router.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/p2p/p2p_router.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +97,7 @@
       <recent name="E:\WorksSpaces\GoWorkSpaces\perch\internal\spider" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Build.go build perch/internal/p2p/application/chatech">
+  <component name="RunManager" selected="Go Test.TestPubsubTopicPubish in perch/internal/p2p">
     <configuration name="go build p2p_network.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="perch" />
       <working_directory value="$PROJECT_DIR$" />
@@ -143,15 +125,6 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
-    <configuration name="go build server.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="perch" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/web/server/server.go" />
-      <package value="perch" />
-      <directory value="$PROJECT_DIR$/" />
-      <method v="2" />
-    </configuration>
     <configuration name="TestP2PHostFactory in perch/internal/p2p" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="perch" />
       <working_directory value="$PROJECT_DIR$/internal/p2p" />
@@ -163,13 +136,24 @@
       <pattern value="^TestP2PHostFactory$" />
       <method v="2" />
     </configuration>
+    <configuration name="TestPubsubTopicPubish in perch/internal/p2p" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="perch" />
+      <working_directory value="$PROJECT_DIR$/internal/p2p" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="perch/internal/p2p" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestPubsubTopicPubish$" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestPubsubTopicPubish in perch/internal/p2p" />
         <item itemvalue="Go Build.go build perch/internal/p2p/application/chatech" />
         <item itemvalue="Go Build.go build p2p_network.go" />
         <item itemvalue="Go Build.go build p2p_network_mux.go" />
         <item itemvalue="Go Test.TestP2PHostFactory in perch/internal/p2p" />
-        <item itemvalue="Go Build.go build server.go" />
       </list>
     </recent_temporary>
   </component>
@@ -216,40 +200,15 @@
       <option name="project" value="LOCAL" />
       <updated>1593593044624</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="1、添加pubsub">
+      <created>1593679405336</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1593679405336</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
-  </component>
-  <component name="TestHistory">
-    <history-entry file="TestExecuteCmdWithParams_in_perch_src_general_system - 2020.05.16 at 15h 46m 04s.xml">
-      <configuration name="TestExecuteCmdWithParams in perch/src/general/system" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestExecuteCmdWithParams_in_perch_src_general_system - 2020.05.16 at 15h 47m 37s.xml">
-      <configuration name="TestExecuteCmdWithParams in perch/src/general/system" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestExecuteCmdWithParams_in_perch_src_general_system - 2020.05.16 at 15h 47m 44s.xml">
-      <configuration name="TestExecuteCmdWithParams in perch/src/general/system" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestExecuteCmdWithParams_in_perch_src_general_system - 2020.05.16 at 15h 50m 35s.xml">
-      <configuration name="TestExecuteCmdWithParams in perch/src/general/system" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestGetDeviceIPAddress_in_perch_src_general_network - 2020.05.17 at 16h 17m 30s.xml">
-      <configuration name="TestGetDeviceIPAddress in perch/src/general/network" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestGetDeviceIPAddress_in_perch_src_general_network - 2020.05.17 at 16h 19m 32s.xml">
-      <configuration name="TestGetDeviceIPAddress in perch/src/general/network" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestSpiderEvaluetStatus_in_perch_internal_spider - 2020.06.20 at 17h 10m 51s.xml">
-      <configuration name="TestSpiderEvaluetStatus in perch/internal/spider" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestSpiderEvaluetStatus_in_perch_internal_spider - 2020.06.20 at 17h 12m 57s.xml">
-      <configuration name="TestSpiderEvaluetStatus in perch/internal/spider" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestP2PHostFactory_in_perch_internal_p2p - 2020.06.24 at 17h 02m 18s.xml">
-      <configuration name="TestP2PHostFactory in perch/internal/p2p" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestP2PHostFactory_in_perch_internal_p2p - 2020.06.24 at 17h 03m 33s.xml">
-      <configuration name="TestP2PHostFactory in perch/internal/p2p" configurationId="GoTestRunConfiguration" />
-    </history-entry>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
@@ -264,15 +223,22 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="1、添加项目结构" />
     <MESSAGE value="1、添加项目结构,增加libp2p代理" />
     <MESSAGE value="1、解決datarace 數據競爭問題" />
-    <option name="LAST_COMMIT_MESSAGE" value="1、解決datarace 數據競爭問題" />
+    <MESSAGE value="1、添加pubsub" />
+    <option name="LAST_COMMIT_MESSAGE" value="1、添加pubsub" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
+    <environment>
+      <map>
+        <entry key="GOPROXY" value="https://goproxy.io" />
+      </map>
+    </environment>
     <proxy>https://goproxy.io</proxy>
   </component>
   <component name="WindowStateProjectService">
@@ -292,38 +258,43 @@
       <screen x="72" y="27" width="2482" height="1220" />
     </state>
     <state x="1200" y="503" width="216" height="281" key="EnvironmentVariablesDialog/72.27.2482.1220@72.27.2482.1220" timestamp="1593414455061" />
-    <state width="2442" height="414" key="GridCell.Tab.0.bottom" timestamp="1593591914843">
-      <screen x="72" y="27" width="2488" height="1413" />
+    <state width="2440" height="346" key="GridCell.Tab.0.bottom" timestamp="1594019147529">
+      <screen x="72" y="27" width="2486" height="1221" />
     </state>
-    <state width="2442" height="414" key="GridCell.Tab.0.bottom/72.27.2488.1413@72.27.2488.1413" timestamp="1593591914843" />
-    <state width="2442" height="414" key="GridCell.Tab.0.center" timestamp="1593591914841">
-      <screen x="72" y="27" width="2488" height="1413" />
+    <state width="2440" height="346" key="GridCell.Tab.0.bottom/72.27.2486.1221@72.27.2486.1221" timestamp="1594019147529" />
+    <state width="2442" height="414" key="GridCell.Tab.0.bottom/72.27.2488.1413@72.27.2488.1413" timestamp="1593683428856" />
+    <state width="2440" height="346" key="GridCell.Tab.0.center" timestamp="1594019147527">
+      <screen x="72" y="27" width="2486" height="1221" />
     </state>
-    <state width="2442" height="414" key="GridCell.Tab.0.center/72.27.2488.1413@72.27.2488.1413" timestamp="1593591914841" />
-    <state width="2442" height="414" key="GridCell.Tab.0.left" timestamp="1593591914840">
-      <screen x="72" y="27" width="2488" height="1413" />
+    <state width="2440" height="346" key="GridCell.Tab.0.center/72.27.2486.1221@72.27.2486.1221" timestamp="1594019147527" />
+    <state width="2442" height="414" key="GridCell.Tab.0.center/72.27.2488.1413@72.27.2488.1413" timestamp="1593683428842" />
+    <state width="2440" height="346" key="GridCell.Tab.0.left" timestamp="1594019147526">
+      <screen x="72" y="27" width="2486" height="1221" />
     </state>
-    <state width="2442" height="414" key="GridCell.Tab.0.left/72.27.2488.1413@72.27.2488.1413" timestamp="1593591914840" />
-    <state width="2442" height="414" key="GridCell.Tab.0.right" timestamp="1593591914842">
-      <screen x="72" y="27" width="2488" height="1413" />
+    <state width="2440" height="346" key="GridCell.Tab.0.left/72.27.2486.1221@72.27.2486.1221" timestamp="1594019147526" />
+    <state width="2442" height="414" key="GridCell.Tab.0.left/72.27.2488.1413@72.27.2488.1413" timestamp="1593683428833" />
+    <state width="2440" height="346" key="GridCell.Tab.0.right" timestamp="1594019147528">
+      <screen x="72" y="27" width="2486" height="1221" />
     </state>
-    <state width="2442" height="414" key="GridCell.Tab.0.right/72.27.2488.1413@72.27.2488.1413" timestamp="1593591914842" />
+    <state width="2440" height="346" key="GridCell.Tab.0.right/72.27.2486.1221@72.27.2486.1221" timestamp="1594019147528" />
+    <state width="2442" height="414" key="GridCell.Tab.0.right/72.27.2488.1413@72.27.2488.1413" timestamp="1593683428851" />
     <state x="802" y="272" width="1022" height="737" key="SettingsEditor" timestamp="1593414458109">
       <screen x="72" y="27" width="2482" height="1220" />
     </state>
     <state x="802" y="272" width="1022" height="737" key="SettingsEditor/72.27.2482.1220@72.27.2482.1220" timestamp="1593414458109" />
-    <state x="910" y="423" width="800" height="543" key="Vcs.Push.Dialog.v2" timestamp="1593593047511">
+    <state x="910" y="423" width="800" height="543" key="Vcs.Push.Dialog.v2" timestamp="1593679410165">
       <screen x="72" y="27" width="2488" height="1413" />
     </state>
     <state x="908" y="369" width="800" height="543" key="Vcs.Push.Dialog.v2/72.27.2482.1220@72.27.2482.1220" timestamp="1593511885672" />
-    <state x="910" y="423" width="800" height="543" key="Vcs.Push.Dialog.v2/72.27.2488.1413@72.27.2488.1413" timestamp="1593593047511" />
+    <state x="910" y="423" width="800" height="543" key="Vcs.Push.Dialog.v2/72.27.2488.1413@72.27.2488.1413" timestamp="1593679410165" />
     <state x="1008" y="456" width="616" height="554" key="find.popup" timestamp="1593586727044">
       <screen x="72" y="27" width="2488" height="1413" />
     </state>
     <state x="1008" y="456" width="616" height="554" key="find.popup/72.27.2488.1413@72.27.2488.1413" timestamp="1593586727044" />
-    <state x="1038" y="525" width="540" height="231" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1593480120607">
-      <screen x="72" y="27" width="2482" height="1220" />
+    <state x="1040" y="525" width="540" height="231" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1594007830702">
+      <screen x="72" y="27" width="2486" height="1221" />
     </state>
     <state x="1038" y="525" width="540" height="231" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/72.27.2482.1220@72.27.2482.1220" timestamp="1593480120607" />
+    <state x="1040" y="525" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/72.27.2486.1221@72.27.2486.1221" timestamp="1594007830702" />
   </component>
 </project>

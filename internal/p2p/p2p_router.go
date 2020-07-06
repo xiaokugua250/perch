@@ -2,6 +2,8 @@ package p2p
 
 /**
 服务端网络通信服务
+
+ref https://github.com/libp2p/go-libp2p-examples/blob/42a4cd9ae8765175380ed99c06be4e3c29323f7b/routed-echo/main.go
 */
 import (
 	"github.com/libp2p/go-libp2p-core/peer"
