@@ -79,7 +79,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="go.vgo" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -205,7 +205,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593679405336</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="1、添加libp2p contentrouting 內容，contentrouting 核心流程如下：1、構建routed host，2、構建dht對象，3、節點鏈接(bootstrap.connect,discovery等)、4、內容提供和發現 對應provider 和findprovieder">
+      <created>1594091861137</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1594091861138</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -285,15 +292,16 @@
     </state>
     <state width="2440" height="346" key="GridCell.Tab.0.right/72.27.2486.1221@72.27.2486.1221" timestamp="1594019147528" />
     <state width="2442" height="414" key="GridCell.Tab.0.right/72.27.2488.1413@72.27.2488.1413" timestamp="1593683428851" />
-    <state x="802" y="272" width="1022" height="737" key="SettingsEditor" timestamp="1593414458109">
-      <screen x="72" y="27" width="2482" height="1220" />
+    <state x="803" y="272" width="1022" height="737" key="SettingsEditor" timestamp="1594092443196">
+      <screen x="72" y="27" width="2486" height="1221" />
     </state>
     <state x="802" y="272" width="1022" height="737" key="SettingsEditor/72.27.2482.1220@72.27.2482.1220" timestamp="1593414458109" />
-    <state x="909" y="369" width="800" height="543" key="Vcs.Push.Dialog.v2" timestamp="1594090746452">
+    <state x="803" y="272" key="SettingsEditor/72.27.2486.1221@72.27.2486.1221" timestamp="1594092443196" />
+    <state x="909" y="369" width="800" height="543" key="Vcs.Push.Dialog.v2" timestamp="1594091868643">
       <screen x="72" y="27" width="2486" height="1221" />
     </state>
     <state x="908" y="369" width="800" height="543" key="Vcs.Push.Dialog.v2/72.27.2482.1220@72.27.2482.1220" timestamp="1593511885672" />
-    <state x="909" y="369" key="Vcs.Push.Dialog.v2/72.27.2486.1221@72.27.2486.1221" timestamp="1594090746452" />
+    <state x="909" y="369" width="800" height="543" key="Vcs.Push.Dialog.v2/72.27.2486.1221@72.27.2486.1221" timestamp="1594091868643" />
     <state x="910" y="423" width="800" height="543" key="Vcs.Push.Dialog.v2/72.27.2488.1413@72.27.2488.1413" timestamp="1593679410165" />
     <state x="1008" y="456" width="616" height="554" key="find.popup" timestamp="1593586727044">
       <screen x="72" y="27" width="2488" height="1413" />
