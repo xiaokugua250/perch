@@ -3,12 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/libp2p/go-libp2p"
-	discovery "github.com/libp2p/go-libp2p-discovery"
-
 	cid "github.com/ipfs/go-cid"
 	ds "github.com/ipfs/go-datastore"
 	dsync "github.com/ipfs/go-datastore/sync"
+	"github.com/libp2p/go-libp2p"
+	discovery "github.com/libp2p/go-libp2p-discovery"
 	dht "github.com/libp2p/go-libp2p-kad-dht"
 	multiplex "github.com/libp2p/go-libp2p-mplex"
 	secio "github.com/libp2p/go-libp2p-secio"
@@ -17,6 +16,7 @@ import (
 	ws "github.com/libp2p/go-ws-transport"
 	_ "github.com/multiformats/go-multibase"
 	mh "github.com/multiformats/go-multihash"
+	cli "github.com/urfave/cli/v2"
 	"time"
 	//"github.com/libp2p/go-ud"
 	log "github.com/sirupsen/logrus"
@@ -28,6 +28,25 @@ import (
 )
 
 func main() {
+
+	var err error
+	app := &cli.App{
+		Name:  "greet",
+		Usage: "fight the loneliness!",
+		Action: func(c *cli.Context) error {
+			p2p_networkRunner()
+			return nil
+		},
+	}
+
+	err = app.Run(os.Args)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+}
+
+func p2p_networkRunner() {
 	var p2pnetwork p2p.NetworkP2P
 	var p2pOptions []libp2p.Option
 	var err error

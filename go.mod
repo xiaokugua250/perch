@@ -26,5 +26,6 @@ require (
 	github.com/multiformats/go-multihash v0.0.13
 	github.com/rivo/tview v0.0.0-20200528200248-fe953220389f
 	github.com/sirupsen/logrus v1.6.0
+	github.com/urfave/cli/v2 v2.2.0
 	gopkg.in/yaml.v2 v2.2.4
 )
