@@ -36,7 +36,9 @@ func main() {
 		libp2p.Transport(ws.New),
 	)
 	listenAddr := libp2p.ListenAddrStrings(
-		"/ip4/0.0.0.0/tcp/0", "/ip6/::/tcp/0/ws")
+		"/ip4/172.16.171.94/tcp/0", "/ip6/::/tcp/0/ws")
+//		"/ip4/0.0.0.0/tcp/0", "/ip6/::/tcp/0/ws")
+
 
 	p2pOptions = append(p2pOptions, muxers, security, listenAddr, transports)
 

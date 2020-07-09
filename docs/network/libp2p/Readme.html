@@ -1,0 +1,807 @@
+<!DOCTYPE html><html><head>
+      <title>Readme</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\Administrator\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.5.12\node_modules\@shd101wyy\mume\dependencies\katex\katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <div><p>p2p &#x7F51;&#x7EDC; &#x6A21;&#x5757;</p>
+<h3 class="mume-header" id="%E6%96%87%E6%A1%A3%E8%AF%B4%E6%98%8E">&#x6587;&#x6863;&#x8BF4;&#x660E;</h3>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&#x4F5C;&#x8005;</td>
+<td style="text-align:center">liangdu</td>
+</tr>
+<tr>
+<td>&#x8054;&#x7CFB;&#x90AE;&#x7BB1;</td>
+<td style="text-align:center">liangdu@nscc-gz.cn&#x6216;liangdu1992@gmail.com</td>
+</tr>
+<tr>
+<td>&#x53D1;&#x5E03;&#x65E5;&#x671F;</td>
+<td style="text-align:center">2020-07-09</td>
+</tr>
+<tr>
+<td>&#x7248;&#x6743;&#x6240;&#x6709;</td>
+<td style="text-align:center">nscc-gz@copyright</td>
+</tr>
+<tr>
+<td>&#x5907;&#x6CE8;</td>
+<td style="text-align:center">&#x65E0;</td>
+</tr>
+</tbody>
+</table>
+<h2 class="mume-header" id="libp2p%E5%BA%93%E8%AF%B4%E6%98%8E%E4%B8%8E%E4%BD%BF%E7%94%A8">libp2p&#x5E93;&#x8BF4;&#x660E;&#x4E0E;&#x4F7F;&#x7528;</h2>
+
+<h3 class="mume-header" id="libp2p-%E7%AE%80%E4%BB%8B">libp2p &#x7B80;&#x4ECB;</h3>
+
+<pre class="language-text">&#x80CC;&#x666F;&#x77E5;&#x8BC6;:
+IPFS: 
+   &#x201C;IPFS is a distributed system for storing and accessing files, websites, applications, and data.&#x201D;
+   ipfs &#x5177;&#x6709;&#x7279;&#x6027;&#x5982;&#x4E0B;:
+   - &#x53BB;&#x4E2D;&#x5FC3;&#x5316;
+   - &#x652F;&#x6301;&#x5F39;&#x6027;&#x7F51;&#x7EDC;
+   - &#x66F4;&#x96BE;&#x4EE5;&#x8FDB;&#x884C;&#x6587;&#x4EF6;&#x5185;&#x5BB9;&#x5BA1;&#x67E5;
+   - &#x52A0;&#x901F;&#x7F51;&#x7EDC;&#x5185;&#x5BB9;&#x83B7;&#x53D6;
+   ipfs&#x6784;&#x6210;&#x6838;&#x5FC3;:
+   - Content-address &#x5185;&#x5BB9;&#x6807;&#x8BB0;
+   - &#x5206;&#x5E03;&#x5F0F;hash&#x8868; DHT
+   - Merkle DAGS  
+   - git
+   - bitswap
+   - IPLD
+   - IPNS
+   - Libp2p &#x7F51;&#x7EDC;&#x5C42; 
+   - Self-certifying File system 
+   &#x53C2;&#x8003;:
+   1. https://docs.ipfs.io/
+   2. https://ipfs.io/
+   3. https://zh.wikipedia.org/wiki/%E6%98%9F%E9%99%85%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F
+   4. https://github.com/ipfs/ipfs
+   5. https://en.wikipedia.org/wiki/Self-certifying_File_System
+
+P2P&#x7F51;&#x7EDC;:
+&quot;A peer-to-peer (p2p) network is one in which the participants (referred to as peers or nodes) communicate with one another directly, on more or less &#x201C;equal footing&#x201D;. This does not necessarily mean that all peers are identical; some may have different roles in the overall network. However, one of the defining characteristics of a peer-to-peer network is that they do not require a privileged set of &#x201C;servers&#x201D; which behave completely differently from their &#x201C;clients&#x201D;, as is the case in the the predominant client / server model.&quot;
+</pre>
+<p>&#x2003;&#x2003;libp2p&#x6700;&#x521D;&#x4F5C;&#x4E3A;IPFS&#x9879;&#x76EE;&#x4E2D;&#x7684;&#x7F51;&#x7EDC;&#x5C42;&#x5B9E;&#x73B0;&#xFF0C;&#x7528;&#x4EE5;&#x89E3;&#x51B3;IPFS&#x9879;&#x76EE;&#x4E2D;IPFS-Node&#x8282;&#x70B9;&#x7684;&#x7F51;&#x7EDC;&#x8054;&#x901A;&#x3001;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7B49;&#x95EE;&#x9898;.&#x540E;&#x6765;&#x4ECE;IPFS&#x9879;&#x76EE;&#x4E2D;&#x5206;&#x79BB;&#x51FA;&#x6765;&#x4F5C;&#x4E3A;&#x72EC;&#x7ACB;&#x7684;&#x7F51;&#x7EDC;&#x5E93;&#xFF0C;&#x7528;&#x4EE5;&#x89E3;&#x51B3;&#x73B0;&#x4EE3;&#x7F51;&#x7EDC;&#x73AF;&#x5883;&#x4E0B;&#x6784;&#x5EFA;P2P&#x7F51;&#x7EDC;&#x5E94;&#x7528;&#x7684;&#x9700;&#x6C42;&#x3002;<br>
+If you&#x2019;re doing anything in the decentralized, peer-to-peer space, you&#x2019;ve probably heard of libp2p - a modular networking stack for peer-to-peer applications. libp2p consists of many modular libraries from which p2p network developers can select and reuse just the protocols they need, while making it easy to upgrade and interoperate between applications. This helps web3 developers get up and running faster, build more resilient decentralized applications, and utilize advanced features like decentralized publish-subscribe and a distributed hash table.</p>
+<p>What makes libp2p different from the networking stack of today is its focus on transport agnosticism, modularity, and portable encodings (like multiaddr). These properties make libp2p the networking layer of choice for most new dweb projects, blockchains, and peer-to-peer applications. Read more about why projects are choosing to build on libp2p, or watch the recent talk from Tech Lead Raul Kripalani at DevCon5.</p>
+<p>libp2p &#x7279;&#x6027;&#x548C;&#x9002;&#x7528;&#x573A;&#x666F;:</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Use Serval Transports &#x9002;&#x7528;&#x4E8E;&#x591A;&#x79CD;&#x534F;&#x8BAE;,TCP/UDP/QUIC/WebRTC&#x7B49;</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Native Roaming &#x81EA;&#x9002;&#x5E94;&#x7F51;&#x7EDC;&#xFF0C;&#x7F51;&#x7EDC;&#x53D1;&#x751F;&#x53D8;&#x52A8;&#x65F6;&#x7A0B;&#x5E8F;&#x3001;&#x670D;&#x52A1;&#x4E0D;&#x9700;&#x8981;&#x505A;&#x989D;&#x5916;&#x914D;&#x7F6E;</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Runtime Freedom &#x8FD0;&#x884C;&#x65F6;&#x65E0;&#x5173;&#xFF0C;&#x8FD0;&#x884C;&#x5E73;&#x53F0;/&#x8F6F;&#x4EF6;&#x4E0D;&#x5F71;&#x54CD;&#x7F51;&#x7EDC;</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Protocol Muxing &#x534F;&#x8BAE;&#x590D;&#x7528;.&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#x590D;&#x7528;  &#x5982;: stream multiplexing</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Work Offline &#x53EF;&#x81EA;&#x884C;&#x53D1;&#x73B0;&#x8282;&#x70B9;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x4E2D;&#x5FC3;&#x670D;&#x52A1;&#x5668;&#x6216;&#x6CE8;&#x518C;&#x670D;&#x52A1; &#x5982;: mdns &#x8282;&#x70B9;&#x53D1;&#x73B0;</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Encrypted Connections &#x8FDE;&#x63A5;&#x52A0;&#x5BC6;&#xFF0C;&#x901A;&#x4FE1;&#x94FE;&#x8DEF;&#x52A0;&#x5BC6;&#x548C;&#x8282;&#x70B9;&#x52A0;&#x5BC6;&#x8BA4;&#x8BC1;   &#x5982;: peer identity</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Upgrade Without Compromises &#x65E0;&#x611F;&#x5347;&#x7EA7;</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Work In the brower &#x53EF;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x8FD0;&#x884C;</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Good For High Latency Scenarios &#x53EF;&#x5E94;&#x7528;&#x4E8E;&#x9AD8;&#x5EF6;&#x8FDF;&#x573A;&#x666F;</li>
+</ul>
+<p>libp2p &#x7684;&#x5B9E;&#x73B0;&#x7248;&#x672C;</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> go-libp2p</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> js-libp2p</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> nodejs-libp2p</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> rust-libp2p</li>
+</ul>
+<h3 class="mume-header" id="libp2p-%E6%9D%A5%E6%BA%90">libp2p &#x6765;&#x6E90;</h3>
+
+<p>libp2p &#x4F5C;&#x4E3A;IPFS&#x9879;&#x76EE;&#x4E2D;&#x7684;</p>
+<p>&#x53C2;&#x8003;:</p>
+<ul>
+<li><a href="https://docs.ipfs.io/concepts/what-is-ipfs/#decentralization">https://docs.ipfs.io/concepts/what-is-ipfs/#decentralization</a></li>
+</ul>
+<h3 class="mume-header" id="libp2p-%E4%B8%AD%E6%A0%B8%E5%BF%83%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">libp2p &#x4E2D;&#x6838;&#x5FC3;&#x6570;&#x636E;&#x7ED3;&#x6784;</h3>
+
+<ul>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox" checked> &#x5206;&#x5E03;&#x5F0F;hash&#x8868;(Distributed Hash Tables|dht)</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox" checked> Merkle DAGS</p>
+</li>
+</ul>
+<h3 class="mume-header" id="libp2p%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5">libp2p&#x6838;&#x5FC3;&#x6982;&#x5FF5;</h3>
+
+<ul>
+<li>
+<p>&#x4F20;&#x8F93;(Transport)<br>
+&#x53C2;&#x8003;:</p>
+<ul>
+<li><a href="https://docs.libp2p.io/concepts/transport/">https://docs.libp2p.io/concepts/transport/</a></li>
+</ul>
+</li>
+<li>
+<p>NAT&#x8F6C;&#x6362;(NAT Traversal)<br>
+&#x53C2;&#x8003;:</p>
+<ul>
+<li><a href="https://docs.libp2p.io/concepts/nat/">https://docs.libp2p.io/concepts/nat/</a></li>
+</ul>
+</li>
+<li>
+<p>&#x901A;&#x4FE1;&#x5B89;&#x5168;(Secure Communication)<br>
+&#x53C2;&#x8003;:</p>
+<ul>
+<li><a href="https://docs.libp2p.io/concepts/nat/#automatic-router-configuration">https://docs.libp2p.io/concepts/nat/#automatic-router-configuration</a></li>
+</ul>
+</li>
+<li>
+<p>&#x4E2D;&#x7EE7;&#x4F20;&#x8F93;(Circuit Relay)<br>
+&#x53C2;&#x8003;:</p>
+<ul>
+<li><a href="https://docs.libp2p.io/concepts/circuit-relay/">https://docs.libp2p.io/concepts/circuit-relay/</a></li>
+</ul>
+</li>
+<li>
+<p>&#x4F20;&#x8F93;&#x534F;&#x8BAE;(Protocols)<br>
+libp2p&#x7684;&#x6838;&#x5FC3;&#x534F;&#x8BAE;&#x6709;:</p>
+<ol>
+<li>ping &#x534F;&#x8BAE;</li>
+<li>Identify &#x534F;&#x8BAE;</li>
+<li>secio&#x534F;&#x8BAE;</li>
+<li>kad-dht &#x534F;&#x8BAE;</li>
+<li>Circuit Relay &#x534F;&#x8BAE;<br>
+&#x53C2;&#x8003;:</li>
+</ol>
+<ul>
+<li><a href="https://docs.libp2p.io/concepts/protocols/">https://docs.libp2p.io/concepts/protocols/</a></li>
+</ul>
+</li>
+<li>
+<p>&#x8282;&#x70B9;&#x6807;&#x8BC6;(Peer Identify)<br>
+&#x53C2;&#x8003;:</p>
+<ul>
+<li><a href="https://docs.libp2p.io/concepts/peer-id/">https://docs.libp2p.io/concepts/peer-id/</a></li>
+</ul>
+</li>
+<li>
+<p>&#x5185;&#x5BB9;&#x8DEF;&#x7531; (Content Routing)</p>
+</li>
+<li>
+<p>&#x8282;&#x70B9;&#x8DEF;&#x7531; (Peer Routing)</p>
+</li>
+<li>
+<p>&#x5730;&#x5740;&#x6807;&#x8BC6;(Addressing)<br>
+&#x53C2;&#x8003;:</p>
+<ul>
+<li><a href="https://docs.libp2p.io/concepts/addressing/">https://docs.libp2p.io/concepts/addressing/</a></li>
+</ul>
+</li>
+<li>
+<p>&#x5B89;&#x5168;&#x6027;&#x8003;&#x8651;(Security Considerations)<br>
+&#x53C2;&#x8003;:</p>
+<ul>
+<li><a href="https://docs.libp2p.io/concepts/security-considerations/">https://docs.libp2p.io/concepts/security-considerations/</a></li>
+</ul>
+</li>
+<li>
+<p>&#x53D1;&#x5E03;&#x8BA2;&#x9605;&#x6A21;&#x5F0F; (Publish/Subscribe)<br>
+&#x53C2;&#x8003;:</p>
+<ul>
+<li><a href="https://docs.libp2p.io/concepts/publish-subscribe/">https://docs.libp2p.io/concepts/publish-subscribe/</a></li>
+</ul>
+</li>
+<li>
+<p>&#x6D41;&#x591A;&#x8DEF;&#x590D;&#x7528; (Stream Mutiplexing)<br>
+&#x53C2;&#x8003;:</p>
+<ul>
+<li><a href="https://docs.libp2p.io/concepts/stream-multiplexing/">https://docs.libp2p.io/concepts/stream-multiplexing/</a></li>
+</ul>
+</li>
+</ul>
+<h3 class="mume-header" id="libp2p-%E4%BD%BF%E7%94%A8">libp2p &#x4F7F;&#x7528;</h3>
+
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> libp2p &#x5E93;&#x4F7F;&#x7528;&#x901A;&#x7528;&#x6D41;&#x7A0B;<br>
+libp2p&#x7684;&#x4F7F;&#x7528;&#x901A;&#x5E38;&#x5206;&#x4E3A;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x6B65;&#x9AA4;:</li>
+</ul>
+<ol>
+<li>&#x6784;&#x5EFA;libp2p &#x8282;&#x70B9;   construct p2p worknode</li>
+<li>&#x53D1;&#x5E03;libp2p &#x8282;&#x70B9;  publish p2p worknode</li>
+<li>&#x8FDE;&#x63A5;&#x5230;libp2p &#x8282;&#x70B9; connect to p2p worknode</li>
+<li>&#x5904;&#x7406;&#x8282;&#x70B9;&#x4E4B;&#x95F4;&#x7F51;&#x7EDC;&#x6D41; handle p2p network stream<br>
+&#x6838;&#x5FC3;&#x65B9;&#x6CD5;&#x4E3A;:</li>
+</ol>
+<pre data-role="codeBlock" data-info="$xslt" class="language-$xslt"><code>&quot;github.com/libp2p/go-libp2p-core/host&quot;
+var host host.Host
+host.SetStreamHander(procolID,streamHandlerMethod)
+func streamHandlerMethod(stream network.Stream){
+//todo &#x4E1A;&#x52A1;&#x5904;&#x7406;&#x65B9;&#x6CD5;
+}
+</code></pre><ol start="5">
+<li>&#x8282;&#x70B9;&#x4F7F;&#x7528;&#x5B8C;&#x6210;&#x540E;&#x5173;&#x95ED;libp2p&#x8282;&#x70B9;(&#x53EF;&#x9009;) shutdown p2p worknode<br>
+&#x6838;&#x5FC3;&#x65B9;&#x6CD5;&#x4E3A;:</li>
+</ol>
+<pre data-role="codeBlock" data-info="$xslt" class="language-$xslt"><code>&quot;github.com/libp2p/go-libp2p-core/host&quot;
+var host host.Host
+host.Close()
+</code></pre><ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> libp2p&#x5E93;&#x4E2D;&#x5404;&#x6A21;&#x5757;&#x4F7F;&#x7528;&#x793A;&#x4F8B;demo</li>
+</ul>
+<ul>
+<li>&#x4F20;&#x8F93;(Transport)</li>
+<li>NAT&#x8F6C;&#x6362;(NAT Traversal)</li>
+<li>&#x901A;&#x4FE1;&#x5B89;&#x5168;(Secure Communication)</li>
+</ul>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> &#x542F;&#x7528;&#x8282;&#x70B9;&#x516C;&#x79C1;&#x94A5;&#x8BA4;&#x8BC1;&#x548C;&#x4F20;&#x8F93;&#x6D41;&#x91CF;&#x52A0;&#x5BC6;</li>
+</ul>
+<pre data-role="codeBlock" data-info="$xslt" class="language-$xslt"><code>	security := libp2p.Security(secio.ID, secio.New) // &#x4F20;&#x8F93;&#x52A0;&#x5BC6;
+	if options.NodeIdentifyPrivStr != &quot;&quot; { //&#x8282;&#x70B9;&#x8EAB;&#x4EFD;ID&#x8BBE;&#x7F6E;
+		priv, _, err := utils.GenSecurekeysByStr(options.NodeIdentifyPrivStr)
+		p2pnetworkhostOptions = append(p2pnetworkhostOptions, libp2p.Identity(priv))
+	} 
+	//&#x8BBE;&#x7F6E;&#x8282;&#x70B9;&#x542F;&#x52A8;&#x914D;&#x7F6E; basic node host
+	p2pnetworkhostOptions = append(p2pnetworkhostOptions, security, muxers, transports, listenAddrOptions)
+	networknode, err = p2pnetwork.CreatenetworkNodehost(ctx, dhtObj, p2pnetworkhostOptions)
+}
+</code></pre><ul>
+<li>&#x4E2D;&#x7EE7;&#x4F20;&#x8F93;(Circuit Relay)</li>
+</ul>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> &#x4F7F;&#x7528;&#x4E2D;&#x7EE7;&#x8282;&#x70B9;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x8282;&#x70B9;&#x8054;&#x901A;&#x4E0E;&#x4F20;&#x8F93;</li>
+</ul>
+<pre data-role="codeBlock" data-info="$xslt" class="language-$xslt"><code>   if option.PeerID != &quot;&quot; { //&#x4ECE;&#x547D;&#x4EE4;&#x884C;&#x53C2;&#x6570;&#x4E2D;&#x83B7;&#x53D6;&#x4E2D;&#x8F6C;&#x8282;&#x70B9;PEER
+   	if option.RelayID != &quot;&quot; { //&#x5B58;&#x5728;&#x4E2D;&#x7EE7;&#x8282;&#x70B9;&#xFF0C;&#x5219;&#x901A;&#x8FC7;&#x4E2D;&#x7EE7;&#x8282;&#x70B9;&#x8FDE;&#x63A5;
+   		rawPeerIDWithIP := strings.Split(option.PeerID, &quot;/&quot;)
+   		rawPeerID := rawPeerIDWithIP[len(rawPeerIDWithIP)-1]
+   		ID, err := peerstore.Decode(rawPeerID)
+   		logger.Printf(&quot;relayID is %s,and peerID is %s and targeID is %s\n&quot;, option.RelayID, option.PeerID, ID)
+   		relayAddr, err := ma.NewMultiaddr(option.RelayID + &quot;/p2p-circuit&quot; + option.PeerID)
+   		//&#x6839;&#x636E;&#x5730;&#x5740;&#x4FE1;&#x606F;&#x62FF;&#x5230;
+   		//peer, err := peerstore.AddrInfoFromP2pAddr(relayAddr)
+   		peer := peerstore.AddrInfo{
+   			ID:    ID,
+   			Addrs: []ma.Multiaddr{relayAddr},
+   		}
+   		if err = p2pNode.Connect(option.ctx, peer); err != nil {
+   			logger.Errorf(&quot;node %s connect to peer node %s with relayaddr  %s failed ,error is %s ...\n&quot;, p2pNode.ID(), option.PeerID, relayAddr, err.Error())
+   		}
+   	}
+</code></pre><ul>
+<li>&#x4F20;&#x8F93;&#x534F;&#x8BAE;(Protocols)</li>
+</ul>
+<ul>
+<li>[x] &#x4F20;&#x8F93;&#x534F;&#x8BAE;&#x6807;&#x8BC6;&#x65B9;&#x6CD5;</li>
+</ul>
+<pre data-role="codeBlock" data-info="$xslt" class="language-$xslt"><code>   transports := libp2p.ChainOptions(
+   	libp2p.Transport(tcp.NewTCPTransport),
+   	libp2p.Transport(ws.New),
+   )
+   listenAddr := libp2p.ListenAddrStrings(
+   	&quot;/ip4/172.16.171.94/tcp/0&quot;, &quot;/ip6/::/tcp/0/ws&quot;)
+   p2pOptions = append(p2pOptions, muxers, security, listenAddr, transports)
+   
+   basicHost, err := libp2p.New(ctx, p2pOptions...)
+   	
+</code></pre><ul>
+<li>&#x8282;&#x70B9;&#x6807;&#x8BC6;(Peer Identify)
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> &#x91C7;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x516C;&#x79C1;&#x94A5;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x8282;&#x70B9;&#x6807;&#x8BC6;</li>
+</ul>
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="$xslt" class="language-$xslt"><code>   // Generate a key pair for this host
+   priv, _, err := crypto.GenerateKeyPair(crypto.RSA, 2048)
+   if err != nil {
+   	return nil, nil, err
+   }
+
+   ctx := context.Background()
+
+   opts := []libp2p.Option{
+   	libp2p.ListenAddrStrings(fmt.Sprintf(&quot;/ip4/0.0.0.0/tcp/%d&quot;, listenPort)),
+   	libp2p.Identity(priv),
+   	libp2p.DefaultTransports,
+   	libp2p.DefaultMuxers,
+   	libp2p.DefaultSecurity,
+   	libp2p.NATPortMap(),
+   }
+
+   basicHost, err := libp2p.New(ctx, opts...)
+   if err != nil {
+   	return nil, nil, err
+   }
+</code></pre><ul>
+<li>&#x5185;&#x5BB9;&#x8DEF;&#x7531; (Content Routing)</li>
+</ul>
+<ul>
+<li>[x] &#x57FA;&#x4E8E;DHT&#x6570;&#x636E;&#x7ED3;&#x6784;&#x7684;&#x5185;&#x5BB9;&#x53D1;&#x73B0;</li>
+</ul>
+<pre data-role="codeBlock" data-info="$xslt" class="language-$xslt"><code>   dstore := dsync.MutexWrap(ds.NewMapDatastore())
+   dhtObj, err := dht.New(ctx, basicHost, dht.Datastore(dstore), dht.Mode(dht.ModeServer))
+
+   // step 3&#x6784;&#x5EFA; &#x9700;&#x8981;&#x5B58;&#x50A8;&#x5728;&#x5206;&#x5E03;&#x5F0F;dht &#x6570;&#x636E;&#x7ED3;&#x679C;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x4FE1;&#x606F;
+   //dhtObj := dht.NewDHT(ctx, basicHost, dstore)
+   data := []byte(&quot;this is some test content&quot;)
+   hash, _ := mh.Sum(data, mh.SHA2_256, -1)
+   contentId := cid.NewCidV1(cid.DagCBOR, hash)
+   // step4 &#x53D1;&#x5E03;/&#x5171;&#x4EAB;&#x8BE5;&#x6570;&#x636E;
+   if err = dhtObj.Provide(ctx, contentId, false); err != nil {
+   	log.Error(err)
+   }
+   // Make the routed host
+   //&#x6784;&#x9020; routed host &#xFF0C;routedhost &#x4E3A;&#x5305;&#x542B;dht&#x4FE1;&#x606F;&#x7684;basichost
+   routedHost := rhost.Wrap(basicHost, dhtObj)
+   // Bootstrap the host
+   dhtObj.Bootstrap(ctx)
+   // Build host multiaddress
+   hostAddr, _ := ma.NewMultiaddr(fmt.Sprintf(&quot;/ipfs/%s&quot;, routedHost.ID().Pretty()))
+
+   //dht_1 := dht.New(ctx, basicHost_1, dstore)
+   basicHost_addressinfo := peer.AddrInfo{
+   	ID:    routedHost.ID(),
+   	Addrs: routedHost.Addrs(),
+   }
+   //works both &#x521B;&#x5EFA;&#x76F8;&#x540C;&#x7684;dht &#x5BF9;&#x8C61;
+   //dhtobj1, err := dht.New(ctx, basicHost_1, dht.Datastore(dstore_1), dht.Mode(dht.ModeServer), dht.BootstrapPeers(basicHost_addressinfo))
+   dhtobj1, err := dht.New(ctx, basicHost_1, dht.Datastore(dstore_1), dht.Mode(dht.ModeServer))
+
+   //dtbatch,err := dstore.Batch()
+   //dhtobj1  = dht.NewDHTClient(ctx, basicHost_1, dtb)
+   routedhost1 := rhost.Wrap(basicHost_1, dhtobj1) //&#x5173;&#x952E;&#x70B9;
+
+   if err = dhtobj1.Bootstrap(ctx); err != nil { //&#x5173;&#x952E;&#x70B9;
+   	log.Error(err)
+   }
+   // &#x5C06;&#x4E24;&#x4E2A;&#x8282;&#x70B9;&#x8FDB;&#x884C;&#x8FDE;&#x63A5;&#xFF0C;&#x6CE8;&#x610F;&#x6B64;&#x5904;&#x662F;&#x76EE;&#x6807;&#x8282;&#x70B9;&#x4FE1;&#x606F; &#x53EF;&#x901A;&#x8FC7;&#x8282;&#x70B9;&#x53D1;&#x73B0;&#x3001;&#x56FA;&#x5B9A;&#x53C2;&#x6570;&#x7B49;&#x5F62;&#x5F0F;&#x83B7;&#x53D6;
+   if err = routedhost1.Connect(ctx, basicHost_addressinfo); err != nil { //&#x5173;&#x952E;&#x70B9;
+   	log.Error(err)
+   }
+
+
+   for {
+   	time.Sleep(5 * time.Second)
+   	//&#x67E5;&#x8BE2;&#x63D0;&#x4F9B;&#x8BE5;&#x5185;&#x5BB9;&#x7684;&#x8282;&#x70B9;&#x5BF9;&#x8C61;
+   	peers, err := dhtobj1.FindProviders(ctx, contentId) //&#x5173;&#x952E;&#x70B9;
+   	if err != nil {
+   		log.Error(err)
+   	}
+   	if len(peers) &lt;= 0 {
+   		log.Println(&quot;found zero peers....&quot;, peers)
+   	}
+   	for _, peer := range peers {
+   		fmt.Printf(&quot;found peer %s provider contedt %s\n&quot;, peer, contentId.String())
+   	}
+
+   }
+</code></pre><ul>
+<li>&#x8282;&#x70B9;&#x8DEF;&#x7531; (Peer Routing)</li>
+</ul>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> &#x57FA;&#x4E8E;mdns&#x7684;&#x8282;&#x70B9;&#x53D1;&#x73B0;&#x4E0E;&#x8282;&#x70B9;&#x8DEF;&#x7531;(&#x539F;&#x59CB;)</li>
+</ul>
+<pre data-role="codeBlock" data-info="$xslt" class="language-$xslt"><code>type discoveryNotifee struct {
+   PeerChan chan peer.AddrInfo
+}
+
+//interface to be called when new  peer is found
+func (n *discoveryNotifee) HandlePeerFound(pi peer.AddrInfo) {
+   n.PeerChan &lt;- pi
+}
+
+//Initialize the MDNS service
+func initMDNS(ctx context.Context, peerhost host.Host, rendezvous string) chan peer.AddrInfo {
+   // An hour might be a long long period in practical applications. But this is fine for us
+   ser, err := discovery.NewMdnsService(ctx, peerhost, time.Hour, rendezvous)
+   if err != nil {
+   	panic(err)
+   }
+
+   //register with service so that we get notified about peer discovery
+   n := &amp;discoveryNotifee{}
+   n.PeerChan = make(chan peer.AddrInfo)
+
+   ser.RegisterNotifee(n)
+   return n.PeerChan
+}
+
+</code></pre><ul>
+<li>[x] &#x57FA;&#x4E8E;mdns&#x7684;&#x8282;&#x70B9;&#x53D1;&#x73B0;&#x4E0E;&#x8282;&#x70B9;&#x8DEF;&#x7531;(dht)</li>
+</ul>
+<pre data-role="codeBlock" data-info="$xslt" class="language-$xslt"><code>// Start a DHT, for use in peer discovery. We can&apos;t just make a new DHT
+   // client because we want each peer to maintain its own local copy of the
+   // DHT, so that the bootstrapping node of the DHT can go down without
+   // inhibiting future peer discovery.
+   //kademliaDHT, err := dht.New(ctx, host)
+   kademliaDHT, err := dht.New(option.ctx, p2pNode, dht.Mode(dht.ModeServer))
+   //kademliaDHT, err :=dht.New(ctx, host,dht.Mode(dht.ModeServer),dht.ProtocolPrefix(protocol.ID(config.ProtocolID)))
+
+
+   // Bootstrap the DHT. In the default configuration, this spawns a Background
+   // thread that will refresh the peer table every five minutes.
+   logger.Debug(&quot;Bootstrapping the DHT&quot;)
+   if err = kademliaDHT.Bootstrap(ctx); err != nil {
+   	panic(err)
+   }
+   // We use a rendezvous point &quot;meet me here&quot; to announce our location.
+   // This is like telling your friends to meet you at the Eiffel Tower.
+   logger.Info(&quot;Announcing ourselves...&quot;)
+   routingDiscovery := discovery.NewRoutingDiscovery(kademliaDHT)
+
+   discovery.Advertise(ctx, routingDiscovery, config.RendezvousString)
+   peerChan, err := routingDiscovery.FindPeers(ctx, config.RendezvousString)
+
+</code></pre><ul>
+<li>&#x5730;&#x5740;&#x6807;&#x8BC6;(Addressing)</li>
+</ul>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> &#x6807;&#x8BC6;&#x8282;&#x70B9;&#x76D1;&#x542C;&#x5730;&#x5740;</li>
+</ul>
+<pre data-role="codeBlock" data-info="$xslt" class="language-$xslt"><code>   // Generate a key pair for this host
+   priv, _, err := crypto.GenerateKeyPair(crypto.RSA, 2048)
+   if err != nil {
+   	return nil, nil, err
+   }
+   ctx := context.Background()
+   opts := []libp2p.Option{
+   	libp2p.ListenAddrStrings(fmt.Sprintf(&quot;/ip4/0.0.0.0/tcp/%d&quot;, listenPort)),
+   	libp2p.Identity(priv),
+   }
+   basicHost, err := libp2p.New(ctx, opts...)
+   if err != nil {
+   	return nil, nil, err
+   }
+
+</code></pre><ul>
+<li>&#x5B89;&#x5168;&#x6027;&#x8003;&#x8651;(Security Considerations)</li>
+<li>&#x53D1;&#x5E03;&#x8BA2;&#x9605;&#x6A21;&#x5F0F; (Publish/Subscribe)</li>
+</ul>
+<ul>
+<li>[x] &#x53D1;&#x5E03;&#x8BA2;&#x9605;&#x6A21;&#x5F0F;&#x4F7F;&#x7528;&#x5B9E;&#x4F8B;</li>
+</ul>
+<pre data-role="codeBlock" data-info="$xslt" class="language-$xslt"><code>// &#x53D1;&#x5E03;&#x8BA2;&#x9605;&#x6A21;&#x5F0F; &#xFF0C;&#x8BE5;&#x5904;&#x53EF;&#x9009;
+   //	pubs ,err := pubsub.NewGossipSub(ctx,p2pnetwork.NetworkBasicHost)
+   //pubs, err := pubsub.NewGossipSub(ctx, p2pnetwork.NetworkBasicHost)
+   pubs, err := PubsubgossipGen(ctx, networknode.BasicNodeHost)
+   if err != nil {
+   	log.Error(err)
+   }
+   sub, topsub, err := PubsubtopicsJoin(pubs, Pubsub_Default_Topic)
+   if err != nil {
+   	log.Error(err)
+   }
+
+   // &#x8BBE;&#x7F6E;mdns&#x53D1;&#x73B0;&#x5904;&#x7406;&#x65B9;&#x6CD5;
+   err = MdnsDiscoverySetup(ctx, networknode.BasicNodeHost, DiscoveryInterval, DiscoveryServiceTag)
+   if err != nil {
+   	log.Error(err)
+   }
+
+   go func() {
+   	for {
+   		msg := new(PubsubMessage)
+   		msg.SenderPeer = networknode.BasicNodeHost.ID().Pretty()
+   		msg.PMessageStr = &quot;hello world&quot;
+   		msg.SenderFrom = &quot;from localhost&quot;
+   		err = PubsubTopicPubish(ctx, *msg, topsub, nil)
+   		if err != nil {
+   			log.Error(err)
+   		}
+   		time.Sleep(3 * time.Second)
+   	}
+
+   }()
+   msgChan := make(chan interface{})
+
+   go PubsubMsgHandler(sub, ctx, networknode.BasicNodeHost, msgChan)
+
+   signalChan := make(chan os.Signal, 1)
+   errChan := make(chan error, 1)
+   signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
+   for {
+   	select {
+   	case msg := &lt;-msgChan:
+   		fmt.Println(&quot;msg from msg chan is:&quot;, msg)
+   		for _, peersFind := range PubsubPeersList(pubs, Pubsub_Default_Topic) {
+   			peerinfo, err := dhtObj.FindPeer(ctx, peersFind)
+   			if err != nil {
+   				continue
+   			}
+   			if err = networknode.BasicNodeHost.Connect(ctx, peerinfo); err != nil {
+   				fmt.Print(&quot;connect b&quot;)
+   			}
+   			fmt.Printf(&quot;peer found by dht is %s\n&quot;, peerinfo.String())
+   		}
+   	}
+   }
+}
+
+</code></pre><ul>
+<li>&#x6D41;&#x591A;&#x8DEF;&#x590D;&#x7528; (Stream Mutiplexing)</li>
+</ul>
+<p>&#x6838;&#x5FC3;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#x5982;&#x4E0B;:<br>
+`</p>
+<p>`</p>
+<h2 class="mume-header" id="%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">&#x53C2;&#x8003;&#x8D44;&#x6599;</h2>
+
+<ol>
+<li><a href="https://libp2p.io/">https://libp2p.io/</a>  [&#x5B98;&#x65B9;&#x7F51;&#x7AD9;]</li>
+<li><a href="https://github.com/libp2p">https://github.com/libp2p</a> [&#x5B98;&#x65B9;github]</li>
+<li><a href="https://github.com/libp2p/specs">https://github.com/libp2p/specs</a> [libp2p &#x6807;&#x51C6;&#x89C4;&#x8303;]</li>
+<li><a href="https://github.com/libp2p/go-libp2p">https://github.com/libp2p/go-libp2p</a> [libp2p golang &#x8BED;&#x8A00;&#x5B9E;&#x73B0;]</li>
+<li><a href="https://github.com/libp2p/go-libp2p-examples">https://github.com/libp2p/go-libp2p-examples</a> [go-libp2p &#x5B98;&#x65B9;example &#x5E93;]</li>
+<li><a href="https://docs.ipfs.io/concepts/what-is-ipfs/">https://docs.ipfs.io/concepts/what-is-ipfs/</a> [ipfs &#x5B98;&#x65B9;&#x7F51;&#x7AD9;]</li>
+<li><a href="https://en.wikipedia.org/wiki/Distributed_hash_table">https://en.wikipedia.org/wiki/Distributed_hash_table</a> [&#x5206;&#x5E03;&#x5F0F;hash&#x8868; dht]</li>
+<li><a href="https://docs.ipfs.io/concepts/dht/">https://docs.ipfs.io/concepts/dht/</a> [dht-concepts]</li>
+<li><a href="https://docs.ipfs.io/">https://docs.ipfs.io/</a> [ipfs]</li>
+<li><a href="https://www.ietf.org/proceedings/65/slides/plenaryt-2.pdf">https://www.ietf.org/proceedings/65/slides/plenaryt-2.pdf</a> [dht -slide]</li>
+</ol>
+</div>
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

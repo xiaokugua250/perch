@@ -41,7 +41,7 @@ func P2PHostFactory(ctx context.Context, privatekey string, options []libp2p.Opt
 
 	//Ref https://discuss.libp2p.io/t/did-you-succeed-in-creating-a-bootstrap-across-the-network/277 设置节点为bootstrap节点
 	//options=append(options,libp2p.AddrsFactory(newAddrsFactory()))
-	return libp2p.New(ctx, libp2p.ChainOptions(options...))
+	return libp2p.New(ctx, libp2p.ChainOptions(options...)), nil
 
 }
 
