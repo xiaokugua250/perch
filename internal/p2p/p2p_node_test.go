@@ -15,7 +15,7 @@ func TestP2PHostFactory(t *testing.T) {
 	ctx := context.Background()
 	var options []libp2p.Option
 	options = append(options, libp2p.EnableRelay())
-	nodeHost, err := P2PHostFactory(ctx, "", "", options)
+	nodeHost, err := P2PBasicHostFactory(ctx, "", options)
 	if err != nil {
 		panic(err)
 	}
