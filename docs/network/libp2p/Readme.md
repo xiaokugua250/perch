@@ -12,11 +12,11 @@ p2p 网络 模块
 
 
 ## libp2p库说明与使用
-
 ### libp2p 简介
 	背景知识:
 	IPFS: 
-	   “IPFS is a distributed system for storing and accessing files, websites, applications, and data.”
+	   “IPFS is a distributed system for storing and accessing files, websites,
+	   applications, and data.”
 	   ipfs 具有特性如下:
 	   - 去中心化
 	   - 支持弹性网络
@@ -53,6 +53,10 @@ p2p 网络 模块
 	 - ...等
 
 &emsp;&emsp;libp2p最初作为IPFS项目中的网络层实现，用以解决IPFS项目中IPFS-Node节点的网络联通、数据交换等问题.后来从IPFS项目中分离出来作为独立的网络库，用以解决现代网络环境下构建P2P网络应用的需求。 **libp2p来源于IPFS项目，目前已经从ipfs项目中独立出来作为一个专注于P2P网络的网络库**
+<p align="center">
+  <img src="../asserts/libp2p/libp2p-logo.png" />
+</p>
+
 
 > If you’re doing anything in the decentralized, peer-to-peer space, you’ve probably heard of libp2p - a modular networking stack for peer-to-peer applications. libp2p consists of many modular libraries from which p2p network developers can select and reuse just the protocols they need, while making it easy to upgrade and interoperate between applications. This helps web3 developers get up and running faster, build more resilient decentralized applications, and utilize advanced features like decentralized publish-subscribe and a distributed hash table.What makes libp2p different from the networking stack of today is its focus on transport agnosticism, modularity, and portable encodings (like multiaddr). These properties make libp2p the networking layer of choice for most new dweb projects, blockchains, and peer-to-peer applications. Read more about why projects are choosing to build on libp2p, or watch the recent talk from Tech Lead Raul Kripalani at DevCon5.  
 
@@ -67,6 +71,7 @@ p2p 网络 模块
  - [x] Upgrade Without Compromises 无感升级
  - [x] Work In the brower 可浏览器中运行
  - [x] Good For High Latency Scenarios 可应用于高延迟场景
+
  ![](../asserts/libp2p/libp2p-features.png)  
 
  libp2p 的实现版本
@@ -75,10 +80,92 @@ p2p 网络 模块
  - [x] nodejs-libp2p
  - [x] rust-libp2p
 ![](../asserts/libp2p/libp2p-implements.png)
+### libp2p 中关键概念
+该部分内容可参考:https://docs.libp2p.io/reference/glossary/
+* Circuit Relay
+  libp2p中可通过中继节点方式进行节点联通和数据通信,libp2p中中继模式的实现在"github.com/libp2p/go-libp2p-circuit",在通过中继节点连接目标节点时构造的目标点peer-address 形式为:
+  `relayAddr, err := ma.NewMultiaddr(option.RelayID + "/p2p-circuit" + option.PeerID)`
+* DHT
+ libp2p通过使用DHT来实现其peer routing方法并且通常使用DHT来存储和提供文件内容的元数据，用于内容发现和服务广播
 
-### libp2p 中核心数据结构
+
+* Connection
+libp2p中连接是在节点建立完成进行数据读写的通信通道,libp2p中的连接通常是host.Connect(ctx,targethost)方法进行创建的,底层的连接所使用的协议可以有多种,tcp/udp等
+
+* Dial & Listen
+ libp2p中用于建立和接收连接操作，尝试打开libp2p连接时叫dial ,监听和接收libp2p 连接时叫listening
+
+* mDNS
+ mDNS协议 multicast DNS , 使用5353端口，组播地址 224.0.0.251。在一个没有常规DNS服务器的小型网络内，可以使用mDNS来实现类似DNS的编程接口、包格式和操作语义。通常可用于局域网内节点发现，libp2p中使用mdns进行本地网络环境中的快速节点发现。
+
+* multiaddr
+  mutiaddr是libp2p中对节点地址的标识方法,通常形式为/ip4|6/ip/tcp|udp/port 如"/ip4/127.0.0.1/udp/1234"
+
+* Multihash
+  Multihash是对多种hash算法组合的一种简要表示方法,在libp2p中使用mutihash的典型场景是节点id peer id,peerid 是包含生成该节点的加密算法的公钥的，此外另一个适用场景是CID (Content identifier)的生成。mutihash在libp2p中通常是做过base58加密的。在libp2p中mutihash的实现包为"github.com/multiformats/go-multihash"
+
+*Multiplexing
+>Multiplexing (or “muxing”), refers to the process of combining multiple streams of communication over a single logical “medium”. For example, we can maintain multiple independent data streams over a single TCP network connection, which is itself of course being multiplexed over a single physical connection (ethernet, wifi, etc).
+>Multiplexing allows peers to offer many protocols over a single connection, which reduces network overhead and makes NAT traversal more efficient and effective.
+>libp2p supports several implementations of stream multiplexing. The mplex specification defines a simple protocol with implementations in several languages. Other supported multiplexing protocols include yamux and spdy.
+>See Stream Muxer Implementations for status of multiplexing across libp2p language implementations.
+
+* multistream
+>multistream is a lightweight convention for “tagging” streams of binary data with a short header that identifies the content of the stream.
+libp2p uses multistream to identify the protocols used for communication between peers, and a related project multistream-select is used for protocol negotiation.
+
+* NAT  & NAT Traversal
+  NAT是在计算机网络中是一种在IP数据包通过路由器或防火墙时重写来源IP地址或目的IP地址的技术。这种技术被普遍使用在有多台主机但只通过一个公有IP地址访问互联网的私有网络中。它是一个方便且得到了广泛应用的技术。当然，NAT也让主机之间的通信变得复杂，导致了通信效率的降低
+NAT转换时内网向外网转换相对容易，外网向内转换则相对困难。在Client-server模式下服务端通常情况下具有足够的信息来完成外网向内网的NAT转换，但是在P2P网络模型下则相对困难。用于NAT转换的方法通常有根据端口转换,libp2p中适用NAT转换的包在"https://github.com/libp2p/go-libp2p-nat"中
+
+* Peer
+ p2p网络中的参与节点,给定的节点可能会支持多种协议,并且节点都会有独立的节点ID,通过该ID来在网络中标识自己。
+
+* PeerId
+  libp2p中节点的标识,且标识形式为mutihash形式,通常以节点公私钥加密算法形式进行生成，并且可以结合DHT进行节点身份的验证,通过此种方式可以将节点标识与节点所使用的底层协议分离。
+* Peer store
+  用于存储已知peer 节点peer-id的数据结构，结合已知的mutiaddress 可以用来建立与特定peer的连接
+
+* Peer routing
+ peer routing 是用来发现网络中节点peer的(routing)节点路由或节点地址的进程,也可以用来做本地节点的临近发现，比如通过 muticatst DNS方式。libp2p中的主要路由机制是通过实现了kademlia 路由算法的分布式hash表dht来定位节点
+* Peer-to-peer (p2p)
+ p2p网络中网络参与节点可以直接与目标节点进行直接通信,但这种通信模式并不代表网络中的所有节点都是完全对等的。在p2p网络中的某些节点仍可能有不同的角色。
+
+
+* Pubsub
+  发布订阅模式在libp2p中的实现,具体实现可参考"github.com/libp2p/go-libp2p-pubsub",标准模式说明可参考:
+  https://docs.libp2p.io/concepts/publish-subscribe/
+
+* Protocol
+>In general, a set of rules and data structures used for network communication.
+ libp2p is comprised of many protocols and makes use of many others provided by the operating system or runtime environment.
+ Most core libp2p functionality is defined in terms of protocols, and libp2p protocols are identified using multistream headers.
+
+* Protocol Negotiation
+> The process of reaching agreement on what protocol to use for a given stream of communication.
+In libp2p, protocols are identified using a convention called multistream, which adds a small header to the beginning of a stream containing a unique name, including a version identifier.
+When two peers first connect, they exchange a handshake to agree upon what protocols to use.
+The implementation of the libp2p handshake is called multistream-select.
+For details, see the protocol negotiation article.
+
+* Stream
+libp2p中的流通常是指p2p节点之间所建立的网络流,节点之间的数据传输也是通过libp2p stream进行传输。对应的是数据结构为network network.Stream
+
+* Swarm
+Can refer to a collection of interconnected peers.
+In the libp2p codebase, “swarm” may refer to a module that allows a peer to interact with its peers, although this component was later renamed “switch”.
+See the discussion about the name change for context.
+
+* Switch
+> A libp2p component responsible for composing multiple transports into a single interface, allowing application code to dial peers without having to specify what transport to use.
+In addition to managing transports, the switch also coordinates the “connection upgrade” process, which promotes a “raw” connection from the transport layer into one that supports protocol negotiation, stream multiplexing, and secure communications.
+Sometimes called “swarm” for historical reasons.
+
+
+### libp2p 中关键数据结构
 - [x] 分布式hash表(Distributed Hash Tables|dht)
-  >Ok, they're fundamentally a pretty simple idea. A DHT gives you a dictionary-like interface, but the nodes are distributed across the network. The trick with DHTs is that the node that gets to store a particular key is found by hashing that key, so in effect your hash-table buckets are now independent nodes in a network.
+  libp2p中分布式hash表主要用于节点路由(peer routing)和内容发现(content routing)
+  > A DHT gives you a dictionary-like interface, but the nodes are distributed across the network. The trick with DHTs is that the node that gets to store a particular key is found by hashing that key, so in effect your hash-table buckets are now independent nodes in a network.
  This gives a lot of fault-tolerance and reliability, and possibly some performance benefit, but it also throws up a lot of headaches. For example, what happens when a node leaves the network, by failing or otherwise? And how do you redistribute keys when a node joins so that the load is roughly balanced. Come to think of it, how do you evenly distribute keys anyhow? And when a node joins, how do you avoid rehashing everything? (Remember you'd have to do this in a normal hash table if you increase the number of buckets).
  One example DHT that tackles some of these problems is a logical ring of n nodes, each taking responsibility for 1/n of the keyspace. Once you add a node to the network, it finds a place on the ring to sit between two other nodes, and takes responsibility for some of the keys in its sibling nodes. The beauty of this approach is that none of the other nodes in the ring are affected; only the two sibling nodes have to redistribute keys.
  For example, say in a three node ring the first node has keys 0-10, the second 11-20 and the third 21-30. If a fourth node comes along and inserts itself between nodes 3 and 0 (remember, they're in a ring), it can take responsibility for say half of 3's keyspace, so now it deals with 26-30 and node 3 deals with 21-25.
@@ -460,27 +547,34 @@ func initMDNS(ctx context.Context, peerhost host.Host, rendezvous string) chan p
 	peerChan, err := routingDiscovery.FindPeers(ctx, config.RendezvousString)
 
 ```
-* 地址标识(Addressing)
- - [x] 标识节点监听地址
- ```$xslt
-	// Generate a key pair for this host
-	priv, _, err := crypto.GenerateKeyPair(crypto.RSA, 2048)
-	if err != nil {
-		return nil, nil, err
-	}
-	ctx := context.Background()
-	opts := []libp2p.Option{
-		libp2p.ListenAddrStrings(fmt.Sprintf("/ip4/0.0.0.0/tcp/%d", listenPort)),
-		libp2p.Identity(priv),
-	}
-	basicHost, err := libp2p.New(ctx, opts...)
-	if err != nil {
-		return nil, nil, err
-	}
 
+* 地址标识(Addressing)
+* 
+ > libp2p中节点标识形式为:/ip4或ip6/监听IP/协议名称/监听端口/p2p/节点标记HASH
+ 示例:
+/ip4/7.7.7.7/tcp/4242/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N
+/ip6/7.7.7.7/udp/4242/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N
+/ip6/7.7.7.7/ws/4242/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N
+ 
+ - [x] 标识节点监听地址
+
+```$xslt
+// Generate a key pair for this host
+priv, _, err := crypto.GenerateKeyPair(crypto.RSA, 2048)
+ctx := context.Background()
+opts := []libp2p.Option{
+ 	libp2p.ListenAddrStrings(fmt.Sprintf("/ip4/0.0.0.0/tcp/%d", listenPort)),
+	libp2p.Identity(priv),
+}
+	basicHost, err := libp2p.New(ctx, opts...)
 ```
 
 * 安全性考虑(Security Considerations)
+  >libp2p makes it simple to establish encrypted, authenticated communication channels between two peers, but there are other important security issues to consider when building robust peer-to-peer systems.
+
+libp2p中对于安全性相关的设置主要体现在以下两点:
+1.节点之间构建加密的安全通信链路对流量加密
+2.采用公私钥的方式进行节点加密认证
 * 发布订阅模式 (Publish/Subscribe)  
  - [x] 发布订阅模式使用实例
  ```$xslt
@@ -551,6 +645,7 @@ func initMDNS(ctx context.Context, peerhost host.Host, rendezvous string) chan p
 
 
 ## 参考资料
+
 1. https://libp2p.io/  [官方网站]
 2. https://github.com/libp2p [官方github]
 3. https://github.com/libp2p/specs [libp2p 标准规范]
