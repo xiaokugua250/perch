@@ -14,8 +14,12 @@ require (
 	github.com/go-delve/delve v1.4.1 // indirect
 
 	github.com/gorilla/mux v1.7.4
+	github.com/ipfs/go-cid v0.0.6
+	github.com/ipfs/go-datastore v0.4.4
 	github.com/libp2p/go-libp2p v0.9.6
 	github.com/libp2p/go-libp2p-core v0.6.0
+	github.com/libp2p/go-libp2p-discovery v0.4.0
+	github.com/libp2p/go-libp2p-kad-dht v0.8.2
 	github.com/libp2p/go-libp2p-mplex v0.2.3
 	github.com/libp2p/go-libp2p-pubsub v0.3.2
 	github.com/libp2p/go-libp2p-secio v0.2.2
@@ -28,6 +32,8 @@ require (
 	github.com/mdempsky/gocode v0.0.0-20200405233807-4acdcbdea79d // indirect
 	github.com/multiformats/go-multiaddr v0.2.2
 	github.com/multiformats/go-multiaddr-net v0.1.5
+	github.com/multiformats/go-multibase v0.0.3
+	github.com/multiformats/go-multihash v0.0.13
 	github.com/newhook/go-symbols v0.0.0-20151212134530-b75dfefa0d23 // indirect
 	github.com/nsf/gocode v0.0.0-20190302080247-5bee97b48836 // indirect
 	github.com/ramya-rao-a/go-outline v0.0.0-20200117021646-2a048b4510eb // indirect
@@ -37,6 +43,7 @@ require (
 	github.com/sirupsen/logrus v1.6.0
 	github.com/sqs/goreturns v0.0.0-20181028201513-538ac6014518 // indirect
 	github.com/tpng/gopkgs v0.0.0-20180428091733-81e90e22e204 // indirect
+	github.com/urfave/cli/v2 v2.2.0
 	github.com/zmb3/gogetdoc v0.0.0-20190228002656-b37376c5da6a // indirect
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
 	golang.org/x/net v0.0.0-20200707034311-ab3426394381 // indirect

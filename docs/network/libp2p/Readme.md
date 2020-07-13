@@ -88,7 +88,6 @@ p2p 网络 模块
 * DHT
  libp2p通过使用DHT来实现其peer routing方法并且通常使用DHT来存储和提供文件内容的元数据，用于内容发现和服务广播
 
-
 * Connection
 libp2p中连接是在节点建立完成进行数据读写的通信通道,libp2p中的连接通常是host.Connect(ctx,targethost)方法进行创建的,底层的连接所使用的协议可以有多种,tcp/udp等
 
@@ -104,18 +103,24 @@ libp2p中连接是在节点建立完成进行数据读写的通信通道,libp2p�
 * Multihash
   Multihash是对多种hash算法组合的一种简要表示方法,在libp2p中使用mutihash的典型场景是节点id peer id,peerid 是包含生成该节点的加密算法的公钥的，此外另一个适用场景是CID (Content identifier)的生成。mutihash在libp2p中通常是做过base58加密的。在libp2p中mutihash的实现包为"github.com/multiformats/go-multihash"
 
-*Multiplexing
->Multiplexing (or “muxing”), refers to the process of combining multiple streams of communication over a single logical “medium”. For example, we can maintain multiple independent data streams over a single TCP network connection, which is itself of course being multiplexed over a single physical connection (ethernet, wifi, etc).
->Multiplexing allows peers to offer many protocols over a single connection, which reduces network overhead and makes NAT traversal more efficient and effective.
->libp2p supports several implementations of stream multiplexing. The mplex specification defines a simple protocol with implementations in several languages. Other supported multiplexing protocols include yamux and spdy.
->See Stream Muxer Implementations for status of multiplexing across libp2p language implementations.
+* Multiplexing
+  多路复用在libp2p中是指在单独的连接上适用多个数据流/网络流的通信方式,通过使用多路复用技术可以在一个连接上使用多个网络协议,从而降低网络连接成本。在libp2p中已经实现和支持的复用协议又yamux和spdy等。具体的libp2p 可以通过一个端口，如TCP或UDP端口，根据所使用的传输来执行其所有操作。libp2p 可以通过点到点连接来复用它的许多协议。这种复用是用于可靠的流和不可靠的数据报。
+libp2p 比较务实。它试图在尽可能多的配置中使用，以模块化和灵活的方式来适应各种用例，并尽可能少地选择。因此，libp2p 网络层提供了我们松散地称之为“多重多路复用”的内容:
+   1. 多个网络接口的多路复用
+   2. 多个传输协议的多路复用
+   3. 多个对等连接的多路复用
+   4. 可以复用多个客户端协议
+   5. 每个协议/连接可以多路复用多个流（SPDY、HTTP2、QIC、SSH）
+   6. 流量控制（背压，公平性）
+   7. 用不同的临时密钥加密每个连接
 
 * multistream
->multistream is a lightweight convention for “tagging” streams of binary data with a short header that identifies the content of the stream.
+  libp2p使用mutistream来标识通信节点之间所使用的网络协议,也可以用来进行协议协商
+> multistream is a lightweight convention for “tagging” streams of binary data with a short header that identifies the content of the stream.
 libp2p uses multistream to identify the protocols used for communication between peers, and a related project multistream-select is used for protocol negotiation.
 
 * NAT  & NAT Traversal
-  NAT是在计算机网络中是一种在IP数据包通过路由器或防火墙时重写来源IP地址或目的IP地址的技术。这种技术被普遍使用在有多台主机但只通过一个公有IP地址访问互联网的私有网络中。它是一个方便且得到了广泛应用的技术。当然，NAT也让主机之间的通信变得复杂，导致了通信效率的降低
+NAT是在计算机网络中是一种在IP数据包通过路由器或防火墙时重写来源IP地址或目的IP地址的技术。这种技术被普遍使用在有多台主机但只通过一个公有IP地址访问互联网的私有网络中。它是一个方便且得到了广泛应用的技术。当然，NAT也让主机之间的通信变得复杂，导致了通信效率的降低
 NAT转换时内网向外网转换相对容易，外网向内转换则相对困难。在Client-server模式下服务端通常情况下具有足够的信息来完成外网向内网的NAT转换，但是在P2P网络模型下则相对困难。用于NAT转换的方法通常有根据端口转换,libp2p中适用NAT转换的包在"https://github.com/libp2p/go-libp2p-nat"中
 
 * Peer
@@ -137,34 +142,29 @@ NAT转换时内网向外网转换相对容易，外网向内转换则相对困�
   https://docs.libp2p.io/concepts/publish-subscribe/
 
 * Protocol
->In general, a set of rules and data structures used for network communication.
- libp2p is comprised of many protocols and makes use of many others provided by the operating system or runtime environment.
- Most core libp2p functionality is defined in terms of protocols, and libp2p protocols are identified using multistream headers.
+ libp2p自带多种网络协议而且也可以使用操作系统或运行环境的有的网络协议,在libp2p中的协议通常是使用multistream头信息进行标注。
 
 * Protocol Negotiation
-> The process of reaching agreement on what protocol to use for a given stream of communication.
-In libp2p, protocols are identified using a convention called multistream, which adds a small header to the beginning of a stream containing a unique name, including a version identifier.
-When two peers first connect, they exchange a handshake to agree upon what protocols to use.
-The implementation of the libp2p handshake is called multistream-select.
-For details, see the protocol negotiation article.
-
+  libp2p中的协议协商过程首先由包含头信息的mutistream进行协议选择,mutistream的头信息包含唯一协议名称和版本号，当节点建立连接后进行协议握手并选择所要使用的网络协议，这个过程叫做mutistream-select
 * Stream
 libp2p中的流通常是指p2p节点之间所建立的网络流,节点之间的数据传输也是通过libp2p stream进行传输。对应的是数据结构为network network.Stream
 
-* Swarm
+* Switch
+  switch是libp2p中将多个传输协议封装到一个接口的模块,通过switch模块可以使得应用在不指定特定传输协议的前提下与节点通信。除此之外switch模块还可以用来进行协议升级，比如将原始的传输层协议升级成应用支持的协议,并进行流多路复用和安全通信。switch最初在ipfs项目中时叫swarm
+  > Swarm
 Can refer to a collection of interconnected peers.
 In the libp2p codebase, “swarm” may refer to a module that allows a peer to interact with its peers, although this component was later renamed “switch”.
 See the discussion about the name change for context.
 
-* Switch
-> A libp2p component responsible for composing multiple transports into a single interface, allowing application code to dial peers without having to specify what transport to use.
-In addition to managing transports, the switch also coordinates the “connection upgrade” process, which promotes a “raw” connection from the transport layer into one that supports protocol negotiation, stream multiplexing, and secure communications.
-Sometimes called “swarm” for historical reasons.
-
-
 ### libp2p 中关键数据结构
 - [x] 分布式hash表(Distributed Hash Tables|dht)
   libp2p中分布式hash表主要用于节点路由(peer routing)和内容发现(content routing)
+
+  分布式散列表用来将一个关键值（key）的集合分散到所有在分布式系统中的节点，并且可以有效地将消息转送到唯一一个拥有查询者提供的关键值的节点（Peers）。这里的节点类似散列表中的存储位置。分布式散列表通常是为了拥有极大节点数量的系统，而且在系统的节点常常会加入或离开（例如网络断线）而设计的。在一个结构性的延展网络（overlay network）中，参加的节点需要与系统中一小部分的节点沟通，这也需要使用分布式散列表。分布式散列表可以用以创建更复杂的服务，例如分布式文件系统、点对点技术文件分享系统、合作的网页缓存、多播、任播、域名系统以及即时通信等。
+  分布式散列表本质上强调以下特性：
+	1.离散性：构成系统的节点并没有任何中央式的协调机制。
+	2.伸缩性：即使有成千上万个节点，系统仍然应该十分有效率。
+	3.容错性：即使节点不断地加入、离开或是停止工作，系统仍然必须达到一定的可靠度。
   > A DHT gives you a dictionary-like interface, but the nodes are distributed across the network. The trick with DHTs is that the node that gets to store a particular key is found by hashing that key, so in effect your hash-table buckets are now independent nodes in a network.
  This gives a lot of fault-tolerance and reliability, and possibly some performance benefit, but it also throws up a lot of headaches. For example, what happens when a node leaves the network, by failing or otherwise? And how do you redistribute keys when a node joins so that the load is roughly balanced. Come to think of it, how do you evenly distribute keys anyhow? And when a node joins, how do you avoid rehashing everything? (Remember you'd have to do this in a normal hash table if you increase the number of buckets).
  One example DHT that tackles some of these problems is a logical ring of n nodes, each taking responsibility for 1/n of the keyspace. Once you add a node to the network, it finds a place on the ring to sit between two other nodes, and takes responsibility for some of the keys in its sibling nodes. The beauty of this approach is that none of the other nodes in the ring are affected; only the two sibling nodes have to redistribute keys.
@@ -173,11 +173,14 @@ Sometimes called “swarm” for historical reasons.
 
 .
   ![分布式hash表](../asserts/libp2p/disturbed-hash-table.png)
-  ![分布式hash表](../asserts/libp2p/distributed-hash-table-architecture.png)
+  ![分布式hash表](../asserts/libp2p/distributed-hash-table-arch.png)
   ![分布式hash表](../asserts/libp2p/Distributed-hash-table-metadata-maps.png)
   
-  
-- [x] Merkle DAGS
+- [x] Merkle Tree
+哈希树（hash tree；Merkle tree），在密码学及计算机科学中是一种树形数据结构，每个叶节点均以数据块的哈希作为标签，而除了叶节点以外的节点则以其子节点标签的加密哈希作为标签 。哈希树能够高效、安全地验证大型数据结构的内容，是哈希链的推广形式。哈希树中，哈希值的求取通常使用诸如SHA-2的加密哈希函数，但如果只是用于防止非故意的数据破坏，也可以使用不安全的校验和获取，比如CRC。
+哈希树的顶部为顶部哈希（top hash），亦称根哈希（root hash）或主哈希（master hash）。以从 P2P 网络下载文件为例：通常先从可信的来源获取顶部哈希，如朋友告知、网站分享等。得到顶部哈希后，则整棵哈希树就可以通过 P2P 网络中的非受信来源获取。下载得到哈希树后，即可根据可信的顶部哈希对其进行校验，验证数据是否完整、是否遭受破坏。
+![](../asserts/libp2p/Merkle_Tree.png)
+- [x] Merkle DAGS(Merkle directed acyclic graph，默克尔有向无环图)
 ### libp2p核心概念
 ![](../asserts/libp2p/libp2p-modules.jpeg)
 * 传输(Transport)
@@ -338,8 +341,16 @@ host.Close()
 
 In addition, grouped datastores significantly simplify interesting data access patterns (such as caching and sharding).
 * github.com/libp2p/go-libp2p-discovery
-  > lib2p中对节点发现功能的实现 通常mdns、content-routing等功能实现时使用
+  > lib2p中对节点发现功能的实现，通常结合content-routing等功能实现时使用
+  在libp2p中进行节点发现通常有以下几种方法mdns、randomwalk和bootstraplist等
+  下面对这三种发现方式进行说明:
+  1.mDNS-发现 是一种在局域网上使用 mDNS 的发现协议。它发射了mDNS信标来查找是否有更多的对等体可用。局域网节点对于对等协议是非常有用的，因为它们的低延迟链路.mDNS-发现是一种独立的协议，不依赖于任何其他的 libp2p 协议。在不依赖其他基础设施的情况下，mDNS-发现 可以产生局域网中可用的对等点. 这在内联网、与互联网主干断开的网络以及暂时失去链路的网络中尤其有用.mDNS-discovery 可以针对每个服务进行配置(i.e. 即仅发现参与特定协议的对等体，如IPFS), 还有私有网络(发现属于专用网络的对等体).
+  隐私注意：mDNS 在局域网中进行广告，在同一本地网络中向听众显示IP地址。不推荐使用隐私敏感的应用程序或太公开的路由协议.
+  2.随机游走是DHTS（具有路由表的其他协议）的发现协议。它进行随机DHT查询，以便快速了解大量的对等体。这导致DHT（或其他协议）收敛得更快，而在初始阶段需要承担一定负载开销.
+  3.Bootstrap列表是一种发现协议，它使用本地存储来缓存网络中可用的高度稳定的（和一些可信的）对等点的地址。这允许协议“找到网络的其余部分”。这基本上与DNS自举的方式相同（尽管注意到，通过设计改变DNS引导列表——“点域”地址——不容易做到）.该列表应该存储在长期本地存储中，无论这意味着本地节点（例如磁盘）。协议可以将默认列表硬编码或采用标准代码分发机制（如DNS）进行传送。在大多数情况下（当然在IPFS的情况下），引导列表应该是用户可配置的，因为用户可能希望建立单独的网络，(or place their reliance and trust in specific nodes)或者将它们的信任和信任放在特定的节点中.
+
   >This package contains interfaces and utilities for active peer discovery. Peers providing a service use the interface to advertise their presence in some namespace. Vice versa, peers seeking a service use the interface to discover peers that have previously advertised as service providers. The package also includes a baseline implementation for discovery through Content Routing.
+
 * github.com/multiformats/go-multiaddr
   > mutiaddr的go-libp2p实现
   >Multiaddr is a standard way to represent addresses that:
@@ -357,6 +368,7 @@ In addition, grouped datastores significantly simplify interesting data access p
   -
 * 传输(Transport)
 * NAT转换(NAT Traversal)
+ libp2p中NAT转换可分为手动方式和自动方式,手动方式使用"github.com/libp2p/go-libp2p-na"包进行NAT-Discovery和nat.NewMapping()进行端口映射。而自动方式可使用"github,com/go-libp2p-autonat"进行自动端口映射。需要注意的是在NAT转换时需要注意MAP映射事件的处理,如映射失败,映射端口发生变化等。
 * 通信安全(Secure Communication)
 - [x] 启用节点公私钥认证和传输流量加密
 ```$xslt
@@ -391,8 +403,10 @@ In addition, grouped datastores significantly simplify interesting data access p
 			}
 		}
 ```
-* 传输协议(Protocols)  
-- [x] 传输协议标识方法
+
+* 传输协议(Protocols)
+  - [x] 传输协议标识方法
+
  ```$xslt
 	transports := libp2p.ChainOptions(
 		libp2p.Transport(tcp.NewTCPTransport),
@@ -493,8 +507,7 @@ In addition, grouped datastores significantly simplify interesting data access p
 ```
 * 节点路由 (Peer Routing)
  - [x] 基于mdns的节点发现与节点路由(原始)
-  ```
-
+``` 
 type discoveryNotifee struct {
 	PeerChan chan peer.AddrInfo
 }
@@ -520,9 +533,8 @@ func initMDNS(ctx context.Context, peerhost host.Host, rendezvous string) chan p
 	return n.PeerChan
 }
 ```
-
- - [x] 基于mdns的节点发现与节点路由(dht)
- ```$xslt
+ - [x]  基于mdns的节点发现与节点路由(dht)
+```
 // Start a DHT, for use in peer discovery. We can't just make a new DHT
 	// client because we want each peer to maintain its own local copy of the
 	// DHT, so that the bootstrapping node of the DHT can go down without
@@ -545,11 +557,61 @@ func initMDNS(ctx context.Context, peerhost host.Host, rendezvous string) chan p
 
 	discovery.Advertise(ctx, routingDiscovery, config.RendezvousString)
 	peerChan, err := routingDiscovery.FindPeers(ctx, config.RendezvousString)
-
 ```
 
+ - [x]  基于Rendezvous 协议的节点发现和节点路由
+  注意:通常使用bootstrap节点作为Rendezvous节点
+  ```
+  // Start a DHT, for use in peer discovery. We can't just make a new DHT
+	// client because we want each peer to maintain its own local copy of the
+	// DHT, so that the bootstrapping node of the DHT can go down without
+	// inhibiting future peer discovery.
+	kademliaDHT, err := dht.New(ctx, host)
+	if err != nil {
+		panic(err)
+	}
+
+	// Bootstrap the DHT. In the default configuration, this spawns a Background
+	// thread that will refresh the peer table every five minutes.
+	logger.Debug("Bootstrapping the DHT")
+	if err = kademliaDHT.Bootstrap(ctx); err != nil {
+		panic(err)
+	}
+
+	// Let's connect to the bootstrap nodes first. They will tell us about the
+	// other nodes in the network.
+	var wg sync.WaitGroup
+	for  _, peerAddr := range config.BootstrapPeers {
+		peerinfo, _ := peer.AddrInfoFromP2pAddr(peerAddr)
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			if err := host.Connect(ctx, *peerinfo); err != nil {
+				logger.Warning(err)
+			} else {
+				logger.Info("Connection established with bootstrap node:", *peerinfo)
+			}
+		}()
+	}
+	wg.Wait()
+
+	// We use a rendezvous point "meet me here" to announce our location.
+	// This is like telling your friends to meet you at the Eiffel Tower.
+	logger.Info("Announcing ourselves...")
+	routingDiscovery := discovery.NewRoutingDiscovery(kademliaDHT)
+	discovery.Advertise(ctx, routingDiscovery, config.RendezvousString)
+	logger.Debug("Successfully announced!")
+
+	// Now, look for others who have announced
+	// This is like your friend telling you the location to meet you.
+	logger.Debug("Searching for other peers...")
+	peerChan, err := routingDiscovery.FindPeers(ctx, config.RendezvousString)
+  
+  ```
+
+
+
 * 地址标识(Addressing)
-* 
  > libp2p中节点标识形式为:/ip4或ip6/监听IP/协议名称/监听端口/p2p/节点标记HASH
  示例:
 /ip4/7.7.7.7/tcp/4242/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N
@@ -656,5 +718,11 @@ libp2p中对于安全性相关的设置主要体现在以下两点:
 8. https://docs.ipfs.io/concepts/dht/ [dht-concepts]
 9. https://docs.ipfs.io/ [ipfs]
 10. https://www.ietf.org/proceedings/65/slides/plenaryt-2.pdf [dht -slide]
-
+11. https://www.tecposter.cn/article/libp2p-spec-simple
+12. http://www.wjblog.top/articles/f80288a7/ [NAT
+13. https://www.usenix.org/legacy/publications/library/proceedings/osdi2000/full_papers/gribble/gribble_html/node4.html [hash table]
+14. https://www.coursera.org/lecture/data-structures/distributed-hash-tables-tvH8H
+15. https://colobu.com/2018/03/26/distributed-hash-table/[分布式hash表]
+16. https://en.wikipedia.org/wiki/Key-based_routing 
+17. https://program-think.blogspot.com/2017/09/Introduction-DHT-Kademlia-Chord.html[分布式hash表和KAD算法]
 
