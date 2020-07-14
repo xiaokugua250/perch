@@ -345,7 +345,7 @@ In addition, grouped datastores significantly simplify interesting data access p
   在libp2p中进行节点发现通常有以下几种方法mdns、randomwalk和bootstraplist等
   下面对这三种发现方式进行说明:
   1.mDNS-发现 是一种在局域网上使用 mDNS 的发现协议。它发射了mDNS信标来查找是否有更多的对等体可用。局域网节点对于对等协议是非常有用的，因为它们的低延迟链路.mDNS-发现是一种独立的协议，不依赖于任何其他的 libp2p 协议。在不依赖其他基础设施的情况下，mDNS-发现 可以产生局域网中可用的对等点. 这在内联网、与互联网主干断开的网络以及暂时失去链路的网络中尤其有用.mDNS-discovery 可以针对每个服务进行配置(i.e. 即仅发现参与特定协议的对等体，如IPFS), 还有私有网络(发现属于专用网络的对等体).
-  隐私注意：mDNS 在局域网中进行广告，在同一本地网络中向听众显示IP地址。不推荐使用隐私敏感的应用程序或太公开的路由协议.
+  隐私注意：mDNS 在局域网中进行广播，在同一本地网络中向听众显示IP地址。不推荐使用隐私敏感的应用程序或太公开的路由协议.
   2.随机游走是DHTS（具有路由表的其他协议）的发现协议。它进行随机DHT查询，以便快速了解大量的对等体。这导致DHT（或其他协议）收敛得更快，而在初始阶段需要承担一定负载开销.
   3.Bootstrap列表是一种发现协议，它使用本地存储来缓存网络中可用的高度稳定的（和一些可信的）对等点的地址。这允许协议“找到网络的其余部分”。这基本上与DNS自举的方式相同（尽管注意到，通过设计改变DNS引导列表——“点域”地址——不容易做到）.该列表应该存储在长期本地存储中，无论这意味着本地节点（例如磁盘）。协议可以将默认列表硬编码或采用标准代码分发机制（如DNS）进行传送。在大多数情况下（当然在IPFS的情况下），引导列表应该是用户可配置的，因为用户可能希望建立单独的网络，(or place their reliance and trust in specific nodes)或者将它们的信任和信任放在特定的节点中.
 
@@ -364,7 +364,9 @@ In addition, grouped datastores significantly simplify interesting data access p
   >This repo contains the canonical pubsub implementation for libp2p. We currently provide three message router options:
   Floodsub, which is the baseline flooding protocol.Randomsub, which is a simple probabilistic router that propagates to random subsets of peers.
   Gossipsub, which is a more advanced router with mesh formation and gossip propagation. See spec and implementation for more details.
-- [x] libp2p库中各模块使用示例demo
+*  https://github.com/libp2p/go-libp2p-swarm
+  >libp2p中swarm 可用来管理一组peer节点的连接,并可以用来处理节点的输入输出流。相对host接口来说,swarm相对底层,使用上建议还是使用host接口
+- [ ] libp2p库中各模块使用示例demo
   -
 * 传输(Transport)
 * NAT转换(NAT Traversal)
@@ -696,14 +698,80 @@ libp2p中对于安全性相关的设置主要体现在以下两点:
 		}
 	}
 }
+```
+
+* swarm(switch)
 
 ```
+	pstore := pstore.NewPeerstore()
+	pstore.AddPubKey(pid, pub)
+	pstore.AddPrivKey(pid, priv)
+	swarm, err := NewSwarm(ctx, laddrs, pid, pstore, bwc) 
+	//laddrs array of multiaddrs that the swarm will open up listeners fo 
+	// pid the swarm an identity in the form of a peer.ID
+	// bwc  a bandwidth metrics collector, 
+	// 设置swarm 流处理处理方法
+	swrm.SetStreamHandler(func(s inet.Stream) {
+	defer s.Close()
+	fmt.Println("Got a stream from: ", s.SwarmConn().RemotePeer())
+	fmt.Fprintln(s, "Hello Friend!")
+	})
+	// 打开stream 流
+	s, err := swrm.NewStreamWithPeer(ctx, rpid)
+	if err != nil {
+		panic(err)
+	}
+	defer s.Close()
+
+```
+
 * 流多路复用 (Stream Mutiplexing)
-
+libp2p只提供了流多路复用的go-interface,具体实现有yamux,muxado,mutiplex,spdystream
 核心示例代码如下:
-`
+```
+import (
+  ymux "github.com/whyrusleeping/go-smux-yamux"
+)
+  nconn, _ := net.Dial("tcp", "localhost:1234")
+  sconn, _ := ymux.DefaultTransport.NewConn(nconn, false) // false == client
+  s1, _ := sconn.OpenStream()
+```
+* 基于libp2p的HTTP协议(http on top of libp2p)
+  libp2p之上的http协议与普通HTTP协议的最大区别是用节点ID取代常规HTTP协议在的host:port,并且可以充分利用libp2p协议所能提供的nat转换,流多路复用等特性。核心包是"github.com/libp2p/go-libp2p-http"。与其相关的包有"github.com/libp2p/go-libp2p-gostream","go-stream"包是对golang中net包的封装。核心示例代码如下:
+  ```
+  //server 端
+  listener, _ := gostream.Listen(host1, p2phttp.DefaultP2PProtocol)
+  defer listener.Close()
+  go func() {
+  http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Hi!"))
+	})
+  server := &http.Server{}
+  server.Serve(listener)
+  }
+  // client 端
+  tr := &http.Transport{}
+  tr.RegisterProtocol("libp2p", p2phttp.NewTransport(clientHost))
+  client := &http.Client{Transport: tr}
+  res, err := client.Get("libp2p://Qmaoi4isbcTbFfohQyn28EiYM5CDWQx9QRCjDh3CTeiY7P/hello")
 
-`
+  // gostream 代码，通过net包的封装来进行处理
+    go func() {
+	listener, _ := Listen(srvHost, tag)
+	defer listener.Close()
+	servConn, _ := listener.Accept()
+	defer servConn.Close()
+	reader := bufio.NewReader(servConn)
+	msg, _ := reader.ReadString('\n')
+	fmt.Println(msg)
+	servConn.Write([]byte("answer!\n"))
+	}()
+	clientConn, _ := Dial(context.Background(), clientHost, srvHost.ID(), tag)
+	clientConn.Write([]byte("question?\n"))
+	resp, _ := ioutil.ReadAll(clientConn)
+	fmt.Println(resp)
+
+  ```
 
 
 ## 参考资料
