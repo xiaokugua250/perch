@@ -222,7 +222,7 @@ export const asyncRoutes = [
     ]
   },
 
-  {
+/*  {
     path: '/tab',
     component: Layout,
     children: [
@@ -233,8 +233,31 @@ export const asyncRoutes = [
         meta: { title: 'Tab', icon: 'tab' }
       }
     ]
+  },*/
+  {
+    path: '/sys-admin',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/sys-admin/index'),
+        name: 'Tab',
+        meta: { title: 'Sys admin', icon: 'sysadmin' }
+      }
+    ]
   },
-
+  {
+    path: '/settings',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/settings/index'),
+        name: '平台设置',
+        meta: { title: '平台设置', icon: 'edit' }
+      }
+    ]
+  },
   {
     path: '/error',
     component: Layout,

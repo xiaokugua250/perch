@@ -15,7 +15,7 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 .idea/
-deploy/config/
+
 samples/
 
 go.sum
@@ -23,12 +23,12 @@ go.mod
 src/common/
 asserts/
 build/
-configs/
+
 examples/
 init/
 pkg/general/storage/
 test/
 third_party/
 tools/
-website/
+
 .idea/*
