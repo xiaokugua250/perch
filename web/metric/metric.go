@@ -4,17 +4,13 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"expvar"
 	"fmt"
 	"log"
 	"net/http"
 	"perch/web/model"
+
 	"strconv"
 	"time"
-)
-
-var (
-	ServerMertics = expvar.NewInt("serverMetrics")
 )
 
 /**
@@ -107,12 +103,3 @@ func MerticFunc(ctx context.Context, result model.ResultReponse, err error) http
 }
 
 // 处理请求
-
-/**
-通过expvar 发送服务端监控情况
-*/
-func MerticsServerFunc(w http.ResponseWriter, r *http.Request) {
-
-	ServerMertics.Add(1)
-
-}

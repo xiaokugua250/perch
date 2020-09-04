@@ -64,7 +64,7 @@ func (webservice WebService) WebServiceGenRouter() *mux.Router {
 }
 func (webservice WebService) WebServiceStart() {
 	webservice.WebServiceInit()
-	httpAddr := "0.0.0.0:8080"
+	httpAddr := "0.0.0.0:8081"
 
 	log.Println(webservice.Name + "service starting...")
 	log.Println("service listening on：http://" + httpAddr)

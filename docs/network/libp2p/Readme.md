@@ -739,7 +739,7 @@ import (
 * 基于libp2p的HTTP协议(http on top of libp2p)
   libp2p之上的http协议与普通HTTP协议的最大区别是用节点ID取代常规HTTP协议在的host:port,并且可以充分利用libp2p协议所能提供的nat转换,流多路复用等特性。核心包是"github.com/libp2p/go-libp2p-http"。与其相关的包有"github.com/libp2p/go-libp2p-gostream","go-stream"包是对golang中net包的封装。核心示例代码如下:
   ```
-  //server 端
+  //server 端n
   listener, _ := gostream.Listen(host1, p2phttp.DefaultP2PProtocol)
   defer listener.Close()
   go func() {

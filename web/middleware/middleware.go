@@ -14,7 +14,7 @@ func LoggingMiddleware(next http.Handler) http.Handler {
 		// Call the next handler, which can be another middleware in the chain, or the final handler.
 		next.ServeHTTP(w, r)
 		log.Printf(
-			"%s\t%s\t%s\t%s",
+			"%s\t%s\t%v\t%s",
 			r.Method,
 			r.RequestURI,
 			r.Response,
@@ -33,8 +33,8 @@ func MetricMiddleWare(next http.Handler) http.Handler {
 func CROSMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		w.Header().Add("Access-Control-Allow-Headers", "X-Requested-With, Authorization, Content-Type, Bihu-Token, TIMEOUT, DEADLINE, content-range")
 		w.Header().Add("Access-Control-Allow-Origin", "*")
+		w.Header().Add("Access-Control-Allow-Headers", "X-Requested-With, Authorization, Content-Type, TIMEOUT, DEADLINE, content-range")
 		w.Header().Add("Access-Control-Allow-Methods", "HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE")
 		// 对于Ajax的OPTIONS请求无需执行真正的处理，直接返回即可
 		if r.Method == "OPTIONS" {
@@ -42,5 +42,6 @@ func CROSMiddleware(next http.Handler) http.Handler {
 		}
 		// Call the next handler, which can be another middleware in the chain, or the final handler.
 		next.ServeHTTP(w, r)
+
 	})
 }
