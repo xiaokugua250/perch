@@ -5,8 +5,11 @@ ref https://github.com/shirou/gopsutil
 package sysinfo
 
 import (
+	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/mem"
+	"github.com/shirou/gopsutil/host"
 	"runtime"
+	"time"
 )
 
 type SysMemInformation struct {
@@ -19,9 +22,23 @@ func init() {
 		//todo
 	}
 }
-func SysCpuInfo() {
+func SysCpuInfo() ([]cpu.InfoStat,error){
+
+	return cpu.Info()
+}
+
+func SysCpuTimeStateInfo(percpu bool)([]cpu.TimesStat,error)  {
+	return cpu.Times(percpu)
 
 }
+func SysCpuCount(logical bool)(int ,error){
+	return cpu.Counts(logical)
+}
+
+func SysCpuPercent(interval time.Duration,percpu bool)([]float64,error){
+	return cpu.Percent(interval,percpu)
+}
+
 
 //硬盘
 func SysDiskInfo() {
@@ -76,4 +93,51 @@ func SysProcessInfo() {
 
 func SysWinServiecInfo() {
 
+}
+
+type HostTimeInfo struct {
+	BootTime uint64 `json:"boot_time"`
+	UpTime uint64 `json:"up_time"`
+}
+func SysHostBootTimeInfo()(HostTimeInfo, error)  {
+	var (
+		hosttime HostTimeInfo
+		err error
+	)
+	hosttime.BootTime,err= host.BootTime()
+	if err!= nil{
+		return hosttime,err
+	}
+	hosttime.UpTime ,err= host.Uptime()
+	if err!= nil{
+		return hosttime,err
+	}
+	return hosttime,nil
+
+}
+
+func SysHostKernelVersionInfo() (version string, err error){
+	return host.KernelVersion()
+}
+
+func SysHostPlatformInfo()(platform string, family string, version string, err error){
+	return host.PlatformInformation()
+}
+
+func SysHostVirtualizationInfo()(string, string, error){
+	return host.Virtualization()
+}
+
+func SysHostStatInfo()  (host.InfoStat, error) {
+	info,err := host.Info()
+	return *info,err
+
+}
+
+func SysHostTemperatureStatInfo() ([]host.TemperatureStat, error){
+	return host.SensorsTemperatures()
+}
+
+func SysHostUserInfo()([]host.UserStat, error){
+	return host.Users()
 }

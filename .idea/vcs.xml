@@ -3,5 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/vue-element-admin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/website" vcs="Git" />
   </component>
 </project>
