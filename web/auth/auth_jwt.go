@@ -14,7 +14,7 @@ const (
 	TOKEN_EXPIRE_TIME      = 12
 )
 
-func GenJwtToken(user model.User) (string, error) {
+func GenJwtToken(user model.AuthUser) (string, error) {
 	claims := model.PEXToken{
 		UserID:   user.ID,
 		UserName: user.UserName,

@@ -16,8 +16,8 @@ import (
 func PlatLoginHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
 		var (
-			user        model.User
-			currentUser model.User
+			user        model.AuthUser
+			currentUser model.AuthUser
 			err         error
 		)
 		response.Kind = "user"
@@ -53,8 +53,8 @@ func PlatLoginHandler(w http.ResponseWriter, r *http.Request) {
 func PlatLoginGenTokenHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
 		var (
-			user        model.User
-			currentUser model.User
+			user        model.AuthUser
+			currentUser model.AuthUser
 			err         error
 		)
 		response.Kind = "user token"
@@ -136,3 +136,7 @@ func PlatAdminHandler(w http.ResponseWriter, r *http.Request) {
 	})
 
 }
+
+
+
+

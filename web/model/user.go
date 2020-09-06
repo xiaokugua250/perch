@@ -13,7 +13,7 @@ type PEXToken struct {
 	jwt.StandardClaims          // 标准JWT包含的Token内容
 }
 
-type User struct {
+type AuthUser struct {
 	ID              int       `json:"id" gorm:"column:id;type:int(11);not null;primary_key"`
 	UserUID         string    `json:"useruid" gorm:"column:useruid;type:int(10);not null"`
 	UserGID         string    `json:"usergid" gorm:"column:usergid;type:int(10);not null"`
@@ -26,4 +26,9 @@ type User struct {
 	UserCreatedAt   time.Time `json:"created_at" gorm:"column:created_at;type:bigint(20);not null"`
 	UserUpdatedAt   time.Time `json:"updated_at" gorm:"column:updated_at;type:bigint(20);not null"`
 	UserDescription string    `json:"user_description" gorm:"column:description;type:varchar(128);not null"`
+}
+
+// TableName 数据库表名
+func (AuthUser) TableName() string {
+	return "auth_user"
 }

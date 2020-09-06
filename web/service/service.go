@@ -66,7 +66,7 @@ func (webservice WebService) WebServiceStart() {
 	webservice.WebServiceInit()
 	httpAddr := "0.0.0.0:8081"
 
-	log.Println(webservice.Name + "service starting...")
+	log.Println(webservice.Name + " service starting...")
 	log.Println("service listening on：http://" + httpAddr)
 	// 设置和启动服务
 	server := &http.Server{
