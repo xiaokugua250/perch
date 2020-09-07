@@ -6,8 +6,13 @@ package sysinfo
 
 import (
 	"github.com/shirou/gopsutil/cpu"
+	"github.com/shirou/gopsutil/disk"
+	"github.com/shirou/gopsutil/docker"
+	"github.com/shirou/gopsutil/load"
 	"github.com/shirou/gopsutil/mem"
 	"github.com/shirou/gopsutil/host"
+	"github.com/shirou/gopsutil/net"
+	"github.com/shirou/gopsutil/process"
 	"runtime"
 	"time"
 )
@@ -33,35 +38,176 @@ type HostAdvancedInfo struct {
 	Users []host.UserStat `json:"users"`
 }
 type CpuAdvancedInfo struct {
-
+	CpuInfoStat []cpu.InfoStat `json:"cpu_info_stat"`
+	CpuCounts int `json:"cpu_counts"`
+	Percents []float64 `json:"percents"`
+	TImeStat []cpu.TimesStat `json:"t_ime_stat"`
 }
 type DiskAdvacedInfo struct {
-
+	SerialNumber string `json:"serial_number"`
+	Lables string `json:"lables"`
+	IOCounters map[string]disk.IOCountersStat `json:"io_counters"`
+	Partitions []disk.PartitionStat `json:"partitions"`
+	Usage *disk.UsageStat `json:"usage"`
 }
 
 type DockerAdvancedInfo struct {
+	DockerIds []string `json:"docker_ids"`
+	DockerStats []docker.CgroupDockerStat `json:"docker_stats"`
 
 }
 
 type LoadAdvancedInfo struct {
+	AvgStat *load.AvgStat `json:"avg_stat"`
+	MiscStat *load.MiscStat
 
 }
 type NetAdvancedInfo struct {
-
+	Pids []int32 `json:"pids"`
+	ConnectionStats []net.ConntrackStat `json:"connection_stats"`
+	InterfacesStat []net.InterfaceStat
 }
 
 type ProcessAdvancedInfo struct {
-
+	Pids []int32 `json:"pids"`
+	Processes []*process.Process `json:"processes"`
 }
 func init() {
 	if runtime.GOOS == "windows" {
 		//todo
 	}
 }
+//硬盘
+func SysAdvancedDiskInfo(diskSerialName string,diskLableName string,partions bool,path string,iocounters ...string) (DiskAdvacedInfo,error) {
+	var (
+		diskAdvancedInfo DiskAdvacedInfo
+		err error
+	)
+	if diskSerialName != ""{
+		diskAdvancedInfo.SerialNumber= disk.GetDiskSerialNumber(diskSerialName)
+	}
 
-func SysAdvancedCpuInfo(logical,percpu bool){
+	if diskLableName !=""{
+		diskAdvancedInfo.Lables=disk.GetLabel(diskLableName)
+	}
+	if len(iocounters) >=1{
+		diskAdvancedInfo.IOCounters,err = disk.IOCounters(iocounters...)
+		if err!= nil{
+			return DiskAdvacedInfo{}, err
+		}
+	}
+
+
+	diskAdvancedInfo.Partitions,err = disk.Partitions(partions)
+	if err!= nil{
+		return DiskAdvacedInfo{}, err
+	}
+	if path!= ""{
+		diskAdvancedInfo.Usage,err= disk.Usage(path)
+		if err!= nil{
+			return DiskAdvacedInfo{}, err
+		}
+	}
+
+	return diskAdvancedInfo,err
 
 }
+func SysAdvancedCpuInfo(logical,percpu bool,interval time.Duration)(CpuAdvancedInfo,error){
+	var (
+		cpuAdvancedInfo CpuAdvancedInfo
+		err error
+	)
+	cpuAdvancedInfo.CpuInfoStat,err = cpu.Info()
+	if err!= nil{
+		return CpuAdvancedInfo{}, err
+	}
+	cpuAdvancedInfo.TImeStat,err=cpu.Times(percpu)
+	if err!= nil{
+		return CpuAdvancedInfo{}, err
+	}
+	cpuAdvancedInfo.CpuCounts,err=cpu.Counts(logical)
+	if err!= nil{
+		return CpuAdvancedInfo{}, err
+	}
+	cpuAdvancedInfo.Percents,err=cpu.Percent(interval,percpu)
+	if err!= nil{
+		return CpuAdvancedInfo{}, err
+	}
+
+	return cpuAdvancedInfo,err
+
+}
+
+
+//系统负载
+func SysAdvancedLoadInfo()(LoadAdvancedInfo,error) {
+	var (
+		loadInfo LoadAdvancedInfo
+		err error
+	)
+	loadInfo.AvgStat,err= load.Avg()
+	if err!= nil{
+		return LoadAdvancedInfo{}, err
+	}
+	loadInfo.MiscStat,err=load.Misc()
+	if err!= nil{
+		return LoadAdvancedInfo{}, err
+	}
+	return loadInfo,err
+
+}
+
+func SysAdvancedDockerInfo()(DockerAdvancedInfo,error) {
+	var (
+		dockerinfo DockerAdvancedInfo
+		err error
+	)
+	dockerinfo.DockerIds,err= docker.GetDockerIDList()
+	if err!= nil{
+		return DockerAdvancedInfo{}, err
+	}
+	dockerinfo.DockerStats,err= docker.GetDockerStat()
+	if err!= nil{
+		return DockerAdvancedInfo{}, err
+	}
+	return dockerinfo,err
+}
+func SysAdvancedNetInfo(percpu bool)(NetAdvancedInfo,error) {
+	var (
+		netinfo NetAdvancedInfo
+		err error
+	)
+	netinfo.Pids,err = net.Pids()
+	if err != nil{
+		return NetAdvancedInfo{}, err
+	}
+	netinfo.ConnectionStats,err = net.ConntrackStats(percpu)
+	if err != nil{
+		return NetAdvancedInfo{}, err
+	}
+	netinfo.InterfacesStat,err = net.Interfaces()
+	if err != nil{
+		return NetAdvancedInfo{}, err
+	}
+
+	return netinfo,err
+}
+func SysAdvancedProcessInfo() (ProcessAdvancedInfo,error){
+	var (
+		processinfo ProcessAdvancedInfo
+		err error
+		)
+	processinfo.Pids,err = process.Pids()
+	if err!= nil{
+		return ProcessAdvancedInfo{}, err
+	}
+	processinfo.Processes,err = process.Processes()
+	if err!= nil{
+		return ProcessAdvancedInfo{}, err
+	}
+	return processinfo,err
+}
+
 func SysCpuInfo() ([]cpu.InfoStat,error){
 
 	return cpu.Info()
@@ -80,23 +226,11 @@ func SysCpuPercent(interval time.Duration,percpu bool)([]float64,error){
 }
 
 
-//硬盘
-func SysDiskInfo() {
 
-}
 
-func SysDockerInfo() {
 
-}
 
-func SysCommonInfo() {
 
-}
-
-//系统负载
-func SysLoadInfo() {
-
-}
 
 func SysMemInfo() (SysMemInformation, error) {
 	var (
@@ -127,9 +261,7 @@ func SysNetInfo() {
 
 }
 
-func SysProcessInfo() {
 
-}
 
 func SysWinServiecInfo() {
 
