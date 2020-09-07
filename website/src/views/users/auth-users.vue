@@ -40,46 +40,76 @@
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="用户创建时间" width="150px" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="用户信息" min-width="150px">
-        <template slot-scope="{row}">
-          <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
-          <el-tag>{{ row.type | typeFilter }}</el-tag>
-        </template>
-      </el-table-column>
       <el-table-column label="用户名" width="110px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.author }}</span>
+          <span>{{ row.username }}</span>
         </template>
       </el-table-column>
+      <el-table-column label="用户邮箱" width="180px" align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.email}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="UID" width="50px" align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.uid}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="GID" width="50px" align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.gid}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="用户创建时间" width="180px" align="center">
+      <template slot-scope="{row}">
+        <!--  <span>{{ row.created_at| parseTime('{y}-{m}-{d} {h}:{i}') }}</span>-->
+        <span>{{ row.created_at }}</span>
+      </template>
+    </el-table-column>
+      <el-table-column label="用户更新时间" width="180px" align="center">
+        <template slot-scope="{row}">
+          <!--  <span>{{ row.created_at| parseTime('{y}-{m}-{d} {h}:{i}') }}</span>-->
+          <span>{{ row.updated_at }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="用户登陆时间" width="180px" align="center">
+        <template slot-scope="{row}">
+          <!--  <span>{{ row.created_at| parseTime('{y}-{m}-{d} {h}:{i}') }}</span>-->
+          <span>{{ row.user_last_login }}</span>
+        </template>
+      </el-table-column>
+
+
       <el-table-column v-if="showReviewer" label="Reviewer" width="110px" align="center">
         <template slot-scope="{row}">
           <span style="color:red;">{{ row.reviewer }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Imp" width="80px">
+<!--      <el-table-column label="Imp" width="80px">
         <template slot-scope="{row}">
           <svg-icon v-for="n in + row.importance" :key="n" icon-class="star" class="meta-item__icon" />
         </template>
-      </el-table-column>
-      <el-table-column label="Readings" align="center" width="95">
+      </el-table-column>-->
+      <el-table-column label="用户密码" align="center" width="95">
         <template slot-scope="{row}">
-          <span v-if="row.pageviews" class="link-type" @click="handleFetchPv(row.pageviews)">{{ row.pageviews }}</span>
+          <span v-if="row.pageviews" class="link-type" @click="handleFetchPv(row.pageviews)">{{ row.password}}</span>
           <span v-else>0</span>
         </template>
       </el-table-column>
       <el-table-column label="用户状态" class-name="status-col" width="100">
         <template slot-scope="{row}">
-          <el-tag :type="row.status | statusFilter">
-            {{ row.status }}
+          <el-tag :type="row.user_status | statusFilter">
+            {{ row.user_status }}
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" width="230" class-name="small-padding fixed-width">
+      <el-table-column label="用户备注" min-width="50px">
+        <template slot-scope="{row}">
+          <span class="link-type" @click="handleUpdate(row)">{{ row.description }}</span>
+          <!--  &lt;!&ndash; <el-tag>{{ row.type | typeFilter }}</el-tag>&ndash;&gt;-->
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" align="center" width="350px" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
           <el-button type="primary" size="mini" @click="handleUpdate(row)">
             Edit
@@ -97,7 +127,7 @@
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="authusersGet" />
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="70px" style="width: 400px; margin-left:50px;">
@@ -235,7 +265,10 @@ export default {
     authusersGet() {
       this.listLoading = true
       authuserGet(this.listQuery).then(response => {
-        this.list = response.data.items
+        console.log("===>",response)
+//        this.list = response.data.items
+        this.list = response.spec
+
         this.total = response.total
 
         // Just to simulate the time of the request
@@ -246,7 +279,7 @@ export default {
     },
     handleFilter() {
       this.listQuery.page = 1
-      this.getList()
+      this.authusersGet()
     },
     handleModifyStatus(row, status) {
       this.$message({

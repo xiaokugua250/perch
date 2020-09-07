@@ -17,10 +17,50 @@ type SysMemInformation struct {
 	VirtaulMem mem.VirtualMemoryStat `json:"virtaul_mem"`
 }
 
+
+
+type HostAdvancedInfo struct {
+
+	KernelVersion string `json:"kernel_version"`
+	Platform string `json:"platform"`
+	Family string `json:"family"`
+	Version string `json:"version"`
+	Vituralization []string `json:"vituralization"`
+	InfoStat *host.InfoStat `json:"info_stat"`
+	BootTime uint64 `json:"boot_time"`
+	UpTime uint64 `json:"up_time"`
+	Temperature []host.TemperatureStat `json:"temperature"`
+	Users []host.UserStat `json:"users"`
+}
+type CpuAdvancedInfo struct {
+
+}
+type DiskAdvacedInfo struct {
+
+}
+
+type DockerAdvancedInfo struct {
+
+}
+
+type LoadAdvancedInfo struct {
+
+}
+type NetAdvancedInfo struct {
+
+}
+
+type ProcessAdvancedInfo struct {
+
+}
 func init() {
 	if runtime.GOOS == "windows" {
 		//todo
 	}
+}
+
+func SysAdvancedCpuInfo(logical,percpu bool){
+
 }
 func SysCpuInfo() ([]cpu.InfoStat,error){
 
@@ -95,30 +135,54 @@ func SysWinServiecInfo() {
 
 }
 
-type HostTimeInfo struct {
-	BootTime uint64 `json:"boot_time"`
-	UpTime uint64 `json:"up_time"`
-}
-func SysHostBootTimeInfo()(HostTimeInfo, error)  {
+func SysHostAdvancedInfo() (HostAdvancedInfo,error) {
 	var (
-		hosttime HostTimeInfo
+		advancedInfo HostAdvancedInfo
 		err error
 	)
-	hosttime.BootTime,err= host.BootTime()
+	advancedInfo.KernelVersion,err = host.KernelVersion()
 	if err!= nil{
-		return hosttime,err
+		return HostAdvancedInfo{},err
 	}
-	hosttime.UpTime ,err= host.Uptime()
+	advancedInfo.BootTime,err= host.BootTime()
 	if err!= nil{
-		return hosttime,err
+		return HostAdvancedInfo{},err
 	}
-	return hosttime,nil
+	advancedInfo.UpTime ,err= host.Uptime()
+	if err!= nil{
+		return HostAdvancedInfo{},err
+	}
+	advancedInfo.Platform,advancedInfo.Family,advancedInfo.Version,err = host.PlatformInformation()
+	if err!= nil{
+		return HostAdvancedInfo{},err
+	}
+	advancedInfo.InfoStat,err= host.Info()
+	if err!= nil{
+		return HostAdvancedInfo{},err
+	}
+	advancedInfo.Users,err= host.Users()
+	if err!= nil{
+		return HostAdvancedInfo{},err
+	}
+	advancedInfo.Temperature,err= host.SensorsTemperatures()
+	if err!= nil{
+		return HostAdvancedInfo{},err
+	}
+	var virtualizationArry []string
+	a,b,err:= host.Virtualization()
+	if err!= nil{
+		return HostAdvancedInfo{},err
+	}
+	virtualizationArry= append(virtualizationArry,a,b)
+	advancedInfo.Vituralization= virtualizationArry
 
+	return advancedInfo,err
 }
 
-func SysHostKernelVersionInfo() (version string, err error){
-	return host.KernelVersion()
-}
+
+
+
+
 
 func SysHostPlatformInfo()(platform string, family string, version string, err error){
 	return host.PlatformInformation()
@@ -140,4 +204,7 @@ func SysHostTemperatureStatInfo() ([]host.TemperatureStat, error){
 
 func SysHostUserInfo()([]host.UserStat, error){
 	return host.Users()
+}
+func SysHostKernelVersionInfo() (version string, err error){
+	return host.KernelVersion()
 }
