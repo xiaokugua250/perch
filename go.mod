@@ -8,6 +8,7 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gdamore/tcell v1.3.0
 	github.com/go-ole/go-ole v1.2.4 // indirect
+	github.com/gorilla/handlers v1.5.0
 
 	github.com/gorilla/mux v1.7.4
 	github.com/ipfs/go-cid v0.0.6

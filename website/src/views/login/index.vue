@@ -77,6 +77,7 @@
 import { validUsername } from '@/utils/validate'
 import SocialSign from './components/SocialSignin'
 
+
 export default {
   name: 'Login',
   components: { SocialSign },

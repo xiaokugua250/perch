@@ -34,9 +34,10 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
+        const { data } = response.spec
+        console.log("====",response,response.spec)
+        commit('SET_TOKEN', response.spec.token)
+        setToken(response.spec.token)
         resolve()
       }).catch(error => {
         reject(error)
@@ -48,9 +49,12 @@ const actions = {
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
-        const { data } = response
-
-        if (!data) {
+       // const { data } = response.spec
+        console.log("===?",response.spec,response.code)
+        if (response.code != 200) {
+          reject('Verification failed, please Login again.')
+        }
+     /*   if (!data) {
           reject('Verification failed, please Login again.')
         }
 
@@ -59,13 +63,16 @@ const actions = {
         // roles must be a non-empty array
         if (!roles || roles.length <= 0) {
           reject('getInfo: roles must be a non-null array!')
-        }
-
-        commit('SET_ROLES', roles)
+        }*/
+        commit('SET_ROLES', response.spec.roles)
+        commit('SET_NAME', response.spec.name)
+        commit('SET_AVATAR', response.spec.avatar)
+        commit('SET_INTRODUCTION', response.spec.introduction)
+   /*     commit('SET_ROLES', roles)
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
-        commit('SET_INTRODUCTION', introduction)
-        resolve(data)
+        commit('SET_INTRODUCTION', introduction)*/
+        resolve(response.spec)
       }).catch(error => {
         reject(error)
       })

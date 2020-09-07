@@ -4,7 +4,7 @@ type BaseReponse struct {
 	Message string `json:"message"`
 	Kind    string `json:"kind"`
 	Code    int    `json:"code"`
-	Total   int    `json:"total"`
+	Total   int64    `json:"total"`
 }
 type ResultReponse struct {
 	BaseReponse

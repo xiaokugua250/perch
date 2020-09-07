@@ -14,7 +14,7 @@ const userRouter = {
   children: [
     {
       path: 'users',
-      component: () => import('@/views/users/complex-table'),
+      component: () => import('@/views/users/auth-users'),
       name: 'users',
       meta: { title: '平台用户' }
     },

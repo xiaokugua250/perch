@@ -2,12 +2,12 @@ package service
 
 import (
 	"context"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
-	"perch/web/middleware"
 	"syscall"
 	"time"
 )
@@ -50,9 +50,9 @@ func (webservice WebService) WebServiceInit() {
 
 func (webservice WebService) WebServiceGenRouter() *mux.Router {
 	router := mux.NewRouter()
-	router.Use(middleware.CROSMiddleware)
+/*	router.Use(middleware.CROSMiddleware)
 	router.Use(middleware.MetricMiddleWare)
-	router.Use(middleware.LoggingMiddleware)
+	router.Use(middleware.LoggingMiddleware)*/
 	for _, r := range webservice.Router {
 		if r.RouterPathPrefiex {
 			router.Methods(r.RouterMethod).PathPrefix(r.RouterPath).Path(r.RouterPath).HandlerFunc(r.RouterHandlerFunc)
@@ -71,7 +71,11 @@ func (webservice WebService) WebServiceStart() {
 	// 设置和启动服务
 	server := &http.Server{
 		Addr:         httpAddr,
-		Handler:      webservice.WebServiceGenRouter(),
+		Handler:     handlers.CORS(
+			handlers.AllowedHeaders([]string{"*"}),
+			handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS","PATCH"}),
+			handlers.AllowedHeaders([]string{"X-Requested-With", "Authorization", "Content-Type", "Cache-Control","x-token", "ETag", "TIMEOUT", "DEADLINE", "content-range"}),
+		)(webservice.WebServiceGenRouter()),
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  time.Second * 15,
 		IdleTimeout:  time.Second * 60,

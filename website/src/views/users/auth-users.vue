@@ -148,6 +148,7 @@
 
 <script>
 import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
+import {authuserGet,authuserUpdate,authuserDelete,authuserCreate} from '@/api/user'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
@@ -227,14 +228,15 @@ export default {
     }
   },
   created() {
-    this.getList()
+    //this.getList()
+    this.authusersGet()
   },
   methods: {
-    getList() {
+    authusersGet() {
       this.listLoading = true
-      fetchList(this.listQuery).then(response => {
+      authuserGet(this.listQuery).then(response => {
         this.list = response.data.items
-        this.total = response.data.total
+        this.total = response.total
 
         // Just to simulate the time of the request
         setTimeout(() => {

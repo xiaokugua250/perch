@@ -27,6 +27,11 @@ func PlatAuthUsersGetHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
+		if err = database.MySQL_DB.Model(&model.AuthUser{}).Count(&response.Total).Error;err!= nil{
+			response.Code = http.StatusInternalServerError
+			response.Message = err.Error()
+			return err
+		}
 		response.Code = http.StatusOK
 		response.Spec =user
 		response.Message = " get auth users successfully"
@@ -48,7 +53,6 @@ func PlatAuthUserUpdateHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 		response.Kind = "auth user"
-
 		userID,err = strconv.Atoi(mux.Vars(r)["id"])
 		if err!= nil{
 			response.Code= http.StatusBadRequest
