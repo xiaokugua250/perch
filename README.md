@@ -8,7 +8,9 @@ Golang Code And Others
 *  [gopsutils](https://github.com/shirou/gopsutil)
 * [gorm ](https://github.com/go-gorm/gorm)
 ### 前端
-本项目前端采用vue.js,具体框架采用[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin),对原作者[PanJiaChen](https://github.com/PanJiaChen)表示感谢
+本项目前端采用vue.js,具体框架采用[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin),对原作者[PanJiaChen](https://github.com/PanJiaChen)表示感谢.  
+前端涉及到的数据包有  
+* [datav](http://datav.jiaminghi.com/guide/) 进行数据可视化
 
 ## 已完成
 
@@ -17,7 +19,8 @@ Golang Code And Others
 * [ ] web 框架调整和优化
     * [ ] 日志功能
     * [ ] Error错误处理
-    * [ ] web配置文件解析
+    * [x] web配置文件解析
+      * go-yaml进行配置文件的解析
 ## TODO
 * [ ] golang 配置文件解析
 * [ ] Linux 监控服务API开发
