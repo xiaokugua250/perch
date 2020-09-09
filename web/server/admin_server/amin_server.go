@@ -10,7 +10,7 @@ import (
 func main() {
 	service.WebService{
 
-		Name: "PEX_ADMIN",
+		Name: "plat-admin",
 
 		Router: []service.WebRouter{
 			{RouterPath: "/user/login", RouterHandlerFunc: admin.PlatLoginHandler, RouterMethod: http.MethodPost},

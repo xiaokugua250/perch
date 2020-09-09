@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"perch/pkg/general/config"
+	"strconv"
 	"syscall"
 	"time"
 )
@@ -40,6 +42,10 @@ func GeneralCleanFunc() error {
 }
 
 func (webservice WebService) WebServiceInit() {
+	err := config.InitGenWebConfig(webservice.Name)
+	if err!= nil{
+		log.Fatalln(err)
+	}
 	for _, initFunc := range webservice.InitFunc {
 		err := initFunc()
 		if err != nil {
@@ -64,7 +70,7 @@ func (webservice WebService) WebServiceGenRouter() *mux.Router {
 }
 func (webservice WebService) WebServiceStart() {
 	webservice.WebServiceInit()
-	httpAddr := "0.0.0.0:8081"
+	httpAddr := config.WebServiceConfig.WebConfig.ServerIP+":"+strconv.Itoa(config.WebServiceConfig.WebConfig.ServerPort)
 
 	log.Println(webservice.Name + " service starting...")
 	log.Println("service listening on：http://" + httpAddr)

@@ -29,6 +29,7 @@ require (
 	github.com/multiformats/go-multiaddr-net v0.1.5
 	github.com/multiformats/go-multibase v0.0.3
 	github.com/multiformats/go-multihash v0.0.13
+	github.com/pkg/errors v0.9.1
 	github.com/rivo/tview v0.0.0-20200528200248-fe953220389f
 	github.com/shirou/gopsutil v2.20.8+incompatible
 	github.com/sirupsen/logrus v1.6.0
