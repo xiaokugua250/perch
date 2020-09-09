@@ -60,7 +60,7 @@
       </el-col>
       <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-8>   <dv-active-ring-chart :config="config" style="width:300px;height:300px" /></dv-border-box-8></div></el-col>
       <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-9>   <dv-active-ring-chart :config="config" style="width:300px;height:300px" /></dv-border-box-9></div></el-col>
-      <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-11 title="dv-border-box-11">   <dv-active-ring-chart :config="config" style="width:300px;height:300px" /></dv-border-box-11></div></el-col>
+      <el-col :span="6"><div >  <dv-charts :option="option" /></div></el-col>
     </el-row>
     <el-row :gutter="20">
       <el-col :span="6"><div class="grid-content bg-purple">
@@ -73,6 +73,7 @@
       <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-9>   <dv-active-ring-chart :config="config" style="width:300px;height:300px" /></dv-border-box-9></div></el-col>
       <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-11 title="dv-border-box-11">   <dv-active-ring-chart :config="config" style="width:300px;height:300px" /></dv-border-box-11></div></el-col>
     </el-row>
+
   </div>
 </template>
 
@@ -125,7 +126,34 @@ export default {
         number: [10],
         toFixed: 2,
         content: '{nt}个'
-    }
+    },
+      option:{
+        title: {
+          text: '剩余油量表',
+          style: {
+            fill: '#fff'
+          }
+        },
+        series: [
+          {
+            type: 'gauge',
+            data: [ { name: 'itemA', value: 55 } ],
+            center: ['50%', '55%'],
+            axisLabel: {
+              formatter: '{value}%',
+              style: {
+                fill: '#fff'
+              }
+            },
+            axisTick: {
+              style: {
+                stroke: '#fff'
+              }
+            },
+            animationCurve: 'easeInOutBack'
+          }
+        ]
+      }
     }
   },
   watch: {
