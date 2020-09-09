@@ -17,6 +17,8 @@ import router from './router'
 import './icons' // icon
 import './permission' // permission control
 import './utils/error-log' // error log
+import dataV from '@jiaminghi/data-view'
+
 
 import * as filters from './filters' // global filters
 
@@ -32,7 +34,7 @@ if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')
   mockXHR()
 }
-
+Vue.use(dataV)
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size
   locale: enLang // 如果使用中文，无需设置，请删除
