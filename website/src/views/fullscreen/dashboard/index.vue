@@ -4,16 +4,75 @@
     <el-row :gutter="20">
       <el-col :span="6"><div class="grid-content bg-purple">
         <dv-border-box-1>
+          <dv-digital-flop :config="config_digital_flop" style="width:100px;height:50px; margin-left: 20%" />
+          <dv-digital-flop :config="config_digital_flop" style="width:100px;height:50px; margin-left: 20%" />
+          <dv-digital-flop :config="config_digital_flop" style="width:100px;height:50px; margin-left: 20%" />
+          <dv-digital-flop :config="config_digital_flop" style="width:100px;height:50px; margin-left: 20%" />
+          <dv-digital-flop :config="config_digital_flop" style="width:100px;height:50px; margin-left: 20%" />
+          <dv-digital-flop :config="config_digital_flop" style="width:100px;height:50px; margin-left: 20%" />
+        </dv-border-box-1>
+      </div>
+      </el-col>
+      <el-col :span="6"><div class="grid-content bg-purple">
+        <dv-border-box-8>
+          <dv-active-ring-chart :config="config" style="width:300px;height:300px" />
+        </dv-border-box-8>
+      </div></el-col>
+      <el-col :span="6"><div class="grid-content bg-purple">
+        <dv-border-box-9>
+          <dv-active-ring-chart :config="config" style="width:300px;height:300px" />
+        </dv-border-box-9>
+      </div></el-col>
+      <el-col :span="6"><div class="grid-content bg-purple">
+        <dv-border-box-1>
+          <dv-percent-pond :config="config" style="width:200px;height:100px;" />
+        </dv-border-box-1>
+      </div></el-col>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col :span="6"><div class="grid-content bg-purple">
+        <dv-border-box-1>
           <dv-active-ring-chart :config="config" style="width:300px;height:300px" />
         </dv-border-box-1>
       </div>
       </el-col>
-      <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-8>dv-border-box-8</dv-border-box-8></div></el-col>
-      <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-9>dv-border-box-9</dv-border-box-9></div></el-col>
-      <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-11 title="dv-border-box-11">dv-border-box-11</dv-border-box-11></div></el-col>
+      <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-8>   <dv-active-ring-chart :config="config" style="width:300px;height:300px" /></dv-border-box-8></div></el-col>
+      <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-9>   <dv-active-ring-chart :config="config" style="width:300px;height:300px" /></dv-border-box-9></div></el-col>
+      <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-11 title="dv-border-box-11">   <dv-active-ring-chart :config="config" style="width:300px;height:300px" /></dv-border-box-11></div></el-col>
     </el-row>
-
-
+    <el-row :gutter="20">
+      <el-col :span="6"><div class="grid-content bg-purple">
+        <dv-border-box-1>
+          <dv-active-ring-chart :config="config" style="width:300px;height:300px" />
+        </dv-border-box-1>
+      </div>
+      </el-col>
+      <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-8>   <dv-active-ring-chart :config="config" style="width:300px;height:300px" /></dv-border-box-8></div></el-col>
+      <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-9>   <dv-active-ring-chart :config="config" style="width:300px;height:300px" /></dv-border-box-9></div></el-col>
+      <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-11 title="dv-border-box-11">   <dv-active-ring-chart :config="config" style="width:300px;height:300px" /></dv-border-box-11></div></el-col>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col :span="6"><div class="grid-content bg-purple">
+        <dv-border-box-1>
+          <dv-active-ring-chart :config="config" style="width:300px;height:300px" />
+        </dv-border-box-1>
+      </div>
+      </el-col>
+      <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-8>   <dv-active-ring-chart :config="config" style="width:300px;height:300px" /></dv-border-box-8></div></el-col>
+      <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-9>   <dv-active-ring-chart :config="config" style="width:300px;height:300px" /></dv-border-box-9></div></el-col>
+      <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-11 title="dv-border-box-11">   <dv-active-ring-chart :config="config" style="width:300px;height:300px" /></dv-border-box-11></div></el-col>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col :span="6"><div class="grid-content bg-purple">
+        <dv-border-box-1>
+          <dv-active-ring-chart :config="config" style="width:300px;height:300px" />
+        </dv-border-box-1>
+      </div>
+      </el-col>
+      <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-8>   <dv-active-ring-chart :config="config" style="width:300px;height:300px" /></dv-border-box-8></div></el-col>
+      <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-9>   <dv-active-ring-chart :config="config" style="width:300px;height:300px" /></dv-border-box-9></div></el-col>
+      <el-col :span="6"><div class="grid-content bg-purple"><dv-border-box-11 title="dv-border-box-11">   <dv-active-ring-chart :config="config" style="width:300px;height:300px" /></dv-border-box-11></div></el-col>
+    </el-row>
   </div>
 </template>
 
@@ -61,7 +120,12 @@ export default {
             value: 80
           }
         ]
-      }
+      },
+      config_digital_flop:{
+        number: [10],
+        toFixed: 2,
+        content: '{nt}个'
+    }
     }
   },
   watch: {
@@ -98,7 +162,7 @@ export default {
 </style>
 <style>
   .bg{
-    background-image: url("../../../assets/images/fullscreen/pageBg.png");
+    background-image: url("../../../assets/images/fullscreen/star-background.jpg");
   }
 
 </style>
