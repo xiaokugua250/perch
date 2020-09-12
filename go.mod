@@ -39,5 +39,5 @@ require (
 	golang.org/x/tools v0.0.0-20200708183856-df98bc6d456c // indirect
 	gopkg.in/yaml.v2 v2.2.4
 	gorm.io/driver/mysql v1.0.1
-	gorm.io/gorm v1.20.0
+	gorm.io/gorm v1.9.19
 )

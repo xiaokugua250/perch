@@ -17,5 +17,6 @@ func InitMySQLDB() error {
 		err error
 	)
 	MySQL_DB, err = gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
+
 	return err
 }

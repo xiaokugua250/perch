@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"perch/web/model"
-
+	rbac "perch/web/model/rbac"
 	"time"
 )
 
@@ -14,7 +14,7 @@ const (
 	TOKEN_EXPIRE_TIME      = 12
 )
 
-func GenJwtToken(user model.AuthUser) (string, error) {
+func GenJwtToken(user rbac.AuthUser) (string, error) {
 	claims := model.PEXToken{
 		UserID:   user.ID,
 		UserName: user.UserName,

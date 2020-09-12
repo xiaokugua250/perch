@@ -4,20 +4,20 @@ import (
 	"context"
 	"encoding/json"
 	_ "fmt"
+	"net/http"
+	"net/url"
 	database "perch/database/mysql"
 	"perch/web/auth"
 	"perch/web/metric"
 	"perch/web/model"
-
-	"net/http"
-	"net/url"
+	rbac "perch/web/model/rbac"
 )
 
 func PlatLoginHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
 		var (
-			user        model.AuthUser
-			currentUser model.AuthUser
+			user        rbac.AuthUser
+			currentUser rbac.AuthUser
 			err         error
 		)
 		response.Kind = "user"
@@ -53,8 +53,8 @@ func PlatLoginHandler(w http.ResponseWriter, r *http.Request) {
 func PlatLoginGenTokenHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
 		var (
-			user        model.AuthUser
-			currentUser model.AuthUser
+			user        rbac.AuthUser
+			currentUser rbac.AuthUser
 			err         error
 		)
 		response.Kind = "user token"
