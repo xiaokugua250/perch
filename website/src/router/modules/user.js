@@ -19,6 +19,12 @@ const userRouter = {
       meta: { title: '平台用户' }
     },
     {
+      path: 'index',
+      component: () => import('@/views/users/rbac/index'),
+      name: 'rbac',
+      meta: { title: '用户权限' }
+    },
+    {
       path: 'dynamic-table',
       component: () => import('@/views/table/dynamic-table/index'),
       name: 'DynamicTable',

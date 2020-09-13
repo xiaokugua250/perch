@@ -111,6 +111,19 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/search',
+    component: Layout,
+    redirect: '/search/index',
+    children: [
+      {
+        path: 'search',
+        component: () => import('@/views/search/index'),
+        name: 'Search',
+        meta: { title: 'Search', icon: 'search', noCache: true }
+      }
+    ]
+  },
+  {
     path: '/profile',
     component: Layout,
     redirect: '/profile/index',
