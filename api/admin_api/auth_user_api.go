@@ -67,7 +67,7 @@ func PlatSpecAuthUserGetHandler(w http.ResponseWriter, r *http.Request) {
 	//	subQuery := database.MySQL_DB.Table("auth_rbac_user_roles").Select("role_id").Where("user_id=?",userID)
 		subQuery:= database.MySQL_DB.Model(rbac.AuthRBACUserRoles{}).Select("role_id").Where("user_id=?",userID)
 
-		if err = database.MySQL_DB.Model(rbac.AuthUserRoles{}).Where("id in ?",subQuery).Find(&userRoles).Error;err!= nil{
+		if err = database.MySQL_DB.Where("id in (?)",subQuery).Find(&userRoles).Error;err!= nil{
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec =nil

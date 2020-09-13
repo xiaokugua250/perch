@@ -25,6 +25,7 @@ require (
 	github.com/libp2p/go-tcp-transport v0.2.0
 	github.com/libp2p/go-ws-transport v0.3.1
 	github.com/libp2p/go-yamux v1.3.7
+	github.com/mattn/go-sqlite3 v1.14.3 // indirect
 	github.com/multiformats/go-multiaddr v0.2.2
 	github.com/multiformats/go-multiaddr-net v0.1.5
 	github.com/multiformats/go-multibase v0.0.3
@@ -39,5 +40,6 @@ require (
 	golang.org/x/tools v0.0.0-20200708183856-df98bc6d456c // indirect
 	gopkg.in/yaml.v2 v2.2.4
 	gorm.io/driver/mysql v1.0.1
-	gorm.io/gorm v1.9.19
+	gorm.io/driver/sqlite v1.1.2 // indirect
+	gorm.io/gorm v1.20.1
 )
