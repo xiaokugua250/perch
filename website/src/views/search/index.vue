@@ -13,12 +13,12 @@
         <el-col :span="24">
           <div class="grid-content ">
             <div style="margin-top: 15px; ">
-              <el-input v-model="dchub_image_model" class="input-with-select" placeholder="请输入搜索条件" @keyup.enter.native="SerchDchubImagesInfo()">
-                <el-select slot="prepend" v-model="dchub_image_select_options" placeholder="请选择" style="width: 200px">
+              <el-input v-model="search_model" class="input-with-select" placeholder="请输入搜索条件" @keyup.enter.native="Search()">
+                <el-select slot="prepend" v-model="select_options" placeholder="请选择" style="width: 200px">
                   <el-option label="文本搜索" value="name"></el-option>
                   <el-option label="图片搜索" value="app_name"></el-option>
                 </el-select>
-                <el-button slot="append" icon="el-icon-search" @click="SerchDchubImagesInfo()"></el-button>
+                <el-button slot="append" icon="el-icon-search" @click="Search()"></el-button>
               </el-input>
             </div>
 
@@ -26,21 +26,21 @@
             </div>
             <div>
               <el-row :gutter="20">
-                <el-col v-for="(image, index) in dchub_images" :key="index" :md="9" :lg="7" :xl="6">
+                <el-col v-for="(image, index) in images" :key="index" :md="9" :lg="7" :xl="6">
                   <el-card
                     :body-style="{ padding: '0px' }"
                     class="dchub_image_card"
                     style="width: 350px"
                   >
-                    <div style="cursor: pointer;display: inline-flex;" class="img" @click="DchubSpecImageGet(image.id)">
+                    <div style="cursor: pointer;display: inline-flex;" class="img" @click="SpecImageGet(image.id)">
                       <div style="width: 50%;">
                         <img v-if="image.icon_uuid" width="100" height="100" style="display: block;margin: auto" :src="getImg(image.icon_uuid)" />
 
                       </div>
                       <div style="width: 50%;">
-                        <el-tag style="height: 30px;width: 180px;display: block;margin: auto;margin-bottom: 10px;margin-top: 5%;">镜像名称:&nbsp;&nbsp;&nbsp;{{ getName(image.name) }}</el-tag>
+                        <el-tag style="height: 30px;width: 180px;display: block;margin: auto;margin-bottom: 10px;margin-top: 5%;">名称:&nbsp;&nbsp;&nbsp;{{ getName(image.name) }}</el-tag>
                         <el-tag style="height: 30px;width: 180px;display: block;margin: auto;margin-bottom: 10px;margin-top: 5%;">是否公开:&nbsp;&nbsp;&nbsp;<span v-if="image.is_public ===true">公开镜像</span><span v-else>私有镜像</span></el-tag>
-                        <el-tag style="height: 30px;width: 180px;display: block;margin: auto;margin-bottom: 10px;margin-top: 5%;">镜像名称:&nbsp;&nbsp;&nbsp;{{ calculate(image.size) }}</el-tag>
+                        <el-tag style="height: 30px;width: 180px;display: block;margin: auto;margin-bottom: 10px;margin-top: 5%;">名称:&nbsp;&nbsp;&nbsp;{{ calculate(image.size) }}</el-tag>
                       </div>
                     </div>
                   </el-card>

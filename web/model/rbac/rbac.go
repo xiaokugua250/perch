@@ -51,6 +51,7 @@ func (AuthRBACRoles) TableName() string {
 type AuthRBACPermissions struct {
 	ID              int       `json:"id" gorm:"column:id;type:int(11);not null;primary_key"`
 	PermissionName        string    `json:"permission_name" gorm:"column:permission_name;type:varchar(128);not null"`
+	PermissionCode      int   `json:"permission_code" gorm:"column:permission_code;type:int(11);not null"`
 	PermissionCreatedAt   time.Time `json:"created_at" gorm:"column:created_at;type:bigint(20);not null"`
 	PermissionUpdatedAt   time.Time `json:"updated_at" gorm:"column:updated_at;type:bigint(20);not null"`
 
