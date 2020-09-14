@@ -49,7 +49,7 @@
               </el-row>
               <br />
               <el-row :gutter="20" style="text-align:center">
-                <el-pagination
+                <el-paginationl
                   v-if="total >=12"
                   :current-page="listQuery.page"
                   :page-size="listQuery.limit"
