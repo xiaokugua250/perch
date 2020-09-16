@@ -4,7 +4,28 @@
 
     <panel-group @handleSetLineChartData="handleSetLineChartData" />
     <el-row :gutter="20">
-    <el-col :span="6">
+      <el-col v-for="(image, index) in 8" :key="index" :md="9" :lg="7" :xl="6">
+   <!--   <el-col v-for="(image, index) in dchub_images" :key="index" :md="9" :lg="7" :xl="6">-->
+        <el-card
+          :body-style="{ padding: '0px' }"
+          class="dchub_image_card"
+          style="width: 350px"
+        >
+          <div style="cursor: pointer;display: inline-flex;" class="img" @click="DchubSpecImageGet(image.id)">
+            <div style="width: 50%;">
+              <img v-if="image.icon_uuid" width="100" height="100" style="display: block;margin: auto" :src="getImg(image.icon_uuid)" />
+              <img v-else width="100" height="100" style="display: block;margin: auto" src="../../../assets/images/dashboard/programming.png" />
+            </div>
+            <div style="width: 50%;">
+              <el-tag  class="card_left" >标题:&nbsp;&nbsp;&nbsp;<!--{{ 11 }}--></el-tag>
+              <el-tag style="height: 30px;width: 180px;display: block;margin: auto;margin-bottom: 10px;margin-top: 2%;">领域:&nbsp;&nbsp;&nbsp;<span v-if="image.is_public ===true">公开镜像</span><span v-else>私有镜像</span></el-tag>
+              <el-tag style="height: 30px;width: 180px;display: block;margin: auto;margin-bottom: 10px;margin-top: 2%;">日期:&nbsp;&nbsp;&nbsp;<span v-if="image.is_public ===true">公开镜像</span><span v-else>私有镜像</span></el-tag>
+              <el-tag style="height: 30px;width: 180px;display: block;margin: auto;margin-bottom: 10px;margin-top: 2%;">详情链接:&nbsp;&nbsp;&nbsp;<!--{{ calculate(image.size) }}--></el-tag>
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+<!--    <el-col :span="6">
       <div class="chart-wrapper">
 
         <div slot="header" class="clearfix">
@@ -53,7 +74,7 @@
         {{'列表内容 ' + o }}
       </div>
 
-      <!--   <el-card class="box-card">
+      &lt;!&ndash;   <el-card class="box-card">
            <div slot="header" class="clearfix">
              <span>卡片名称</span>
              <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
@@ -61,11 +82,11 @@
            <div v-for="o in 4" :key="o" class="text item">
              {{'列表内容 ' + o }}
            </div>
-         </el-card>-->
-    </div></el-col>
+         </el-card>&ndash;&gt;
+    </div></el-col>-->
 
   </el-row>
-    <el-row :gutter="20">
+ <!--   <el-row :gutter="20">
       <el-col :span="6">
         <div class="chart-wrapper">
 
@@ -115,7 +136,7 @@
           {{'列表内容 ' + o }}
         </div>
 
-        <!--   <el-card class="box-card">
+        &lt;!&ndash;   <el-card class="box-card">
              <div slot="header" class="clearfix">
                <span>卡片名称</span>
                <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
@@ -123,11 +144,11 @@
              <div v-for="o in 4" :key="o" class="text item">
                {{'列表内容 ' + o }}
              </div>
-           </el-card>-->
+           </el-card>&ndash;&gt;
       </div></el-col>
 
-    </el-row>
-    <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
+    </el-row>-->
+    <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;margin-top: 1%">
       <line-chart :chart-data="lineChartData" />
     </el-row>
 
@@ -174,6 +195,8 @@ import TransactionTable from './components/TransactionTable'
 import TodoList from './components/TodoList'
 import BoxCard from './components/BoxCard'
 
+import { getResourceArticles} from '@/api/resources-articles'
+
 const lineChartData = {
   newVisitis: {
     expectedData: [100, 120, 161, 134, 105, 160, 165],
@@ -208,13 +231,33 @@ export default {
   },
   data() {
     return {
-      lineChartData: lineChartData.newVisitis
+      lineChartData: lineChartData.newVisitis,
+      resourceArticles:[]
     }
+  },
+  mounted() {
+    //this.getList()
+    this.resourceArticlesGet()
   },
   methods: {
     handleSetLineChartData(type) {
       this.lineChartData = lineChartData[type]
-    }
+    },
+    resourceArticlesGet() {
+      this.listLoading = true
+      getResourceArticles(this.listQuery).then(response => {
+
+//        this.list = response.data.items
+        this.resourceArticles= response.spec
+
+        this.total = response.total
+
+        // Just to simulate the time of the request
+        setTimeout(() => {
+          this.listLoading = false
+        }, 1.5 * 1000)
+      })
+    },
   }
 }
 </script>
@@ -238,10 +281,41 @@ export default {
     margin-bottom: 32px;
   }
 }
+.card_left{
+  height: 30px;width: 180px;display: block;margin: auto;margin-bottom: 10px;margin-top: 5%;
+}
+
+.dchub_image_card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  /* -webkit-box-align: center; */
+  -ms-flex-align: center;
+  align-items: center;
+  height: 170px;
+  margin-top: 10px;
+  .img {
+    transition: all 0.2s linear;
+    &:hover {
+      transform: scale(1.1, 1.1);
+    }
+  }
+}
+
+.dchub-image {
+  max-width: 100px;
+  max-height: 100px;
+  margin-top: 30%;
+  display: block;
+  margin-left: 10px;
+  margin-right: auto;
+
+}
 
 @media (max-width:1024px) {
   .chart-wrapper {
     padding: 8px;
   }
+
 }
 </style>

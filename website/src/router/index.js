@@ -256,7 +256,7 @@ export const asyncRoutes = [
     children: [
       {
         path: 'index',
-        component: () => import('@/views/sys-admin/index'),
+        component: () => import('@/views/sys-admin/resource/index'),
         name: 'Tab',
         meta: { title: 'Sys admin', icon: 'sysadmin' }
       }
