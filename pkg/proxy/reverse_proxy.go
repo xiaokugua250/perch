@@ -68,7 +68,9 @@ func NewMultipleHostsReverseProxy(targets map[string]*url.URL) *httputil.Reverse
 			if target != nil{
 				req.URL.Scheme = target.Scheme
 				req.URL.Host = target.Host
-				req.URL.Path = target.String()+strings.Split(req.URL.Path,prefix)[1:][0]
+
+//				req.URL.Path = target.String()+strings.Split(req.URL.Path,prefix)[1:][0]
+				req.URL.Path = target.String()+strings.TrimPrefix(req.URL.Path,"/"+prefix)
 				// 拼接转发URL demo :127.0.0.1:9090/plat-resources/resources/articles -->127.0.0.1:8082/resources/articles
 
 			}

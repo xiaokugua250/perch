@@ -30,11 +30,13 @@ require (
 	github.com/multiformats/go-multiaddr-net v0.1.5
 	github.com/multiformats/go-multibase v0.0.3
 	github.com/multiformats/go-multihash v0.0.13
+	github.com/opentracing/opentracing-go v1.1.0
 	github.com/pkg/errors v0.9.1
 	github.com/rivo/tview v0.0.0-20200528200248-fe953220389f
 	github.com/shirou/gopsutil v2.20.8+incompatible
 	github.com/sirupsen/logrus v1.6.0
 	github.com/urfave/cli/v2 v2.2.0
+	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
 	golang.org/x/net v0.0.0-20200707034311-ab3426394381 // indirect
 	golang.org/x/tools v0.0.0-20200708183856-df98bc6d456c // indirect

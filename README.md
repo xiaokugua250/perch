@@ -26,6 +26,8 @@ Golang Code And Others
 * [ ] Linux 监控服务API开发
 * [ ] 前端开发
 * [ ] 用户管理与RBAC
+* [ ] golang 代理服务
+ *[ ] ssh /tcp 代理，多层代理
 
 项目布局参考:  
 https://github.com/golang-standards/project-layout
