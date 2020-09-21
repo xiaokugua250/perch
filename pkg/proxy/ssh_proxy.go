@@ -1,5 +1,6 @@
 /**
 golang 反向代理
+ref: https://go.googlesource.com/crypto/+/master/ssh/client_auth_test.go
 */
 package proxy
 
@@ -45,7 +46,7 @@ func NewSSHProxy(target SSHPrxoyTarget,config SSHProxyConnectConfig)(*ssh.Client
 				fmt.Printf("Got question: %s\n", q)
 				answers[n] = "XHThIKYQ7dXG3jG5q7U="
 			}
-			pwIdx++
+
 
 
 			return answers, nil
