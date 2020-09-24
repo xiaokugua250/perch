@@ -22,6 +22,9 @@ type SSHProxyConnectConfig struct {
 	IdRSA string `json:"id_rsa"` //私钥
 }
 
+
+
+
 /**
 针对单个URL的反向代理
  */

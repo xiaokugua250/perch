@@ -1,10 +1,8 @@
 package main
 
 import (
-
 	"fmt"
 	"golang.org/x/crypto/ssh/terminal"
-
 	"io/ioutil"
 	"net"
 
@@ -43,16 +41,33 @@ func main() {
 	if err != nil {
 		log.Fatal("Failed to parse private key")
 	}
-	config.PasswordCallback= func(conn ssh.ConnMetadata, password []byte) (permissions *ssh.Permissions, e error) {
+/*	config.PasswordCallback= func(conn ssh.ConnMetadata, password []byte) (permissions *ssh.Permissions, e error) {
 		fmt.Println(conn.User(),string(password))
 		if conn.User()== "duliang" && string(password)=="duliang"{
 			return nil,nil
 		}
 		return nil, fmt.Errorf("password rejected for %q", conn.User())
 
-	}
+	}*/
 	config.KeyboardInteractiveCallback= func(conn ssh.ConnMetadata, client ssh.KeyboardInteractiveChallenge) (permissions *ssh.Permissions, e error) {
-		client(conn.User(),"s---",[]string{"\n welcome to login serer"},[]bool{false})
+		loginUser := conn.User()
+		ans, err := client("", "", []string{"Server: ","username:","password"}, []bool{true,true,true})
+		if err!= nil{
+			log.Println(err)
+		}
+		fmt.Println(ans,loginUser)
+
+		return nil,nil
+	}
+	config.PublicKeyCallback= func(conn ssh.ConnMetadata, key ssh.PublicKey) (permissions *ssh.Permissions, e error) {
+		var privatekey []byte
+			signers,err := ssh.ParsePrivateKey(privatekey)
+			if err!= nil{
+				log.Println(e)
+			}
+			if string(signers.PublicKey().Marshal())==string(key.Marshal()){
+
+			}
 		return nil,nil
 	}
 	config.MaxAuthTries  =5
