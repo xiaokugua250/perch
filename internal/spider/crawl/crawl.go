@@ -13,6 +13,9 @@
 我们已经通过将任务分配到不同节点执行实现了分布式。但部分数据，比如 cookies、访问的 url 记录等，在节点之间需要共享。默认情况下，这些数据是保存内存中的，只能是每个 collector 独享一份数据。
 我们可以通过将数据保存至 redis、mongo 等存储中，实现节点间的数据共享。colly 支持在任何存储间切换，只要相应存储实现 colly/storage.Storage 接口中的方法。
 其实，colly 已经内置了部分 storage 的实现，查看 storage。下一节也会谈到这个话题。
+
+useragent 信息可以参考 https://developers.whatismybrowser.com/useragents/database/
+https://blog.hartleybrody.com/scrape-amazon/#code
  */
 package crawl
 
