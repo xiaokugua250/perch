@@ -1,12 +1,12 @@
 /**
 html 页面元素的解析器
 ref https://github.com/PuerkitoBio/goquery
- */
+*/
 package anaysis
 
 type SpiderAnaysier interface {
+	SpiderParser(selector interface{}) (interface{}, error)
 }
-
 
 /**
 html dom 元素解析
