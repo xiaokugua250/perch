@@ -1,0 +1,90 @@
+version: "3.8"
+
+services:
+  wordpress:
+    image: wordpress
+    ports:
+      - "8080:80"
+    networks:
+      - overlay
+    deploy:
+      mode: replicated
+      replicas: 2
+      endpoint_mode: vip
+
+  mysql:
+    image: mysql
+    volumes:
+      - db-data:/var/lib/mysql/data
+    networks:
+      - overlay
+    deploy:
+      mode: replicated
+      replicas: 2
+      endpoint_mode: dnsrr
+  redis:
+    image: mysql
+    volumes:
+      - db-data:/var/lib/mysql/data
+    networks:
+      - overlay
+    deploy:
+      mode: replicated
+      replicas: 2
+      endpoint_mode: dnsrr
+  nginx:
+    image: mysql
+    volumes:
+      - db-data:/var/lib/mysql/data
+    networks:
+      - overlay
+    deploy:
+      mode: replicated
+      replicas: 2
+      endpoint_mode: dnsrr
+
+  plat-admin:
+    image: mysql
+    volumes:
+      - db-data:/var/lib/mysql/data
+    networks:
+      - overlay
+    deploy:
+      mode: replicated
+      replicas: 2
+      endpoint_mode: dnsrr
+  plat-user:
+    image: mysql
+    volumes:
+      - db-data:/var/lib/mysql/data
+    networks:
+      - overlay
+    deploy:
+      mode: replicated
+      replicas: 2
+      endpoint_mode: dnsrr
+  plat-cloud:
+    image: mysql
+    volumes:
+      - db-data:/var/lib/mysql/data
+    networks:
+      - overlay
+    deploy:
+      mode: replicated
+      replicas: 2
+      endpoint_mode: dnsrr
+  plat-resources:
+    image: mysql
+    volumes:
+      - db-data:/var/lib/mysql/data
+    networks:
+      - overlay
+    deploy:
+      mode: replicated
+      replicas: 2
+      endpoint_mode: dnsrr
+volumes:
+  db-data:
+
+networks:
+  overlay:
