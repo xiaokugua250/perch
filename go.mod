@@ -11,7 +11,6 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gdamore/tcell v1.3.0
 	github.com/go-ole/go-ole v1.2.4 // indirect
-	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gocolly/colly v1.2.0
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/googleapis/gnostic v0.5.1 // indirect
@@ -20,8 +19,6 @@ require (
 	github.com/imdario/mergo v0.3.11 // indirect
 	github.com/ipfs/go-cid v0.0.6
 	github.com/ipfs/go-datastore v0.4.4
-	github.com/kennygrant/sanitize v1.2.4 // indirect
-	github.com/kr/pty v1.1.3 // indirect
 	github.com/libp2p/go-libp2p v0.9.6
 	github.com/libp2p/go-libp2p-core v0.6.0
 	github.com/libp2p/go-libp2p-discovery v0.4.0
@@ -42,7 +39,6 @@ require (
 	github.com/multiformats/go-multihash v0.0.13
 	github.com/pkg/errors v0.9.1
 	github.com/rivo/tview v0.0.0-20200528200248-fe953220389f
-	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
 	github.com/shirou/gopsutil v2.20.8+incompatible
 	github.com/sirupsen/logrus v1.6.0
 	github.com/temoto/robotstxt v1.1.1 // indirect
@@ -53,9 +49,7 @@ require (
 	gopkg.in/yaml.v2 v2.3.0
 	gorm.io/driver/mysql v1.0.1
 	gorm.io/gorm v1.20.1
-	k8s.io/api v0.19.2 // indirect
-	k8s.io/client-go v11.0.0+incompatible
-	k8s.io/klog v1.0.0 // indirect
-	k8s.io/utils v0.0.0-20200912215256-4140de9c8800 // indirect
-
+	k8s.io/api v0.19.0
+	k8s.io/apimachinery v0.19.0
+	k8s.io/client-go v0.19.0
 )
