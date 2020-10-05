@@ -10,6 +10,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gdamore/tcell v1.3.0
+	github.com/ghodss/yaml v1.0.0 // indirect
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/gocolly/colly v1.2.0
 	github.com/google/gofuzz v1.2.0 // indirect
@@ -19,6 +20,7 @@ require (
 	github.com/imdario/mergo v0.3.11 // indirect
 	github.com/ipfs/go-cid v0.0.6
 	github.com/ipfs/go-datastore v0.4.4
+	github.com/jessevdk/go-flags v1.4.0 // indirect
 	github.com/libp2p/go-libp2p v0.9.6
 	github.com/libp2p/go-libp2p-core v0.6.0
 	github.com/libp2p/go-libp2p-discovery v0.4.0
@@ -41,6 +43,7 @@ require (
 	github.com/rivo/tview v0.0.0-20200528200248-fe953220389f
 	github.com/shirou/gopsutil v2.20.8+incompatible
 	github.com/sirupsen/logrus v1.6.0
+	github.com/stretchr/objx v0.1.1 // indirect
 	github.com/temoto/robotstxt v1.1.1 // indirect
 	github.com/urfave/cli/v2 v2.2.0
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
