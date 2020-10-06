@@ -29,7 +29,7 @@ func TestK8SClusterManager_InitK8SClusterClient(t *testing.T) {
 		fmt.Println(node)
 	}*/
 	selector := labels.NewSelector()
-	result, err := K8sResourceListWithInformer(K8SClusterClientMap["dev"], K8S_RESOURCE_NODE, selector)
+	result, err := K8sResourceListWithInformer(ClusterClientMap["dev"], K8S_RESOURCE_NODE, selector)
 	if err != nil {
 		log.Println(err)
 	}

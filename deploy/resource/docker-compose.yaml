@@ -11,7 +11,6 @@ services:
       mode: replicated
       replicas: 2
       endpoint_mode: vip
-
   mysql:
     image: mysql
     volumes:

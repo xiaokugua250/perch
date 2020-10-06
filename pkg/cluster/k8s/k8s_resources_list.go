@@ -10,7 +10,6 @@ import (
 	batchv1 "k8s.io/client-go/informers/batch/v1"
 	batchv2 "k8s.io/client-go/informers/batch/v2alpha1"
 	v1 "k8s.io/client-go/informers/core/v1"
-	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/cache"
 	_ "perch/pkg/log"
 	"time"
@@ -19,12 +18,12 @@ import (
 /**
 采用list and watch机制获取资源列表
 */
-func K8sResourceListWithInformer(k8sclientSet *kubernetes.Clientset, resouceType string, selector labels.Selector) (interface{}, error) {
+func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, namespaces string, selector labels.Selector) (interface{}, error) {
 	var (
 		informer interface{}
 	)
 	stopChan := make(chan struct{})
-	factory := informers.NewSharedInformerFactoryWithOptions(k8sclientSet, 15*time.Second)
+	factory := informers.NewSharedInformerFactoryWithOptions(k8sClientSet.K8SClientSet, 15*time.Second, informers.WithNamespace(namespaces))
 	switch resouceType {
 	case K8S_RESOURCE_NODE:
 		informer = factory.Core().V1().Nodes()

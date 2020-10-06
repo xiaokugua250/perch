@@ -13,10 +13,13 @@ type K8SClusterManager struct {
 	KubeConfig      string `yaml:"kubeconfig"`
 }
 
-type K8SClientSet kubernetes.Clientset
+type ClientSet struct {
+	K8SClientSet *kubernetes.Clientset
+}
 
 var (
-	K8SClusterClientMap = make(map[string]*kubernetes.Clientset)
+	ClusterClientMap = make(map[string]*kubernetes.Clientset)
+	K8SClientSet     = ClientSet{}
 )
 
 /**
@@ -31,7 +34,7 @@ func (k8sClusterManager *K8SClusterManager) InitK8SClusterClient() error {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	K8SClusterClientMap[k8sClusterManager.KubeClusterName] = clientset
+	ClusterClientMap[k8sClusterManager.KubeClusterName] = clientset
 	return nil
 
 }
