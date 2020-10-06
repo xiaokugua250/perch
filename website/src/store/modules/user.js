@@ -35,7 +35,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = response.spec
-        console.log("====",response,response.spec)
+        console.log('====', response, response.spec)
         commit('SET_TOKEN', response.spec.token)
         setToken(response.spec.token)
         resolve()
@@ -49,12 +49,12 @@ const actions = {
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
-       // const { data } = response.spec
-        console.log("===?",response.spec,response.code)
+        // const { data } = response.spec
+        console.log('===?', response.spec, response.code)
         if (response.code != 200) {
           reject('Verification failed, please Login again.')
         }
-     /*   if (!data) {
+        /*   if (!data) {
           reject('Verification failed, please Login again.')
         }
 
@@ -68,7 +68,7 @@ const actions = {
         commit('SET_NAME', response.spec.name)
         commit('SET_AVATAR', response.spec.avatar)
         commit('SET_INTRODUCTION', response.spec.introduction)
-   /*     commit('SET_ROLES', roles)
+        /*     commit('SET_ROLES', roles)
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
         commit('SET_INTRODUCTION', introduction)*/

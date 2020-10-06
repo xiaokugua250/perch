@@ -5,7 +5,7 @@
     <panel-group @handleSetLineChartData="handleSetLineChartData" />
     <el-row :gutter="20">
       <el-col v-for="(image, index) in 8" :key="index" :md="9" :lg="7" :xl="6">
-   <!--   <el-col v-for="(image, index) in dchub_images" :key="index" :md="9" :lg="7" :xl="6">-->
+        <!--   <el-col v-for="(image, index) in dchub_images" :key="index" :md="9" :lg="7" :xl="6">-->
         <el-card
           :body-style="{ padding: '0px' }"
           class="dchub_image_card"
@@ -13,11 +13,11 @@
         >
           <div style="cursor: pointer;display: inline-flex;" class="img" @click="DchubSpecImageGet(image.id)">
             <div style="width: 50%;">
-              <img v-if="image.icon_uuid" width="100" height="100" style="display: block;margin: auto" :src="getImg(image.icon_uuid)" />
-              <img v-else width="100" height="100" style="display: block;margin: auto" src="../../../assets/images/dashboard/programming.png" />
+              <img v-if="image.icon_uuid" width="100" height="100" style="display: block;margin: auto" :src="getImg(image.icon_uuid)">
+              <img v-else width="100" height="100" style="display: block;margin: auto" src="../../../assets/images/dashboard/programming.png">
             </div>
             <div style="width: 50%;">
-              <el-tag  class="card_left" >标题:&nbsp;&nbsp;&nbsp;<!--{{ 11 }}--></el-tag>
+              <el-tag class="card_left">标题:&nbsp;&nbsp;&nbsp;<!--{{ 11 }}--></el-tag>
               <el-tag style="height: 30px;width: 180px;display: block;margin: auto;margin-bottom: 10px;margin-top: 2%;">领域:&nbsp;&nbsp;&nbsp;<span v-if="image.is_public ===true">公开镜像</span><span v-else>私有镜像</span></el-tag>
               <el-tag style="height: 30px;width: 180px;display: block;margin: auto;margin-bottom: 10px;margin-top: 2%;">日期:&nbsp;&nbsp;&nbsp;<span v-if="image.is_public ===true">公开镜像</span><span v-else>私有镜像</span></el-tag>
               <el-tag style="height: 30px;width: 180px;display: block;margin: auto;margin-bottom: 10px;margin-top: 2%;">详情链接:&nbsp;&nbsp;&nbsp;<!--{{ calculate(image.size) }}--></el-tag>
@@ -25,7 +25,7 @@
           </div>
         </el-card>
       </el-col>
-<!--    <el-col :span="6">
+      <!--    <el-col :span="6">
       <div class="chart-wrapper">
 
         <div slot="header" class="clearfix">
@@ -85,8 +85,8 @@
          </el-card>&ndash;&gt;
     </div></el-col>-->
 
-  </el-row>
- <!--   <el-row :gutter="20">
+    </el-row>
+    <!--   <el-row :gutter="20">
       <el-col :span="6">
         <div class="chart-wrapper">
 
@@ -195,7 +195,7 @@ import TransactionTable from './components/TransactionTable'
 import TodoList from './components/TodoList'
 import BoxCard from './components/BoxCard'
 
-import { getResourceArticles} from '@/api/resources-articles'
+import { getResourceArticles } from '@/api/resources-articles'
 
 const lineChartData = {
   newVisitis: {
@@ -232,11 +232,11 @@ export default {
   data() {
     return {
       lineChartData: lineChartData.newVisitis,
-      resourceArticles:[]
+      resourceArticles: []
     }
   },
   mounted() {
-    //this.getList()
+    // this.getList()
     this.resourceArticlesGet()
   },
   methods: {
@@ -246,9 +246,8 @@ export default {
     resourceArticlesGet() {
       this.listLoading = true
       getResourceArticles(this.listQuery).then(response => {
-
-//        this.list = response.data.items
-        this.resourceArticles= response.spec
+        //        this.list = response.data.items
+        this.resourceArticles = response.spec
 
         this.total = response.total
 
@@ -257,7 +256,7 @@ export default {
           this.listLoading = false
         }, 1.5 * 1000)
       })
-    },
+    }
   }
 }
 </script>

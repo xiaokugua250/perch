@@ -1,89 +1,73 @@
 version: "3.8"
-
 services:
-  wordpress:
-    image: wordpress
+  website:
+    image: nginx
     ports:
-      - "8080:80"
-    networks:
-      - overlay
-    deploy:
-      mode: replicated
-      replicas: 2
-      endpoint_mode: vip
+      - "80:80"
+    #networks:
+    #  - overlay
+    #deploy:
+    #  mode: replicated
+    #  replicas: 1
+    #  endpoint_mode: vip
+    
   mysql:
-    image: mysql
-    volumes:
-      - db-data:/var/lib/mysql/data
-    networks:
-      - overlay
-    deploy:
-      mode: replicated
-      replicas: 2
-      endpoint_mode: dnsrr
+    image: mysql:8.0
+    restart: always
+    environment:
+       MYSQL_ROOT_PASSWORD: my-secret-pwd
+       MYSQL_DATABASE: morty
+       MYSQL_USER: morty
+       MYSQL_PASSWORD: wordpress
+    #volumes:
+      #- db_data:/var/lib/mysql/data
+    #networks:
+    #  - overlay
+    #deploy:
+    #  mode: replicated
+    #  replicas: 2
+    #  endpoint_mode: dnsrr
   redis:
-    image: mysql
-    volumes:
-      - db-data:/var/lib/mysql/data
-    networks:
-      - overlay
-    deploy:
-      mode: replicated
-      replicas: 2
-      endpoint_mode: dnsrr
-  nginx:
-    image: mysql
-    volumes:
-      - db-data:/var/lib/mysql/data
-    networks:
-      - overlay
-    deploy:
-      mode: replicated
-      replicas: 2
-      endpoint_mode: dnsrr
-
+    image: redis
+    #volumes:
+    #  - db-data:/var/lib/mysql/data
+    #networks:
+    #  - overlay
+    #deploy:
+    #  mode: replicated
+    #  replicas: 2
+    #  endpoint_mode: dns
   plat-admin:
-    image: mysql
-    volumes:
-      - db-data:/var/lib/mysql/data
-    networks:
-      - overlay
-    deploy:
-      mode: replicated
-      replicas: 2
-      endpoint_mode: dnsrr
+    image: golang
+    #volumes:
+    #  - db-data:/var/lib/mysql/data
+    #networks:
+    #  - overlay
+    #deploy:
+    #  mode: replicated
+    #  replicas: 2
+    #  endpoint_mode: dnsrr
   plat-user:
-    image: mysql
-    volumes:
-      - db-data:/var/lib/mysql/data
-    networks:
-      - overlay
-    deploy:
-      mode: replicated
-      replicas: 2
-      endpoint_mode: dnsrr
+    image: golang
+    #volumes:
+      #- db-data:/var/lib/mysql/data
+    #networks:
+    #  - overlay
   plat-cloud:
-    image: mysql
-    volumes:
-      - db-data:/var/lib/mysql/data
-    networks:
-      - overlay
-    deploy:
-      mode: replicated
-      replicas: 2
-      endpoint_mode: dnsrr
+    image: golang
+    #volumes:
+    #  - db-data:/var/lib/mysql/data
+    #networks:
+    #  - overlay
+    #deploy:
+    #  mode: replicated
+    #  replicas: 2
+    #  endpoint_mode: dns
   plat-resources:
-    image: mysql
-    volumes:
-      - db-data:/var/lib/mysql/data
-    networks:
-      - overlay
-    deploy:
-      mode: replicated
-      replicas: 2
-      endpoint_mode: dnsrr
+    image: golang
+  
 volumes:
-  db-data:
+  db_data: {}
 
 networks:
   overlay:

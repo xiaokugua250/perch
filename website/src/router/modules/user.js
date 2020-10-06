@@ -41,7 +41,7 @@ const userRouter = {
       component: () => import('@/views/table/inline-edit-table'),
       name: 'InlineEditTable',
       meta: { title: 'Inline Edit' }
-    },
+    }
 
   ]
 }

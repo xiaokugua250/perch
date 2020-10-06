@@ -37,22 +37,22 @@
         </template>
       </el-table-column>
 
-      <el-table-column  align="center" label="权限名称">
+      <el-table-column align="center" label="权限名称">
         <template slot-scope="scope">
           <span>{{ scope.row.permission_name }}</span>
         </template>
       </el-table-column>
-      <el-table-column  align="center" label="权限代码">
+      <el-table-column align="center" label="权限代码">
         <template slot-scope="scope">
-          <span>{{ scope.row.permission_code}}</span>
+          <span>{{ scope.row.permission_code }}</span>
         </template>
       </el-table-column>
-      <el-table-column  align="center" label="创建时间">
+      <el-table-column align="center" label="创建时间">
         <template slot-scope="scope">
-          <span>{{ scope.row.created_at}}</span>
+          <span>{{ scope.row.created_at }}</span>
         </template>
       </el-table-column>
-      <el-table-column  align="center" label="更新时间">
+      <el-table-column align="center" label="更新时间">
         <template slot-scope="scope">
           <span>{{ scope.row.updated_at }}</span>
         </template>
@@ -76,24 +76,21 @@
     </el-table>
     <div class="block" style="margin-top: 1%">
       <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
         :current-page="currentPage4"
         :page-sizes="[5, 10, 20, 30]"
         :page-size="10"
         layout="total, sizes, prev, pager, next, jumper"
-        :total=rbacPermissions.total>
-      </el-pagination>
+        :total="rbacPermissions.total"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
     </div>
   </div>
-
-
-
 
 </template>
 
 <script>
-  import { getPermissions,addPermission,updatePermission,deletePermission} from '@/api/rbac'
+import { getPermissions, addPermission, updatePermission, deletePermission } from '@/api/rbac'
 
 export default {
   filters: {
@@ -119,9 +116,9 @@ export default {
       currentPage2: 5,
       currentPage3: 5,
       currentPage4: 4,
-      rbacPermissions:{
-        permissions:null,
-        total:0,
+      rbacPermissions: {
+        permissions: null,
+        total: 0
       },
       listQuery: {
         page: 1,
@@ -141,7 +138,7 @@ export default {
       this.$emit('create') // for test
       fetchList(this.listQuery).then(response => {
         this.rbacPermissions.permissions = response.spec
-        this.rbacPermissions.total=response.total
+        this.rbacPermissions.total = response.total
         this.loading = false
       })
     },
@@ -150,7 +147,7 @@ export default {
       this.$emit('create') // for test
       getPermissions(this.listQuery).then(response => {
         this.rbacPermissions.permissions = response.spec
-        this.rbacPermissions.total=response.total
+        this.rbacPermissions.total = response.total
         this.loading = false
       })
     },
@@ -179,10 +176,10 @@ export default {
       })
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      console.log(`每页 ${val} 条`)
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      console.log(`当前页: ${val}`)
     }
   }
 }

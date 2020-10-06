@@ -37,19 +37,19 @@
         </template>
       </el-table-column>
 
-      <el-table-column  align="center" label="角色名称">
+      <el-table-column align="center" label="角色名称">
         <template slot-scope="scope">
           <span>{{ scope.row.role_name }}</span>
         </template>
       </el-table-column>
-      <el-table-column  align="center" label="创建时间">
+      <el-table-column align="center" label="创建时间">
         <template slot-scope="scope">
-          <span>{{ scope.row.created_at  }}</span>
+          <span>{{ scope.row.created_at }}</span>
         </template>
       </el-table-column>
-      <el-table-column  align="center" label="更新时间">
+      <el-table-column align="center" label="更新时间">
         <template slot-scope="scope">
-          <span>{{ scope.row.updated_at  }}</span>
+          <span>{{ scope.row.updated_at }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" width="350px" class-name="small-padding fixed-width">
@@ -72,21 +72,21 @@
     </el-table>
     <div class="block" style="margin-top: 1%">
       <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
         :current-page="currentPage4"
         :page-sizes="[5, 10, 20, 30]"
         :page-size="10"
         layout="total, sizes, prev, pager, next, jumper"
-        :total=rbacRoles.total>
-      </el-pagination>
+        :total="rbacRoles.total"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
     </div>
   </div>
 
 </template>
 
 <script>
-import { getRoles,addRole,updateRole,deleteRole} from '@/api/rbac'
+import { getRoles, addRole, updateRole, deleteRole } from '@/api/rbac'
 
 export default {
   filters: {
@@ -108,9 +108,9 @@ export default {
   data() {
     return {
       list: null,
-      rbacRoles:{
-        roles:null,
-        total:0,
+      rbacRoles: {
+        roles: null,
+        total: 0
       },
       listQuery: {
         page: 1,
@@ -125,7 +125,7 @@ export default {
     this.getRbacRoles()
   },
   methods: {
-    /*getList() {
+    /* getList() {
       this.loading = true
       this.$emit('create') // for test
       fetchList(this.listQuery).then(response => {
@@ -137,8 +137,8 @@ export default {
       this.loading = true
       this.$emit('create') // for test
       getRoles(this.listQuery).then(response => {
-        this.rbacRoles.roles= response.spec
-        this.rbacRoles.total=response.total
+        this.rbacRoles.roles = response.spec
+        this.rbacRoles.total = response.total
         this.loading = false
       })
     },
@@ -167,10 +167,10 @@ export default {
       })
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      console.log(`每页 ${val} 条`)
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      console.log(`当前页: ${val}`)
     }
   }
 }

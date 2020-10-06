@@ -15,15 +15,14 @@
             <div style="margin-top: 15px; ">
               <el-input v-model="search_model" class="input-with-select" placeholder="请输入搜索条件" @keyup.enter.native="Search()">
                 <el-select slot="prepend" v-model="select_options" placeholder="请选择" style="width: 200px">
-                  <el-option label="文本搜索" value="name"></el-option>
-                  <el-option label="图片搜索" value="app_name"></el-option>
+                  <el-option label="文本搜索" value="name" />
+                  <el-option label="图片搜索" value="app_name" />
                 </el-select>
-                <el-button slot="append" icon="el-icon-search" @click="Search()"></el-button>
+                <el-button slot="append" icon="el-icon-search" @click="Search()" />
               </el-input>
             </div>
 
-            <div style="margin-top: 1%">
-            </div>
+            <div style="margin-top: 1%" />
             <div>
               <el-row :gutter="20">
                 <el-col v-for="(image, index) in images" :key="index" :md="9" :lg="7" :xl="6">
@@ -34,7 +33,7 @@
                   >
                     <div style="cursor: pointer;display: inline-flex;" class="img" @click="SpecImageGet(image.id)">
                       <div style="width: 50%;">
-                        <img v-if="image.icon_uuid" width="100" height="100" style="display: block;margin: auto" :src="getImg(image.icon_uuid)" />
+                        <img v-if="image.icon_uuid" width="100" height="100" style="display: block;margin: auto" :src="getImg(image.icon_uuid)">
 
                       </div>
                       <div style="width: 50%;">
@@ -47,7 +46,7 @@
                 </el-col>
 
               </el-row>
-              <br />
+              <br>
               <el-row :gutter="20" style="text-align:center">
                 <el-paginationl
                   v-if="total >=12"
@@ -65,7 +64,7 @@
           </div>
         </el-col>
       </el-row>
-<!--      <el-row>
+      <!--      <el-row>
 
         <el-col :span="24" class="center">
           <el-select v-model="value" placeholder="请选择">
@@ -118,7 +117,6 @@
 
     </div>
 
-
   </div>
 </template>
 
@@ -132,25 +130,25 @@ export default {
   data() {
     return {
       driver: null,
-      form:{
-        name:null,
+      form: {
+        name: null
       }
     }
-  },
-  mounted() {
-    this.driver = new Driver()
   },
   computed: {
 
     isHistorySearch() {
-      return this.isFocus && !this.search;
+      return this.isFocus && !this.search
     },
     isSearchList() {
-      return this.isFocus && this.search;
+      return this.isFocus && this.search
     },
     isSearch() {
-      return this.isFocus;
+      return this.isFocus
     }
+  },
+  mounted() {
+    this.driver = new Driver()
   },
   methods: {
     guide() {
@@ -158,51 +156,48 @@ export default {
       this.driver.start()
     },
     focus() {
-      this.isFocus = true;
+      this.isFocus = true
       this.historySearchList =
-        Store.loadHistory() == null ? [] : Store.loadHistory();
-      this.history = this.historySearchList.length == 0 ? false : true;
+        Store.loadHistory() == null ? [] : Store.loadHistory()
+      this.history = this.historySearchList.length != 0
     },
     blur() {
-      var self = this;
+      var self = this
       this.searchBoxTimeout = setTimeout(function() {
-        self.isFocus = false;
-      }, 300);
+        self.isFocus = false
+      }, 300)
     },
     enterSearchBoxHanlder() {
-      clearTimeout(this.searchBoxTimeout);
+      clearTimeout(this.searchBoxTimeout)
     },
     searchHandler() {
-      //随机生成搜索历史tag式样
-      let n = RandomUtil.getRandomNumber(0, 5);
-      let exist =
+      // 随机生成搜索历史tag式样
+      const n = RandomUtil.getRandomNumber(0, 5)
+      const exist =
         this.historySearchList.filter(value => {
-          return value.name == this.search;
-        }).length == 0
-          ? false
-          : true;
+          return value.name == this.search
+        }).length != 0
       if (!exist) {
-        this.historySearchList.push({ name: this.search, type: this.types[n] });
-        Store.saveHistory(this.historySearchList);
+        this.historySearchList.push({ name: this.search, type: this.types[n] })
+        Store.saveHistory(this.historySearchList)
       }
-      this.history = this.historySearchList.length == 0 ? false : true;
+      this.history = this.historySearchList.length != 0
     },
     closeHandler(search) {
-      this.historySearchList.splice(this.historySearchList.indexOf(search), 1);
-      Store.saveHistory(this.historySearchList);
-      clearTimeout(this.searchBoxTimeout);
+      this.historySearchList.splice(this.historySearchList.indexOf(search), 1)
+      Store.saveHistory(this.historySearchList)
+      clearTimeout(this.searchBoxTimeout)
       if (this.historySearchList.length == 0) {
-        this.history = false;
+        this.history = false
       }
     },
     removeAllHistory() {
-      Store.removeAllHistory();
+      Store.removeAllHistory()
     }
   }
 }
 </script>
 
 <style>
-
 
 </style>

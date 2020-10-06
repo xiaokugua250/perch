@@ -1,7 +1,5 @@
 import request from '@/utils/request'
 
-
-
 export function getResourceArticles() {
   return request({
     url: '/plat-resources/resources/articles',
@@ -31,7 +29,6 @@ export function deleteRole(id) {
     method: 'delete'
   })
 }
-
 
 export function getPermissions() {
   return request({

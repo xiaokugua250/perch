@@ -47,25 +47,25 @@
       </el-table-column>
       <el-table-column label="用户邮箱" width="180px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.email}}</span>
+          <span>{{ row.email }}</span>
         </template>
       </el-table-column>
       <el-table-column label="UID" width="50px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.uid}}</span>
+          <span>{{ row.uid }}</span>
         </template>
       </el-table-column>
       <el-table-column label="GID" width="50px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.gid}}</span>
+          <span>{{ row.gid }}</span>
         </template>
       </el-table-column>
       <el-table-column label="用户创建时间" width="180px" align="center">
-      <template slot-scope="{row}">
-        <!--  <span>{{ row.created_at| parseTime('{y}-{m}-{d} {h}:{i}') }}</span>-->
-        <span>{{ row.created_at }}</span>
-      </template>
-    </el-table-column>
+        <template slot-scope="{row}">
+          <!--  <span>{{ row.created_at| parseTime('{y}-{m}-{d} {h}:{i}') }}</span>-->
+          <span>{{ row.created_at }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="用户更新时间" width="180px" align="center">
         <template slot-scope="{row}">
           <!--  <span>{{ row.created_at| parseTime('{y}-{m}-{d} {h}:{i}') }}</span>-->
@@ -79,20 +79,19 @@
         </template>
       </el-table-column>
 
-
       <el-table-column v-if="showReviewer" label="Reviewer" width="110px" align="center">
         <template slot-scope="{row}">
           <span style="color:red;">{{ row.reviewer }}</span>
         </template>
       </el-table-column>
-<!--      <el-table-column label="Imp" width="80px">
+      <!--      <el-table-column label="Imp" width="80px">
         <template slot-scope="{row}">
           <svg-icon v-for="n in + row.importance" :key="n" icon-class="star" class="meta-item__icon" />
         </template>
       </el-table-column>-->
       <el-table-column label="用户密码" align="center" width="95">
         <template slot-scope="{row}">
-          <span v-if="row.pageviews" class="link-type" @click="handleFetchPv(row.pageviews)">{{ row.password}}</span>
+          <span v-if="row.pageviews" class="link-type" @click="handleFetchPv(row.pageviews)">{{ row.password }}</span>
           <span v-else>0</span>
         </template>
       </el-table-column>
@@ -178,7 +177,7 @@
 
 <script>
 import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
-import {authuserGet,authuserUpdate,authuserDelete,authuserCreate} from '@/api/user'
+import { authuserGet, authuserUpdate, authuserDelete, authuserCreate } from '@/api/user'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
@@ -258,15 +257,15 @@ export default {
     }
   },
   created() {
-    //this.getList()
+    // this.getList()
     this.authusersGet()
   },
   methods: {
     authusersGet() {
       this.listLoading = true
       authuserGet(this.listQuery).then(response => {
-        console.log("===>",response)
-//        this.list = response.data.items
+        console.log('===>', response)
+        //        this.list = response.data.items
         this.list = response.spec
 
         this.total = response.total

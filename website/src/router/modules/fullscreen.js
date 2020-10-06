@@ -8,7 +8,7 @@ const fullScreenRouter = {
   redirect: '/fullscreen/dashboard',
   name: 'FullScreen',
   meta: {
-    title: '全屏展示',
+    title: '数据展示',
     icon: 'peoples'
   },
   children: [
@@ -19,18 +19,17 @@ const fullScreenRouter = {
       meta: { title: 'DashBoard' }
     },
     {
-      path: 'iot',
+      path: 'resources',
       component: () => import('@/views/fullscreen/iot/index'),
-      name: 'iot',
+      name: 'resources',
       meta: { title: 'IOT' }
     },
     {
-      path: 'bigdata',
+      path: 'crd',
       component: () => import('@/views/fullscreen/bigdata/index'),
-      name: 'bigdata',
+      name: 'crd',
       meta: { title: 'BigData' }
-    },
-
+    }
 
   ]
 }

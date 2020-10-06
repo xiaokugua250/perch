@@ -2,8 +2,8 @@ import request from '@/utils/request'
 
 export function login(data) {
   return request({
-   // url: '/vue-element-admin/user/login',
-     url: '/user/login',
+    // url: '/vue-element-admin/user/login',
+    url: '/user/login',
     method: 'post',
     data
   })
@@ -11,7 +11,7 @@ export function login(data) {
 
 export function getInfo(token) {
   return request({
-    //url: '/vue-element-admin/user/info',
+    // url: '/vue-element-admin/user/info',
     url: '/user/info',
     method: 'get',
     params: { token }
@@ -25,8 +25,7 @@ export function logout() {
   })
 }
 
-
-//-------------------用户管理相关API
+// -------------------用户管理相关API
 
 export function authuserCreate(data) {
   return request({
@@ -35,15 +34,15 @@ export function authuserCreate(data) {
     data
   })
 }
-export function  authuserDelete(id) {
+export function authuserDelete(id) {
   return request({
-    url: '/auth-user/user/'+parseInt(id),
-    method: 'delete',
+    url: '/auth-user/user/' + parseInt(id),
+    method: 'delete'
   })
 }
-export function authuserUpdate(id,data) {
+export function authuserUpdate(id, data) {
   return request({
-    url: '/auth-user/user/'+parseInt(id),
+    url: '/auth-user/user/' + parseInt(id),
     method: 'patch',
     data
   })

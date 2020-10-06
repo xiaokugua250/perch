@@ -1,7 +1,5 @@
 import request from '@/utils/request'
 
-
-
 export function getRoles() {
   return request({
     url: '/auth-rbac/roles',
@@ -31,7 +29,6 @@ export function deleteRole(id) {
     method: 'delete'
   })
 }
-
 
 export function getPermissions() {
   return request({
