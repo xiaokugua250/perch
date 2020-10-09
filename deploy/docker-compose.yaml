@@ -1,9 +1,14 @@
 version: "3.8"
 services:
-  website:
+
+  nginx:
     image: nginx
     ports:
       - "80:80"
+  website:
+    image: nginx
+    ports:
+      - "9527:9527"
     #networks:
     #  - overlay
     #deploy:
@@ -13,12 +18,12 @@ services:
     
   mysql:
     image: mysql:8.0
-    restart: always
+    restart: alway
     environment:
-       MYSQL_ROOT_PASSWORD: my-secret-pwd
+       MYSQL_ROOT_PASSWORD: mysqladmin
        MYSQL_DATABASE: morty
-       MYSQL_USER: morty
-       MYSQL_PASSWORD: wordpress
+       MYSQL_USER: root
+       MYSQL_PASSWORD: mysqladmin
     #volumes:
       #- db_data:/var/lib/mysql/data
     #networks:
@@ -40,8 +45,12 @@ services:
   plat-admin:
     build:
       context: ./resource
-      dockerfile: Dockerfile_Golang_dataplat_server
+      dockerfile: Dockerfile_Golang_admin_server
     image: github.com/markov/plat-admin:v1.0
+    depends_on:
+      - mysql
+      - nginx
+      - redis
     #volumes:
     #  - db-data:/var/lib/mysql/data
     #networks:
@@ -51,13 +60,27 @@ services:
     #  replicas: 2
     #  endpoint_mode: dnsrr
   plat-user:
-    image: golang
+    build:
+      context: ./resource
+      dockerfile: Dockerfile_Golang_dataplat_server
+    image: github.com/markov/data-admin:v1.0
+    depends_on:
+      - mysql
+      - nginx
+      - redis
     #volumes:
       #- db-data:/var/lib/mysql/data
     #networks:
     #  - overlay
   plat-cloud:
-    image: golang
+    build:
+      context: ./resource
+      dockerfile: Dockerfile_Golang_cloud_server
+    image: github.com/markov/cloud-admin:v1.0
+    depends_on:
+      - mysql
+      - nginx
+      - redis
     #volumes:
     #  - db-data:/var/lib/mysql/data
     #networks:
@@ -67,10 +90,17 @@ services:
     #  replicas: 2
     #  endpoint_mode: dns
   plat-resources:
-    image: golang
+    build:
+      context: ./resource
+      dockerfile: Dockerfile_Golang_sysadmin_server
+    image: github.com/markov/sys-admin:v1.0
+    depends_on:
+      - mysql
+      - nginx
+      - redis
   
 volumes:
   db_data: {}
 
-networks:
-  overlay:
+#networks:
+#  overlay:

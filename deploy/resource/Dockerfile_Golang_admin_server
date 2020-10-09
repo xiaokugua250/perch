@@ -2,7 +2,7 @@ FROM centos:8
 LABEL "Author"="liangdu1992@gmail.com"
 LABEL version="1.0.0"
 LABEL description="golang Project docker file"
+COPY ./config /configs 
+COPY ./bin/application/admin-server /usr/local/bin/
 
-COPY admin_server /usr/local/bin/
-
-CMD ["admin_server"]
+CMD ["admin-server"]

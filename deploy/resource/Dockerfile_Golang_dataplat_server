@@ -2,7 +2,7 @@ FROM centos:8
 LABEL "Author"="liangdu1992@gmail.com"
 LABEL version="1.0.0"
 LABEL description="golang Project docker file"
+COPY ./config /configs 
+COPY ./bin/application/dataplat-server /usr/local/bin/
 
-COPY ./bin/application/dataplat_server /usr/local/bin/
-
-CMD ["dataplat_server"]
+CMD ["dataplat-server"]
