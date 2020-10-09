@@ -1,0 +1,76 @@
+version: "3.8"
+services:
+  website:
+    image: nginx
+    ports:
+      - "80:80"
+    #networks:
+    #  - overlay
+    #deploy:
+    #  mode: replicated
+    #  replicas: 1
+    #  endpoint_mode: vip
+    
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+       MYSQL_ROOT_PASSWORD: my-secret-pwd
+       MYSQL_DATABASE: morty
+       MYSQL_USER: morty
+       MYSQL_PASSWORD: wordpress
+    #volumes:
+      #- db_data:/var/lib/mysql/data
+    #networks:
+    #  - overlay
+    #deploy:
+    #  mode: replicated
+    #  replicas: 2
+    #  endpoint_mode: dnsrr
+  redis:
+    image: redis
+    #volumes:
+    #  - db-data:/var/lib/mysql/data
+    #networks:
+    #  - overlay
+    #deploy:
+    #  mode: replicated
+    #  replicas: 2
+    #  endpoint_mode: dns
+  plat-admin:
+    build:
+      context: ./resource
+      dockerfile: Dockerfile_Golang_dataplat_server
+    image: github.com/markov/plat-admin:v1.0
+    #volumes:
+    #  - db-data:/var/lib/mysql/data
+    #networks:
+    #  - overlay
+    #deploy:
+    #  mode: replicated
+    #  replicas: 2
+    #  endpoint_mode: dnsrr
+  plat-user:
+    image: golang
+    #volumes:
+      #- db-data:/var/lib/mysql/data
+    #networks:
+    #  - overlay
+  plat-cloud:
+    image: golang
+    #volumes:
+    #  - db-data:/var/lib/mysql/data
+    #networks:
+    #  - overlay
+    #deploy:
+    #  mode: replicated
+    #  replicas: 2
+    #  endpoint_mode: dns
+  plat-resources:
+    image: golang
+  
+volumes:
+  db_data: {}
+
+networks:
+  overlay:

@@ -1,0 +1,83 @@
+{
+     // Editor
+     "editor.minimap.enabled": true,
+     "editor.detectIndentation": false,
+     "editor.wordWrap": "on",
+     "editor.renderWhitespace": "none",
+     "editor.snippetSuggestions": "top",
+     "editor.suggestSelection": "first",
+     "editor.renderLineHighlight": "all",
+     "editor.quickSuggestions": {
+         "other": true,
+         "comments": false,
+         "strings": false
+     },
+    "go.enableCodeLens": {
+        "references": false,
+        "runtest": true
+    },
+    "go.alternateTools": {},
+    "go.useLanguageServer": true,
+    "[go]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true,
+        },
+        // Optional: Disable snippets, as they conflict with completion ranking.
+        "editor.snippetSuggestions": "none",
+    },
+    "[go.mod]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true,
+        },
+    },
+    "gopls": {
+        // Add parameter placeholders when completing a function.
+       // "usePlaceholders": true,
+        // If true, enable additional analyses with staticcheck.
+        // Warning: This will significantly increase memory usage.
+        //"staticcheck": false,
+    },
+    "go.autocompleteUnimportedPackages": true,
+    "go.inferGopath": false,
+    "go.gotoSymbol.includeImports": true,
+    "go.gotoSymbol.includeGoroot": true,
+    "go.languageServerExperimentalFeatures": {
+
+        "diagnostics": true,
+        "documentLink": true,
+        "format": true,
+        "autoComplete": true,
+        "rename": true,
+        "goToDefinition": true,
+        "hover": true,
+        "signatureHelp": true,
+        "goToTypeDefinition": true,
+        "goToImplementation": true,
+        "documentSymbols": true,
+        "workspaceSymbols": true,
+        "findReferences": true,
+        "diagnostics": false
+    },
+    "go.languageServerFlags": [
+   
+    ],
+    "go.editorContextMenuCommands": {
+    
+        "toggleTestFile": true,
+        "addTags": true,
+        "removeTags": false,
+        "testAtCursor": true,
+        "testFile": false,
+        "testPackage": false,
+        "generateTestForFunction": true,
+        "generateTestForFile": false,
+        "generateTestForPackage": false,
+        "addImport": true,
+        "testCoverage": true,
+        "playground": true,
+        "debugTestAtCursor": true
+    },
+  
+}

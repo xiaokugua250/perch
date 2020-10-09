@@ -1,2 +1,8 @@
-FROM golang
-FROM golang:1.15
+FROM centos:8
+LABEL "Author"="liangdu1992@gmail.com"
+LABEL version="1.0.0"
+LABEL description="golang Project docker file"
+
+COPY ${SERVICE_NAME} /usr/local/bin/
+
+CMD ["${SERVICE_NAME}"]
