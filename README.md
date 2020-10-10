@@ -18,6 +18,7 @@ Golang Code And Others
 ## 待完善
 * [ ] 基于jwt-go的jwt 认证
 * [ ] 基于RBAC的用户管理
+* [ ] 基于Makefile 和docker-compose的环境部署
 * [ ] web 框架调整和优化
     * [ ] 日志功能
     * [ ] Error错误处理
