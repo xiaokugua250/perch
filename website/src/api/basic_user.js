@@ -3,7 +3,7 @@ import request from '@/utils/request'
 export function login(data) {
   return request({
     // url: '/vue-element-admin/user/login',
-    url: '/user/login',
+    url: '/basic/user/login',
     method: 'post',
     data
   })
@@ -12,7 +12,7 @@ export function login(data) {
 export function getInfo(token) {
   return request({
     // url: '/vue-element-admin/user/info',
-    url: '/user/info',
+    url: '/basic/user/info',
     method: 'get',
     params: { token }
   })
@@ -20,7 +20,7 @@ export function getInfo(token) {
 
 export function logout() {
   return request({
-    url: '/vue-element-admin/user/logout',
+    url: '/basic/user/logout',
     method: 'post'
   })
 }
@@ -29,27 +29,27 @@ export function logout() {
 
 export function authuserCreate(data) {
   return request({
-    url: '/auth-user/user',
+    url: '/basic/auth-user/user',
     method: 'post',
     data
   })
 }
 export function authuserDelete(id) {
   return request({
-    url: '/auth-user/user/' + parseInt(id),
+    url: '/basic/auth-user/user/' + parseInt(id),
     method: 'delete'
   })
 }
 export function authuserUpdate(id, data) {
   return request({
-    url: '/auth-user/user/' + parseInt(id),
+    url: '/basic/auth-user/user/' + parseInt(id),
     method: 'patch',
     data
   })
 }
 export function authuserGet(query) {
   return request({
-    url: '/auth-user/users',
+    url: '/basic/auth-user/users',
     method: 'get',
     params: query
   })

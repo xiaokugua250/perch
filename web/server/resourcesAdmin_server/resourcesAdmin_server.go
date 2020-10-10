@@ -13,8 +13,11 @@ func main() {
 		Name: "plat-resources",
 
 		Router: []service.WebRouter{
-			{RouterPath: "/resources/docs", RouterHandlerFunc: admin.PlatDataResourcesHandler, RouterMethod: http.MethodGet},
-
+			{RouterPath: "/docs", RouterHandlerFunc: admin.GetResourcesDocsHandler, RouterMethod: http.MethodGet},
+			{RouterPath: "/docs", RouterHandlerFunc: admin.CreateResourcesDocsHandler, RouterMethod: http.MethodPost},
+			{RouterPath: "/docs/{id}", RouterHandlerFunc: admin.SpecGetResourcesDocsHandler, RouterMethod: http.MethodGet},
+			{RouterPath: "/docs/{id}", RouterHandlerFunc: admin.UpdateSpecResourcesDocsHandler, RouterMethod: http.MethodPatch},
+			{RouterPath: "/docs/{id}", RouterHandlerFunc: admin.DeleteSpecResourcesDocsHandler, RouterMethod: http.MethodDelete},
 			//{RouterPath: "/user/register", RouterHandlerFunc: admin.PlatLoginGenTokenHandler, RouterMethod: http.MethodPost},
 
 		},

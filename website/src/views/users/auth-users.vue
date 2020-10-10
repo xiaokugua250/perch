@@ -177,7 +177,7 @@
 
 <script>
 import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
-import { authuserGet, authuserUpdate, authuserDelete, authuserCreate } from '@/api/user'
+import { authuserGet, authuserUpdate, authuserDelete, authuserCreate } from '@/api/basic_user'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination

@@ -195,7 +195,7 @@ import TransactionTable from './components/TransactionTable'
 import TodoList from './components/TodoList'
 import BoxCard from './components/BoxCard'
 
-import { getResourceArticles } from '@/api/resources-articles'
+import { getResourceDocs } from '@/api/resources-docs'
 
 const lineChartData = {
   newVisitis: {
@@ -245,7 +245,7 @@ export default {
     },
     resourceArticlesGet() {
       this.listLoading = true
-      getResourceArticles(this.listQuery).then(response => {
+      getResourceDocs(this.listQuery).then(response => {
         //        this.list = response.data.items
         this.resourceArticles = response.spec
 

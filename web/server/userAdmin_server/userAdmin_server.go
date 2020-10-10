@@ -11,7 +11,6 @@ func main() {
 	service.WebService{
 
 		Name: "plat-admin",
-
 		Router: []service.WebRouter{
 			{RouterPath: "/user/login", RouterHandlerFunc: admin.PlatLoginHandler, RouterMethod: http.MethodPost},
 			{RouterPath: "/user/logout", RouterHandlerFunc: admin.PlatLogoutHandler, RouterMethod: http.MethodPost},

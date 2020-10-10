@@ -221,20 +221,20 @@ export const asyncRoutes = [
 
       {
         path: 'create',
-        component: () => import('@/views/example/create'),
+        component: () => import('@/views/resources/create'),
         name: 'CreateArticle',
         meta: { title: 'Create Article', icon: 'edit' }
       },
       {
         path: 'edit/:id(\\d+)',
-        component: () => import('@/views/example/edit'),
+        component: () => import('@/views/resources/edit'),
         name: 'EditArticle',
         meta: { title: 'Edit Article', noCache: true, activeMenu: '/example/list' },
         hidden: true
       },
       {
         path: 'list',
-        component: () => import('@/views/example/list'),
+        component: () => import('@/views/resources/list'),
         name: 'ArticleList',
         meta: { title: '文档资源', icon: 'list' }
       }
