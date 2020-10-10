@@ -7,6 +7,7 @@ Golang Code And Others
 * [jwt-go](https://github.com/dgrijalva/jwt-go)
 *  [gopsutils](https://github.com/shirou/gopsutil)
 * [gorm ](https://github.com/go-gorm/gorm)
+* [client-go](https://github.com/kubernetes/client-go)
 ### 前端
 本项目前端采用vue.js,具体框架采用[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin),对原作者[PanJiaChen](https://github.com/PanJiaChen)表示感谢.  
 前端涉及到的数据包有  
@@ -16,6 +17,7 @@ Golang Code And Others
 
 ## 待完善
 * [ ] 基于jwt-go的jwt 认证
+* [ ] 基于RBAC的用户管理
 * [ ] web 框架调整和优化
     * [ ] 日志功能
     * [ ] Error错误处理
@@ -26,6 +28,8 @@ Golang Code And Others
 * [ ] Linux 监控服务API开发
 * [ ] 前端开发
 * [ ] 用户管理与RBAC
+* [ ] kubernetes集群管理
+* [ ] kubernetes YAML应用部署和访问
 * [ ] golang 代理服务
  *[ ] ssh /tcp 代理，多层代理
 
