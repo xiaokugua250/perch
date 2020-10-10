@@ -19,11 +19,18 @@ const cloudRouter = {
       meta: { title: 'DashBoard' }
     },
     {
+      path: 'application',
+      component: () => import('@/views/cloud/applications/index'),
+      name: 'pplication',
+      meta: { title: 'Application' }
+    },
+    {
       path: 'resources',
       component: () => import('@/views/cloud/resources/index'),
       name: 'resources',
-      meta: { title: 'resources' }
+      meta: { title: 'Resources' }
     },
+
     {
       path: 'crd',
       component: () => import('@/views/cloud/crd/index'),

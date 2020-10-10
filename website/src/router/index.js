@@ -214,10 +214,11 @@ export const asyncRoutes = [
     redirect: '/example/list',
     name: 'Example',
     meta: {
-      title: 'Example',
+      title: '平台资源',
       icon: 'el-icon-s-help'
     },
     children: [
+
       {
         path: 'create',
         component: () => import('@/views/example/create'),
@@ -235,7 +236,7 @@ export const asyncRoutes = [
         path: 'list',
         component: () => import('@/views/example/list'),
         name: 'ArticleList',
-        meta: { title: 'Article List', icon: 'list' }
+        meta: { title: '文档资源', icon: 'list' }
       }
     ]
   },
