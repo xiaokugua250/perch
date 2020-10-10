@@ -2,13 +2,20 @@ version: "3.8"
 services:
 
   nginx:
-    image: nginx
+    build:
+      context: ./resource
+      dockerfile: Dockerfile_Nginx
+    image: github.com/perch/nginx:v1.0
     ports:
-      - "80:80"
+      - "8080:8080"
   website:
     image: nginx
+    build:
+      context: ./resource
+      dockerfile: Dockerfile_Website
+    image: github.com/perch/websit:v1.0
     ports:
-      - "9527:9527"
+      - "80:80"
     #networks:
     #  - overlay
     #deploy:
@@ -46,7 +53,7 @@ services:
     build:
       context: ./resource
       dockerfile: Dockerfile_Golang_admin_server
-    image: github.com/markov/plat-admin:v1.0
+    image: github.com/perch/plat-admin:v1.0
     depends_on:
       - mysql
       - nginx
@@ -63,7 +70,7 @@ services:
     build:
       context: ./resource
       dockerfile: Dockerfile_Golang_dataplat_server
-    image: github.com/markov/data-admin:v1.0
+    image: github.com/perch/data-admin:v1.0
     depends_on:
       - mysql
       - nginx
@@ -76,7 +83,7 @@ services:
     build:
       context: ./resource
       dockerfile: Dockerfile_Golang_cloud_server
-    image: github.com/markov/cloud-admin:v1.0
+    image: github.com/perch/cloud-admin:v1.0
     depends_on:
       - mysql
       - nginx
@@ -93,7 +100,7 @@ services:
     build:
       context: ./resource
       dockerfile: Dockerfile_Golang_sysadmin_server
-    image: github.com/markov/sys-admin:v1.0
+    image: github.com/perch/sys-admin:v1.0
     depends_on:
       - mysql
       - nginx
