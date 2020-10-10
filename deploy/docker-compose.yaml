@@ -1,6 +1,5 @@
 version: "3.8"
 services:
-
   nginx:
     build:
       context: ./resource
@@ -9,7 +8,6 @@ services:
     ports:
       - "8080:8080"
   website:
-    image: nginx
     build:
       context: ./resource
       dockerfile: Dockerfile_Website
@@ -22,7 +20,7 @@ services:
     #  mode: replicated
     #  replicas: 1
     #  endpoint_mode: vip
-    
+
   mysql:
     image: mysql:8.0
     restart: alway
@@ -105,7 +103,7 @@ services:
       - mysql
       - nginx
       - redis
-  
+
 volumes:
   db_data: {}
 

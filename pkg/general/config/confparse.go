@@ -68,9 +68,9 @@ func InitGenWebConfig(configfile string) error {
 		DEFAULT_PRO_CONFIG_DIR = os.Getenv("DEV_CONFIG_DIR")
 	}
 	if os.Getenv("PRO_ENV") != "" {
-		configfile = DEFAULT_DEV_CONFIG_DIR + configfile+".yaml"
+		configfile = DEFAULT_PRO_CONFIG_DIR + configfile + ".yaml"
 	} else {
-		configfile = DEFAULT_DEV_CONFIG_DIR + configfile+".yaml"
+		configfile = DEFAULT_DEV_CONFIG_DIR + configfile + ".yaml"
 
 	}
 	_, err = os.Stat(configfile)

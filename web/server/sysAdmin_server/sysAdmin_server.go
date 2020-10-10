@@ -2,7 +2,7 @@ package main
 
 import (
 	"net/http"
-	sysadmin "perch/api/sysadmin_api"
+	sysadmin "perch/api/system_api"
 	"perch/web/service"
 )
 

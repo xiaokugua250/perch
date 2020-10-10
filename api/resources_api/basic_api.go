@@ -1,4 +1,4 @@
-package dataplat
+package resources_api
 
 import (
 	"context"
@@ -14,7 +14,7 @@ func PlatDataResourcesHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
 		var (
 			resourceArticles []resource.ResourceArticle
-			err         error
+			err              error
 		)
 		response.Kind = "articles"
 
@@ -24,13 +24,12 @@ func PlatDataResourcesHandler(w http.ResponseWriter, r *http.Request) {
 			response.Spec = err.Error()
 			return err
 		}
-		if err = database.MySQL_DB.Model(resource.ResourceArticle{}).Count(&response.Total).Error;err!= nil{
+		if err = database.MySQL_DB.Model(resource.ResourceArticle{}).Count(&response.Total).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
 			return err
 		}
-
 
 		response.Code = http.StatusOK
 		response.Spec = resourceArticles
@@ -38,6 +37,3 @@ func PlatDataResourcesHandler(w http.ResponseWriter, r *http.Request) {
 		return nil
 	})
 }
-
-
-
