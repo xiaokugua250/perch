@@ -88,11 +88,11 @@ func SysAdvancedDiskInfo(diskSerialName string,diskLableName string,partions boo
 		return diskAdvancedInfo,errors.New("current system is windows!,only linux support!")
 	}
 	if diskSerialName != ""{
-		diskAdvancedInfo.SerialNumber= disk.GetDiskSerialNumber(diskSerialName)
+	//	diskAdvancedInfo.SerialNumber= disk.GetDiskSerialNumber(diskSerialName)
 	}
 
 	if diskLableName !=""{
-		diskAdvancedInfo.Lables=disk.GetLabel(diskLableName)
+	//	diskAdvancedInfo.Lables=disk.GetLabel(diskLableName)
 	}
 	if len(iocounters) >=1{
 		diskAdvancedInfo.IOCounters,err = disk.IOCounters(iocounters...)
@@ -184,7 +184,7 @@ func SysAdvancedNetInfo(percpu bool)(NetAdvancedInfo,error) {
 	if runtime.GOOS=="windows"{
 		return netinfo,errors.New("current system is windows!,only linux support!")
 	}
-	netinfo.Pids,err = net.Pids()
+	//netinfo.Pids,err = net.Pids()
 	if err != nil{
 		return NetAdvancedInfo{}, err
 	}

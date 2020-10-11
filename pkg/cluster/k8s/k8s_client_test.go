@@ -2,8 +2,6 @@ package k8s
 
 import (
 	"fmt"
-	v1 "k8s.io/api/core/v1"
-	"k8s.io/apimachinery/pkg/labels"
 	"log"
 	_ "perch/pkg/log"
 	"testing"
@@ -14,9 +12,13 @@ func TestK8SClusterManager_InitK8SClusterClient(t *testing.T) {
 	var (
 		err error
 	)
-	clusterManager := K8SClusterManager{
-		KubeClusterName: "dev",
-		KubeConfig:      "E:\\WorksSpaces\\GoWorkSpaces\\perch\\configs\\dev\\cluster_config\\k8s_dev.config",
+	clusterManager := ClusterManager{
+
+
+		KubeConfig:   KUBEConfig{
+			ClusterName:"k8s_dev",
+			ConfigFile: "E:\\WorksSpaces\\GoWorkSpaces\\perch\\configs\\dev\\cluster_config\\kubernetes_clusters\\k8s_dev.config",
+		},
 	}
 	if err = clusterManager.InitK8SClusterClient(); err != nil {
 		log.Fatal(err)
@@ -28,7 +30,7 @@ func TestK8SClusterManager_InitK8SClusterClient(t *testing.T) {
 	for _,node:=range nodes.Items{
 		fmt.Println(node)
 	}*/
-	selector := labels.NewSelector()
+	/*selector := labels.NewSelector()
 	result, err := K8sResourceListWithInformer(ClusterClientMap["dev"], K8S_RESOURCE_NODE, selector)
 	if err != nil {
 		log.Println(err)
@@ -40,5 +42,14 @@ func TestK8SClusterManager_InitK8SClusterClient(t *testing.T) {
 		}
 	}
 	fmt.Println("result is ", result)
+	*/
 
+
+}
+
+
+func TestInitKubernetesCluster(t *testing.T) {
+	if err :=InitKubernetesCluster();err!= nil{
+		fmt.Println(err)
+	}
 }

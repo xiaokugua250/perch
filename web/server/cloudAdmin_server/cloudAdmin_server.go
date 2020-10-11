@@ -4,6 +4,7 @@ import (
 	"net/http"
 	cloud "perch/api/cloud_api"
 	database "perch/database/mysql"
+	"perch/pkg/cluster/k8s"
 	"perch/web/service"
 )
 
@@ -31,6 +32,7 @@ func main() {
 		},
 		InitFunc: []func() error{
 			database.InitMySQLDB,
+			k8s.InitKubernetesCluster,
 		},
 	}.WebServiceStart()
 
