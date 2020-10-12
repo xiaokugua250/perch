@@ -237,6 +237,12 @@ export const asyncRoutes = [
         component: () => import('@/views/resources/docs/list'),
         name: 'ArticleList',
         meta: { title: '文档资源', icon: 'list' }
+      },
+      {
+        path: 'category',
+        component: () => import('@/views/resources/category_list'),
+        name: 'ArticleList',
+        meta: { title: '资源种类', icon: 'tree-table' }
       }
     ]
   },

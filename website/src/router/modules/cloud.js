@@ -8,7 +8,7 @@ const cloudRouter = {
   redirect: '/cloud/dashboard',
   name: 'cloud',
   meta: {
-    title: '容器云',
+    title: 'Cloud',
     icon: 'peoples'
   },
   children: [

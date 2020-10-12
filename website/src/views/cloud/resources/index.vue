@@ -21,14 +21,16 @@ export default {
   data() {
     return {
       tabMapOptions: [
-        { label: '主机(HOST)', key: 'Host' },
-        { label: 'CPU', key: 'Cpu' },
-        { label: '内存(MEM)', key: 'Mem' },
-        { label: '硬盘(DISK)', key: 'Disk' },
-        { label: '网络(NET)', key: 'Net' },
-        { label: '容器(DOCKER)', key: 'Docker' },
-        { label: '进程(PROCESS)', key: 'Process' },
-        { label: '负载(LOAD)', key: 'Load' }
+        { label: '节点(Node)', key: 'Node' },
+        { label: 'NameSpaces', key: 'Namespaces' },
+        { label: 'DeployMent', key: 'DeployMent' },
+        { label: 'StatefulSet', key: 'StatefulSet' },
+        { label: 'PODS', key: 'PODS' },
+        { label: 'Service)', key: 'Service' },
+        { label: 'Resources', key: 'Resources' },
+        { label: 'Jobs', key: 'Jobs' },
+        { label: 'CronJobs', key: 'CronJobs' },
+        { label: 'CRDS', key: 'CRDS' }
       ],
       activeName: 'Host',
       createdTimes: 0

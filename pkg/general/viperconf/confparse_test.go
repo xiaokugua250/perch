@@ -1,4 +1,4 @@
-package config
+package viperconf
 
 import (
 "fmt"

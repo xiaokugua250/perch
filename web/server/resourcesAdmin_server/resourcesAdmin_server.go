@@ -19,6 +19,12 @@ func main() {
 			{RouterPath: "/docs/{id}", RouterHandlerFunc: admin.UpdateSpecResourcesDocsHandler, RouterMethod: http.MethodPatch},
 			{RouterPath: "/docs/{id}", RouterHandlerFunc: admin.DeleteSpecResourcesDocsHandler, RouterMethod: http.MethodDelete},
 			//{RouterPath: "/user/register", RouterHandlerFunc: admin.PlatLoginGenTokenHandler, RouterMethod: http.MethodPost},
+			//------------------------
+			{RouterPath: "/categorys", RouterHandlerFunc: admin.GetResourcesCategorysHandler, RouterMethod: http.MethodGet},
+			{RouterPath: "/category", RouterHandlerFunc: admin.CreateResourcesCategorysHandler, RouterMethod: http.MethodPost},
+			{RouterPath: "/category/{id}", RouterHandlerFunc: admin.SpecGetResourcesCategorysHandler, RouterMethod: http.MethodGet},
+			{RouterPath: "/category/{id}", RouterHandlerFunc: admin.UpdateSpecResourcesCategorysHandler, RouterMethod: http.MethodPatch},
+			{RouterPath: "/category/{id}", RouterHandlerFunc: admin.DeleteSpecResourcesCategorysHandler, RouterMethod: http.MethodDelete},
 
 		},
 		InitFunc: []func() error{

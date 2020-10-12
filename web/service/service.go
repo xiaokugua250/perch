@@ -8,7 +8,8 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"perch/pkg/general/config"
+
+	"perch/pkg/general/viperconf"
 	"strconv"
 	"syscall"
 	"time"
@@ -42,7 +43,7 @@ func GeneralCleanFunc() error {
 }
 
 func (webservice WebService) WebServiceInit() {
-	err := config.InitGenWebConfig(webservice.Name)
+	err := viperconf.InitGenWebConfig(webservice.Name)
 	if err!= nil{
 		log.Fatalln(err)
 	}
@@ -70,7 +71,7 @@ func (webservice WebService) WebServiceGenRouter() *mux.Router {
 }
 func (webservice WebService) WebServiceStart() {
 	webservice.WebServiceInit()
-	httpAddr := config.WebServiceConfig.WebConfig.ServerIP+":"+strconv.Itoa(config.WebServiceConfig.WebConfig.ServerPort)
+	httpAddr := viperconf.WebServiceConfig.WebConfig.ServerIP+":"+strconv.Itoa(viperconf.WebServiceConfig.WebConfig.ServerPort)
 
 	log.Println(webservice.Name + " service starting...")
 	log.Println("service listening on：http://" + httpAddr)
