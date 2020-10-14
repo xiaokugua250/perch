@@ -54,7 +54,8 @@
 </template>
 
 <script>
-import { fetchList } from '@/api/article'
+import { getNodes,getNamespaces,getService,getConfigmap,
+getServiceAccount,getPod, getJob,getBatchJob,getDeployment,getDaemonset,getReplicaset,getPv,getPvc} from '@/api/cloud-resource'
 
 export default {
   filters: {
