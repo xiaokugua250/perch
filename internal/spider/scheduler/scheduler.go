@@ -25,6 +25,6 @@ type ErrNotifier interface {
 	WorkerErrHander(chan interface{})
 }
 
-func SchedulerWithStrategy(strategy func()) {
+func SchedulerWithStrategy(strategy) {
 
 }
