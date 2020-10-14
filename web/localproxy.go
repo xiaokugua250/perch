@@ -33,6 +33,19 @@ func ResourcesProxy(w http.ResponseWriter,r *http.Request){
 
 	httputil.NewSingleHostReverseProxy(path).ServeHTTP(w,r)
 }
+func CloudProxy(w http.ResponseWriter,r *http.Request){
+	path,err:= url.Parse("http://127.0.0.1:8083")
+	if err!= nil{
+		fmt.Printf("error is %s",err.Error())
+	}
+	//r.URL.Path = strings.Replace(r.RequestURI, "/forum", "", 1)
+	fmt.Println(r.URL.Path)
+	r.URL.Path=r.URL.Path[10:]
+	fmt.Println("--->",r.URL.Path)
+
+	httputil.NewSingleHostReverseProxy(path).ServeHTTP(w,r)
+}
+
 
 
 func main()  {
@@ -41,6 +54,7 @@ func main()  {
 
 	router.PathPrefix("/api/basic").HandlerFunc(sysUserProxy)
 	router.PathPrefix("/api/resources").HandlerFunc(ResourcesProxy)
+	router.PathPrefix("/api/cloud").HandlerFunc(CloudProxy)
 	server := &http.Server{
 		Addr:"0.0.0.0:80",
 		Handler:router,

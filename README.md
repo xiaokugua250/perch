@@ -31,8 +31,11 @@ Golang Code And Others
 * [ ] 用户管理与RBAC
 * [ ] kubernetes集群管理
 * [ ] kubernetes YAML应用部署和访问
+* [ ] 熔断器和限流器
+   ref:http://www.hatlonely.com/2018/06/21/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BB%84%E4%BB%B6%E4%B9%8B%E9%99%90%E6%B5%81%E5%99%A8%E4%B8%8E%E7%86%94%E6%96%AD%E5%99%A8/
 * [ ] golang 代理服务
  *[ ] ssh /tcp 代理，多层代理
+ 
 
 项目布局参考:  
 https://github.com/golang-standards/project-layout
