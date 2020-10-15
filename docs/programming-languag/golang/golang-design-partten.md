@@ -60,3 +60,7 @@ Timing Functions：包装和执行日志的函数；
 Functional Options：允许给默认值创建clean API和惯用重载；
 反模式
 级联故障：一个系统的某部分出现错误，与之有关的上下级也随之出现故障，导致多米诺效应。
+
+
+参考:
+1.https://www.ulovecode.com/2020/04/07/Go/%E6%88%91%E5%AF%B9%E4%BA%8EGolang%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%AD%E4%B8%8D%E5%90%8C%E7%9A%84%E7%90%86%E8%A7%A3/
