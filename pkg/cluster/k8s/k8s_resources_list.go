@@ -7,7 +7,6 @@ import (
 	"k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/client-go/informers"
 	appv1 "k8s.io/client-go/informers/apps/v1"
-	batchv1 "k8s.io/client-go/informers/batch/v1"
 	batchv2 "k8s.io/client-go/informers/batch/v2alpha1"
 	v1 "k8s.io/client-go/informers/core/v1"
 	"k8s.io/client-go/tools/cache"
@@ -88,23 +87,29 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
 		return informer.(v1.PodInformer).Lister().List(selector)
-	case K8S_RESOURCE_JOB:
-		informer = factory.Batch().V1().Jobs().Informer()
-		go informer.(batchv1.JobInformer).Informer().Run(stopChan)
+	case K8S_RESOURCE_JOB: //todo 需要重新处理
+		Jobinformer := factory.Batch().V1().Jobs().Informer()
+		go Jobinformer.Run(stopChan)
+		//go factory.Batch().V1().Jobs().Informer().Run(stopChan)
+		//go informer.(batchv1.JobInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
-		if !cache.WaitForCacheSync(stopChan, informer.(batchv1.JobInformer).Informer().HasSynced) {
+		if !cache.WaitForCacheSync(stopChan, Jobinformer.HasSynced) {
 			runtime.HandleError(fmt.Errorf("Timed out waiting for caches to sync"))
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
-		return informer.(batchv1.JobInformer).Lister().List(selector)
-	case K8S_RESOURCE_BATCHJOB:
-		informer = factory.Batch().V2alpha1().CronJobs().Informer()
-		go informer.(batchv2.CronJobInformer).Informer().Run(stopChan)
+
+		return factory.Batch().V1().Jobs().Lister().List(selector)
+	//	return informer.(batchv1.JobInformer).Lister().List(selector)
+	case K8S_RESOURCE_BATCHJOB: //todo 需要重新处理
+		BatchJobinformer := factory.Batch().V2alpha1().CronJobs().Informer()
+		//	go informer.(batchv2.CronJobInformer).Informer().Run(stopChan)
+		go BatchJobinformer.Run(stopChan)
 		//go informer.Informer().Run(stopChan)
-		if !cache.WaitForCacheSync(stopChan, informer.(batchv2.CronJobInformer).Informer().HasSynced) {
+		if !cache.WaitForCacheSync(stopChan, BatchJobinformer.HasSynced) {
 			runtime.HandleError(fmt.Errorf("Timed out waiting for caches to sync"))
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
+
 		return informer.(batchv2.CronJobInformer).Lister().List(selector)
 	case K8S_RESOURCE_DEPLOYMENT:
 		informer = factory.Apps().V1().Deployments()

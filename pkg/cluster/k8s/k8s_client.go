@@ -69,14 +69,14 @@ type KUBEConfig struct {
 	ConfigFile  string `yaml:"config_file"`
 }
 
-/*type ClientSet struct {
+type ClientSet struct {
 	K8SClientSet *kubernetes.Clientset
-}*/
+}
 
 var (
 	ClusterClientMap = make(map[string]*kubernetes.Clientset)
 
-//	K8SClientSet     = ClientSet{}
+	K8SClientSet = ClientSet{}
 )
 
 /**
@@ -133,7 +133,7 @@ func InitKubernetesCluster() error {
 		log.Fatalln(err)
 	}
 	ClusterClientMap[k8sClusterManager.KubeConfig.ClusterName] = clientset
-	//K8SClientSet.K8SClientSet = clientset
+	K8SClientSet.K8SClientSet = clientset
 	return nil
 
 }

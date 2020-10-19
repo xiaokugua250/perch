@@ -21,7 +21,8 @@ func CloudNameSpacesResoucesHandler(w http.ResponseWriter, r *http.Request) {
 			err error
 		)
 		response.Kind = "cloud resources"
-
+		fmt.Printf("==>%v")
+		fmt.Println(k8s.K8SClientSet)
 		result, err := k8s.K8SClientSet.K8sResourceListWithInformer(k8s.K8S_RESOURCE_NAMESPACES, "", labels.NewSelector())
 		if err != nil {
 			response.Code = http.StatusInternalServerError
@@ -80,7 +81,7 @@ func CloudConfigMapResoucesHandler(w http.ResponseWriter, r *http.Request) {
 		configmaps, ok := result.([]*v1.ConfigMap)
 		if !ok {
 			response.Code = http.StatusInternalServerError
-			response.Message =  fmt.Sprintf("marsh result to v1.configmaps failed...")
+			response.Message = fmt.Sprintf("marsh result to v1.configmaps failed...")
 			return err
 		}
 		response.Code = http.StatusOK
@@ -104,7 +105,7 @@ func CloudServiceAccountResoucesHandler(w http.ResponseWriter, r *http.Request) 
 		serviceaccount, ok := result.([]*v1.ServiceAccount)
 		if !ok {
 			response.Code = http.StatusInternalServerError
-			response.Message =  fmt.Sprintf("marsh result to v1.serviceaccount failed...")
+			response.Message = fmt.Sprintf("marsh result to v1.serviceaccount failed...")
 			return err
 		}
 		response.Code = http.StatusOK
@@ -152,7 +153,7 @@ func CloudJOBResoucesHandler(w http.ResponseWriter, r *http.Request) {
 		jobs, ok := result.([]*batchv1.Job)
 		if !ok {
 			response.Code = http.StatusInternalServerError
-			response.Message =  fmt.Sprintf("marsh result to v1.job failed...")
+			response.Message = fmt.Sprintf("marsh result to v1.job failed...")
 			return err
 		}
 		response.Code = http.StatusOK
@@ -176,7 +177,7 @@ func CloudBatchJOBResoucesHandler(w http.ResponseWriter, r *http.Request) {
 		crobJobs, ok := result.([]*batchv1beta1.CronJob)
 		if !ok {
 			response.Code = http.StatusInternalServerError
-			response.Message =  fmt.Sprintf("marsh result to v1.crobjb failed...")
+			response.Message = fmt.Sprintf("marsh result to v1.crobjb failed...")
 			return err
 		}
 		response.Code = http.StatusOK
@@ -200,7 +201,7 @@ func CloudServiceResoucesHandler(w http.ResponseWriter, r *http.Request) {
 		services, ok := result.([]*v1.Service)
 		if !ok {
 			response.Code = http.StatusInternalServerError
-			response.Message =  fmt.Sprintf("marsh result to v1.service failed...")
+			response.Message = fmt.Sprintf("marsh result to v1.service failed...")
 			return err
 		}
 		response.Code = http.StatusOK
@@ -224,7 +225,7 @@ func CloudDeploymentResoucesHandler(w http.ResponseWriter, r *http.Request) {
 		deployments, ok := result.([]*app.Deployment)
 		if !ok {
 			response.Code = http.StatusInternalServerError
-			response.Message =  fmt.Sprintf("marsh result to v1.deployments failed...")
+			response.Message = fmt.Sprintf("marsh result to v1.deployments failed...")
 			return err
 		}
 		response.Code = http.StatusOK
@@ -248,7 +249,7 @@ func CloudDaemonSetResoucesHandler(w http.ResponseWriter, r *http.Request) {
 		daemonsets, ok := result.([]*app.DaemonSet)
 		if !ok {
 			response.Code = http.StatusInternalServerError
-			response.Message =  fmt.Sprintf("marsh result to v1.deamonset failed...")
+			response.Message = fmt.Sprintf("marsh result to v1.deamonset failed...")
 			return err
 		}
 		response.Code = http.StatusOK
@@ -272,7 +273,7 @@ func CloudReplicasetResoucesHandler(w http.ResponseWriter, r *http.Request) {
 		replicasets, ok := result.([]*app.ReplicaSet)
 		if !ok {
 			response.Code = http.StatusInternalServerError
-			response.Message =  fmt.Sprintf("marsh result to v1.replicaset failed...")
+			response.Message = fmt.Sprintf("marsh result to v1.replicaset failed...")
 			return err
 		}
 		response.Code = http.StatusOK
@@ -296,7 +297,7 @@ func CloudStatefuleSetResoucesHandler(w http.ResponseWriter, r *http.Request) {
 		statefulsets, ok := result.([]*app.StatefulSet)
 		if !ok {
 			response.Code = http.StatusInternalServerError
-			response.Message =  fmt.Sprintf("marsh result to app.statefuleset failed...")
+			response.Message = fmt.Sprintf("marsh result to app.statefuleset failed...")
 			return err
 		}
 		response.Code = http.StatusOK
@@ -320,7 +321,7 @@ func CloudPVResoucesHandler(w http.ResponseWriter, r *http.Request) {
 		pv, ok := result.([]*v1.PersistentVolume)
 		if !ok {
 			response.Code = http.StatusInternalServerError
-			response.Message =  fmt.Sprintf("marsh result to v1.pv failed...")
+			response.Message = fmt.Sprintf("marsh result to v1.pv failed...")
 			return err
 		}
 		response.Code = http.StatusOK
@@ -344,7 +345,7 @@ func CloudPVCResoucesHandler(w http.ResponseWriter, r *http.Request) {
 		pvc, ok := result.([]*v1.PersistentVolumeClaim)
 		if !ok {
 			response.Code = http.StatusInternalServerError
-			response.Message =  fmt.Sprintf("marsh result to v1.pvc failed...")
+			response.Message = fmt.Sprintf("marsh result to v1.pvc failed...")
 			return err
 		}
 		response.Code = http.StatusOK
