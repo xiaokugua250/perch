@@ -26,7 +26,6 @@
     </div>
     <el-table :data=" pvc" border fit highlight-current-row style="width: 100%">
 
-
       <el-table-column align="left" label="Name" width="120px">
         <template slot-scope="scope">
           <span>{{ scope.row.metadata.name }}</span>
@@ -44,7 +43,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="SPEC"     width="350px">
+      <el-table-column align="center" label="SPEC" width="350px">
         <template slot-scope="scope">
           <span>{{ scope.row.spec }}</span>
         </template>
@@ -88,7 +87,7 @@
 
 <script>
 import { getPermissions, addPermission, updatePermission, deletePermission } from '@/api/rbac'
-import {getNodes, getPvc} from "@/api/cloud-resource";
+import { getNodes, getPvc } from '@/api/cloud-resource'
 
 export default {
   filters: {
@@ -110,8 +109,8 @@ export default {
   data() {
     return {
       list: null,
-      total:0,
-      pvc:null,
+      total: 0,
+      pvc: null,
       currentPage1: 5,
       currentPage2: 5,
       currentPage3: 5,
@@ -134,12 +133,12 @@ export default {
   },
   methods: {
 
-    getCloudPVC(){
+    getCloudPVC() {
       this.loading = true
       // this.$emit('create') // for test
       getPvc(this.listQuery).then(response => {
-        this. pvc=response.spec
-        this.total= response.total
+        this.pvc = response.spec
+        this.total = response.total
         this.loading = false
       })
     },
@@ -154,3 +153,6 @@ export default {
 }
 </script>
 
+<style>
+
+</style>
