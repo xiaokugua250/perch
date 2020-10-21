@@ -14,12 +14,20 @@ VERSION=V1.0-${GIT_VERSION}
 DOCKER_HUB=github.com/markov
 
 RESOURCES_DIR=resource
-TARGET_SERVICE="admin_server cloud_server sysadmin_server dataplat_server"
-for SERVICE in  ${TARGET_SERVICE[@]}
-    do      
-        sed  "s/\${SERVICE_NAME}/${SERVICE}/g" ${RESOURCES_DIR}/Dockerfile_Golang  > ${RESOURCES_DIR}/Dockerfile_Golang_$SERVICE
-done
+TARGET_BIN_DIR=resource/bin/application
 
+
+# shellcheck disable=SC2231
+for file in ${TARGET_BIN_DIR}/*;
+#for fileName in `ls ${TARGET_BIN_DIR}`;
+  do
+    service=${file##*/} #//只取文件名
+    echo "begin to build $service image ..." &&
+    sed  "s/\${SERVICE_NAME}/${service}/g" ${RESOURCES_DIR}/Dockerfile  > ${RESOURCES_DIR}/Dockerfile_tmp &&
+    docker build -t github.com/perch/"${service,,}":"${VERSION}" -f ${RESOURCES_DIR}/Dockerfile_tmp ./${RESOURCES_DIR} && #{service,,}將大寫改造成小寫
+    rm -rf ${RESOURCES_DIR}/Dockerfile_tmp
+
+  done
 
 version=`git log --date=iso --pretty=format:"%cd @%h" -1`
 if [ $? -ne 0 ]; then
@@ -36,3 +44,11 @@ const (
     Compile = "$compile"
 )
 EOF
+
+echo "begin to make project..."
+#make
+echo "begin to build project with docker-compose..."
+#docker-compose build
+echo "begin to deploy project with docker-compose..."
+#docker-compose up -d
+

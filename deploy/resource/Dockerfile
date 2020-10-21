@@ -2,7 +2,6 @@ FROM centos:8
 LABEL "Author"="liangdu1992@gmail.com"
 LABEL version="1.0.0"
 LABEL description="golang Project docker file"
-COPY ./config /configs 
-COPY ./bin/application/cloud-server /usr/local/bin/
-EXPOSE 800
-CMD ["cloud-server"]
+COPY bin/application/${SERVICE_NAME} /usr/local/bin/
+EXPOSE 8000
+CMD ["${SERVICE_NAME}"]

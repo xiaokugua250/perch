@@ -11,7 +11,7 @@ Access-Control-Allow-Origin *
 }
 route /api/basic/* {
 	uri strip_prefix /api/basic
-	reverse_proxy localhost:8081    {
+	reverse_proxy plat-admin:8000    {
        # header_up Host {http.reverse_proxy.upstream.hostport}
        # header_down Access-Control-Allow-Headers *
        # header_down Access-Control-Allow-Origin *
