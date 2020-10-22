@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"perch/api"
 	admin "perch/api/user_api"
 	database "perch/database/mysql"
 	"perch/web/service"
@@ -12,6 +13,9 @@ func main() {
 
 		Name: "plat-admin",
 		Router: []service.WebRouter{
+			{RouterPath: "/version", RouterHandlerFunc: api.ServiceVersionandler, RouterMethod: http.MethodGet},
+			{RouterPath: "/health", RouterHandlerFunc: api.ServiceHealthHandler, RouterMethod: http.MethodGet},
+
 			{RouterPath: "/user/login", RouterHandlerFunc: admin.PlatLoginHandler, RouterMethod: http.MethodPost},
 			{RouterPath: "/user/logout", RouterHandlerFunc: admin.PlatLogoutHandler, RouterMethod: http.MethodPost},
 			{RouterPath: "/user/info", RouterHandlerFunc: admin.PlatUserInfoHandler, RouterMethod: http.MethodGet},
