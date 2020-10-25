@@ -29,6 +29,10 @@ func main() {
 			{RouterPath: "/resources/pv", RouterHandlerFunc: cloud.CloudPVResoucesHandler, RouterMethod: http.MethodGet},
 			{RouterPath: "/resources/pvc", RouterHandlerFunc: cloud.CloudPVCResoucesHandler, RouterMethod: http.MethodGet},
 			{RouterPath: "/resources", RouterHandlerFunc: cloud.CloudResoucesHandler, RouterMethod: http.MethodGet},
+			//----
+			{RouterPath: "/construct/resource", RouterHandlerFunc: cloud.CloudResourceFileHandler, RouterMethod: http.MethodPost},
+
+
 		},
 		InitFunc: []func() error{
 			database.InitMySQLDB,
