@@ -51,9 +51,9 @@ services:
     #  replicas: 2
     #  endpoint_mode: dns
   plat-admin:
-    build:
-      context: ./resource
-      dockerfile: Dockerfile_Golang_admin_server
+    #build:
+    #  context: ./resource
+    #  dockerfile: Dockerfile_Golang_admin_server
     image: github.com/perch/plat-admin:v1.0
     ports:
     - "8000:8000"
@@ -70,9 +70,9 @@ services:
     #  replicas: 2
     #  endpoint_mode: dnsrr
   plat-user:
-    build:
-      context: ./resource
-      dockerfile: Dockerfile_Golang_dataplat_server
+    #build:
+    #  context: ./resource
+    #  dockerfile: Dockerfile_Golang_dataplat_server
     image: github.com/perch/data-admin:v1.0
     depends_on:
       - mysql
@@ -83,9 +83,9 @@ services:
     #networks:
     #  - overlay
   plat-cloud:
-    build:
-      context: ./resource
-      dockerfile: Dockerfile_Golang_cloud_server
+    #build:
+    #  context: ./resource
+    #  dockerfile: Dockerfile_Golang_cloud_server
     image: github.com/perch/cloud-admin:v1.0
     depends_on:
       - mysql
@@ -100,9 +100,9 @@ services:
     #  replicas: 2
     #  endpoint_mode: dns
   plat-resources:
-    build:
-      context: ./resource
-      dockerfile: Dockerfile_Golang_sysadmin_server
+    #build:
+    #  context: ./resource
+    #  dockerfile: Dockerfile_Golang_sysadmin_server
     image: github.com/perch/sys-admin:v1.0
     depends_on:
       - mysql
