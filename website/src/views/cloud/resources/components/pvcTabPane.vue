@@ -25,36 +25,32 @@
       </el-checkbox>
     </div>
     <el-table :data=" pvc" border fit highlight-current-row style="width: 100%">
+
+      <el-table-column align="left" label="Name" width="120px">
+        <template slot-scope="scope">
+          <span>{{ scope.row.metadata.name }}</span>
+        </template>
+      </el-table-column>
       <el-table-column
         v-loading="loading"
         align="center"
-        label="ID"
-        width="65"
+        label="METADATA"
+        width="350px"
         element-loading-text="请给我点时间！"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.id }}</span>
+          <span>{{ scope.row.metadata }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="权限名称">
+      <el-table-column align="center" label="SPEC" width="350px">
         <template slot-scope="scope">
-          <span>{{ scope.row.permission_name }}</span>
+          <span>{{ scope.row.spec }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="权限代码">
+      <el-table-column align="center" label="节点状态">
         <template slot-scope="scope">
-          <span>{{ scope.row.permission_code }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="创建时间">
-        <template slot-scope="scope">
-          <span>{{ scope.row.created_at }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="更新时间">
-        <template slot-scope="scope">
-          <span>{{ scope.row.updated_at }}</span>
+          <span>{{ scope.row.status }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" width="350px" class-name="small-padding fixed-width">
@@ -91,7 +87,7 @@
 
 <script>
 import { getPermissions, addPermission, updatePermission, deletePermission } from '@/api/rbac'
-import {getNodes, getPvc} from "@/api/cloud-resource";
+import { getNodes, getPvc } from '@/api/cloud-resource'
 
 export default {
   filters: {
@@ -113,7 +109,8 @@ export default {
   data() {
     return {
       list: null,
-      pvc:null,
+      total: 0,
+      pvc: null,
       currentPage1: 5,
       currentPage2: 5,
       currentPage3: 5,
@@ -136,12 +133,12 @@ export default {
   },
   methods: {
 
-    getCloudPVC(){
+    getCloudPVC() {
       this.loading = true
       // this.$emit('create') // for test
       getPvc(this.listQuery).then(response => {
-        this. pvc=response.spec
-        this.total= response.total
+        this.pvc = response.spec
+        this.total = response.total
         this.loading = false
       })
     },
@@ -156,3 +153,6 @@ export default {
 }
 </script>
 
+<style>
+
+</style>

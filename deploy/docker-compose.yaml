@@ -1,19 +1,22 @@
 version: "3.8"
 services:
-  nginx:
-    build:
-      context: ./resource
-      dockerfile: Dockerfile_Nginx
-    image: github.com/perch/nginx:v1.0
+  caddy:
+    image: caddy
     ports:
-      - "8080:8080"
+      - "80:80"
+    volumes:
+      - type: bind
+        source: ${PWD}/resource/config/Caddyfile
+        target: /etc/caddy/Caddyfile
+    depends_on:
+      - plat-admin
   website:
     build:
       context: ./resource
       dockerfile: Dockerfile_Website
     image: github.com/perch/websit:v1.0
-    ports:
-      - "80:80"
+    #ports:
+    #  - "80:80"
     #networks:
     #  - overlay
     #deploy:
@@ -23,7 +26,7 @@ services:
 
   mysql:
     image: mysql:8.0
-    restart: alway
+    #restart: alway
     environment:
        MYSQL_ROOT_PASSWORD: mysqladmin
        MYSQL_DATABASE: morty
@@ -37,8 +40,8 @@ services:
     #  mode: replicated
     #  replicas: 2
     #  endpoint_mode: dnsrr
-  redis:
-    image: redis
+  #redis:
+  #  image: redis
     #volumes:
     #  - db-data:/var/lib/mysql/data
     #networks:
@@ -48,14 +51,16 @@ services:
     #  replicas: 2
     #  endpoint_mode: dns
   plat-admin:
-    build:
-      context: ./resource
-      dockerfile: Dockerfile_Golang_admin_server
+    #build:
+    #  context: ./resource
+    #  dockerfile: Dockerfile_Golang_admin_server
     image: github.com/perch/plat-admin:v1.0
+    ports:
+    - "8000:8000"
     depends_on:
       - mysql
-      - nginx
-      - redis
+      #- nginx
+      #- redis
     #volumes:
     #  - db-data:/var/lib/mysql/data
     #networks:
@@ -65,27 +70,27 @@ services:
     #  replicas: 2
     #  endpoint_mode: dnsrr
   plat-user:
-    build:
-      context: ./resource
-      dockerfile: Dockerfile_Golang_dataplat_server
+    #build:
+    #  context: ./resource
+    #  dockerfile: Dockerfile_Golang_dataplat_server
     image: github.com/perch/data-admin:v1.0
     depends_on:
       - mysql
-      - nginx
-      - redis
+      #- nginx
+      #- redis
     #volumes:
       #- db-data:/var/lib/mysql/data
     #networks:
     #  - overlay
   plat-cloud:
-    build:
-      context: ./resource
-      dockerfile: Dockerfile_Golang_cloud_server
+    #build:
+    #  context: ./resource
+    #  dockerfile: Dockerfile_Golang_cloud_server
     image: github.com/perch/cloud-admin:v1.0
     depends_on:
       - mysql
-      - nginx
-      - redis
+      #- nginx
+      #- redis
     #volumes:
     #  - db-data:/var/lib/mysql/data
     #networks:
@@ -95,14 +100,14 @@ services:
     #  replicas: 2
     #  endpoint_mode: dns
   plat-resources:
-    build:
-      context: ./resource
-      dockerfile: Dockerfile_Golang_sysadmin_server
+    #build:
+    #  context: ./resource
+    #  dockerfile: Dockerfile_Golang_sysadmin_server
     image: github.com/perch/sys-admin:v1.0
     depends_on:
       - mysql
-      - nginx
-      - redis
+      #- nginx
+      #- redis
 
 volumes:
   db_data: {}

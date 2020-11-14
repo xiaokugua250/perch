@@ -25,38 +25,29 @@
       </el-checkbox>
     </div>
     <el-table :data="serviceAccount" border fit highlight-current-row style="width: 100%">
+      <el-table-column align="left" label="Name" width="120px">
+        <template slot-scope="scope">
+          <span>{{ scope.row.metadata.name }}</span>
+        </template>
+      </el-table-column>
       <el-table-column
         v-loading="loading"
         align="center"
-        label="ID"
-        width="65"
+        label="METADATA"
+        width="350px"
         element-loading-text="请给我点时间！"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.id }}</span>
+          <span>{{ scope.row.metadata }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="权限名称">
+      <el-table-column align="center" label="Secret">
         <template slot-scope="scope">
-          <span>{{ scope.row.permission_name }}</span>
+          <span>{{ scope.row.secrets }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="权限代码">
-        <template slot-scope="scope">
-          <span>{{ scope.row.permission_code }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="创建时间">
-        <template slot-scope="scope">
-          <span>{{ scope.row.created_at }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="更新时间">
-        <template slot-scope="scope">
-          <span>{{ scope.row.updated_at }}</span>
-        </template>
-      </el-table-column>
+
       <el-table-column label="操作" align="center" width="350px" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
           <el-button type="primary" size="mini" @click="handleUpdate(row)">

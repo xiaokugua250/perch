@@ -6,10 +6,13 @@ ref:
 */
 package k8s
 
-func K8SConstructorFileValidate() {
+import "perch/pkg/cluster/k8s/tools"
 
-}
+/**
 
-func K8SConstructorFromFile() {
+ */
+func (k8sClientSet *ClientSet) K8SConstructorFileValidate(yamlFile string) error {
+
+	return tools.ResourceConfigParser(*k8sClientSet.K8SClientSet, *k8sClientSet.k8sDynamitcClient, yamlFile)
 
 }
