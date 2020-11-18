@@ -8,6 +8,8 @@ import (
 	"perch/web/service"
 )
 
+
+
 func main() {
 	service.WebService{
 
@@ -38,6 +40,7 @@ func main() {
 			database.InitMySQLDB,
 			k8s.InitKubernetesCluster,
 		},
+
 	}.WebServiceStart()
 
 }

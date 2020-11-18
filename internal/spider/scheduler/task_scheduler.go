@@ -1,4 +1,4 @@
-
+package scheduler
 type Task struct {
 }
 
@@ -57,7 +57,7 @@ func getTxt(host string) string{
 TaskResult := make(chan interface)
 func WorkerTaskSchedulerWithLongTime(worker nums, tasks []Task) {
 	TaskChanWithLong := make(chan Task,workers)
-	
+
 	for i := 0; i < workers; i++ {
 		go TaskWorkerHandleLongTime(TaskChanWithLong)
 	}

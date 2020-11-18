@@ -173,3 +173,52 @@ func InitKubernetesCluster() error {
 	return nil
 
 }
+
+
+
+func InitKubernetesClusterWithOptions() error {
+	var (
+		k8sClusterManager ClusterManager
+		err               error
+	)
+
+	RunEnv := os.Getenv("RUN_ENV")
+	if RunEnv == "" {
+		RunEnv = "dev"
+	}
+	//	viper.AddConfigPath("E:\\WorksSpaces\\GoWorkSpaces\\perch\\configs\\"+RunEnv+"\\cluster_config")
+	viper.AddConfigPath("E:\\WorksSpaces\\GoWorkSpaces\\perch\\configs\\dev\\cluster_config")
+	viper.SetConfigName("kubernetes")
+	//viper.SetConfigFile("kubernetes_cluster.config")
+	err = viper.ReadInConfig()
+	if err != nil {
+		return err
+	}
+	err = viper.Unmarshal(&k8sClusterManager, func(config *mapstructure.DecoderConfig) {
+		config.TagName = "yaml"
+	})
+	if err != nil {
+		return err
+	}
+	config, err := clientcmd.BuildConfigFromFlags("", k8sClusterManager.KubeConfig.ConfigFile)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	clientset, err := kubernetes.NewForConfig(config)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	dynamicClient,err:= dynamic.NewForConfig(config)
+	if err != nil {
+		return err
+	}
+	ClusterClientMap[k8sClusterManager.KubeConfig.ClusterName] = ClientSet{
+		K8SClientSet:     clientset,
+		k8sDynamitcClient: &dynamicClient,
+	}
+	K8SClientSet.K8SClientSet = clientset
+	K8SClientSet.k8sDynamitcClient=&dynamicClient
+
+	return nil
+
+}
