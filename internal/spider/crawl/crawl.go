@@ -56,7 +56,7 @@ func CrawlerFetch(url string, method string, depth int, requestData io.Reader, c
 	return nil
 }
 
-func CrawlSpiderCollyInitWithOptions(taskType CrawTaskType, options ...CollyConfigOptions) (*collector, error) {
+func CrawlSpiderCollyInitWithOptions(options ...CollyConfigOptions) (*collector, error) {
 	var (
 		colly colly.Collector
 		err   error
@@ -75,4 +75,11 @@ func CrawlSpiderCollyInitWithOptions(taskType CrawTaskType, options ...CollyConf
 	colly.IgnoreRobotsTxt = defaultOptions.IgnoreRobotsTxt
 
 	return colly, err
+}
+
+func CrawlSpiderCollyStart(taskType CrawTaskType) error {
+	var (
+		err error
+	)
+	return err
 }
