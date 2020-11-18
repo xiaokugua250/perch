@@ -2,6 +2,14 @@ package crawl
 
 import "net/http"
 
+/**
+
+任务类型
+*/
+*/
+type CrawTaskType struct{
+	TaskType string `json:"taskType"` //任务类型
+}
 type CrawlRequest struct {
 	CrawHttpRequest *http.Request `json:"craw_http_request"`
 	CrawDepth       int32         `json:"craw_depth"` //爬虫深度
