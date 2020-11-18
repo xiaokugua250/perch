@@ -53,3 +53,24 @@ func TestInitKubernetesCluster(t *testing.T) {
 		fmt.Println(err)
 	}
 }
+
+func TestClusterManager_InitK8SClusterClient(t *testing.T) {
+
+	var funcArray []func(string )error
+	funcArray=append(funcArray,a)
+	funcArray=append(funcArray,b)
+	fmt.Println(funcArray)
+
+}
+
+func a(string2 string)error{
+	fmt.Println(string2)
+	return nil
+}
+
+
+
+func b(string2 string)error{
+	fmt.Println(string2)
+	return nil
+}

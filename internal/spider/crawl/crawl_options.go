@@ -20,66 +20,55 @@ https://blog.hartleybrody.com/scrape-amazon/#code
 package crawl
 
 import (
-	"context"
-	"fmt"
-	"io"
-	"io/ioutil"
-	"net/http"
-
-	"github.com/gocolly/colly"
-	"github.com/gocolly/colly/extensions"
+	"time"
 )
 
-type SpiderCrawer interface {
-	CrawlerFetch(url string) error
+/**
+
+选项模式
+http://www.topgoer.com/%E5%85%B6%E4%BB%96/%E9%80%89%E9%A1%B9%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html*//
+
+*/
+
+type TaskTimeInterval struct{
+	StartTime time.Time
+	Duration time.Duration
 }
 
-func CrawlerFetch(url string, method string, depth int, requestData io.Reader, ctx *context.Context, requestHeader http.Header, checkRevisited bool) error {
-	var err error
-	httpClient := &http.Client{}
-	req, err := http.NewRequest(http.MethodGet, url, nil)
-	if err != nil {
-		return err
-	}
-	req.Header.Set("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)")
-	resp, err := httpClient.Do(req)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return err
-	}
-	fmt.Printf("request url %s,response is %s\n", url, string(body))
+type  CollyConfigOptions struct{
+	UseRandomeUserAgent bool
+	IgnoreRobotsTxt bool
+	AllowRevisitURL bool
+	HttpMethod string 
+	TaskTimeDuration   TaskTimeInterval
 
-	return nil
+
 }
 
-func CrawlSpiderCollyInitWithOptions(options ...CollyConfigOptions) (*collector, error) {
-	var (
-		colly colly.Collector
-		err   error
-	)
-	colly = colly.NewCollector()
-	defaultOptions := &CollyConfigOptions{}
-	for _, opt := range options {
-		opt(&defaultOptions)
-	}
+type CollyOption func (opts *CollyConfigOptions)
 
-	colly.AllowURLRevisit = defaultOptions.AllowRevisitURL
-	if defaultOptions.UseRandomeUserAgent {
-		extensions.RandomUserAgent(colly)
-		extensions.Referer(colly)
+func CollyWithUserAgentOptions(randomUserAgent bool) CollyOption{
+	return func(opts *CollyConfigOptions) {
+		if randomUserAgent{
+			opts.UseRandomeUserAgent=true
+		}
 	}
-	colly.IgnoreRobotsTxt = defaultOptions.IgnoreRobotsTxt
-
-	return colly, err
 }
 
-func CrawlSpiderCollyStart(taskType CrawTaskType) error {
-	var (
-		err error
-	)
-	return err
+func CollyWithIngoreRobotTxtOptions(ignoreRobotsTxt bool) CollyOption{
+	return func(opts *CollyConfigOptions) {
+			opts.IgnoreRobotsTxt=ignoreRobotsTxt
+	}
+}
+
+func CollyWithRevisiteURLOptions(allowRevisitURL bool) CollyOption{
+	return func(opts *CollyConfigOptions) {
+			opts.AllowRevisitURL=allowRevisitURL
+	}
+}
+
+func CollyWithTaskTimeDurationsOptions(taskTimeDuaration TaskTimeInterval) CollyOption{
+	return func(opts *CollyConfigOptions) {
+			opts.TaskTimeDuration=taskTimeDuaration
+	}
 }

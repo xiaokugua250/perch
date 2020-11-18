@@ -24,10 +24,11 @@ type WebRouter struct {
 }
 
 type WebService struct {
-	Name      string
-	Router    []WebRouter
-	InitFunc  []func() error
-	CleanFunc []func() error
+	Name               string
+	Router             []WebRouter
+	InitFunc           []func() error
+InitFuncWithConifg []func(config string) error
+	CleanFunc          []func() error
 }
 
 /**
@@ -44,7 +45,7 @@ func GeneralCleanFunc() error {
 
 func (webservice WebService) WebServiceInit() {
 	err := viperconf.InitGenWebConfig(webservice.Name)
-	if err!= nil{
+	if err != nil {
 		log.Fatalln(err)
 	}
 	for _, initFunc := range webservice.InitFunc {
@@ -53,13 +54,14 @@ func (webservice WebService) WebServiceInit() {
 			log.Fatalln(err)
 		}
 	}
+
 }
 
 func (webservice WebService) WebServiceGenRouter() *mux.Router {
 	router := mux.NewRouter()
-/*	router.Use(middleware.CROSMiddleware)
-	router.Use(middleware.MetricMiddleWare)
-	router.Use(middleware.LoggingMiddleware)*/
+	/*	router.Use(middleware.CROSMiddleware)
+		router.Use(middleware.MetricMiddleWare)
+		router.Use(middleware.LoggingMiddleware)*/
 	for _, r := range webservice.Router {
 		if r.RouterPathPrefiex {
 			router.Methods(r.RouterMethod).PathPrefix(r.RouterPath).Path(r.RouterPath).HandlerFunc(r.RouterHandlerFunc)
@@ -69,19 +71,71 @@ func (webservice WebService) WebServiceGenRouter() *mux.Router {
 	}
 	return router
 }
+
 func (webservice WebService) WebServiceStart() {
+
 	webservice.WebServiceInit()
-	httpAddr := viperconf.WebServiceConfig.WebConfig.ServerIP+":"+strconv.Itoa(viperconf.WebServiceConfig.WebConfig.ServerPort)
+	httpAddr := viperconf.WebServiceConfig.WebConfig.ServerIP + ":" + strconv.Itoa(viperconf.WebServiceConfig.WebConfig.ServerPort)
 
 	log.Println(webservice.Name + " service starting...")
 	log.Println("service listening on：http://" + httpAddr)
 	// 设置和启动服务
 	server := &http.Server{
-		Addr:         httpAddr,
-		Handler:     handlers.CORS(
+		Addr: httpAddr,
+		Handler: handlers.CORS(
 			handlers.AllowedHeaders([]string{"*"}),
-			handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS","PATCH"}),
-			handlers.AllowedHeaders([]string{"X-Requested-With", "Authorization", "Content-Type", "Cache-Control","x-token", "ETag", "TIMEOUT", "DEADLINE", "content-range"}),
+			handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS", "PATCH"}),
+			handlers.AllowedHeaders([]string{"X-Requested-With", "Authorization", "Content-Type", "Cache-Control", "x-token", "ETag", "TIMEOUT", "DEADLINE", "content-range"}),
+		)(webservice.WebServiceGenRouter()),
+		WriteTimeout: 15 * time.Second,
+		ReadTimeout:  time.Second * 15,
+		IdleTimeout:  time.Second * 60,
+	}
+	errChan := make(chan error, 1)
+	go func() {
+		errChan <- server.ListenAndServe()
+		log.Println(webservice.Name + "shutting down....")
+	}()
+	log.Println(webservice.Name + "start successfully....")
+
+	// 捕获退出信号
+	signalChan := make(chan os.Signal, 1)
+	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
+	ctx := context.Background()
+	for {
+		select {
+		case err := <-errChan:
+			if err != nil {
+				log.Println(err)
+			}
+			// 执行额外的清理操作
+			for _, clean := range webservice.CleanFunc {
+				clean()
+			}
+
+			return
+		case <-signalChan:
+
+			server.Shutdown(ctx)
+		}
+	}
+
+}
+
+func (webservice WebService) OptionalServiceStart() {
+
+	webservice.WebServiceInit()
+	httpAddr := viperconf.WebServiceConfig.WebConfig.ServerIP + ":" + strconv.Itoa(viperconf.WebServiceConfig.WebConfig.ServerPort)
+
+	log.Println(webservice.Name + " service starting...")
+	log.Println("service listening on：http://" + httpAddr)
+	// 设置和启动服务
+	server := &http.Server{
+		Addr: httpAddr,
+		Handler: handlers.CORS(
+			handlers.AllowedHeaders([]string{"*"}),
+			handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS", "PATCH"}),
+			handlers.AllowedHeaders([]string{"X-Requested-With", "Authorization", "Content-Type", "Cache-Control", "x-token", "ETag", "TIMEOUT", "DEADLINE", "content-range"}),
 		)(webservice.WebServiceGenRouter()),
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  time.Second * 15,

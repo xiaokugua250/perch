@@ -29,6 +29,6 @@ init/
 pkg/general/storage/
 test/
 third_party/
-tools/
+
 ./configs/
 .idea/*

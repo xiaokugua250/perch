@@ -100,9 +100,6 @@ services:
     #  replicas: 2
     #  endpoint_mode: dns
   plat-resources:
-    #build:
-    #  context: ./resource
-    #  dockerfile: Dockerfile_Golang_sysadmin_server
     image: github.com/perch/sys-admin:v1.0
     depends_on:
       - mysql
