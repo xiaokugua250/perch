@@ -46,7 +46,8 @@ require (
 	github.com/spf13/viper v1.3.2
 	github.com/temoto/robotstxt v1.1.1 // indirect
 	github.com/urfave/cli/v2 v2.2.0
-	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
+	github.com/zellyn/kooky v0.0.0-20201108220156-bec09c12c339
+	golang.org/x/crypto v0.0.0-20201016220609-9e8e0b390897
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
 	golang.org/x/tools v0.0.0-20200708183856-df98bc6d456c // indirect
 	gopkg.in/yaml.v2 v2.3.0
