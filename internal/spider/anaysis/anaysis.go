@@ -4,9 +4,18 @@ ref https://github.com/PuerkitoBio/goquery
 */
 package anaysis
 
+import "github.com/gocolly/colly"
+
 type SpiderAnaysier interface {
 	SpiderParser(selector interface{}) (interface{}, error)
 }
+
+func GeneralOnErrorFunc(response *colly.Response,err error){
+
+}
+
+
+
 
 /**
 html dom 元素解析

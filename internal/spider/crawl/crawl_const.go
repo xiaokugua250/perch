@@ -2,13 +2,22 @@ package crawl
 
 import "net/http"
 
+const   (
+	CrawTaskType_Normal="Normal_Craw_Task" //普通抓取任务
+	CrawTaskType_Complex="Complex_Craw_Task" //复杂抓取任务
+	CrawTaskType_Snap="Snap_Craw_Task" //抢购类型任务
+)
+
 /**
 
 任务类型
 */
-*/
-type CrawTaskType struct{
+
+type CrawTaskConfig struct{
 	TaskType string `json:"taskType"` //任务类型
+	TaskInitURL []string `json:"task_init_url"` //爬虫初始url
+	TaskDisallowDomains []string `json:"task_disallow_domains"`
+	TaskCookies []string `json:"task_cookies"` //爬虫cookie
 }
 type CrawlRequest struct {
 	CrawHttpRequest *http.Request `json:"craw_http_request"`
