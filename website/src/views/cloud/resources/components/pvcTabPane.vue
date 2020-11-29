@@ -86,8 +86,8 @@
 </template>
 
 <script>
-import { getPermissions, addPermission, updatePermission, deletePermission } from '@/api/rbac'
-import { getNodes, getPvc } from '@/api/cloud-resource'
+import {getPermissions, addPermission, updatePermission, deletePermission} from '@/api/rbac'
+import {getNodes, getPvc} from '@/api/cloud-resource'
 
 export default {
   filters: {
