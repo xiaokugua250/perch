@@ -3,21 +3,16 @@ package main
 import (
 	"net/http"
 	"perch/api/spider_api"
-	database "perch/database/mysql"
 	"perch/web/service"
 )
 
 func main() {
-	service.WebService{
 
-		Name: "plat-spider",
+	serverRouter := []service.WebRouter{
+		{RouterPath: "/spiders", RouterHandlerFunc: spider_api.CreateCollySpider, RouterMethod: http.MethodPost},
+	}
 
-		Router: []service.WebRouter{
-			{RouterPath: "/spiders", RouterHandlerFunc: spider_api.CreateCollySpider, RouterMethod: http.MethodPost},
-		},
-		InitFunc: []func() error{
-			database.InitMySQLDB,
-		},
-	}.WebServiceStart()
-
+	webServer := service.NewWebServerWithOptions("plat-spider", service.WithDatabaseOptions(""))
+	webServer.Router = serverRouter
+	webServer.Start()
 }

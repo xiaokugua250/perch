@@ -13,6 +13,6 @@ import "perch/pkg/cluster/k8s/tools"
  */
 func (k8sClientSet *ClientSet) K8SConstructorFileValidate(yamlFile string) error {
 
-	return tools.ResourceConfigParser(*k8sClientSet.K8SClientSet, *k8sClientSet.k8sDynamitcClient, yamlFile)
+	return tools.ResourceConfigParser(*k8sClientSet.K8SClientSet, *k8sClientSet.K8sDynamitcClient, yamlFile)
 
 }

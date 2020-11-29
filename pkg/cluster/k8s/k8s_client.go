@@ -34,14 +34,14 @@ func (k8sClusterManager *ClusterManager) NewClusterClientInstance() *clusterClie
 				log.Fatalln(err)
 			}
 			clientset, err := kubernetes.NewForConfig(config)
-			if err!= nil{
-				log.Fatalln(err)
-			}
-			dynamicClient,err:= dynamic.NewForConfig(config)
 			if err != nil {
 				log.Fatalln(err)
 			}
-			clusterClientInstance = &clusterClientManager{clusterClient: clientset,dynamicClient: &dynamicClient}
+			dynamicClient, err := dynamic.NewForConfig(config)
+			if err != nil {
+				log.Fatalln(err)
+			}
+			clusterClientInstance = &clusterClientManager{clusterClient: clientset, dynamicClient: &dynamicClient}
 
 		},
 	)
@@ -58,18 +58,18 @@ func NewClusterClientInstance() *clusterClientManager {
 			if err != nil {
 				log.Fatalln(err)
 			}
-			if err!= nil{
-				log.Fatalln(err)
-			}
-			clientset, err := kubernetes.NewForConfig(config)
-			if err!= nil{
-				log.Fatalln(err)
-			}
-			dynamicClient,err:= dynamic.NewForConfig(config)
 			if err != nil {
 				log.Fatalln(err)
 			}
-			clusterClientInstance = &clusterClientManager{clusterClient: clientset,dynamicClient: &dynamicClient}
+			clientset, err := kubernetes.NewForConfig(config)
+			if err != nil {
+				log.Fatalln(err)
+			}
+			dynamicClient, err := dynamic.NewForConfig(config)
+			if err != nil {
+				log.Fatalln(err)
+			}
+			clusterClientInstance = &clusterClientManager{clusterClient: clientset, dynamicClient: &dynamicClient}
 
 		},
 	)
@@ -85,8 +85,8 @@ type KUBEConfig struct {
 }
 
 type ClientSet struct {
-	K8SClientSet *kubernetes.Clientset
-	k8sDynamitcClient *dynamic.Interface
+	K8SClientSet      *kubernetes.Clientset
+	K8sDynamitcClient *dynamic.Interface
 }
 
 var (
@@ -110,15 +110,15 @@ func (k8sClusterManager *ClusterManager) InitK8SClusterClient() error {
 		return err
 
 	}
-	dynamicClient,err:= dynamic.NewForConfig(config)
+	dynamicClient, err := dynamic.NewForConfig(config)
 	if err != nil {
 		return err
 	}
-	clusterClientInstance = &clusterClientManager{clusterClient: clientset,dynamicClient: &dynamicClient}
+	clusterClientInstance = &clusterClientManager{clusterClient: clientset, dynamicClient: &dynamicClient}
 
 	ClusterClientMap[k8sClusterManager.KubeConfig.ClusterName] = ClientSet{
 		K8SClientSet:      clientset,
-		k8sDynamitcClient: &dynamicClient,
+		K8sDynamitcClient: &dynamicClient,
 	}
 	return nil
 
@@ -159,22 +159,20 @@ func InitKubernetesCluster() error {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	dynamicClient,err:= dynamic.NewForConfig(config)
+	dynamicClient, err := dynamic.NewForConfig(config)
 	if err != nil {
 		return err
 	}
 	ClusterClientMap[k8sClusterManager.KubeConfig.ClusterName] = ClientSet{
-		K8SClientSet:     clientset,
-		k8sDynamitcClient: &dynamicClient,
+		K8SClientSet:      clientset,
+		K8sDynamitcClient: &dynamicClient,
 	}
 	K8SClientSet.K8SClientSet = clientset
-	K8SClientSet.k8sDynamitcClient=&dynamicClient
+	K8SClientSet.K8sDynamitcClient = &dynamicClient
 
 	return nil
 
 }
-
-
 
 func InitKubernetesClusterWithOptions() error {
 	var (
@@ -208,16 +206,16 @@ func InitKubernetesClusterWithOptions() error {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	dynamicClient,err:= dynamic.NewForConfig(config)
+	dynamicClient, err := dynamic.NewForConfig(config)
 	if err != nil {
 		return err
 	}
 	ClusterClientMap[k8sClusterManager.KubeConfig.ClusterName] = ClientSet{
-		K8SClientSet:     clientset,
-		k8sDynamitcClient: &dynamicClient,
+		K8SClientSet:      clientset,
+		K8sDynamitcClient: &dynamicClient,
 	}
 	K8SClientSet.K8SClientSet = clientset
-	K8SClientSet.k8sDynamitcClient=&dynamicClient
+	K8SClientSet.K8sDynamitcClient = &dynamicClient
 
 	return nil
 

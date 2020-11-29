@@ -20,49 +20,24 @@ type WebRouter struct {
 	RouterHandlerFunc func(w http.ResponseWriter, req *http.Request) `json:"router_handler_func"`
 	RouterMethod      string                                         `json:"router_method"`
 	RouterPathPrefiex bool                                           `json:"router_path_prefiex" ` //前置路由匹配
-	RouterInfo        string                                         `json:"router_info"`
+	RouterDescription string                                         `json:"router_description"`
 }
 
-type WebService struct {
-	Name               string
-	Router             []WebRouter
-	InitFunc           []func() error
-InitFuncWithConifg []func(config string) error
-	CleanFunc          []func() error
+type WebServer struct {
+	Name   string      `json:"name"`
+	Router []WebRouter `json:"router"`
+	//InitFunc           []func() error `json:"init_func"`
+	//InitFuncConfigMaps map[string]interface{}                    `json:"init_func_config_maps"` //对应初始函数名和所需要的配置参数路径
+	InitFuncs map[string]func(config interface{}) error `json:"init_funcs"`
+	CleanFunc []func() error                            `json:"clean_func"`
 }
 
-/**
-通用初始化方法
-如:初始化数据库、配置文件解析等
-*/
-func GeneralInitFunc() error {
-	return nil
-}
-
-func GeneralCleanFunc() error {
-	return nil
-}
-
-func (webservice WebService) WebServiceInit() {
-	err := viperconf.InitGenWebConfig(webservice.Name)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	for _, initFunc := range webservice.InitFunc {
-		err := initFunc()
-		if err != nil {
-			log.Fatalln(err)
-		}
-	}
-
-}
-
-func (webservice WebService) WebServiceGenRouter() *mux.Router {
+func (webserver *WebServer) GenRouter() *mux.Router {
 	router := mux.NewRouter()
 	/*	router.Use(middleware.CROSMiddleware)
 		router.Use(middleware.MetricMiddleWare)
 		router.Use(middleware.LoggingMiddleware)*/
-	for _, r := range webservice.Router {
+	for _, r := range webserver.Router {
 		if r.RouterPathPrefiex {
 			router.Methods(r.RouterMethod).PathPrefix(r.RouterPath).Path(r.RouterPath).HandlerFunc(r.RouterHandlerFunc)
 		} else {
@@ -71,63 +46,20 @@ func (webservice WebService) WebServiceGenRouter() *mux.Router {
 	}
 	return router
 }
-
-func (webservice WebService) WebServiceStart() {
-
-	webservice.WebServiceInit()
-	httpAddr := viperconf.WebServiceConfig.WebConfig.ServerIP + ":" + strconv.Itoa(viperconf.WebServiceConfig.WebConfig.ServerPort)
-
-	log.Println(webservice.Name + " service starting...")
-	log.Println("service listening on：http://" + httpAddr)
-	// 设置和启动服务
-	server := &http.Server{
-		Addr: httpAddr,
-		Handler: handlers.CORS(
-			handlers.AllowedHeaders([]string{"*"}),
-			handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS", "PATCH"}),
-			handlers.AllowedHeaders([]string{"X-Requested-With", "Authorization", "Content-Type", "Cache-Control", "x-token", "ETag", "TIMEOUT", "DEADLINE", "content-range"}),
-		)(webservice.WebServiceGenRouter()),
-		WriteTimeout: 15 * time.Second,
-		ReadTimeout:  time.Second * 15,
-		IdleTimeout:  time.Second * 60,
-	}
-	errChan := make(chan error, 1)
-	go func() {
-		errChan <- server.ListenAndServe()
-		log.Println(webservice.Name + "shutting down....")
-	}()
-	log.Println(webservice.Name + "start successfully....")
-
-	// 捕获退出信号
-	signalChan := make(chan os.Signal, 1)
-	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
-	ctx := context.Background()
-	for {
-		select {
-		case err := <-errChan:
-			if err != nil {
-				log.Println(err)
-			}
-			// 执行额外的清理操作
-			for _, clean := range webservice.CleanFunc {
-				clean()
-			}
-
-			return
-		case <-signalChan:
-
-			server.Shutdown(ctx)
-		}
+func (webserver *WebServer) Init() {
+	err := viperconf.InitGenWebConfig(webserver.Name)
+	if err != nil {
+		log.Fatalln(err)
 	}
 
 }
 
-func (webservice WebService) OptionalServiceStart() {
+func (webserver *WebServer) Start() {
 
-	webservice.WebServiceInit()
+	webserver.Init()
 	httpAddr := viperconf.WebServiceConfig.WebConfig.ServerIP + ":" + strconv.Itoa(viperconf.WebServiceConfig.WebConfig.ServerPort)
 
-	log.Println(webservice.Name + " service starting...")
+	log.Println(webserver.Name + " service starting...")
 	log.Println("service listening on：http://" + httpAddr)
 	// 设置和启动服务
 	server := &http.Server{
@@ -136,7 +68,7 @@ func (webservice WebService) OptionalServiceStart() {
 			handlers.AllowedHeaders([]string{"*"}),
 			handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS", "PATCH"}),
 			handlers.AllowedHeaders([]string{"X-Requested-With", "Authorization", "Content-Type", "Cache-Control", "x-token", "ETag", "TIMEOUT", "DEADLINE", "content-range"}),
-		)(webservice.WebServiceGenRouter()),
+		)(webserver.GenRouter()),
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  time.Second * 15,
 		IdleTimeout:  time.Second * 60,
@@ -144,9 +76,9 @@ func (webservice WebService) OptionalServiceStart() {
 	errChan := make(chan error, 1)
 	go func() {
 		errChan <- server.ListenAndServe()
-		log.Println(webservice.Name + "shutting down....")
+		log.Println(webserver.Name + "shutting down....")
 	}()
-	log.Println(webservice.Name + "start successfully....")
+	log.Println(webserver.Name + "start successfully....")
 
 	// 捕获退出信号
 	signalChan := make(chan os.Signal, 1)
@@ -159,15 +91,12 @@ func (webservice WebService) OptionalServiceStart() {
 				log.Println(err)
 			}
 			// 执行额外的清理操作
-			for _, clean := range webservice.CleanFunc {
+			for _, clean := range webserver.CleanFunc {
 				clean()
 			}
-
 			return
 		case <-signalChan:
-
 			server.Shutdown(ctx)
 		}
 	}
-
 }
