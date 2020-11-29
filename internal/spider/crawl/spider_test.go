@@ -1,4 +1,4 @@
-package spider
+package crawl
 
 import (
 	"fmt"
@@ -34,6 +34,3 @@ func TestSpiderEvaluetStatus(t *testing.T) {
 		}
 	}
 }
-
-
-

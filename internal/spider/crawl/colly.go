@@ -13,7 +13,7 @@ html 元素的处理 refer https://github.com/PuerkitoBio/goquery
 * Rate limiting * Parallel crawling * Respecting robots.txt * HTML/Link parsing
 启用异步加快任务执行
 colly 默认会阻塞等待请求执行完成，这将会导致等待执行任务数越来越大。我们可以通过设置 collector 的 Async 选项为 true 实现异步处理，从而避免这个问题。如果采用这种方式，记住增加 c.Wait()，否则程序会立刻退出。
- */
+*/
 
 package crawl
 
@@ -21,46 +21,46 @@ import (
 	"errors"
 	"fmt"
 	"github.com/gocolly/colly"
-	"github.com/mottet-dev/medium-go-colly-basics/utils"
 	"github.com/gocolly/colly/extensions"
+	"github.com/mottet-dev/medium-go-colly-basics/utils"
 	log "github.com/sirupsen/logrus"
 	_ "perch/pkg/log"
 )
 
-
 type CrawlColly struct {
-	Coller *colly.Collector
+	Coller     *colly.Collector
 	TargetUrls []string
 }
 
 /**
 colly init方法
- */
-func ( crawColly *CrawlColly)CollyInit(){
+*/
+func (crawColly *CrawlColly) CollyInit() {
 
 	crawColly.Coller = colly.NewCollector(
 		colly.Async(true),
 		colly.UserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36"), //todo 需要添加浏览器AGENT信息
 		colly.IgnoreRobotsTxt(), //// IgnoreRobotsTxt allows the Collector to ignore any restrictions set by // the target host's robots.txt file.  See http://www.robotstxt.org/ for more // information.
 		colly.AllowURLRevisit(),
-		)
-	extensions.RandomUserAgent(crawColly.Coller)	//todo
+	)
+	extensions.RandomUserAgent(crawColly.Coller) //todo
 	extensions.Referer(crawColly.Coller)
 	crawColly.Coller.OnRequest(func(request *colly.Request) {
 		/**
 		//todo 对请求头进行处理
 		r.Headers.Set("Host", "query.sse.com.cn")
 		r.Headers.Set("Connection", "keep-alive")
-		r.Headers.Set("Accept", "*//*")
+		r.Headers.Set("Accept", "*/ /*")
 		r.Headers.Set("Origin", "http://www.sse.com.cn")
 		r.Headers.Set("Referer", "http://www.sse.com.cn/assortment/stock/list/share/") //关键头 如果没有 则返回 错误
 		r.Headers.Set("Accept-Encoding", "gzip, deflate")
 		r.Headers.Set("Accept-Language", "zh-CN,zh;q=0.9")
-		 */
+		*/
 		fmt.Println("Visiting", request.URL)
 	})
 	//crawColly.Coller.Visit("http://go-colly.org/")
 }
+
 /**
 爬虫规则进行设置
    // Filter domains affected by this rule
@@ -70,51 +70,49 @@ func ( crawColly *CrawlColly)CollyInit(){
     // Add an additional random delay
     RandomDelay: 1 * time.Second,
 Parallelism:5
- */
-func ( crawColly *CrawlColly)CollyLimitConfig(rules []*colly.LimitRule)(error){
+*/
+func (crawColly *CrawlColly) CollyLimitConfig(rules []*colly.LimitRule) error {
 
-	return  crawColly.Coller.Limits(rules)
+	return crawColly.Coller.Limits(rules)
 
 }
 
-
-
 /**
 todo  在发起请求前被调用
- */
-func ( crawColly *CrawlColly)CollyOnRequestHandler(crawRequestHandler colly.RequestCallback ){
+*/
+func (crawColly *CrawlColly) CollyOnRequestHandler(crawRequestHandler colly.RequestCallback) {
 	crawColly.Coller.OnRequest(crawRequestHandler)
 }
 
 /**
 todo  请求过程中如果发生错误被调用
 */
-func ( crawColly *CrawlColly)CollyOnErrorHandler(crawErrorHandler colly.ErrorCallback ){
+func (crawColly *CrawlColly) CollyOnErrorHandler(crawErrorHandler colly.ErrorCallback) {
 	crawColly.Coller.OnError(crawErrorHandler)
 }
 
 /**
 todo  收到回复后被调用
 */
-func ( crawColly *CrawlColly)CollyOnResponseHandler(crawResponseHandler colly.ResponseCallback){
-	crawColly.Coller.OnResponse(crawResponseHandler )
+func (crawColly *CrawlColly) CollyOnResponseHandler(crawResponseHandler colly.ResponseCallback) {
+	crawColly.Coller.OnResponse(crawResponseHandler)
 }
 
 /**
 todo   在 OnResponse 之后被调用，如果收到的内容是 HTML
 */
-func ( crawColly *CrawlColly)CollyOnHTMLHandler(htmlSelector string,crawHtmlHandler colly.HTMLCallback ){
-	crawColly.Coller.OnHTML(htmlSelector,crawHtmlHandler)
+func (crawColly *CrawlColly) CollyOnHTMLHandler(htmlSelector string, crawHtmlHandler colly.HTMLCallback) {
+	crawColly.Coller.OnHTML(htmlSelector, crawHtmlHandler)
 }
 
 /**
 todo   在 OnHTML 之后被调用
 */
-func ( crawColly *CrawlColly)CollyOnScrapedtHandler(scrapedHandler colly.ScrapedCallback ){
+func (crawColly *CrawlColly) CollyOnScrapedtHandler(scrapedHandler colly.ScrapedCallback) {
 	crawColly.Coller.OnScraped(scrapedHandler)
 }
 
-func ( crawColly *CrawlColly)CollyElmentHTMLHandler(){
+func (crawColly *CrawlColly) CollyElmentHTMLHandler() {
 
 	crawColly.Coller.OnHTML("div.s-result-list.s-search-results.sg-row", func(e *colly.HTMLElement) {
 		e.ForEach("div.a-section.a-spacing-medium", func(_ int, e *colly.HTMLElement) {
@@ -138,24 +136,26 @@ func ( crawColly *CrawlColly)CollyElmentHTMLHandler(){
 	})
 }
 
-
-
-
-func ( crawColly *CrawlColly)CollyVisit(urls ... string)(error){
+func (crawColly *CrawlColly) CollyVisit(urls ...string) error {
 	var (
 		err error
 	)
-	if len(urls)==0{
-		return errors.New(fmt.Sprintf("urls %v is empty",urls))
+	if len(urls) == 0 {
+		return errors.New(fmt.Sprintf("urls %v is empty", urls))
 	}
-	for _,url:= range urls{
+	for _, url := range urls {
 
 		go func(url string) {
-			err =crawColly.Coller.Visit(url)
-			log.Errorf(fmt.Sprintf("error %s happend at visiting url %s",err.Error(),url))
+			err = crawColly.Coller.Visit(url)
+			log.Errorf(fmt.Sprintf("error %s happend at visiting url %s", err.Error(), url))
 		}(url)
 	}
-	crawColly.Coller.Wait()	 //todo 但是多用了Wait方法，这是因为在Async为true时需要等待协程都完成再结束
+	crawColly.Coller.Wait() //todo 但是多用了Wait方法，这是因为在Async为true时需要等待协程都完成再结束
 	return nil
 
+}
+
+func (crawColly *CrawlColly) Collystart() error {
+
+	return nil
 }

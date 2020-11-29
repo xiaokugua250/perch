@@ -1,4 +1,4 @@
-package spider
+package crawl
 
 import (
 	"fmt"
@@ -77,18 +77,18 @@ type PerchSpider struct {
 	TraceHTTP bool
 
 	//robotsMap                map[string]*robotstxt.RobotsData
-	htmlCallbacks            []*htmlCallbackContainer
-	xmlCallbacks             []*xmlCallbackContainer
-	requestCallbacks         []RequestCallback
-	responseCallbacks        []ResponseCallback
-	responseHeadersCallbacks []ResponseHeadersCallback
-	errorCallbacks           []ErrorCallback
-	scrapedCallbacks         []ScrapedCallback
-	requestCount             uint32
-	responseCount            uint32
-	backend                  *httpBackend
-	wg                       *sync.WaitGroup
-	lock                     *sync.RWMutex
+	//htmlCallbacks            []*htmlCallbackContainer
+	//xmlCallbacks             []*xmlCallbackContainer
+	//requestCallbacks         []RequestCallback
+	//responseCallbacks        []ResponseCallback
+	//responseHeadersCallbacks []ResponseHeadersCallback
+	////errorCallbacks           []ErrorCallback
+	//	scrapedCallbacks         []ScrapedCallback
+	requestCount  uint32
+	responseCount uint32
+	//backend                  *httpBackend
+	wg   *sync.WaitGroup
+	lock *sync.RWMutex
 }
 
 /**

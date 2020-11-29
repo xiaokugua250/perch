@@ -56,30 +56,52 @@ func CrawlerFetch(url string, method string, depth int, requestData io.Reader, c
 	return nil
 }
 
-func CrawlSpiderCollyInitWithOptions(options ...CollyConfigOptions) (*collector, error) {
+func CrawlSpiderCollyInitWithOptions(options ...CollyOptionFunc) (*colly.Collector, error) {
 	var (
-		colly colly.Collector
+		collyCollector *colly.Collector
 		err   error
 	)
-	colly = colly.NewCollector()
-	defaultOptions := &CollyConfigOptions{}
+	collyCollector = colly.NewCollector()
+
+	defaultOptions := &CollyConfigOptions{
+		IgnoreRobotsTxt:true,
+		AllowRevisitURL:false,
+		UseRandomeUserAgent:true,
+	}
 	for _, opt := range options {
-		opt(&defaultOptions)
+		//opt(&defaultOptions)
+		opt(defaultOptions)
 	}
 
-	colly.AllowURLRevisit = defaultOptions.AllowRevisitURL
+	collyCollector.AllowURLRevisit = defaultOptions.AllowRevisitURL
 	if defaultOptions.UseRandomeUserAgent {
-		extensions.RandomUserAgent(colly)
-		extensions.Referer(colly)
+		extensions.RandomUserAgent(collyCollector)
+		extensions.Referer(collyCollector)
 	}
-	colly.IgnoreRobotsTxt = defaultOptions.IgnoreRobotsTxt
+	collyCollector.IgnoreRobotsTxt = defaultOptions.IgnoreRobotsTxt
 
-	return colly, err
+	return collyCollector, err
 }
 
-func CrawlSpiderCollyStart(taskType CrawTaskType) error {
+func CrawlSpiderCollyStart(taskConf CrawTaskConfig) error {
 	var (
 		err error
+		collector *colly.Collector
 	)
+	collector,err = CrawlSpiderCollyInitWithOptions(nil)
+	collector.DisallowedDomains=taskConf.TaskDisallowDomains
+
+
+	switch taskConf.TaskType {
+	case CrawTaskType_Snap:
+		//todo
+	case CrawTaskType_Complex:
+			//todo
+	case CrawTaskType_Normal:
+		//todo
+
+	}
+
+
 	return err
 }
