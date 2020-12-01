@@ -28,7 +28,7 @@ examples/
 init/
 pkg/general/storage/
 test/
-third_party/
+
 
 ./configs/
 .idea/*

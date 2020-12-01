@@ -17,7 +17,23 @@ import (
 
 type OptionFunc func(options *WebServer)
 
-func WithDatabaseOptions(dbconfig interface{}) OptionFunc {
+func NewWebServerWithOptions(Name string, opts ...OptionFunc) WebServer {
+	initFuncs := make(map[string]func(interface{}) error)
+
+	webserver := WebServer{
+		Name:   Name,
+		Router: nil,
+		//InitFuncConfigMaps: initFuncMaps,
+		InitFuncs: initFuncs,
+		CleanFunc: nil,
+	}
+	for _, o := range opts {
+		o(&webserver)
+	}
+	return webserver
+}
+
+func WithMySQLDBOptions(dbconfig interface{}) OptionFunc {
 	return func(options *WebServer) {
 		var (
 			err      error
@@ -40,6 +56,54 @@ func WithDatabaseOptions(dbconfig interface{}) OptionFunc {
 
 	}
 }
+func WithRedisOptions(redisConfig interface{}) OptionFunc {
+	return func(options *WebServer) {
+		var (
+			err      error
+			DBConfig string
+		)
+		if dbconfig, ok := redisConfig.(string); ok {
+			if dbconfig != "" {
+				DBConfig = dbconfig
+			} else {
+				DBConfig = "genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local"
+			}
+		}
+
+		//dsn := DBConfig
+
+		database.MySQL_DB, err = gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+	}
+}
+
+func WithETCDOptions(etcdConfig interface{}) OptionFunc {
+	return func(options *WebServer) {
+		var (
+			err      error
+			DBConfig string
+		)
+		if dbconfig, ok := etcdConfig.(string); ok {
+			if dbconfig != "" {
+				DBConfig = dbconfig
+			} else {
+				DBConfig = "genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local"
+			}
+		}
+
+		//dsn := DBConfig
+
+		database.MySQL_DB, err = gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+	}
+}
+
 
 func WithKubernetesOptions(dbconfig interface{}) OptionFunc {
 	return func(options *WebServer) {
@@ -86,20 +150,4 @@ func WithKubernetesOptions(dbconfig interface{}) OptionFunc {
 		k8s.K8SClientSet.K8sDynamitcClient = &dynamicClient
 
 	}
-}
-
-func NewWebServerWithOptions(Name string, opts ...OptionFunc) WebServer {
-	initFuncs := make(map[string]func(interface{}) error)
-
-	webserver := WebServer{
-		Name:   Name,
-		Router: nil,
-		//InitFuncConfigMaps: initFuncMaps,
-		InitFuncs: initFuncs,
-		CleanFunc: nil,
-	}
-	for _, o := range opts {
-		o(&webserver)
-	}
-	return webserver
 }

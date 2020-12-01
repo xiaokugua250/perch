@@ -7,18 +7,25 @@ require (
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
 	github.com/antchfx/htmlquery v1.2.3 // indirect
 	github.com/antchfx/xmlquery v1.3.2 // indirect
+	github.com/coreos/bbolt v1.3.5 // indirect
+	github.com/coreos/etcd v3.3.10+incompatible
+	github.com/coreos/pkg v0.0.0-20180928190104-399ea9e2e55f // indirect
 	github.com/davecgh/go-spew v1.1.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gdamore/tcell v1.3.0
 	github.com/go-ole/go-ole v1.2.4 // indirect
+	github.com/go-redis/redis/v8 v8.4.0
 	github.com/gocolly/colly v1.2.0
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/googleapis/gnostic v0.5.1 // indirect
 	github.com/gorilla/handlers v1.5.0
 	github.com/gorilla/mux v1.7.4
+	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2 // indirect
+	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0 // indirect
 	github.com/imdario/mergo v0.3.11 // indirect
 	github.com/ipfs/go-cid v0.0.6
 	github.com/ipfs/go-datastore v0.4.4
+	github.com/jonboulle/clockwork v0.2.2 // indirect
 	github.com/kr/pty v1.1.3
 	github.com/libp2p/go-libp2p v0.9.6
 	github.com/libp2p/go-libp2p-core v0.6.0
@@ -43,10 +50,14 @@ require (
 	github.com/rivo/tview v0.0.0-20200528200248-fe953220389f
 	github.com/shirou/gopsutil v2.20.8+incompatible
 	github.com/sirupsen/logrus v1.6.0
+	github.com/soheilhy/cmux v0.1.4 // indirect
 	github.com/spf13/viper v1.3.2
 	github.com/temoto/robotstxt v1.1.1 // indirect
+	github.com/tmc/grpc-websocket-proxy v0.0.0-20200427203606-3cfed13b9966 // indirect
 	github.com/urfave/cli/v2 v2.2.0
+	github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 // indirect
 	github.com/zellyn/kooky v0.0.0-20201108220156-bec09c12c339
+	go.etcd.io/bbolt v1.3.5 // indirect
 	golang.org/x/crypto v0.0.0-20201016220609-9e8e0b390897
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
 	golang.org/x/tools v0.0.0-20200708183856-df98bc6d456c // indirect
@@ -57,3 +68,5 @@ require (
 	k8s.io/apimachinery v0.19.0
 	k8s.io/client-go v0.19.0
 )
+
+replace github.com/coreos/bbolt v1.3.5 => github.com/coreos/bbolt v1.3.3

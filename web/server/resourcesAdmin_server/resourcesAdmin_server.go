@@ -22,7 +22,7 @@ func main() {
 		{RouterPath: "/category/{id}", RouterHandlerFunc: admin.DeleteSpecResourcesCategorysHandler, RouterMethod: http.MethodDelete},
 	}
 
-	webServer := service.NewWebServerWithOptions("plat-resources", service.WithDatabaseOptions(""))
+	webServer := service.NewWebServerWithOptions("plat-resources", service.WithMySQLDBOptions(""))
 	webServer.Router = serverRouter
 	webServer.Start()
 }

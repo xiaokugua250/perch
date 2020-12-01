@@ -25,7 +25,7 @@ func main() {
 		{RouterPath: "/sys/processadvanced", RouterHandlerFunc: sysadmin.SysProcessInfoHandler, RouterMethod: http.MethodGet}, //todo 方法需完善
 
 	}
-	webServer := service.NewWebServerWithOptions("sys-admin", service.WithDatabaseOptions(""))
+	webServer := service.NewWebServerWithOptions("sys-admin", service.WithMySQLDBOptions(""))
 	webServer.Router = serverRouter
 	webServer.Start()
 }

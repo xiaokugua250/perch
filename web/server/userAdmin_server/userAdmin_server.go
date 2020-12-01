@@ -36,7 +36,7 @@ func main() {
 		{RouterPath: "/auth-rbac/permission/{id}", RouterHandlerFunc: admin.PlatSpecAuthPermissionGetHandler, RouterMethod: http.MethodGet},
 		{RouterPath: "/auth-rbac/permission", RouterHandlerFunc: admin.PlatAuthPermissionCreateHandler, RouterMethod: http.MethodPost},
 	}
-	webServer := service.NewWebServerWithOptions("plat-admin", service.WithDatabaseOptions(""))
+	webServer := service.NewWebServerWithOptions("plat-admin", service.WithMySQLDBOptions(""))
 	webServer.Router = serverRouter
 
 	InitFunc := make(map[string]func(config interface{}) error)

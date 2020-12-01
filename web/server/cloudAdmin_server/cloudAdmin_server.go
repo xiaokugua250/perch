@@ -27,7 +27,7 @@ func main() {
 		{RouterPath: "/construct/resource", RouterHandlerFunc: cloud.CloudResourceFileHandler, RouterMethod: http.MethodPost},
 	}
 
-	webServer := service.NewWebServerWithOptions("plat-cloud", service.WithDatabaseOptions(""), service.WithKubernetesOptions(""))
+	webServer := service.NewWebServerWithOptions("plat-cloud", service.WithMySQLDBOptions(""), service.WithKubernetesOptions(""))
 	webServer.Router = serverRouter
 
 	InitFunc := make(map[string]func(config interface{}) error)
