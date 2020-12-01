@@ -9,10 +9,12 @@ import (
 )
 
 /**
-产品描述解析
+项目描述信息
 */
-func ProductInformation(elment *colly.HTMLElement) {
+func ProductsInformation(elment *colly.HTMLElement) {
 	queryDom := elment.DOM
+	queryDom.Find("logged-in env-production page-responsive")
+
 	fmt.Println("begin to handle html dom...")
 
 	fmt.Println(queryDom.Find(" span").Children().Text())

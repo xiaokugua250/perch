@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	colly "github.com/gocolly/colly"
-	"perch/internal/spider/anaysis/website_anaysis"
+	"perch/internal/spider/anaysis/website_anaysis/github"
 	"time"
 )
 
@@ -28,7 +28,7 @@ func main() {
 		})
 
 	// Find and visit all links
-	collector.OnHTML("a", website_anaysis.ProductInformation)
+	collector.OnHTML("body", github.BaseProjectInformations)
 	collector.OnRequest(func(r *colly.Request) {
 		fmt.Println("Visiting", r.URL)
 	})

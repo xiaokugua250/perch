@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 	colly "github.com/gocolly/colly"
-	"perch/internal/spider/anaysis/website_anaysis"
+	"github.com/gocolly/colly/extensions"
+	"perch/internal/spider/anaysis/website_anaysis/github"
 	"time"
 )
 
@@ -16,8 +17,10 @@ func main() {
 	targetURL := "https://github.com/avelino/awesome-go"
 	collector := colly.NewCollector(
 		//colly.Debugger(&debug.LogDebugger{}),
+
 		colly.Async(true),
 	)
+	extensions.RandomUserAgent(collector)
 	collector.Limit(
 		&colly.LimitRule{
 			DomainRegexp: "",
@@ -28,7 +31,7 @@ func main() {
 		})
 
 	// Find and visit all links
-	collector.OnHTML("a", website_anaysis.ProductInformation)
+	collector.OnHTML("body", github.BaseProjectInformations)
 	collector.OnRequest(func(r *colly.Request) {
 		fmt.Println("Visiting", r.URL)
 	})
