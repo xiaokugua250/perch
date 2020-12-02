@@ -31,7 +31,7 @@ func main() {
 		})
 
 	// Find and visit all links
-	collector.OnHTML("body", github.BaseProjectInformations)
+	collector.OnHTML("body", github.BasictInformations)
 	collector.OnRequest(func(r *colly.Request) {
 		fmt.Println("Visiting", r.URL)
 	})
