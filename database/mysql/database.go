@@ -4,6 +4,10 @@ import (
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
+	"log"
+	"os"
+	"time"
 )
 
 var (
@@ -18,6 +22,16 @@ func InitMySQLDB() error {
 		err error
 	)
 	MySQL_DB, err = gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
+	newLogger := logger.New(
+		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
+		logger.Config{
+			SlowThreshold: time.Second,   // Slow SQL threshold
+			LogLevel:      logger.Silent, // Log level
+			Colorful:      false,         // Disable color
+		},
+	)
+	MySQL_DB.Logger = newLogger
+	MySQL_DB = MySQL_DB.Debug()
 	return err
 }
 

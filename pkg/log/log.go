@@ -1,7 +1,8 @@
+// refer
 package log
 
 import (
-	log	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 	//"log"
 	"os"
 )
@@ -9,7 +10,6 @@ import (
 //var log = logrus.New()
 
 func init() {
-
 
 	log.SetFormatter(&log.TextFormatter{TimestampFormat: "2006-01-02 15:04:05"})
 	// Output to stdout instead of the default stderr
