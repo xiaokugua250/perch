@@ -94,3 +94,10 @@ func TestAdvancedInformationsWithTag(t *testing.T) {
 	})
 	write.Flush()
 }
+
+
+
+func TestAdvancedInformationsWithTag2(t *testing.T) {
+	AdvancedInformationsWithHtml("")
+
+}

@@ -201,8 +201,11 @@ func AdvancedInformationsWithFileList(elment *colly.HTMLElement) {
 
 	//	fmt.Printf("basic info is %+v\n",basicInfo)
 	//Log.Printf(" basic info is %+v\n", basicInfo)
-	Log.Infof(" %+v\n", basicInfo, err)
+	//Log.Infof(" %+v\n", basicInfo, err)
 }
+
+
+
 
 func AdvancedInformationsWithTag(elment *colly.HTMLElement) {
 	//queryDom := elment.DOM.Find("#readme")
@@ -243,5 +246,38 @@ func AdvancedInformationsWithTag(elment *colly.HTMLElement) {
 		//if selection.Children()
 	})
 	write.Flush()
+
+}
+
+
+
+func AdvancedInformationsWithHtml(htmlDir string) {
+	//queryDom := elment.DOM.Find("#readme")
+
+	file, err := os.Open("E:\\WorksSpaces\\GoWorkSpaces\\perch\\internal\\spider\\anaysis\\website_anaysis\\github\\gaad.html")
+	if err != nil {
+		log.Error(err)
+	}
+	doc, err := goquery.NewDocumentFromReader(bufio.NewReader(file))
+
+	fileList := doc.Find("div")
+
+	//fmt.Printf("readme text is %s\n",Readme.Text())
+	var CommitTimeLines tools.TimeSlice
+	fileList .Find("time-ago").Each(func(i int, selection *goquery.Selection) {
+		fmt.Printf("%s\n",selection.Text())
+		commitHistorys, _ := selection.Attr("datetime")
+
+		//fmt.Printf("commit date is %s,%b\n",commitHistorys,ok)
+		formatedTime, err := time.Parse("2006-01-02T15:04:05Z", commitHistorys)
+		if err != nil {
+			log.Error(err)
+		}
+		CommitTimeLines = append(CommitTimeLines, formatedTime)
+		//if selection.Children()
+	})
+	sort.Sort(CommitTimeLines)
+	fmt.Printf("%+v,%+v\n",CommitTimeLines[0].Unix(),CommitTimeLines[CommitTimeLines.Len()-1].Unix())
+
 
 }

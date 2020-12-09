@@ -155,7 +155,7 @@ handler:
 	if err = database.MySQL_DB.Model(&github.BasicInfo{}).Where("oldest_commit_at=0").Count(&unHandledCount).Error; err != nil {
 		log.Error(err)
 	}
-	if unHandledCount >= 10 {
+	if unHandledCount >= 5 {
 		goto handler
 	}
 
