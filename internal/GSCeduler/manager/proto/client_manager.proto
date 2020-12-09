@@ -1,0 +1,92 @@
+syntax = "proto3"; // 版本声明，使用Protocol Buffers v3版本
+
+package manager.client; // 包名
+option go_package="proto;client";
+
+// 服务端注册
+service Registry_Service {
+  // SayHello 方法
+  rpc Registry (RegistryRequest) returns (RegistryResponse) {}
+  rpc UnRegistry (RegistryRequest) returns (RegistryResponse) {}
+}
+
+// 包含人名的一个请求消息
+message RegistryRequest {
+  string Name = 1;
+  string UUID =2;
+  string IP =3;
+  int32 Port=4;
+  string Status =5;
+  message ClientStatus {
+     map<string,string> SystemBasic=6; //系统基本信息
+     map<string,float> SystemResource=7;//系统资源情况,CPU,GPU,MEMORY.STORAGE
+  }
+}
+
+// 包含问候语的响应消息
+message RegistryResponse {
+  int32 code = 1;
+  string message = 2;
+  string error_message =3;
+  int32  total=4;
+}
+
+// 订阅特定消息
+service Subscribe_Service {
+  // SayHello 方法
+  rpc Subscribe (SubscribeRequest) returns (SubscribeResponse) {}
+  rpc UnSubscribe (SubscribeRequest) returns (SubscribeResponse) {}
+}
+
+// 包含人名的一个请求消息
+message SubscribeRequest {
+  string Name = 1;
+  string UUID =2;
+  string Status =5;
+  message Channels {
+    map<string,string> TopicChannel=6; //系统基本信息
+  }
+}
+
+// 包含问候语的响应消息
+message SubscribeResponse {
+  int32 code = 1;
+  string message = 2;
+  string error_message =3;
+  int32  total=4;
+}
+
+
+
+
+// 健康检查
+service Health_Service {
+  // SayHello 方法
+  rpc Health_Method(HealthRequest) returns (HealthResponse) {}
+  rpc HeartBeat_Method(HealthRequest) returns (HealthResponse) {}
+}
+
+// 包含人名的一个请求消息
+message HealthRequest {
+  string name = 1;
+  string UUID =2;
+  int32 TimeStamp=3;
+  string Status =4;
+}
+
+// 包含问候语的响应消息
+message HealthResponse {
+  int32 code = 1;
+  string message = 2;
+  string error_message =3;
+  int32  total=4;
+}
+
+
+
+
+
+
+
+
+
