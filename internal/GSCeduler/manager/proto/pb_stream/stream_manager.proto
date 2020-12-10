@@ -1,0 +1,35 @@
+// grpc 流式数据处理
+syntax = "proto3"; // 版本声明，使用Protocol Buffers v3版本
+
+package manager.stream; // 包名
+option go_package="proto/pb_stream;pb_stream";
+
+// 服务端注册
+service Stream_Service {
+  //服务端推送
+  rpc PushStream (StreamRequest) returns (StreamResponse) {}
+  //客户端推送
+  rpc PullStream (StreamRequest) returns (StreamResponse) {}
+  //客户端与 服务端 互相 推送
+  rpc BidirectionStream (StreamRequest) returns (StreamResponse){}
+}
+
+// 包含人名的一个请求消息
+message StreamRequest {
+  string name = 1;
+  string uuid =2;
+  string ip =3;
+  int32 port=4;
+  string status =5;
+  repeated bytes stream_data=6; //字节数组
+
+}
+
+// 包含问候语的响应消息
+message StreamResponse {
+  int32 code = 1;
+  string message = 2;
+  bytes stream_data=6; //字节数组
+  string error_message =3;
+  int32  total=4;
+}

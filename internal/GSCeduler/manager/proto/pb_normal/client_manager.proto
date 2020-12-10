@@ -1,7 +1,7 @@
 syntax = "proto3"; // 版本声明，使用Protocol Buffers v3版本
 
 package manager.client; // 包名
-option go_package="proto;client";
+option go_package="proto/pb_normal;pb_normal";
 
 // 服务端注册
 service Registry_Service {
@@ -12,14 +12,14 @@ service Registry_Service {
 
 // 包含人名的一个请求消息
 message RegistryRequest {
-  string Name = 1;
-  string UUID =2;
-  string IP =3;
-  int32 Port=4;
-  string Status =5;
-  message ClientStatus {
-     map<string,string> SystemBasic=6; //系统基本信息
-     map<string,float> SystemResource=7;//系统资源情况,CPU,GPU,MEMORY.STORAGE
+  string name = 1;
+  string uuid =2;
+  string ip =3;
+  int32 port=4;
+  string status =5;
+  message client_status {
+     map<string,string> systemBasic=6; //系统基本信息
+     map<string,float> systemResource=7;//系统资源情况,CPU,GPU,MEMORY.STORAGE
   }
 }
 
@@ -40,11 +40,11 @@ service Subscribe_Service {
 
 // 包含人名的一个请求消息
 message SubscribeRequest {
-  string Name = 1;
-  string UUID =2;
-  string Status =5;
-  message Channels {
-    map<string,string> TopicChannel=6; //系统基本信息
+  string name = 1;
+  string uuid =2;
+  string status =5;
+  message channels {
+    map<string,string> topic_channels=6; //系统基本信息
   }
 }
 
@@ -69,9 +69,9 @@ service Health_Service {
 // 包含人名的一个请求消息
 message HealthRequest {
   string name = 1;
-  string UUID =2;
-  int32 TimeStamp=3;
-  string Status =4;
+  string uuid =2;
+  int32 timestamp=3;
+  string status =4;
 }
 
 // 包含问候语的响应消息
