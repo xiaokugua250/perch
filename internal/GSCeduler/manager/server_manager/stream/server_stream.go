@@ -1,34 +1,29 @@
 package stream
 
 import (
-	"context"
+
+	log "github.com/sirupsen/logrus"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	pbStream "perch/internal/GSCeduler/manager/proto/pb_stream"
 	"time"
 )
 
-type StreamServer struct {
+type Server struct {
 	pbStream.UnimplementedStream_ServiceServer
 }
-
-func (*StreamServer)PushStream(context.Context, *pbStream.StreamRequest) (*pbStream.StreamResponse, error) {
-
-	return nil, status.Errorf(codes.Unimplemented, "method PushStream not implemented")
-}
-func (*StreamServer)PullStream(ctx context.Context, req *pbStream.StreamRequest) (*pbStream.StreamResponse, error) {
-	i:= 0
-	for{
-		i++
-		res.Send(&pbStream.StreamResponse{})
-		time.Sleep(1*time.Second)
-		if i >10 {
-			break
-		}
+func (*Server) PushStream(srv pbStream.Stream_Service_PushStreamServer) error {
+	log.Println("Start new server....")
+	//startime:= time.Now()
+	for {
+		srv.Send(&pbStream.StreamResponse{
+			Code:         0,
+			Message:      time.Now().String(),
+			StreamData:   nil,
+			ErrorMessage: "",
+			Total:        1,
+		})
+		time.Sleep(2*time.Second);
 	}
-	return nil,nil
-//	return nil, status.Errorf(codes.Unimplemented, "method PushStream not implemented")
-}
-func (*StreamServer)BidirectionStream(context.Context, *pbStream.StreamRequest) (*pbStream.StreamResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PushStream not implemented")
+	return status.Errorf(codes.Unimplemented, "method PushStream not implemented")
 }

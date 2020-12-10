@@ -7,11 +7,19 @@ option go_package="proto/pb_stream;pb_stream";
 // 服务端注册
 service Stream_Service {
   //服务端推送
-  rpc PushStream (StreamRequest) returns (StreamResponse) {}
+  rpc Push (StreamRequest) returns (StreamResponse) {}
   //客户端推送
-  rpc PullStream (StreamRequest) returns (StreamResponse) {}
+  rpc Pull (StreamRequest) returns (StreamResponse) {}
   //客户端与 服务端 互相 推送
-  rpc BidirectionStream (StreamRequest) returns (StreamResponse){}
+  rpc Bidirection(StreamRequest) returns (StreamResponse){}
+
+
+  rpc PushStream (stream StreamRequest) returns (stream  StreamResponse) {}
+  //客户端推送
+  rpc PullStream (stream StreamRequest) returns ( stream StreamResponse) {}
+  //客户端与 服务端 互相 推送
+  rpc BidirectionStream (stream StreamRequest) returns (stream  StreamResponse){}
+
 }
 
 // 包含人名的一个请求消息
@@ -21,7 +29,7 @@ message StreamRequest {
   string ip =3;
   int32 port=4;
   string status =5;
-  repeated bytes stream_data=6; //字节数组
+  bytes stream_data=6; //字节数组
 
 }
 
