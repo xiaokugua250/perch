@@ -1,17 +1,53 @@
 # perch
-Golang Code And Others
-## 项目内容说明
 
+<div align="center"><img src ="./asserts/logo/perch_logo.jpg"/></div>
+
+`Golang Code And Others`,`k8s`,`colly`,`grpc`,`mysql`,`micro-service`,`docker`,`docker-compose`
+## 项目内容说明
+ &emsp;&emsp; 本项目为个人项目，项目以Golang为主，包括go-web、go-spider、grpc等基础语言编码内容以及kubernetes、etcd等高阶内容。主要涉及到的内容有：
+ 1. 基于`Golang`的微服务开发
+ 2. 基于`docker`,`kubernetes`的容器管理平台开发
+ 3. 基于`colly`的go语言爬虫开发
+ 4. 基于`grpc`的分布式服务调用和任务分发
+ 
+&emsp;&emsp;项目主要目的是对自己技能的总结和部分想法的实现。
+
+下面对项目中各目录对应信息进行说明:
+* api:  项目API
+* cmd: 部分项目入口程序和可执行程序
+* configs: 项目配置
+* database: 数据库相关代码
+* deploy: 项目部署文件，包括dockerfile、docker-compose.yaml等
+* docs: 项目文档
+* internal: 内部使用库
+* pkg: 项目内部库
+* scripts:  项目脚本
+* third_party: 第三方工具，如`ETCD`等
+* tools: 项目通用工具包
+* web: 项目内嵌微服务集合
+* website: 项目前端文件
+* .gitignore: ignore文件
+* Makefile: Makefile文件
+* go.mod: go mod文件
+* version.sh: 生成go_version.go脚本 
+  
 ### 后端
 本项目的后端采用Golang语言开发，涉及到的工具包有
+* [gorilla/mux](github.com/gorilla/mux)
 * [jwt-go](https://github.com/dgrijalva/jwt-go)
-*  [gopsutils](https://github.com/shirou/gopsutil)
+* [spf13/viper](github.com/spf13/viper)
+* [logrus](github.com/sirupsen/logrus)
 * [gorm ](https://github.com/go-gorm/gorm)
 * [client-go](https://github.com/kubernetes/client-go)
+* [grpc/grpc-go](https://github.com/grpc/grpc-go)
+* [gocolly/colly](https://github.com/gocolly/colly)
+* [gopsutils](https://github.com/shirou/gopsutil)
+*  等等...
 ### 前端
-本项目前端采用vue.js,具体框架采用[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin),对原作者[PanJiaChen](https://github.com/PanJiaChen)表示感谢.  
-前端涉及到的数据包有  
-* [datav](http://datav.jiaminghi.com/guide/) 进行数据可视化
+&emsp;&emsp;本项目前端采用vue.js,具体框架采用[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin),对原作者[PanJiaChen](https://github.com/PanJiaChen)表示感谢.  
+
+&emsp;&emsp;前端计划采用[buefy](https://github.com/buefy/buefy)或原生[bulma](https://github.com/jgthms/bulma)进行调整优化
+
 
 ## 已完成
 
@@ -20,10 +56,10 @@ Golang Code And Others
 * [ ] 基于RBAC的用户管理
 * [ ] 基于Makefile 和docker-compose的环境部署
 * [ ] web 框架调整和优化
-    * [ ] 日志功能
+    * [x] 基于`mux`的微服务框架
+    * [x] 日志功能
     * [ ] Error错误处理
-    * [x] web配置文件解析
-      * go-yaml进行配置文件的解析
+    * [x] web配置文件解析(`yaml`配置文件的解析)
 ## TODO
 * [ ] golang 配置文件解析
 * [ ] Linux 监控服务API开发
@@ -31,10 +67,9 @@ Golang Code And Others
 * [ ] 用户管理与RBAC
 * [ ] kubernetes集群管理
 * [ ] kubernetes YAML应用部署和访问
-* [ ] 熔断器和限流器
-   ref:http://www.hatlonely.com/2018/06/21/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BB%84%E4%BB%B6%E4%B9%8B%E9%99%90%E6%B5%81%E5%99%A8%E4%B8%8E%E7%86%94%E6%96%AD%E5%99%A8/
+* [ ] 熔断器和限流器 
 * [ ] golang 代理服务
- *[ ] ssh /tcp 代理，多层代理
+* [ ] ssh /tcp 代理，多层代理
  
 
 项目布局参考:  
@@ -42,3 +77,7 @@ https://github.com/golang-standards/project-layout
 
 * [ ] 去除src目录
 * [ ]  使用expvar包进行服务监控
+
+
+## 参考资料
+[1].http://www.hatlonely.com/2018/06/21/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BB%84%E4%BB%B6%E4%B9%8B%E9%99%90%E6%B5%81%E5%99%A8%E4%B8%8E%E7%86%94%E6%96%AD%E5%99%A8/
