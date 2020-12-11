@@ -1,0 +1,45 @@
+<script>
+    function loadComments() {
+        if (typeof Valine === 'undefined') {
+            var getScript = (options) => {
+                var script = document.createElement('script');
+                script.defer = true;
+                script.crossOrigin = 'anonymous';
+                Object.keys(options).forEach((key) => {
+                    script[key] = options[key];
+                });
+                document.body.appendChild(script);
+            };
+            getScript({
+                src: 'https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+                onload: () => {
+                    newValine();
+                }
+            });
+        } else {
+            newValine();
+        }
+    }
+    function newValine() {
+        new Valine({
+            el: '#vcomments',
+            appId: '{{ .Site.Params.valineAppId }}',
+            appKey: '{{ .Site.Params.valineAppKey }}',
+            placeholder: '{{ .Site.Params.valinePlaceholder }}',
+            path: {{ .Site.Params.valinePath | default "location.pathname" | safeJS }},
+            avatar: '{{ .Site.Params.valineAvatar }}',
+            meta: {{ .Site.Params.valineMeta }},
+            pageSize: {{ .Site.Params.valinePageSize }},
+            lang: '{{ .Site.Params.valineLang }}',
+            visitor: {{ .Site.Params.valineVisitor }},
+            highlight: {{ .Site.Params.valineHighlight }},
+            avatarForce: {{ .Site.Params.valineAvatarForce }},
+            recordIP: {{ .Site.Params.valineRecordIP }},
+            serverURLs: '{{ .Site.Params.valineServerURLs }}',
+            emojiCDN: '{{ .Site.Params.valineEmojiCDN }}',
+            emojiMaps: {{ .Site.Params.valineEmojiMaps }},
+            enableQQ: {{ .Site.Params.valineEnableQQ }},
+            requiredFields: {{ .Site.Params.valineRequiredFields }}
+        });
+    }
+</script>

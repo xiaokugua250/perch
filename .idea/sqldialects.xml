@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/database/sqls/rbac/auth_rbac_group_roles.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/database/sqls/rbac/auth_rbac_permissions.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/database/sqls/rbac/auth_rbac_role_permissions.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/database/sqls/rbac/auth_rbac_roles.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/database/sqls/rbac/auth_rbac_user_roles.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/database/sqls/rbac/auth_user_groups.sql" dialect="MySQL" />
+  </component>
+</project>
