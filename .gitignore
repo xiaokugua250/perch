@@ -21,7 +21,7 @@ samples/
 go.sum
 go.mod
 src/common/
-asserts/
+
 build/
 
 examples/
