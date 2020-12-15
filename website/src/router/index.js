@@ -79,7 +79,7 @@ export const constantRoutes = [
     redirect: '/site',
     children: [
       {
-        path: 'dashboard',
+        path: '/',
         component: () => import('@/views/sites/index'),
         name: 'sites',
         meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
