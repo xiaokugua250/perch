@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'markov',
+  title: 'z-gour.com',
 
   /**
    * @type {boolean} true | false
