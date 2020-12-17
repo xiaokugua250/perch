@@ -295,7 +295,7 @@
             <div class="control level-item">
               <a href="https://github.com/BulmaTemplates/bulma-templates">
                 <div class="tags has-addons">
-                    
+
                   <span class="tag is-dark">z-gour.com</span>
                   <span class="tag is-info">powered by 苦瓜先生</span>
                 </div>

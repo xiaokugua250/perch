@@ -88,6 +88,7 @@ export const constantRoutes = [
       }
     ]
   },
+  /*
   {
     path: '/',
     component: Layout,
@@ -101,6 +102,7 @@ export const constantRoutes = [
       }
     ]
   },
+  */
   {
     path: '/documentation',
     component: Layout,
