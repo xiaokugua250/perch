@@ -12,6 +12,7 @@ const userRouter = {
     icon: 'peoples'
   },
   children: [
+
     {
       path: 'users',
       component: () => import('@/views/users/auth-users'),

@@ -23,6 +23,12 @@ const constantRoutes = [
     hidden: true
   },
   {
+    path: '/articles',
+    component: () => import('@/views/resources/articles/article_list'),
+    name: 'resources',
+    meta: { title: 'resources' }
+  },
+  {
     path: '/404',
     component: 'views/error-page/404',
     hidden: true

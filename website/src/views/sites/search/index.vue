@@ -293,7 +293,7 @@
               </a>
             </p>
             <div class="control level-item">
-              <a href="#/profile">
+              <a href="https://github.com/BulmaTemplates/bulma-templates">
                 <div class="tags has-addons">
 
                   <span class="tag is-dark">z-gour.com</span>

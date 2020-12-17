@@ -8,13 +8,15 @@ import Layout from '@/layout'
 
 /* Router Modules */
 import componentsRouter from './modules/components'
+
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
 import nestedRouter from './modules/nested'
 import userRouter from './modules/user'
 import fullScreenRouter from './modules/fullscreen'
 import cloudRouter from './modules/cloud'
-import resourcesRouter from './modules/resources';
+import resourcesRouter from './modules/resources'
+
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -140,17 +142,25 @@ export const constantRoutes = [
   {
     path: '/profile',
     component: Layout,
-    redirect: '/profile/index',
+    redirect: '/profile/me',
     hidden: true,
     children: [
       {
-        path: 'index',
-        component: () => import('@/views/profile/index'),
+        path: 'me',
+        component: () => import('@/views/users/about/about_me'),
         name: 'Profile',
         meta: { title: 'Profile', icon: 'user', noCache: true }
       }
     ]
-  }
+  },
+  componentsRouter,
+  chartsRouter,
+  nestedRouter,
+  tableRouter,
+  userRouter,
+  fullScreenRouter,
+  cloudRouter,
+  resourcesRouter
 ]
 
 /**
@@ -214,13 +224,7 @@ export const asyncRoutes = [
   },
 
   /** when your routing map is too long, you can split it into small modules **/
-  componentsRouter,
-  chartsRouter,
-  nestedRouter,
-  tableRouter,
-  userRouter,
-  fullScreenRouter,
-  cloudRouter,
+
   {
     path: '/example',
     component: Layout,
