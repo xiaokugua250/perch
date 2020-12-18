@@ -18,18 +18,7 @@ const resourcesRouter = {
       name: 'resources',
       meta: { title: 'resources' }
     },
-    {
-      path: '/articles',
-      component: () => import('@/views/resources/articles/article_list'),
-      name: 'resources',
-      meta: { title: 'resources' }
-    },
-    {
-      path: '/articles/{id}',
-      component: () => import('@/views/resources/articles/article_show'),
-      name: 'resources',
-      meta: { title: 'resources' }
-    }
+
 
     /*
     {

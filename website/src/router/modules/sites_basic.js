@@ -16,8 +16,8 @@ const sitesRouter = {
       path: '/',
       component: () => import('@/views/sites/index'),
       name: 'sites',
-     // redirect: '/sites',
-      meta: { title: 'z-gour.com', icon: 'dashboard', affix: true }
+      // redirect: '/sites',
+    //  meta: { title: 'z-gour.com', icon: 'dashboard', affix: true }
 
     },
     {

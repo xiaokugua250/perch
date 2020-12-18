@@ -64,10 +64,11 @@
         <div class="hero-body">
           <div class="container">Hello! I am
             <h1 class="title is-1">
-              Minion Tim
+        苦瓜先生
             </h1>
             <h2 class="subtitle is-3">
-              Full Stack Web Developer
+              Full Stack  Developer
+              Focus On CloudNavtive And Devops
             </h2>
           </div>
         </div>
@@ -118,9 +119,9 @@
                 </div>
                 <br>
                 <div class="buttons has-addons is-centered">
-                  <a href="#" class="button is-link">Github</a>
+                  <a href="https://github.com/xiaokugua250" class="button is-link">Github</a>
                   <a href="#" class="button is-link">LinkedIn</a>
-                  <a href="#" class="button is-link">Twitter</a>
+                  <a href="https://twitter.com/xiaokugua250" class="button is-link">Twitter</a>
                   <a href="#" class="button is-link">CodeTrace</a>
                 </div>
               </div>
@@ -147,7 +148,7 @@
                     <div class="media-content">
                       <div class="content">
                         <p>
-                          <strong>JavaScript:</strong>
+                          <strong>Golang:</strong>
                           <br>
                           <progress class="progress is-primary" value="90" max="100" />
                         </p>
@@ -159,7 +160,7 @@
                     <div class="media-content">
                       <div class="content">
                         <p>
-                          <strong>Vue.js:</strong>
+                          <strong>k8s&docker:</strong>
                           <br>
                           <progress class="progress is-primary" value="90" max="100" />
                         </p>
@@ -171,7 +172,7 @@
                     <div class="media-content">
                       <div class="content">
                         <p>
-                          <strong>Node.js:</strong>
+                          <strong>linux&c:</strong>
                           <br>
                           <progress class="progress is-primary" value="75" max="100" />
                         </p>
@@ -183,7 +184,7 @@
                     <div class="media-content">
                       <div class="content">
                         <p>
-                          <strong>HTML5/CSS3</strong>
+                          <strong>vue.js</strong>
                           <br>
                           <progress class="progress is-primary" value="95" max="100" />
                         </p>
@@ -347,55 +348,7 @@
                   </footer>
                 </div>
                 <!-- forum -->
-                <div class="card">
-                  <header class="card-header">
-                    <p class="card-header-title">
-                      <span>Forum</span>
-                      <span class="is-pulled-right">
-                        <a href="https://github.com/jgthms/bulma/releases/tag/0.7.2">
-                          <span class="tag is-default">v0.7.2</span>
-                        </a>
-                        <span class="tag is-default">Desktop</span>
-                        <span class="tag is-default">Mobile</span>
-                      </span>
-                    </p>
-                  </header>
-                  <div class="card-content">
-                    <figure class="image">
-                      <img src="../../../assets/images/sites/users/profiles/forum.png" alt="Hero template screenshot">
-                    </figure>
-                  </div>
-                  <footer class="card-footer">
-                    <a href="templates/forum.html" class="card-footer-item">Preview</a>
-                    <a href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/forum.html" class="card-footer-item">Source
-                      Code</a>
-                  </footer>
-                </div>
-                <!-- insta album -->
-                <div class="card">
-                  <header class="card-header">
-                    <p class="card-header-title">
-                      <span>InstaAlbum</span>
-                      <span class="is-pulled-right">
-                        <a href="https://github.com/jgthms/bulma/releases/tag/0.7.2">
-                          <span class="tag is-default">v0.7.2</span>
-                        </a>
-                        <span class="tag is-default">Desktop</span>
-                        <span class="tag is-default">Mobile</span>
-                      </span>
-                    </p>
-                  </header>
-                  <div class="card-content">
-                    <figure class="image">
-                      <img src="../../../assets/images/sites/users/profiles/instaalbum.png" alt="Landing template screenshot">
-                    </figure>
-                  </div>
-                  <footer class="card-footer">
-                    <a href="templates/instaAlbum.html" class="card-footer-item">Preview</a>
-                    <a href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/instaAlbum.html" class="card-footer-item">Source
-                      Code</a>
-                  </footer>
-                </div>
+   
                 <!-- landing -->
                 <div class="card">
                   <header class="card-header">
@@ -424,56 +377,7 @@
 
               </div>
               <div class="column is-4">
-                <!-- band -->
-                <div class="card">
-                  <header class="card-header">
-                    <p class="card-header-title">
-                      <span>Band</span>
-                      <span class="is-pulled-right">
-                        <a href="https://github.com/jgthms/bulma/releases/tag/0.7.2">
-                          <span class="tag is-default">v0.7.2</span>
-                        </a>
-                        <span class="tag is-default">Desktop</span>
-                        <span class="tag is-default">?</span>
-                      </span>
-                    </p>
-                  </header>
-                  <div class="card-content">
-                    <figure class="image">
-                      <img src="../../../assets/images/sites/users/profiles/band.png" alt="Band template screenshot">
-                    </figure>
-                  </div>
-                  <footer class="card-footer">
-                    <a href="templates/band.html" class="card-footer-item">Preview</a>
-                    <a href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/band.html" class="card-footer-item">Source
-                      Code</a>
-                  </footer>
-                </div>
-                <!-- cheatsheet -->
-                <div class="card">
-                  <header class="card-header">
-                    <p class="card-header-title">
-                      <span>Cheatsheet</span>
-                      <span class="is-pulled-right">
-                        <a href="https://github.com/jgthms/bulma/releases/tag/0.7.2">
-                          <span class="tag is-default">v0.7.2</span>
-                        </a>
-                        <span class="tag is-default">Desktop</span>
-                        <span class="tag is-default">?</span>
-                      </span>
-                    </p>
-                  </header>
-                  <div class="card-content">
-                    <figure class="image">
-                      <img src="https://dummyimage.com/555x255/000/fff" alt="Cheatsheet template screenshot">
-                    </figure>
-                  </div>
-                  <footer class="card-footer">
-                    <a href="templates/cheatsheet.html" class="card-footer-item">Preview</a>
-                    <a href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/cheatsheet.html" class="card-footer-item">Source
-                      Code</a>
-                  </footer>
-                </div>
+               
                 <!-- hero -->
                 <div class="card">
                   <header class="card-header">
@@ -551,56 +455,7 @@
                 </div>
               </div>
               <div class="column is-4">
-                <!-- blog -->
-                <div class="card">
-                  <header class="card-header">
-                    <p class="card-header-title">
-                      <span>Blog</span>
-                      <span class="is-pulled-right">
-                        <a href="https://github.com/jgthms/bulma/releases/tag/0.7.2">
-                          <span class="tag is-default">v0.7.2</span>
-                        </a>
-                        <span class="tag is-default">Desktop</span>
-                        <span class="tag is-danger">WIP</span>
-                      </span>
-                    </p>
-                  </header>
-                  <div class="card-content">
-                    <figure class="image">
-                      <img src="../../../assets/images/sites/users/profiles/blog.png" alt="Blog template screenshot">
-                    </figure>
-                  </div>
-                  <footer class="card-footer">
-                    <a href="templates/blog.html" class="card-footer-item">Preview</a>
-                    <a href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/blog.html" class="card-footer-item">Source
-                      Code</a>
-                  </footer>
-                </div>
-                <!-- cover -->
-                <div class="card">
-                  <header class="card-header">
-                    <p class="card-header-title">
-                      <span>Cover</span>
-                      <span class="is-pulled-right">
-                        <a href="https://github.com/jgthms/bulma/releases/tag/0.7.2">
-                          <span class="tag is-default">v0.7.2</span>
-                        </a>
-                        <span class="tag is-default">Desktop</span>
-                        <span class="tag is-default">Mobile</span>
-                      </span>
-                    </p>
-                  </header>
-                  <div class="card-content">
-                    <figure class="image">
-                      <img src="../../../assets/images/sites/users/profiles/cover.png" alt="Cover template screenshot">
-                    </figure>
-                  </div>
-                  <footer class="card-footer">
-                    <a href="templates/cover.html" class="card-footer-item">Preview</a>
-                    <a href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/cover.html" class="card-footer-item">Source
-                      Code</a>
-                  </footer>
-                </div>
+             
                 <!--inbox -->
                 <div class="card">
                   <header class="card-header">

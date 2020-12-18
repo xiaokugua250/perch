@@ -17,7 +17,7 @@ import fullScreenRouter from './modules/fullscreen'
 import cloudRouter from './modules/cloud'
 import resourcesRouter from './modules/resources'
 import sitesRouter from '@/router/modules/sites_basic'
-
+import articlesRouter from './modules/articles'
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -45,6 +45,7 @@ import sitesRouter from '@/router/modules/sites_basic'
  * all roles can be accessed
  */
 export const constantRoutes = [
+
   {
     path: '/redirect',
     component: Layout,
@@ -76,20 +77,6 @@ export const constantRoutes = [
     component: () => import('@/views/error-page/401'),
     hidden: true
   },
-
-  /* {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    children: [
-      {
-        path: 'dashboard',
-        component: () => import('@/views/dashboard/index'),
-        name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
-      }
-    ]
-  },*/
   {
     path: '/documentation',
     component: Layout,
@@ -138,7 +125,8 @@ export const constantRoutes = [
   fullScreenRouter,
   cloudRouter,
   resourcesRouter,
-  sitesRouter
+  sitesRouter,
+  articlesRouter,
 ]
 
 /**

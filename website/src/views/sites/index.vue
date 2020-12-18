@@ -2,6 +2,9 @@
   <div>
 
     <head>
+        <!-- Google Tag Manager -->
+
+<!-- End Google Tag Manager -->
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,6 +18,10 @@
       <link rel="stylesheet" href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css">
     </head>
     <body>
+        <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WKCL5JV"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
       <section class="hero is-info is-medium is-bold">
         <div class="hero-head">
           <nav class="navbar">
@@ -40,7 +47,7 @@
 
                       <li><a href="">Resources</a></li>
                       <li><a href="">Help</a></li>
-                      <li><a href="">Search</a></li>
+                      <li><a href="#/search">Search</a></li>
                     </ul>
                     <span class="navbar-item">
                       <a class="button is-white is-outlined" href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/hero.html">
@@ -308,5 +315,12 @@
       </footer>
     </body>
   </div>
+
 </template>
- <!-- <script src="../js/bulma.js"></script> -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WKCL5JV');
+
+</script>
