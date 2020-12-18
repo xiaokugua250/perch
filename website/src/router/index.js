@@ -16,6 +16,7 @@ import userRouter from './modules/user'
 import fullScreenRouter from './modules/fullscreen'
 import cloudRouter from './modules/cloud'
 import resourcesRouter from './modules/resources'
+import sitesRouter from "@/router/modules/sites_basic";
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -75,20 +76,8 @@ export const constantRoutes = [
     component: () => import('@/views/error-page/401'),
     hidden: true
   },
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/site',
-    children: [
-      {
-        path: '/',
-        component: () => import('@/views/sites/index'),
-        name: 'sites',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
-      }
-    ]
-  },
-  {
+
+ /* {
     path: '/',
     component: Layout,
     redirect: '/dashboard',
@@ -100,7 +89,7 @@ export const constantRoutes = [
         meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
       }
     ]
-  },
+  },*/
   {
     path: '/documentation',
     component: Layout,
@@ -126,19 +115,7 @@ export const constantRoutes = [
       }
     ]
   },
-  {
-    path: '/search',
-    component: Layout,
-    redirect: '/search/index',
-    children: [
-      {
-        path: 'search',
-        component: () => import('@/views/search/index'),
-        name: 'Search',
-        meta: { title: 'Search', icon: 'search', noCache: true }
-      }
-    ]
-  },
+
   {
     path: '/profile',
     component: Layout,
@@ -160,7 +137,8 @@ export const constantRoutes = [
   userRouter,
   fullScreenRouter,
   cloudRouter,
-  resourcesRouter
+  resourcesRouter,
+  sitesRouter
 ]
 
 /**

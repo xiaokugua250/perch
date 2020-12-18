@@ -40,6 +40,7 @@
 
                       <li><a href="">Resources</a></li>
                       <li><a href="">Help</a></li>
+                      <li><a href="">Search</a></li>
                     </ul>
                     <span class="navbar-item">
                       <a class="button is-white is-outlined" href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/hero.html">
