@@ -16,7 +16,7 @@ import userRouter from './modules/user'
 import fullScreenRouter from './modules/fullscreen'
 import cloudRouter from './modules/cloud'
 import resourcesRouter from './modules/resources'
-import sitesRouter from "@/router/modules/sites_basic";
+import sitesRouter from '@/router/modules/sites_basic'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -77,7 +77,7 @@ export const constantRoutes = [
     hidden: true
   },
 
- /* {
+  /* {
     path: '/',
     component: Layout,
     redirect: '/dashboard',
