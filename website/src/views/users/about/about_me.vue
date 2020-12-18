@@ -64,7 +64,7 @@
         <div class="hero-body">
           <div class="container">Hello! I am
             <h1 class="title is-1">
-        苦瓜先生
+              苦瓜先生
             </h1>
             <h2 class="subtitle is-3">
               Full Stack  Developer
@@ -348,7 +348,7 @@
                   </footer>
                 </div>
                 <!-- forum -->
-   
+
                 <!-- landing -->
                 <div class="card">
                   <header class="card-header">
@@ -377,7 +377,7 @@
 
               </div>
               <div class="column is-4">
-               
+
                 <!-- hero -->
                 <div class="card">
                   <header class="card-header">
@@ -455,7 +455,7 @@
                 </div>
               </div>
               <div class="column is-4">
-             
+
                 <!--inbox -->
                 <div class="card">
                   <header class="card-header">

@@ -27,11 +27,9 @@ const articlesRouter = {
     {
       path: '/',
       component: () => import('@/views/resources/blogs/index'),
-      name: 'resources',
-     // meta: { title: 'resources' }
-    },
-
-
+      name: 'resources'
+      // meta: { title: 'resources' }
+    }
 
   ]
 }

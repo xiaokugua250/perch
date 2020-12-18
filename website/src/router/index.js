@@ -126,7 +126,7 @@ export const constantRoutes = [
   cloudRouter,
   resourcesRouter,
   sitesRouter,
-  articlesRouter,
+  articlesRouter
 ]
 
 /**
