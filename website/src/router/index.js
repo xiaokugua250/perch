@@ -16,8 +16,9 @@ import userRouter from './modules/user'
 import fullScreenRouter from './modules/fullscreen'
 import cloudRouter from './modules/cloud'
 import resourcesRouter from './modules/resources'
-import sitesRouter from '@/router/modules/sites_basic'
+import sitesRouter from './modules/sites_basic'
 import articlesRouter from './modules/articles'
+import monitorRouter from './modules/monitor'
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -126,7 +127,8 @@ export const constantRoutes = [
   cloudRouter,
   resourcesRouter,
   sitesRouter,
-  articlesRouter
+  articlesRouter,
+  monitorRouter
 ]
 
 /**

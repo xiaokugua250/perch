@@ -19,6 +19,12 @@ const articlesRouter = {
       meta: { title: 'resources' }
     },
     {
+      path: 'demo',
+      component: () => import('@/views/resources/blogs/demo'),
+      name: 'resources',
+      meta: { title: 'resources' }
+    },
+    {
       path: 'list',
       component: () => import('@/views/resources/blogs/list'),
       name: 'resources',
