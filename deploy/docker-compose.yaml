@@ -100,7 +100,7 @@ services:
     #  replicas: 2
     #  endpoint_mode: dns
   plat-resources:
-    image: github.com/perch/sys-admin:v1.0
+    image: github.com/perch/system:v1.0
     depends_on:
       - mysql
       #- nginx

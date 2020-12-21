@@ -5,7 +5,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>Personal - Free Bulma template</title>
+      <title>站长简介:苦瓜先生</title>
       <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
@@ -14,7 +14,7 @@
 
     <body>
       <!-- Navigation bar -->
-      <nav class="navbar is-link is-fixed-top">
+      <nav class="navbar is-primary is-fixed-top">
         <div class="navbar-brand">
           <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
             <span />
@@ -29,47 +29,50 @@
               <span class="icon">
                 <i class="fas fa-info" />
               </span>
-              <span>About</span>
+              <span>关于我</span>
             </a>
             <a class="navbar-item" href="#services">
               <span class="icon">
                 <i class="fas fa-bars" />
               </span>
-              <span>Services</span>
+              <span>技术服务与技术咨询</span>
             </a>
             <a class="navbar-item" href="#resume">
               <span class="icon">
                 <i class="fas fa-file-alt" />
               </span>
-              <span>Resume</span>
+              <span>简历</span>
             </a>
             <a class="navbar-item" href="#portfolio">
               <span class="icon">
                 <i class="fas fa-th-list" />
               </span>
-              <span>Portfolio</span>
+              <span>个人项目</span>
             </a>
             <a class="navbar-item" href="#contact">
               <span class="icon">
                 <i class="fas fa-envelope" />
               </span>
-              <span>Contact</span>
+              <span>联系方式</span>
             </a>
           </div>
         </div>
       </nav>
 
       <!-- Header -->
-      <section class="hero is-link is-fullheight is-fullheight-with-navbar">
+      <section class="hero is-primary  is-fullheight-with-navbar">
         <div class="hero-body">
           <div class="container">Hello! I am
             <h1 class="title is-1">
               苦瓜先生
             </h1>
             <h2 class="subtitle is-3">
-              Full Stack  Developer
-              Focus On CloudNavtive And Devops
+              全栈开发
+              专注于Golang、CloudNative和DevOps...
             </h2>
+            <h6 class=" is-3">
+            提供关于计算机软件开发等方面的技术支持和技术咨询
+            </h6>
           </div>
         </div>
       </section>
@@ -79,14 +82,11 @@
         <!-- Title -->
         <div class="section-heading">
           <h3 class="title is-2">About Me</h3>
-          <h4 class="subtitle is-5">Jack of all trades, master of "some"</h4>
+          <h4 class="subtitle is-5">苦瓜先生</h4>
           <div class="container">
-            <p>Web developer with more than <strong>4 years</strong> of well-rounded experience with a degree in the
-              field of
-              <strong>Computer Science</strong>, extensive knowledge of modern Web techniques and love for <strong>Coffee</strong>.
-              Looking for an opportunity to work and upgrade, as well as being involved in an organization that
-              believes
-              in gaining a competitive edge and giving back to the community.</p>
+            <p>后端开发人员，程序开发 <strong>4 年经验</strong> 对计算机软件开发、计算机网络和系统平台维护有较多经验，工作语言为
+              <strong>Golang</strong>,对C、Python、Java 等编程语言均有过实际项目开发经验。目前工作重心为<strong>云原生的PASS平台</strong>建设和构建，并且最近项目为<strong>基于Kubernetes的容器平台</strong>开发和维护。与此同时，对Devops、CI/CD等方面也较为熟悉，并有过实际落地项目。
+             .</p>
           </div>
         </div>
 
@@ -105,24 +105,24 @@
                     </tr>
                     <tr>
                       <td>Address:</td>
-                      <td>Guru's Lab</td>
+                      <td>广东-广州</td>
                     </tr>
-                    <tr>
-                      <td>Phone:</td>
-                      <td>0123-456789</td>
-                    </tr>
+<!--                    <tr>-->
+<!--                      <td>Phone:</td>-->
+<!--                      <td>0123-456789</td>-->
+<!--                    </tr>-->
                     <tr>
                       <td>Email:</td>
-                      <td>mikenig716@gmail.com</td>
+                      <td>liangdu1992@gmail.com</td>
                     </tr>
                   </table>
                 </div>
                 <br>
                 <div class="buttons has-addons is-centered">
                   <a href="https://github.com/xiaokugua250" class="button is-link">Github</a>
-                  <a href="#" class="button is-link">LinkedIn</a>
+                <!--  <a href="#" class="button is-link">LinkedIn</a>-->
                   <a href="https://twitter.com/xiaokugua250" class="button is-link">Twitter</a>
-                  <a href="#" class="button is-link">CodeTrace</a>
+           <!--       <a href="#" class="button is-link">CodeTrace</a>-->
                 </div>
               </div>
             </div>
@@ -131,8 +131,8 @@
             <!-- Profile picture -->
             <div class="card">
               <div class="card-image">
-                <figure class="image is-4by3">
-                  <img src="https://source.unsplash.com/random/1280x960" alt="Placeholder image">
+                <figure class="image is-4by4">
+                  <img src="../../../assets/images/sites/users/profiles/twitter.png" alt="Placeholder image">
                 </figure>
               </div>
             </div>
@@ -160,7 +160,7 @@
                     <div class="media-content">
                       <div class="content">
                         <p>
-                          <strong>k8s&docker:</strong>
+                          <strong>Kubernetes/Container:</strong>
                           <br>
                           <progress class="progress is-primary" value="90" max="100" />
                         </p>
@@ -172,7 +172,7 @@
                     <div class="media-content">
                       <div class="content">
                         <p>
-                          <strong>linux&c:</strong>
+                          <strong>Linux&Databases&C&Python:</strong>
                           <br>
                           <progress class="progress is-primary" value="75" max="100" />
                         </p>
@@ -184,7 +184,7 @@
                     <div class="media-content">
                       <div class="content">
                         <p>
-                          <strong>vue.js</strong>
+                          <strong>DevOps</strong>
                           <br>
                           <progress class="progress is-primary" value="95" max="100" />
                         </p>
@@ -192,17 +192,7 @@
                     </div>
                   </article>
 
-                  <article class="media">
-                    <div class="media-content">
-                      <div class="content">
-                        <p>
-                          <strong>Databases</strong>
-                          <br>
-                          <progress class="progress is-primary" value="66" max="100" />
-                        </p>
-                      </div>
-                    </div>
-                  </article>
+
                 </div>
               </div>
             </div>
@@ -226,14 +216,14 @@
       <section id="services" class="section">
         <div class="section-heading">
           <h3 class="title is-2">Services</h3>
-          <h4 class="subtitle is-5">What can I do for you?</h4>
+          <h4 class="subtitle is-5">技术服务与技术咨询</h4>
         </div>
         <div class="container">
           <div class="columns">
             <div class="column">
               <div class="box">
                 <div class="content">
-                  <h4 class="title is-5">Front End Web Development</h4>
+                  <h4 class="title is-5">软件系统开发</h4>
                   Develop Front End using latest standards with HTML5/CSS3 with added funtionality using JavaScript and
                   Vue.js.
                 </div>
@@ -242,7 +232,7 @@
             <div class="column">
               <div class="box">
                 <div class="content">
-                  <h4 class="title is-5">Back End Web Development</h4>
+                  <h4 class="title is-5">技术运维服务</h4>
                   Develop Back End application/service using Node.js or ASP .NET and SQL server or Mongo DB databases.
                 </div>
               </div>
@@ -253,7 +243,7 @@
             <div class="column">
               <div class="box">
                 <div class="content">
-                  <h4 class="title is-5">Front End Web Development</h4>
+                  <h4 class="title is-5">技术交流与培训</h4>
                   Develop Front End using latest standards with HTML5/CSS3 with added funtionality using JavaScript and
                   Vue.js.
                 </div>
@@ -262,7 +252,7 @@
             <div class="column">
               <div class="box">
                 <div class="content">
-                  <h4 class="title is-5">Back End Web Development</h4>
+                  <h4 class="title is-5">其他软件服务</h4>
                   Develop Back End application/service using Node.js or ASP .NET and SQL server or Mongo DB databases.
                 </div>
               </div>
@@ -275,12 +265,12 @@
       <section id="resume" class="section">
         <div class="section-heading">
           <h3 class="title is-2">Resume</h3>
-          <h4 class="subtitle is-5">More about my past</h4>
+          <h4 class="subtitle is-5">工作经历</h4>
           <a href="#" class="button is-link is-medium">
             <span class="icon">
               <i class="fas fa-file-alt" />
             </span>
-            <span>Download My Resume</span>
+            <span>点击下载简历</span>
           </a>
         </div>
       </section>
@@ -289,19 +279,19 @@
       <section id="portfolio" class="section">
         <div class="container">
           <div class="section-heading">
-            <h3 class="title is-2">Portfolio</h3>
-            <h4 class="subtitle is-5">My latest works</h4>
+            <h3 class="title is-2">个人项目</h3>
+            <h4 class="subtitle is-5">Github项目</h4>
           </div>
           <br>
 
           <div class="container portfolio-container">
             <div class="columns">
-              <div class="column is-4">
+              <div class="column ">
                 <!-- admin -->
                 <div class="card">
                   <header class="card-header">
                     <p class="card-header-title">
-                      <span>Admin <small>(Light)</small></span>
+                      <span>Perch <small>(Light)</small></span>
                       <span class="is-pulled-right">
                         <a href="https://github.com/jgthms/bulma/releases/tag/0.7.2">
                           <span class="tag is-default">v0.7.2</span>
@@ -313,67 +303,19 @@
                   </header>
                   <div class="card-content">
                     <figure class="image">
-                      <img src="../../../assets/images/sites/users/profiles/admin.png" alt="Admin template screenshot">
+                      <img src="../../../assets/images/sites/users/profiles/perch_logo.jpg" alt="Admin template screenshot">
                     </figure>
                   </div>
                   <footer class="card-footer">
-                    <a href="templates/admin.html" class="card-footer-item">Preview</a>
-                    <a href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/admin.html" class="card-footer-item">Source
+                    <a href="https://github.com/xiaokugua250/perch" class="card-footer-item">Preview</a>
+                    <a href="https://github.com/xiaokugua250/perch" class="card-footer-item">Source
                       Code</a>
                   </footer>
                 </div>
                 <!-- cards -->
-                <div class="card">
-                  <header class="card-header">
-                    <p class="card-header-title">
-                      <span>Cards</span>
-                      <span class="is-pulled-right">
-                        <a href="https://github.com/jgthms/bulma/releases/tag/0.7.2">
-                          <span class="tag is-default">v0.7.2</span>
-                        </a>
-                        <span class="tag is-default">Desktop</span>
-                        <span class="tag is-default">?</span>
-                      </span>
-                    </p>
-                  </header>
-                  <div class="card-content">
-                    <figure class="image">
-                      <img src="../../../assets/images/sites/users/profiles/cards.png" alt="Cards template screenshot">
-                    </figure>
-                  </div>
-                  <footer class="card-footer">
-                    <a href="templates/cards.html" class="card-footer-item">Preview</a>
-                    <a href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/cards.html" class="card-footer-item">Source
-                      Code</a>
-                  </footer>
-                </div>
+
                 <!-- forum -->
 
-                <!-- landing -->
-                <div class="card">
-                  <header class="card-header">
-                    <p class="card-header-title">
-                      <span>Landing</span>
-                      <span class="is-pulled-right">
-                        <a href="https://github.com/jgthms/bulma/releases/tag/0.7.2">
-                          <span class="tag is-default">v0.7.2</span>
-                        </a>
-                        <span class="tag is-default">Desktop</span>
-                        <span class="tag is-default">Mobile</span>
-                      </span>
-                    </p>
-                  </header>
-                  <div class="card-content">
-                    <figure class="image">
-                      <img src="../../../assets/images/sites/users/profiles/landing.png" alt="Landing template screenshot">
-                    </figure>
-                  </div>
-                  <footer class="card-footer">
-                    <a href="templates/landing.html" class="card-footer-item">Preview</a>
-                    <a href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/landing.html" class="card-footer-item">Source
-                      Code</a>
-                  </footer>
-                </div>
 
               </div>
               <div class="column is-4">
@@ -382,24 +324,23 @@
                 <div class="card">
                   <header class="card-header">
                     <p class="card-header-title">
-                      <span>Hero</span>
+                      <span>Harbor-go</span>
                       <span class="is-pulled-right">
                         <a href="https://github.com/jgthms/bulma/releases/tag/0.7.2">
                           <span class="tag is-default">v0.7.2</span>
                         </a>
-                        <span class="tag is-default">Desktop</span>
-                        <span class="tag is-default">?</span>
+
                       </span>
                     </p>
                   </header>
                   <div class="card-content">
                     <figure class="image">
-                      <img src="../../../assets/images/sites/users/profiles/hero.png" alt="Hero template screenshot">
+                      <img src="../../../assets/images/sites/users/profiles/habor.png" alt="Hero template screenshot">
                     </figure>
                   </div>
                   <footer class="card-footer">
-                    <a href="templates/hero.html" class="card-footer-item">Preview</a>
-                    <a href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/hero.html" class="card-footer-item">Source
+                    <a href="https://github.com/xiaokugua250/harbor-go" class="card-footer-item">Preview</a>
+                    <a href="https://github.com/xiaokugua250/harbor-go" class="card-footer-item">Source
                       Code</a>
                   </footer>
                 </div>
@@ -407,172 +348,40 @@
                 <div class="card">
                   <header class="card-header">
                     <p class="card-header-title">
-                      <span>Kanban</span>
+                      <span>Siniperca</span>
                       <span class="is-pulled-right">
-                        <a href="https://github.com/jgthms/bulma/releases/tag/0.7.2">
-                          <span class="tag is-default">v0.7.2</span>
-                        </a>
-                        <span class="tag is-default">Desktop</span>
-                        <span class="tag is-default">?</span>
+
+
                       </span>
                     </p>
                   </header>
                   <div class="card-content">
                     <figure class="image">
-                      <img src="../../../assets/images/sites/users/profiles/kanban.png" alt="Kanban template screenshot">
+                      <img src="../../../assets/images/sites/users/profiles/crd.jpeg" alt="harbor screenshot">
                     </figure>
                   </div>
                   <footer class="card-footer">
-                    <a href="templates/kanban.html" class="card-footer-item">Preview</a>
-                    <a href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/kanban.html" class="card-footer-item">Source
+                    <a href="https://github.com/xiaokugua250/Siniperca" class="card-footer-item">Preview</a>
+                    <a href="https://github.com/xiaokugua250/Siniperca" class="card-footer-item">Source
                       Code</a>
                   </footer>
                 </div>
                 <!-- login -->
-                <div class="card">
-                  <header class="card-header">
-                    <p class="card-header-title">
-                      <span>Login</span>
-                      <span class="is-pulled-right">
-                        <a href="https://github.com/jgthms/bulma/releases/tag/0.7.2">
-                          <span class="tag is-default">v0.7.2</span>
-                        </a>
-                        <span class="tag is-default">Desktop</span>
-                        <span class="tag is-default">Mobile</span>
-                      </span>
-                    </p>
-                  </header>
-                  <div class="card-content">
-                    <figure class="image">
-                      <img src="../../../assets/images/sites/users/profiles/login.png" alt="Login template screenshot">
-                    </figure>
-                  </div>
-                  <footer class="card-footer">
-                    <a href="templates/login.html" class="card-footer-item">Preview</a>
-                    <a href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/login.html" class="card-footer-item">Source
-                      Code</a>
-                  </footer>
-                </div>
-              </div>
-              <div class="column is-4">
 
-                <!--inbox -->
-                <div class="card">
-                  <header class="card-header">
-                    <p class="card-header-title">
-                      <span>Inbox</span>
-                      <span class="is-pulled-right">
-                        <a href="https://github.com/jgthms/bulma/releases/tag/0.7.2">
-                          <span class="tag is-default">v0.7.2</span>
-                        </a>
-                        <span class="tag is-default">Desktop</span>
-                        <span class="tag is-default">Mobile</span>
-                      </span>
-                    </p>
-                  </header>
-                  <div class="card-content">
-                    <figure class="image">
-                      <img src="../../../assets/images/sites/users/profiles/inbox.png" alt="Inbox template screenshot">
-                    </figure>
-                  </div>
-                  <footer class="card-footer">
-                    <a href="templates/inbox.html" class="card-footer-item">Preview</a>
-                    <a href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/inbox.html" class="card-footer-item">Source
-                      Code</a>
-                  </footer>
-                </div>
-                <!--kanban with functional search-->
-                <div class="card">
-                  <header class="card-header">
-                    <p class="card-header-title">
-                      <span>Kanban with Search box</span>
-                      <span class="is-pulled-right">
-                        <a href="https://github.com/jgthms/bulma/releases/tag/0.7.2">
-                          <span class="tag is-default">v0.7.2</span>
-                        </a>
-                        <span class="tag is-default">Desktop</span>
-                        <span class="tag is-default">?</span>
-                      </span>
-                    </p>
-                  </header>
-                  <div class="card-content">
-                    <figure class="image">
-                      <img src="../../../assets/images/sites/users/profiles/kanban2.png" alt="Kanban template screenshot">
-                    </figure>
-                  </div>
-                  <footer class="card-footer">
-                    <a href="templates/kanban[search].html" class="card-footer-item">Preview</a>
-                    <a href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/kanban[search].html" class="card-footer-item">Source
-                      Code</a>
-                  </footer>
-                </div>
-                <!--tabs-->
-                <div class="card">
-                  <header class="card-header">
-                    <p class="card-header-title">
-                      <span>Modal Cards</span>
-                      <span class="is-pulled-right">
-                        <a href="https://github.com/jgthms/bulma/releases/tag/0.7.2">
-                          <span class="tag is-default">v0.7.2</span>
-                        </a>
-                        <span class="tag is-default">Desktop</span>
-                        <span class="tag is-default">?</span>
-                      </span>
-                    </p>
-                  </header>
-                  <div class="card-content">
-                    <figure class="image">
-                      <img src="https://dummyimage.com/555x255/000/fff" alt="modal-cards template screenshot">
-                    </figure>
-                  </div>
-                  <footer class="card-footer">
-                    <a href="templates/modal-cards.html" class="card-footer-item">Preview</a>
-                    <a href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/modal-cards.html" class="card-footer-item">Source
-                      Code</a>
-                  </footer>
-                </div>
               </div>
+
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Achievement Level -->
-      <!-- <section class="section">
-      <nav class="level">
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Tweets</p>
-            <p class="title">3,456</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Following</p>
-            <p class="title">123</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Followers</p>
-            <p class="title">456K</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Likes</p>
-            <p class="title">789</p>
-          </div>
-        </div>
-      </nav>
-    </section> -->
 
       <!-- Contact -->
       <section id="contact" class="section">
         <div class="container">
           <div class="section-heading">
             <h3 class="title is-2">Contact</h3>
-            <h4 class="subtitle is-5">Get in touch</h4>
+            <h4 class="subtitle is-5">联系我</h4>
           </div>
           <br>
 
