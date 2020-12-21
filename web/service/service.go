@@ -2,12 +2,13 @@ package service
 
 import (
 	"context"
-	"github.com/gorilla/handlers"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
+
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
 
 	"perch/pkg/general/viperconf"
 	"strconv"
@@ -67,7 +68,7 @@ func (webserver *WebServer) Start() {
 		Handler: handlers.CORS(
 			handlers.AllowedHeaders([]string{"*"}),
 			handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS", "PATCH"}),
-			handlers.AllowedHeaders([]string{"X-Requested-With", "Authorization", "Content-Type", "Cache-Control", "x-token", "ETag", "TIMEOUT", "DEADLINE", "content-range"}),
+			handlers.AllowedHeaders([]string{"X-Requested-With", "Authorization", "Content-Type", "Cache-Control", "x-token", "ETag", "TIMEOUT", "DEADLINE", "content-range", "application/json"}),
 		)(webserver.GenRouter()),
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  time.Second * 15,

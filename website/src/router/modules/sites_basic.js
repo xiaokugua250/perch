@@ -24,7 +24,7 @@ const sitesRouter = {
       path: '/search',
       component: () => import('@/views/sites/search/index'),
       name: 'search',
-      meta: { title: 'resources' }
+     // meta: { title: 'resources' }
     },
     {
       path: '/about',

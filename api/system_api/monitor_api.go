@@ -13,6 +13,30 @@ import (
 	"net/http"
 )
 
+func SysBasicInfoHandler(w http.ResponseWriter, r *http.Request) {
+	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+		var (
+			//sysBasicInfo = make(map[string]interface{})
+			sysBasicInfo sysinfo.HostAdvancedInfo
+			err          error
+		)
+
+		sysBasicInfo, err = sysinfo.SysHostAdvancedInfo()
+		if err != nil {
+			response.Code = http.StatusInternalServerError
+			response.Message = err.Error()
+			return err
+		}
+
+		response.Kind = "sysinfo basic"
+
+		response.Code = http.StatusOK
+		response.Spec = sysBasicInfo
+		response.Message = " sys basic info"
+		return nil
+	})
+}
+
 func SysMemInfoHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
 		var (

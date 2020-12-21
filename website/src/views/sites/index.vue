@@ -8,14 +8,8 @@
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Hero - Free Bulma template</title>
-      <link rel="shortcut icon" href="../images/fav_icon.png" type="image/x-icon">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-      <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-      <!-- Bulma Version 0.9.0-->
-      <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css">
-      <link rel="stylesheet" type="text/css" href="../css/hero.css">
-      <link rel="stylesheet" href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css">
+      <title>平台主页</title>
+    
     </head>
     <body>
       <!-- Google Tag Manager (noscript) -->
@@ -45,7 +39,7 @@
                       <li><a href="">News</a></li>
                       <li><a href="">Team</a></li>
 
-                      <li><a href="">Resources</a></li>
+                      <li><a href="#/resources">Resources</a></li>
                       <li><a href="">Help</a></li>
                       <li><a href="#/search">Search</a></li>
                     </ul>
