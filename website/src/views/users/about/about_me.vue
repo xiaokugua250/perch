@@ -71,7 +71,7 @@
               专注于Golang、CloudNative和DevOps...
             </h2>
             <h6 class=" is-3">
-            提供关于计算机软件开发等方面的技术支持和技术咨询
+              提供关于计算机软件开发等方面的技术支持和技术咨询
             </h6>
           </div>
         </div>
@@ -86,7 +86,7 @@
           <div class="container">
             <p>后端开发人员，程序开发 <strong>4 年经验</strong> 对计算机软件开发、计算机网络和系统平台维护有较多经验，工作语言为
               <strong>Golang</strong>,对C、Python、Java 等编程语言均有过实际项目开发经验。目前工作重心为<strong>云原生的PASS平台</strong>建设和构建，并且最近项目为<strong>基于Kubernetes的容器平台</strong>开发和维护。与此同时，对Devops、CI/CD等方面也较为熟悉，并有过实际落地项目。
-             .</p>
+              .</p>
           </div>
         </div>
 
@@ -107,10 +107,10 @@
                       <td>Address:</td>
                       <td>广东-广州</td>
                     </tr>
-<!--                    <tr>-->
-<!--                      <td>Phone:</td>-->
-<!--                      <td>0123-456789</td>-->
-<!--                    </tr>-->
+                    <!--                    <tr>-->
+                    <!--                      <td>Phone:</td>-->
+                    <!--                      <td>0123-456789</td>-->
+                    <!--                    </tr>-->
                     <tr>
                       <td>Email:</td>
                       <td>liangdu1992@gmail.com</td>
@@ -120,9 +120,9 @@
                 <br>
                 <div class="buttons has-addons is-centered">
                   <a href="https://github.com/xiaokugua250" class="button is-link">Github</a>
-                <!--  <a href="#" class="button is-link">LinkedIn</a>-->
+                  <!--  <a href="#" class="button is-link">LinkedIn</a>-->
                   <a href="https://twitter.com/xiaokugua250" class="button is-link">Twitter</a>
-           <!--       <a href="#" class="button is-link">CodeTrace</a>-->
+                  <!--       <a href="#" class="button is-link">CodeTrace</a>-->
                 </div>
               </div>
             </div>
@@ -191,7 +191,6 @@
                       </div>
                     </div>
                   </article>
-
 
                 </div>
               </div>
@@ -316,7 +315,6 @@
 
                 <!-- forum -->
 
-
               </div>
               <div class="column is-4">
 
@@ -349,10 +347,7 @@
                   <header class="card-header">
                     <p class="card-header-title">
                       <span>Siniperca</span>
-                      <span class="is-pulled-right">
-
-
-                      </span>
+                      <span class="is-pulled-right" />
                     </p>
                   </header>
                   <div class="card-content">
@@ -374,7 +369,6 @@
           </div>
         </div>
       </section>
-
 
       <!-- Contact -->
       <section id="contact" class="section">

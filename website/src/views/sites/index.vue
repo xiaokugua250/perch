@@ -9,7 +9,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>平台主页</title>
-    
+
     </head>
     <body>
       <!-- Google Tag Manager (noscript) -->
@@ -250,7 +250,7 @@
           </div>
         </div>
       </section>
-      <footer class="footer">
+  <!--    <footer class="footer">
         <div class="container">
           <div class="columns">
             <div class="column is-3 is-offset-2">
@@ -306,7 +306,7 @@
           </div>
         </div>
 
-      </footer>
+      </footer>-->
     </body>
   </div>
 

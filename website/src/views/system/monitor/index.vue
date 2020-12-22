@@ -44,62 +44,61 @@
         </div>
       </section>
       <section class="hero is-info">
-<div class="columns">
-  <div class="column">
-   
-     <div class="card">
- <p class="notification is-success">系统基本信息
-    </p>
-  <div class="card-content">
-    <div class="content">
-  <ol type="infos">
-    <li> 内核信息: {{basicinfo.kernel_version}}</li>
-    <li> 操作系统平台:  {{basicinfo.platform}}</li>
-     <li>发行信息: {{basicinfo.family}}</li>
-    <li> 版本:  {{basicinfo.version}}</li>
-     <li> 虚拟化: {{basicinfo.vituralization}}</li>
-    <li> 运行时间:  {{basicinfo.info_stat.uptime}}</li>
-     <li>  启动时间: {{basicinfo.info_stat.bootTime}}</li>
-    <li> 操作系统平台:  {{basicinfo.platform}}</li>
-   <li>系统架构{{basicinfo.info_stat.kernelArch}}</li>
-  </ol>
- 
+        <div class="columns">
+          <div class="column">
 
-      <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-      <br>
-      <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-    </div>
-  </div>
+            <div class="card">
+              <p class="notification is-success">系统基本信息
+              </p>
+              <div class="card-content">
+                <div class="content">
+                  <ol type="infos">
+                    <li> 内核信息: {{ basicinfo.kernel_version }}</li>
+                    <li> 操作系统平台:  {{ basicinfo.platform }}</li>
+                    <li>发行信息: {{ basicinfo.family }}</li>
+                    <li> 版本:  {{ basicinfo.version }}</li>
+                    <li> 虚拟化: {{ basicinfo.vituralization }}</li>
+                    <li> 运行时间:  {{ basicinfo.info_stat.uptime }}</li>
+                    <li>  启动时间: {{ basicinfo.info_stat.bootTime }}</li>
+                    <li> 操作系统平台:  {{ basicinfo.platform }}</li>
+                    <li>系统架构{{ basicinfo.info_stat.kernelArch }}</li>
+                  </ol>
 
-</div>
-  </div>
-  <div class="column">
-   
-     <div class="card">
- <p class="notification is-success">ddd 
-    </p>
-  <div class="card-content">
-    <div class="content">
-      {{basicinfo}}
-      <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-      <br>
-      <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-    </div>
-  </div>
-  <footer class="card-footer">
-    <a href="#" class="card-footer-item">Save</a>
-    <a href="#" class="card-footer-item">Edit</a>
-    <a href="#" class="card-footer-item">Delete</a>
-  </footer>
-</div>
-  </div>
- 
-</div>
+                  <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+                  <br>
+                  <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="column">
+
+            <div class="card">
+              <p class="notification is-success">ddd
+              </p>
+              <div class="card-content">
+                <div class="content">
+                  {{ basicinfo }}
+                  <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+                  <br>
+                  <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                </div>
+              </div>
+              <footer class="card-footer">
+                <a href="#" class="card-footer-item">Save</a>
+                <a href="#" class="card-footer-item">Edit</a>
+                <a href="#" class="card-footer-item">Delete</a>
+              </footer>
+            </div>
+          </div>
+
+        </div>
 
       </section>
-    
+
       <div class="box cta">
-       
+
         <div class="columns is-mobile is-centered">
           <div class="field is-grouped is-grouped-multiline">
             <div class="control"><span class="tag is-link is-large">Link</span></div>
@@ -337,24 +336,22 @@ import { getSysBasicInfos } from '@/api/system-admin'
 export default {
   name: 'SysBasic',
 
-
   data() {
     return {
-        listLoading:false,
-         basicinfo:null,    
+      listLoading: false,
+      basicinfo: null
     }
   },
   created() {
     // this.getList()
-    this. SysBasicInfosGet() 
+    this.SysBasicInfosGet()
   },
   methods: {
     SysBasicInfosGet() {
       this.listLoading = true
       getSysBasicInfos(this.listQuery).then(response => {
-    
         //        this.list = response.data.items
-        this. basicinfo = response.spec
+        this.basicinfo = response.spec
 
         this.total = response.total
 
@@ -363,9 +360,8 @@ export default {
           this.listLoading = false
         }, 1.5 * 1000)
       })
-    },
-   
- 
+    }
+
   }
 }
 </script>
