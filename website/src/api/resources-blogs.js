@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function getDocs(query) {
+export function getBlogs(query) {
   return request({
-    url: '/resources/docs',
+    url: '/resources/blogs',
     method: 'get',
     params: query
   })
@@ -10,7 +10,7 @@ export function getDocs(query) {
 
 export function getSpecDocs(id) {
   return request({
-    url: '/resources/docs/'+parseInt(id),
+    url: '/resources/blog/'+parseInt(id),
     method: 'get',
     //params: { id }
   })
@@ -19,7 +19,7 @@ export function getSpecDocs(id) {
 
 export function createDocs(id,data) {
   return request({
-    url: '/resources/docs',
+    url: '/resources/blog',
     method: 'post',
     data
   })
@@ -27,7 +27,7 @@ export function createDocs(id,data) {
 
 export function updateDocs(id,data) {
   return request({
-    url: '/resources/docs/'+parseInt(id),
+    url: '/resources/blog/'+parseInt(id),
     method: 'patch',
     data
   })
@@ -35,8 +35,8 @@ export function updateDocs(id,data) {
 
 export function deleteDocs(id,data) {
   return request({
-    url: '/resources/docs/'+parseInt(id),
-    method: 'patch',
+    url: '/resources/blog/'+parseInt(id),
+    method: 'delete',
     data
   })
 }

@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import { getDocs } from '@/api/resources-docs'
+import { getDocs } from '@/api/resources-blogs'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 const calendarTypeOptions = [
   { key: 'CN', display_name: 'China' },
