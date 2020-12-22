@@ -245,12 +245,12 @@ export const asyncRoutes = [
     ]
   },*/
   {
-    path: '/sys-admin',
+    path: '/system',
     component: Layout,
     children: [
       {
         path: 'index',
-        component: () => import('@/views/sys-admin/resource/index'),
+        component: () => import('@/views/system/resource/index'),
         name: 'Tab',
         meta: { title: 'Sys admin', icon: 'sysadmin' }
       }

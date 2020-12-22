@@ -14,7 +14,7 @@ const monitorRouter = {
   children: [
     {
       path: '/',
-      component: () => import('@/views/sys-admin/monitor/index'),
+      component: () => import('@/views/system/monitor/index'),
       name: 'sites'
       // redirect: '/sites',
       //  meta: { title: 'z-gour.com', icon: 'dashboard', affix: true }

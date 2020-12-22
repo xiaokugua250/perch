@@ -14,7 +14,7 @@ import (
 	resource "perch/web/model/resources"
 )
 
-func GetResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
+func GetResourcesBlogsHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
 		var (
 			resourceDocs []resource.ResourceDocs
@@ -42,7 +42,7 @@ func GetResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func SpecGetResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
+func SpecGetResourcesBlogsHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
 		var (
 			resourceDocs resource.ResourceDocs
@@ -68,7 +68,7 @@ func SpecGetResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func CreateResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
+func CreateResourcesBlogsHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
 		var (
 			resourceDocs []resource.ResourceDocs
@@ -96,7 +96,7 @@ func CreateResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func UpdateSpecResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
+func UpdateSpecResourcesBlogsHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
 		var (
 			resourceDocs []resource.ResourceDocs
@@ -120,7 +120,7 @@ func UpdateSpecResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func DeleteSpecResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
+func DeleteSpecResourcesBlogsHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
 		var (
 			resourceDocs []resource.ResourceDocs

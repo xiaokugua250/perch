@@ -8,11 +8,11 @@ import (
 
 func main() {
 	serverRouter := []service.WebRouter{
-		{RouterPath: "/docs", RouterHandlerFunc: admin.GetResourcesDocsHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/docs", RouterHandlerFunc: admin.CreateResourcesDocsHandler, RouterMethod: http.MethodPost},
-		{RouterPath: "/docs/{id}", RouterHandlerFunc: admin.SpecGetResourcesDocsHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/docs/{id}", RouterHandlerFunc: admin.UpdateSpecResourcesDocsHandler, RouterMethod: http.MethodPatch},
-		{RouterPath: "/docs/{id}", RouterHandlerFunc: admin.DeleteSpecResourcesDocsHandler, RouterMethod: http.MethodDelete},
+		{RouterPath: "/blogs", RouterHandlerFunc: admin.GetResourcesBlogsHandler, RouterMethod: http.MethodGet},
+		{RouterPath: "/blog", RouterHandlerFunc: admin.CreateResourcesBlogsHandler, RouterMethod: http.MethodPost},
+		{RouterPath: "/blog/{id}", RouterHandlerFunc: admin.SpecGetResourcesBlogsHandler, RouterMethod: http.MethodGet},
+		{RouterPath: "/blog/{id}", RouterHandlerFunc: admin.UpdateSpecResourcesBlogsHandler, RouterMethod: http.MethodPatch},
+		{RouterPath: "/blog/{id}", RouterHandlerFunc: admin.DeleteSpecResourcesBlogsHandler, RouterMethod: http.MethodDelete},
 		//{RouterPath: "/user/register", RouterHandlerFunc: admin.PlatLoginGenTokenHandler, RouterMethod: http.MethodPost},
 		//------------------------
 		{RouterPath: "/categorys", RouterHandlerFunc: admin.GetResourcesCategorysHandler, RouterMethod: http.MethodGet},
