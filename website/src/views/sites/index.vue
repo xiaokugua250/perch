@@ -20,9 +20,9 @@
         <div class="hero-head">
           <nav class="navbar">
             <div class="container">
-              <div class="navbar-brand">
-                <a class="navbar-item" href="../">
-                  <img src="http://bulma.io/images/bulma-type-white.png" alt="Logo">
+              <div class="navbar-brand"  height="400">
+                <a class="navbar-item" href="../" >
+                  <img src="../../assets/images/sites/basic/z-gour.com.png" alt="Logo" >
                 </a>
                 <span class="navbar-burger burger" data-target="navbarMenu">
                   <span />
@@ -147,14 +147,14 @@
             </div>
             <div class="tile is-parent is-shady">
               <article class="tile is-child notification is-white">
-                <p class="title">Fun</p>
+                <p class="title">趣闻趣事</p>
                 <p class="subtitle">Funny Pic & Jokies</p>
               </article>
             </div>
             <div class="tile is-parent is-shady">
               <article class="tile is-child notification is-white">
-                <p class="title">database</p>
-                <p class="subtitle">数据库介绍</p>
+                <p class="title">常用的几个网站</p>
+                <p class="subtitle">自己的问题Google解决</p>
                 <div class="content">
                   <p>Welcome to GitHub Pages You can use the editor on GitHub to maintain and preview the content for your website in Markdown files. Whenever you commit to this repository, GitHub Pages will run Jekyll to rebuild the pages in your site, from the content in your Markdown files.</p>
                 </div>
@@ -166,18 +166,18 @@
               <div class="tile">
                 <div class="tile is-parent is-vertical">
                   <article class="tile is-child notification is-white">
-                    <p class="title">Vertical tiles</p>
+                    <p class="title">怎样开心的花钱</p>
                     <p class="subtitle">Top box</p>
                   </article>
                   <article class="tile is-child notification is-white">
-                    <p class="title">Vertical tiles</p>
+                    <p class="title">应该具备的几种习惯</p>
                     <p class="subtitle">Bottom box</p>
                   </article>
                 </div>
                 <div class="tile is-parent">
                   <article class="tile is-child notification is-white">
-                    <p class="title">Middle box</p>
-                    <p class="subtitle">With an image</p>
+                    <p class="title">精美的图片</p>
+                    <p class="subtitle">见过或未见的景色</p>
                     <figure class="image is-4by3">
                       <img src="https://picsum.photos/640/480/?random" alt="Description">
                     </figure>
@@ -186,8 +186,8 @@
               </div>
               <div class="tile is-parent is-shady">
                 <article class="tile is-child notification is-white">
-                  <p class="title">Wide column</p>
-                  <p class="subtitle">Aligned with the right column</p>
+                  <p class="title">人应该学会自我安慰</p>
+                  <p class="subtitle">专门为你熬的一锅鸡汤</p>
                   <div class="content">
                     <p>Welcome to GitHub Pages You can use the editor on GitHub to maintain and preview the content for your website in Markdown files. Whenever you commit to this repository, GitHub Pages will run Jekyll to rebuild the pages in your site, from the content in your Markdown files.</p>
                   </div>
@@ -197,8 +197,8 @@
             <div class="tile is-parent is-shady">
               <article class="tile is-child notification is-white">
                 <div class="content">
-                  <p class="title">Tall column</p>
-                  <p class="subtitle">With even more content</p>
+                  <p class="title">教你从头开始做项目</p>
+                  <p class="subtitle">一点一滴的做平台</p>
                   <div class="content">
                     <p>Welcome to GitHub Pages You can use the editor on GitHub to maintain and preview the content for your website in Markdown files. Whenever you commit to this repository, GitHub Pages will run Jekyll to rebuild the pages in your site, from the content in your Markdown files.</p>
                     <p>SWelcome to GitHub Pages You can use the editor on GitHub to maintain and preview the content for your website in Markdown files. Whenever you commit to this repository, GitHub Pages will run Jekyll to rebuild the pages in your site, from the content in your Markdown files.</p>
@@ -211,8 +211,8 @@
           <div class="tile is-ancestor">
             <div class="tile is-parent is-shady">
               <article class="tile is-child notification is-white">
-                <p class="title">Side column</p>
-                <p class="subtitle">With some content</p>
+                <p class="title">记得</p>
+                <p class="subtitle">我们记得</p>
                 <div class="content">
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
                 </div>
@@ -220,7 +220,7 @@
             </div>
             <div class="tile is-parent is-8 is-shady">
               <article class="tile is-child notification is-white">
-                <p class="title">Main column</p>
+                <p class="title">推荐的几本书</p>
                 <p class="subtitle">With some content</p>
                 <div class="content">
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
@@ -231,7 +231,7 @@
           <div class="tile is-ancestor">
             <div class="tile is-parent is-8 is-shady">
               <article class="tile is-child notification is-white">
-                <p class="title">Murphy's law</p>
+                <p class="title">采集的国外站点</p>
                 <p class="subtitle">Anything that can go wrong will go wrong</p>
                 <div class="content">
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
@@ -240,7 +240,7 @@
             </div>
             <div class="tile is-parent is-shady">
               <article class="tile is-child notification is-white">
-                <p class="title">Main column</p>
+                <p class="title">关于我</p>
                 <p class="subtitle">With some content</p>
                 <div class="content">
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
