@@ -89,28 +89,29 @@
             This container is <strong>centered</strong> on desktop and larger viewports.
           </div>
           <b-table
-            :data="blogs"
             ref="table"
+            :data="blogs"
             paginated
 
             per-page="5"
             :opened-detailed="defaultOpenedDetails"
             detailed
             detail-key="id"
-            @details-open="(row) => $buefy.toast.open(`Expanded ${row.name}`)"
-
             aria-next-label="Next page"
+
             aria-previous-label="Previous page"
             aria-page-label="Page"
-            aria-current-label="Current page">
+            aria-current-label="Current page"
+            @details-open="(row) => $buefy.toast.open(`Expanded ${row.name}`)"
+          >
 
-            <b-table-column field="id" label="ID" width="40" numeric v-slot="props">
+            <b-table-column v-slot="props" field="id" label="ID" width="40" numeric>
               {{ props.row.id }}
             </b-table-column>
 
-            <b-table-column field="name" label="标题(Title)" sortable v-slot="props">
+            <b-table-column v-slot="props" field="name" label="标题(Title)" sortable>
               <template v-if="showDetailIcon">
-                {{ props.row.title}}
+                {{ props.row.title }}
               </template>
               <template v-else>
                 <a @click="props.toggleDetails(props.row)">
@@ -119,7 +120,7 @@
               </template>
             </b-table-column>
 
-            <b-table-column field="name" label="作者(Author)" sortable v-slot="props">
+            <b-table-column v-slot="props" field="name" label="作者(Author)" sortable>
               <template v-if="showDetailIcon">
                 {{ props.row.author }}
               </template>
@@ -129,7 +130,7 @@
                 </a>
               </template>
             </b-table-column>
-            <b-table-column field="name" label="类别(Category)" sortable v-slot="props">
+            <b-table-column v-slot="props" field="name" label="类别(Category)" sortable>
               <template v-if="showDetailIcon">
                 {{ props.row.category }}
               </template>
@@ -139,7 +140,7 @@
                 </a>
               </template>
             </b-table-column>
-            <b-table-column field="name" label="标签(tags)" sortable v-slot="props">
+            <b-table-column v-slot="props" field="name" label="标签(tags)" sortable>
               <template v-if="showDetailIcon">
                 {{ props.row.tags }}
               </template>
@@ -149,7 +150,7 @@
                 </a>
               </template>
             </b-table-column>
-            <b-table-column field="name" label="发布时间" sortable v-slot="props">
+            <b-table-column v-slot="props" field="name" label="发布时间" sortable>
               <template v-if="showDetailIcon">
                 {{ props.row.created_at }}
               </template>
@@ -159,7 +160,7 @@
                 </a>
               </template>
             </b-table-column>
-            <b-table-column field="name" label="更新时间" sortable v-slot="props">
+            <b-table-column v-slot="props" field="name" label="更新时间" sortable>
               <template v-if="showDetailIcon">
                 {{ props.row.updated_at }}
               </template>
@@ -170,7 +171,7 @@
               </template>
             </b-table-column>
 
-            <b-table-column field="name" label="链接(link)" sortable v-slot="props">
+            <b-table-column v-slot="props" field="name" label="链接(link)" sortable>
               <template v-if="showDetailIcon">
                 {{ props.row.link }}
               </template>
@@ -181,13 +182,10 @@
               </template>
             </b-table-column>
 
-
-
-
             <template slot="detail" slot-scope="props">
               <article class="media">
                 <figure class="media-left">
-               <!--   <p class="image is-64x64">
+                  <!--   <p class="image is-64x64">
                     <img src="/static/img/placeholder-128x128.png">
                   </p>-->
                 </figure>
@@ -208,9 +206,6 @@
           </b-table>
         </div>
 
-
-
-
       </section>
       <footer class="footer">
         <div class="content has-text-centered">
@@ -228,17 +223,17 @@
 
 <script>
 import { getBlogs } from '@/api/resources-blogs'
-import {authuserGet} from "@/api/basic_user";
-import {createArticle, fetchPv, updateArticle} from "@/api/article";
-import {parseTime} from "@/utils";
+import { authuserGet } from '@/api/basic_user'
+import { createArticle, fetchPv, updateArticle } from '@/api/article'
+import { parseTime } from '@/utils'
 
-//const data = require('@/data/sample.json')
+// const data = require('@/data/sample.json')
 
 export default {
   data() {
     return {
-     // data,
-      blogs:[],
+      // data,
+      blogs: [],
       listQuery: {
         page: 1,
         limit: 20,
@@ -259,10 +254,9 @@ export default {
     resourceBlogsGet() {
       this.listLoading = true
       getBlogs(this.listQuery).then(response => {
-
         //        this.list = response.data.items
         this.blogs = response.spec
-        console.log("===>",this.blogs)
+        console.log('===>', this.blogs)
         this.total = response.total
 
         // Just to simulate the time of the request
@@ -270,12 +264,7 @@ export default {
           this.listLoading = false
         }, 1.5 * 1000)
       })
-    },
-
-
-
-
-
+    }
 
   }
 }

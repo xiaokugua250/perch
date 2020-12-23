@@ -21,8 +21,8 @@ const resourcesRouter = {
     {
       path: 'blogs',
       component: () => import('@/views/resources/blogs/list'),
-      name: 'resources',
-     // meta: { title: 'resources' }
+      name: 'resources'
+      // meta: { title: 'resources' }
     }
 
   ]

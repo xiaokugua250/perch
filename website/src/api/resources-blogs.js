@@ -10,14 +10,13 @@ export function getBlogs(query) {
 
 export function getSpecDocs(id) {
   return request({
-    url: '/resources/blog/'+parseInt(id),
-    method: 'get',
-    //params: { id }
+    url: '/resources/blog/' + parseInt(id),
+    method: 'get'
+    // params: { id }
   })
 }
 
-
-export function createDocs(id,data) {
+export function createDocs(id, data) {
   return request({
     url: '/resources/blog',
     method: 'post',
@@ -25,17 +24,17 @@ export function createDocs(id,data) {
   })
 }
 
-export function updateDocs(id,data) {
+export function updateDocs(id, data) {
   return request({
-    url: '/resources/blog/'+parseInt(id),
+    url: '/resources/blog/' + parseInt(id),
     method: 'patch',
     data
   })
 }
 
-export function deleteDocs(id,data) {
+export function deleteDocs(id, data) {
   return request({
-    url: '/resources/blog/'+parseInt(id),
+    url: '/resources/blog/' + parseInt(id),
     method: 'delete',
     data
   })
