@@ -12,12 +12,7 @@ const articlesRouter = {
     icon: 'peoples'
   },
   children: [
-    {
-      path: 'show',
-      component: () => import('@/views/resources/blogs/show'),
-      name: 'resources',
-      meta: { title: 'resources' }
-    },
+
     {
       path: 'demo',
       component: () => import('@/views/resources/blogs/demo'),

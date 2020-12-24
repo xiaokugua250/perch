@@ -23,8 +23,13 @@ const resourcesRouter = {
       component: () => import('@/views/resources/blogs/list'),
       name: 'resources'
       // meta: { title: 'resources' }
-    }
-
+    },
+    {
+      path: 'show',
+      component: () => import('@/views/resources/blogs/show'),
+      name: 'show',
+      meta: { title: 'resources' }
+    },
   ]
 }
 export default resourcesRouter

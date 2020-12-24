@@ -95,6 +95,8 @@
                   <img src="../../../assets/images/resources/blogs/background_blogs.jpg" alt="Placeholder image" height="20" width="20">
                 </figure>
                 {{ blog }}
+
+                <a  @click="showBlogById(blog.id)">作业ID 为: {{blog.id}}</a>
               </div>
               <div class="card-content">
                 <div class="media">
@@ -279,6 +281,11 @@ export default {
     this.resourceBlogsGet()
   },
   methods: {
+
+    showBlogById(id){
+      console.log("====>",id)
+    this.$router.push(   {name: 'show'})
+},
     resourceBlogsGet() {
       this.listLoading = true
       getBlogs(this.listQuery).then(response => {
