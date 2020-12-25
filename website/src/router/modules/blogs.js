@@ -2,8 +2,8 @@
 
 import Layout from '@/layout'
 
-const articlesRouter = {
-  path: '/articles',
+const blogsRouter = {
+  path: '/blogs',
   component: Layout,
   redirect: 'noRedirect',
   name: 'Table',
@@ -14,10 +14,10 @@ const articlesRouter = {
   children: [
 
     {
-      path: 'demo',
-      component: () => import('@/views/resources/blogs/demo'),
-      name: 'resources',
-      meta: { title: 'resources' }
+      path: 'show',
+      component: () => import('@/views/resources/blogs/show'),
+      name: 'blogs/show',
+      meta: { title: 'blogs_show' }
     },
     {
       path: 'list',
@@ -34,4 +34,4 @@ const articlesRouter = {
 
   ]
 }
-export default articlesRouter
+export default blogsRouter

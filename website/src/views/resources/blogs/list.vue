@@ -284,7 +284,7 @@ export default {
 
     showBlogById(id){
       console.log("====>",id)
-    this.$router.push(   {name: 'show'})
+    this.$router.push(   {name: 'blogs/show'})
 },
     resourceBlogsGet() {
       this.listLoading = true
