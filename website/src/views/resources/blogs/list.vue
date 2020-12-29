@@ -96,7 +96,7 @@
                 </figure>
                 {{ blog }}
 
-                <a  @click="showBlogById(blog.id)">作业ID 为: {{blog.id}}</a>
+                <a @click="showBlogById(blog.id)">作业ID 为: {{ blog.id }}</a>
               </div>
               <div class="card-content">
                 <div class="media">
@@ -263,7 +263,7 @@ export default {
   data() {
     return {
       // data,
-      id:0,
+      id: 0,
       blogs: [],
       listQuery: {
         page: 1,
@@ -283,16 +283,16 @@ export default {
   },
   methods: {
 
-    showBlogById(id){
+    showBlogById(id) {
     //  console.log("====>",id)
-    this.$router.push(   {path: 'show',query:{id:id}})
-},
+      this.$router.push({ path: 'show', query: { id: id }})
+    },
     resourceBlogsGet() {
       this.listLoading = true
       getBlogs(this.listQuery).then(response => {
         //        this.list = response.data.items
         this.blogs = response.spec
-       // console.log('===>', this.blogs)
+        // console.log('===>', this.blogs)
         this.total = response.total
 
         // Just to simulate the time of the request

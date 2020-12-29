@@ -91,10 +91,10 @@
               <div class="card-content">
                 <div class="media">
                   <div class="media-content has-text-centered">
-                    <p class="title article-title">Introducing a new feature for paid subscribers</p>
+                    <p class="title article-title">{{blog.name}}</p>
                     <div class="tags has-addons level-item">
-                      <span class="tag is-rounded is-info">@skeetskeet</span>
-                      <span class="tag is-rounded">May 10, 2018</span>
+                      <span class="tag is-rounded is-info">@{{blog.author}}</span>
+                      <span class="tag is-rounded">{{blog.created_at|momentWithDate}}</span>
                     </div>
                   </div>
                 </div>
@@ -197,7 +197,6 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.9.1/js/OverlayScrollbars.min.js'></script>
 <script>
 
-
 import { getSpecBlog } from '@/api/resources-blogs'
 import { authuserGet } from '@/api/basic_user'
 import { createArticle, fetchPv, updateArticle } from '@/api/article'
@@ -230,7 +229,7 @@ export default {
   methods: {
     resourceBlogsShow() {
        this.id = this.$route.query.id
-     // console.log('===>', this.$route.query.id)
+
       this.listLoading = true
       getSpecBlog(this.id).then(response => {
         //        this.list = response.data.items

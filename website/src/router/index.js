@@ -19,7 +19,7 @@ import resourcesRouter from './modules/resources'
 import sitesRouter from './modules/sites_basic'
 
 import monitorRouter from './modules/monitor'
-import blogsRouter from "./modules/blogs";
+import blogsRouter from './modules/blogs'
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -126,7 +126,7 @@ export const constantRoutes = [
   userRouter,
   fullScreenRouter,
   cloudRouter,
- resourcesRouter,
+  resourcesRouter,
   sitesRouter,
   blogsRouter,
   monitorRouter
@@ -136,9 +136,8 @@ export const constantRoutes = [
  * asyncRoutes
  * the routes that need to be dynamically loaded based on user roles
  */
-export const asyncRoutes = [
-  ,
- /* {
+export const asyncRoutes = [,
+  /* {
     path: '/permission',
     component: Layout,
     redirect: '/permission/page',
