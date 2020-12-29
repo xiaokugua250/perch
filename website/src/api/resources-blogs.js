@@ -8,7 +8,7 @@ export function getBlogs(query) {
   })
 }
 
-export function getSpecDocs(id) {
+export function getSpecBlog(id) {
   return request({
     url: '/resources/blog/' + parseInt(id),
     method: 'get'

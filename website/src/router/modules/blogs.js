@@ -16,13 +16,13 @@ const blogsRouter = {
     {
       path: 'show',
       component: () => import('@/views/resources/blogs/show'),
-      name: 'blogs/show',
-      meta: { title: 'blogs_show' }
+      name: 'blogs_show',
+    //  meta: { title: 'blogs_show' }
     },
     {
       path: 'list',
       component: () => import('@/views/resources/blogs/list'),
-      name: 'resources',
+      name: 'blogs_list',
       meta: { title: 'resources' }
     },
     {

@@ -196,9 +196,55 @@
 <script async type="text/javascript" src="../js/bulma.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.9.1/js/OverlayScrollbars.min.js'></script>
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  //The first argument are the elements to which the plugin shall be initialized
-  //The second argument has to be at least a empty object or a object with your desired options
-  OverlayScrollbars(document.querySelectorAll("body"), { });
-});
+
+
+import { getSpecBlog } from '@/api/resources-blogs'
+import { authuserGet } from '@/api/basic_user'
+import { createArticle, fetchPv, updateArticle } from '@/api/article'
+import { parseTime } from '@/utils'
+
+// const data = require('@/data/sample.json')
+
+export default {
+  data() {
+    return {
+      // data,
+     id:0,
+      blog: null,
+      listQuery: {
+        page: 1,
+        limit: 20,
+        importance: undefined,
+        title: undefined,
+        type: undefined,
+        sort: '+id'
+      },
+      defaultOpenedDetails: [1]
+
+    }
+  },
+  created() {
+    // this.getList()
+    this.resourceBlogsShow()
+  },
+  methods: {
+    resourceBlogsShow() {
+       this.id = this.$route.query.id
+     // console.log('===>', this.$route.query.id)
+      this.listLoading = true
+      getSpecBlog(this.id).then(response => {
+        //        this.list = response.data.items
+        this.blog = response.spec
+
+        this.total = response.total
+
+        // Just to simulate the time of the request
+        setTimeout(() => {
+          this.listLoading = false
+        }, 1.5 * 1000)
+      })
+    }
+
+  }
+}
 </script>

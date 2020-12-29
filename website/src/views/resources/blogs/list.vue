@@ -263,6 +263,7 @@ export default {
   data() {
     return {
       // data,
+      id:0,
       blogs: [],
       listQuery: {
         page: 1,
@@ -283,15 +284,15 @@ export default {
   methods: {
 
     showBlogById(id){
-      console.log("====>",id)
-    this.$router.push(   {name: 'blogs/show'})
+    //  console.log("====>",id)
+    this.$router.push(   {path: 'show',query:{id:id}})
 },
     resourceBlogsGet() {
       this.listLoading = true
       getBlogs(this.listQuery).then(response => {
         //        this.list = response.data.items
         this.blogs = response.spec
-        console.log('===>', this.blogs)
+       // console.log('===>', this.blogs)
         this.total = response.total
 
         // Just to simulate the time of the request

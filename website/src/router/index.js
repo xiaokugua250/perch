@@ -126,7 +126,7 @@ export const constantRoutes = [
   userRouter,
   fullScreenRouter,
   cloudRouter,
-  resourcesRouter,
+ resourcesRouter,
   sitesRouter,
   blogsRouter,
   monitorRouter
@@ -137,7 +137,8 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
-  {
+  ,
+ /* {
     path: '/permission',
     component: Layout,
     redirect: '/permission/page',
@@ -192,7 +193,7 @@ export const asyncRoutes = [
     ]
   },
 
-  /** when your routing map is too long, you can split it into small modules **/
+  /!** when your routing map is too long, you can split it into small modules **!/
 
   {
     path: '/example',
@@ -233,7 +234,7 @@ export const asyncRoutes = [
     ]
   },
 
-  /*  {
+  /!*  {
     path: '/tab',
     component: Layout,
     children: [
@@ -244,7 +245,7 @@ export const asyncRoutes = [
         meta: { title: 'Tab', icon: 'tab' }
       }
     ]
-  },*/
+  },*!/
   {
     path: '/system',
     component: Layout,
@@ -415,7 +416,7 @@ export const asyncRoutes = [
         meta: { title: 'External Link', icon: 'link' }
       }
     ]
-  },
+  },*/
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
