@@ -16,7 +16,7 @@ export function getSpecBlog(id) {
   })
 }
 
-export function createDocs(id, data) {
+export function createblogs(id, data) {
   return request({
     url: '/resources/blog',
     method: 'post',

@@ -94,9 +94,11 @@
                   <p class="title">Wide tile</p>
                   <p class="subtitle">Aligned with the right tile</p>
                   <div class="content">
-                    <textarea class="textarea is-primary" placeholder="Primary textarea" :value="input" @input="update" rows="50"></textarea>
+                    <div class="control">
 
-     
+                    <textarea class="textarea is-primary" placeholder="Primary textarea" :value="input" @input="update" rows="50"></textarea>
+                    </div>
+
 
                   </div>
                 </article>
@@ -116,7 +118,7 @@
           </div>
           <div class="field is-grouped">
             <div class="control">
-              <button class="button is-link">Submit</button>
+              <button class="button is-link" @click="userCreateBlog">Submit</button>
             </div>
             <div class="control">
               <button class="button is-link is-light">Cancel</button>
@@ -132,7 +134,7 @@
 <!-- <script src="../js/bulma.js"></script> -->
 
 <script>
-import {getBlogs} from "@/api/resources-blogs";
+import {createblogs, getBlogs} from "@/api/resources-blogs";
 import marked  from 'marked'
 import _ from 'lodash'
 export default {
@@ -140,6 +142,7 @@ export default {
     return {
       // data,
       id: 0,
+      blog:null,
       blogs: [],
       input: "# hello",
       showDetailIcon:false,
@@ -167,8 +170,24 @@ export default {
   methods: {
    update: _.debounce(function(e) {
       this.input = e.target.value;
-    }, 300)
+    }, 300),
+    userCreateBlog:function (){
+    console.log("===>",this.blog)
+      this.listLoading = true
+      createblogs(this.blog).then(response => {
+        //        this.list = response.data.items
+        this.blogs = response.spec
+        // console.log('===>', this.blogs)
+        this.total = response.total
 
-  }
+        // Just to simulate the time of the request
+        setTimeout(() => {
+          this.listLoading = false
+        }, 1.5 * 1000)
+      })
+    }
+    }
+
+
 }
 </script>
