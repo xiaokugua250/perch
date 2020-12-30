@@ -12,11 +12,11 @@ const blogsRouter = {
     icon: 'peoples'
   },
   children: [
-
+/*
     {
       path: 'show',
       component: () => import('@/views/resources/blogs/show'),
-      name: 'blogs_show'
+      name: 'blogs_show',
     //  meta: { title: 'blogs_show' }
     },
     {
@@ -30,7 +30,7 @@ const blogsRouter = {
       component: () => import('@/views/resources/blogs/index'),
       name: 'resources'
       // meta: { title: 'resources' }
-    }
+    }*/
 
   ]
 }

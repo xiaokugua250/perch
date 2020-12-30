@@ -265,6 +265,7 @@ export default {
       // data,
       id: 0,
       blogs: [],
+      showDetailIcon:false,
       listQuery: {
         page: 1,
         limit: 20,
@@ -284,8 +285,9 @@ export default {
   methods: {
 
     showBlogById(id) {
-    //  console.log("====>",id)
-      this.$router.push({ path: 'show', query: { id: id }})
+      this.$router.push({path: 'show', query: { id: id }})
+
+     // this.$router.push({name: 'show', query: { id: id }})
     },
     resourceBlogsGet() {
       this.listLoading = true
