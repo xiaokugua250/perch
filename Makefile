@@ -50,7 +50,7 @@ images:
 		do  echo $${service}  && \
 		sed  "s/service_bin/$${service}/g" ${dockerfiles_dir}/services/Dockerfile  > ${dockerfiles_dir}/services/Dockerfile_$${service} && \
 		 docker build -t ${images_prefix}/$${service}:$(GIT_COMMIT) -f ${deploy_dir}/dockerfiles/services/Dockerfile_$${service} ${deploy_dir} && \
-		 rm -rf ${deploy_dir}/dockerfiles/services/Dockerfile_$${service} ;
+		 rm -rf ${deploy_dir}/dockerfiles/services/Dockerfile_$${service} ;\
 	done
 
 
