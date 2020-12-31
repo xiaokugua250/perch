@@ -1,7 +1,11 @@
 <template>
   <div :class="classObj" class="app-wrapper">
-    <div v-if="true">
+    <div v-if="true" >
       <app-main />
+      <Footer></Footer>
+      <div>
+
+      </div>
     </div>
     <div v-else>
       <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
@@ -15,6 +19,10 @@
         <right-panel v-if="showSettings">
           <settings />
         </right-panel>
+        <div>
+          <footer>ss</footer>
+
+        </div>
       </div>
 
     </div>
@@ -27,7 +35,7 @@
 
 <script>
 import RightPanel from '@/components/RightPanel'
-import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components'
+import { AppMain, Navbar, Settings, Sidebar, TagsView ,Footer} from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
 
@@ -39,7 +47,8 @@ export default {
     RightPanel,
     Settings,
     Sidebar,
-    TagsView
+    TagsView,
+    Footer
   },
   mixins: [ResizeMixin],
   computed: {

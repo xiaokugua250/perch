@@ -53,9 +53,6 @@
       <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96">
 
       <!-- Styles -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.0/css/hover-min.css">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-      <link rel="stylesheet" href="/build/css/booknshelf-2ed947b2c2.css">
 
     </head>
     <body>

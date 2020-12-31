@@ -195,7 +195,7 @@ import TransactionTable from './components/TransactionTable'
 import TodoList from './components/TodoList'
 import BoxCard from './components/BoxCard'
 
-import { getResourceDocs } from '@/api/resources-docs'
+import { getResourceDocs } from '@/api/resources-blogs'
 
 const lineChartData = {
   newVisitis: {

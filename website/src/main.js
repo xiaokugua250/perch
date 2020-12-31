@@ -20,6 +20,7 @@ import './icons' // icon
 import './permission' // permission control
 import './utils/error-log' // error log
 import dataV from '@jiaminghi/data-view'
+import VueShowdown, { showdown } from 'vue-showdown'
 
 import * as filters from './filters' // global filters
 
@@ -42,6 +43,14 @@ Vue.use(Element, {
   locale: enLang // 如果使用中文，无需设置，请删除
 })
 
+Vue.use(VueShowdown, {
+  // 设置 showdown 默认 flavor
+  flavor: 'github',
+  // 设置 showdown 默认 options （会覆盖上面 flavor 的 options）
+  options: {
+    emoji: false,
+  },
+})
 // register global utility filters
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])

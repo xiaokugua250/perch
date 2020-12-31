@@ -31,9 +31,9 @@
         </template>
       </el-table-column>
 
-    <el-table-column width="200px" align="center" label="Date">
+      <el-table-column width="200px" align="center" label="Date">
         <template slot-scope="scope">
-          <span>{{ scope.row.created_at  }}</span>
+          <span>{{ scope.row.created_at }}</span>
         </template>
       </el-table-column>
       <el-table-column width="120px" align="center" label="Name">
@@ -41,11 +41,11 @@
           <span>{{ scope.row.doc_name }}</span>
         </template>
       </el-table-column>
-          <el-table-column width="120px" align="center" label="Author">
-            <template slot-scope="scope">
-              <span>{{ scope.row.doc_author }}</span>
-            </template>
-          </el-table-column>
+      <el-table-column width="120px" align="center" label="Author">
+        <template slot-scope="scope">
+          <span>{{ scope.row.doc_author }}</span>
+        </template>
+      </el-table-column>
 
       <el-table-column width="120px" align="center" label="Category">
         <template slot-scope="scope">
@@ -62,13 +62,12 @@
           <span>{{ scope.row.doc_link }}</span>
         </template>
       </el-table-column>
-      <el-table-column  label="Content">
+      <el-table-column label="Content">
         <template slot-scope="scope">
           <span>{{ scope.row.doc_content }}</span>
         </template>
       </el-table-column>
       <!--
-
 
               <el-table-column class-name="status-col" label="Status" width="110">
                 <template slot-scope="{row}">
@@ -86,15 +85,15 @@
                 </template>
               </el-table-column>
 -->
-              <el-table-column align="right" label="Actions"  width="120px">
-                <template slot-scope="scope">
-                  <router-link :to="'/resource/edit/'+scope.row.id">
-                    <el-button type="primary" size="small" icon="el-icon-edit">
-                      Edit
-                    </el-button>
-                  </router-link>
-                </template>
-              </el-table-column>
+      <el-table-column align="right" label="Actions" width="120px">
+        <template slot-scope="scope">
+          <router-link :to="'/resource/edit/'+scope.row.id">
+            <el-button type="primary" size="small" icon="el-icon-edit">
+              Edit
+            </el-button>
+          </router-link>
+        </template>
+      </el-table-column>
     </el-table>
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
@@ -102,7 +101,7 @@
 </template>
 
 <script>
-import { getDocs } from '@/api/resources-docs'
+import { getDocs } from '@/api/resources-blogs'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 const calendarTypeOptions = [
   { key: 'CN', display_name: 'China' },
@@ -148,10 +147,9 @@ export default {
     getList() {
       this.listLoading = true
       getDocs(this.listQuery).then(response => {
-
         this.list = response.spec
         this.total = response.total
-        console.log("===?",this.list,this.total)
+        console.log('===?', this.list, this.total)
         this.listLoading = false
       })
     }

@@ -17,34 +17,20 @@ const resourcesRouter = {
       component: () => import('@/views/resources/resources'),
       name: 'resources',
       meta: { title: 'resources' }
-    }
+    },
+    {
+      path: 'blogs',
+      component: () => import('@/views/resources/blogs/list'),
+      name: 'resources'
+      // meta: { title: 'resources' }
 
-    /*
-    {
-      path: 'index',
-      component: () => import('@/views/users/rbac/index'),
-      name: 'rbac',
-      meta: { title: '用户权限' }
     },
     {
-      path: 'dynamic-table',
-      component: () => import('@/views/table/dynamic-table/index'),
-      name: 'DynamicTable',
-      meta: { title: 'Dynamic Table' }
+      path: 'show',
+      component: () => import('@/views/resources/blogs/show'),
+      name: 'show',
+      meta: { title: 'resources' }
     },
-    {
-      path: 'drag-table',
-      component: () => import('@/views/table/drag-table'),
-      name: 'DragTable',
-      meta: { title: 'Drag Table' }
-    },
-    {
-      path: 'inline-edit-table',
-      component: () => import('@/views/table/inline-edit-table'),
-      name: 'InlineEditTable',
-      meta: { title: 'Inline Edit' }
-    }
-*/
   ]
 }
 export default resourcesRouter

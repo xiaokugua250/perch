@@ -14,10 +14,10 @@ import (
 	resource "perch/web/model/resources"
 )
 
-func GetResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
+func GetResourcesBlogsHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
 		var (
-			resourceDocs []resource.ResourceDocs
+			resourceDocs []resource.ResourceBlogs
 			err          error
 		)
 		response.Kind = "docs"
@@ -28,7 +28,7 @@ func GetResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
 			response.Spec = err.Error()
 			return err
 		}
-		if err = database.MySQL_DB.Model(resource.ResourceDocs{}).Count(&response.Total).Error; err != nil {
+		if err = database.MySQL_DB.Model(resource.ResourceBlogs{}).Count(&response.Total).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
@@ -42,10 +42,10 @@ func GetResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func SpecGetResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
+func SpecGetResourcesBlogsHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
 		var (
-			resourceDocs resource.ResourceDocs
+			resourceDocs resource.ResourceBlogs
 			DocID        string
 			err          error
 		)
@@ -68,10 +68,10 @@ func SpecGetResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func CreateResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
+func CreateResourcesBlogsHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
 		var (
-			resourceDocs []resource.ResourceDocs
+			resourceDocs []resource.ResourceBlogs
 			err          error
 		)
 		response.Kind ="docs"
@@ -82,7 +82,7 @@ func CreateResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
 			response.Spec = err.Error()
 			return err
 		}
-		if err = database.MySQL_DB.Model(resource.ResourceDocs{}).Count(&response.Total).Error; err != nil {
+		if err = database.MySQL_DB.Model(resource.ResourceBlogs{}).Count(&response.Total).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
@@ -96,17 +96,17 @@ func CreateResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func UpdateSpecResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
+func UpdateSpecResourcesBlogsHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
 		var (
-			resourceDocs []resource.ResourceDocs
+			resourceDocs []resource.ResourceBlogs
 			DocID        string
 			err          error
 		)
 		DocID = mux.Vars(r)["id"]
 		response.Kind ="docs"
 
-		if err = database.MySQL_DB.Where("id=?", DocID).Updates(&resource.ResourceDocs{}).Error; err != nil {
+		if err = database.MySQL_DB.Where("id=?", DocID).Updates(&resource.ResourceBlogs{}).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
@@ -120,15 +120,15 @@ func UpdateSpecResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func DeleteSpecResourcesDocsHandler(w http.ResponseWriter, r *http.Request) {
+func DeleteSpecResourcesBlogsHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
 		var (
-			resourceDocs []resource.ResourceDocs
+			resourceDocs []resource.ResourceBlogs
 			DocID        string
 			err          error
 		)
 		DocID = mux.Vars(r)["id"]
-		if err = database.MySQL_DB.Where("id=?", DocID).Delete(&resource.ResourceDocs{}).Error; err != nil {
+		if err = database.MySQL_DB.Where("id=?", DocID).Delete(&resource.ResourceBlogs{}).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()

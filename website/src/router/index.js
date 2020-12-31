@@ -17,8 +17,9 @@ import fullScreenRouter from './modules/fullscreen'
 import cloudRouter from './modules/cloud'
 import resourcesRouter from './modules/resources'
 import sitesRouter from './modules/sites_basic'
-import articlesRouter from './modules/articles'
+
 import monitorRouter from './modules/monitor'
+import blogsRouter from './modules/blogs'
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -127,7 +128,7 @@ export const constantRoutes = [
   cloudRouter,
   resourcesRouter,
   sitesRouter,
-  articlesRouter,
+  blogsRouter,
   monitorRouter
 ]
 
@@ -135,8 +136,8 @@ export const constantRoutes = [
  * asyncRoutes
  * the routes that need to be dynamically loaded based on user roles
  */
-export const asyncRoutes = [
-  {
+export const asyncRoutes = [,
+  /* {
     path: '/permission',
     component: Layout,
     redirect: '/permission/page',
@@ -191,7 +192,7 @@ export const asyncRoutes = [
     ]
   },
 
-  /** when your routing map is too long, you can split it into small modules **/
+  /!** when your routing map is too long, you can split it into small modules **!/
 
   {
     path: '/example',
@@ -232,7 +233,7 @@ export const asyncRoutes = [
     ]
   },
 
-  /*  {
+  /!*  {
     path: '/tab',
     component: Layout,
     children: [
@@ -243,14 +244,14 @@ export const asyncRoutes = [
         meta: { title: 'Tab', icon: 'tab' }
       }
     ]
-  },*/
+  },*!/
   {
-    path: '/sys-admin',
+    path: '/system',
     component: Layout,
     children: [
       {
         path: 'index',
-        component: () => import('@/views/sys-admin/resource/index'),
+        component: () => import('@/views/system/resource/index'),
         name: 'Tab',
         meta: { title: 'Sys admin', icon: 'sysadmin' }
       }
@@ -414,7 +415,7 @@ export const asyncRoutes = [
         meta: { title: 'External Link', icon: 'link' }
       }
     ]
-  },
+  },*/
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
