@@ -7,7 +7,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"net"
-	"perch/internal/GSCeduler/manager/proto/cs"
+	"perch/internal/GSCeduler/manager/proto/pb_normal"
 	"perch/internal/GSCeduler/manager/proto/utils"
 	"testing"
 )
@@ -36,7 +36,7 @@ func TestServerClientRegistry_Registry(t *testing.T) {
 	opts=append(opts,grpc.UnaryInterceptor(interceptor))
 	s:=grpc.NewServer(opts...)
 
-	cs.RegisterRegistry_ServiceServer(s,svc)
+	pb_normal.RegisterRegistry_ServiceServer(s,svc)
 //	client.RegisterHealth_ServiceServer(s,svc)
 //	client.RegisterSubscribe_ServiceServer(s,svc)
 	reflection.Register(s)
@@ -57,9 +57,9 @@ func TestServer_Registry(t *testing.T) {
 	}
 	defer conn.Close()
 	//2.实例化gRPC客户端
-	client_grpc := cs.NewRegistry_ServiceClient(conn)
+	client_grpc := pb_normal.NewRegistry_ServiceClient(conn)
 	//3.组装请求参数
-	req := new(cs.RegistryRequest)
+	req := new(pb_normal.RegistryRequest)
 	req.Name = "zs"
 	req.Ip="127.0.0.1"
 	req.Uuid="12w1sws"
