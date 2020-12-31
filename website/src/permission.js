@@ -67,7 +67,7 @@ router.beforeEach(async(to, from, next) => {
 
       NProgress.done()
     }*/
-   // console.log('---->', whiteList, to.path)
+    // console.log('---->', whiteList, to.path)
     next()
   }
 })
