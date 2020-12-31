@@ -10,8 +10,8 @@ images_prefix=z-gour.com/perch
 deploy_dir = ${shell pwd}/deploy
 webserver_dir =${shell pwd}/web/server
 website_dir = ${shell pwd}/website
-bin_dir = ${shell pwd}/deploy/resource/bin/
-
+bin_dir = ${shell pwd}/deploy/bin/
+dockerfiles_dir= ${shell pwd}/deploy/dockerfiles
 gotool:
 	@echo "格式化代码"
 	go fmt ./
@@ -45,9 +45,13 @@ website:
 images:
 	#@for server in `ls ${bin_dir}`; do echo " docker build -t github.com/perch/$${server} . " && go build  -o ${bin_dir}/$${server}  ${webserver_dir}/$${server}/$${server}.go; docker build -t done
 	$(eval GIT_COMMIT=$(shell cd ${shell pwd} && git rev-parse --short HEAD))
-	@echo $(GIT_COMMIT)
-	docker build -t ${images_prefix}/website:$(GIT_COMMIT) -f ${deploy_dir}/dockerfiles/website/Dockerfile   ${deploy_dir}
-
+	#docker build -t ${images_prefix}/website:$(GIT_COMMIT) -f ${deploy_dir}/dockerfiles/website/Dockerfile   ${deploy_dir}
+	@for service in `ls ${bin_dir}`; \
+		do  echo $${service}  && \
+		sed  "s/service_bin/$${service}/g" ${dockerfiles_dir}/services/Dockerfile  > ${dockerfiles_dir}/services/Dockerfile_$${service} && \
+		 docker build -t ${images_prefix}/$${service}:$(GIT_COMMIT) -f ${deploy_dir}/dockerfiles/services/Dockerfile_$${service} ${deploy_dir} && \
+		 rm -rf ${deploy_dir}/dockerfiles/services/Dockerfile_$${service} ;
+	done
 
 
 clean:
