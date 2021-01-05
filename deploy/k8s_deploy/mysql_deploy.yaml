@@ -3,6 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mysql
+  namespace: liangdu
   labels:
     app: mysql
 data:
@@ -14,6 +15,21 @@ data:
     # Apply this config only on slaves.
     [mysqld]
     super-read-only
+---
+## k8s secrete config 
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-credentials
+  namespace: liangdu
+data: 
+  mysql_user: cGVyY2hfb25seQ==
+  mysql_password: QjdiOGtSJGRUUQ==
+  mysql_root_password: RVk5XmUjWiVMaDhNZmVhJQ==
+  mysql_host: bXlzcWwtc2VydmljZQ==
+  mysql_db: bW9ydHlfZGIK
+  allow_hosts: bG9jYWxob3N0
 ---
 apiVersion: v1
 kind: Service
@@ -49,7 +65,25 @@ spec:
         env:
           # Use secret in real usage
         - name: MYSQL_ROOT_PASSWORD
-          value: password
+          valueFrom:
+            secretKeyRef:
+              name: secret-credentials
+              key: mysql_root_password
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: secret-credentials
+              key: mysql_user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: secret-credentials
+              key: mysql_password
+        #- name: MYSQL_DATABASE
+        #  valueFrom:
+        #    secretKeyRef:
+        #      name: secret-credentials
+        #      key: mysql_db
         ports:
         - containerPort: 3306
           name: mysql
@@ -60,4 +94,3 @@ spec:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
           claimName: mysql-pv-claim
-
