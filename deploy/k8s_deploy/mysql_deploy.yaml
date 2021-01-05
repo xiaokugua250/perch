@@ -27,6 +27,7 @@ data:
   mysql_user: cGVyY2hfb25seQ==
   mysql_password: QjdiOGtSJGRUUQ==
   mysql_root_password: RVk5XmUjWiVMaDhNZmVhJQ==
+  #mysql_root_password: MTIz
   mysql_host: bXlzcWwtc2VydmljZQ==
   mysql_db: bW9ydHlfZGIK
   allow_hosts: bG9jYWxob3N0
@@ -65,6 +66,7 @@ spec:
         env:
           # Use secret in real usage
         - name: MYSQL_ROOT_PASSWORD
+          #value: "123456"
           valueFrom:
             secretKeyRef:
               name: secret-credentials
@@ -79,11 +81,11 @@ spec:
             secretKeyRef:
               name: secret-credentials
               key: mysql_password
-        #- name: MYSQL_DATABASE
-        #  valueFrom:
-        #    secretKeyRef:
-        #      name: secret-credentials
-        #      key: mysql_db
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: secret-credentials
+              key: mysql_db
         ports:
         - containerPort: 3306
           name: mysql
