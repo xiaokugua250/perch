@@ -1,8 +1,15 @@
 
+# 部署环境说明
+&emsp;本次部署采用搬瓦工VPS虚拟机,配置为2GB内存,40GB硬盘。采用的操作系统为ubuntu18.04,docker版本为19.03,kubernetes版本为1.20.0
+
+![vps](../asserts/images/md/how_to/vps_info.png)
+
 # 开启minikube集群
 
 ## 开启minikube集群   
 ```minikube start```
+
+![minikube](../asserts/images/md/how_to/minikube_start.png)
 
 ## 资源说明
 - MySQL数据库的K8S版本
