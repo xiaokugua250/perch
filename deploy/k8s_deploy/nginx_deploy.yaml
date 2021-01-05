@@ -1,20 +1,6 @@
 
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: nginx
-  namespace: liangdu
-  labels:
-    app: nginx
-data:
-  master.cnf: |
-    # Apply this config only on the master.
-    [mysqld]
-    log-bin
-  slave.cnf: |
-    # Apply this config only on slaves.
-    [mysqld]
-    super-read-only
+---
+# kubectl create configmap nginx-configmap --from-file nginx.conf
 ---
 apiVersion: v1
 kind: Service
@@ -44,8 +30,27 @@ spec:
       labels:
         app: nginx
     spec:
+      hostAliases:
+      - ip: "127.0.0.1"
+        hostnames:
+        - "z-gour.com"
       containers:
       - name: nginx
         image: nginx:1.19.6
         ports:
         - containerPort: 80
+        volumeMounts:
+        - name: nginx-persistent-storage
+          mountPath: /etc/nginx/conf.d
+          #readOnly: true
+          #subPath: nginx.conf
+        
+        - name: website-persistent-storage
+          mountPath: /etc/letsencrypt/live/
+      volumes:
+      - name: nginx-persistent-storage
+        configMap:
+          name: nginx-config
+      - name: website-persistent-storage
+        persistentVolumeClaim:
+          claimName: nginx-pv-claim
