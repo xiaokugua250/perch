@@ -55,6 +55,7 @@ images:
 
 
 clean:
+	rm  -rf ${deploy_dir}/bin/*
 	rm  -rf ${deploy_dir}/resource/bin/*
 	rm  -rf ${deploy_dir}/resource/dist/
 	rm  -rf ${deploy_dir}/resource/config/configs
