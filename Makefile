@@ -32,7 +32,7 @@ config:
 target:
 	@for server in `ls ${webserver_dir}`; \
 	do \
-	echo "go build  -o ${resource_bin_dir}/admin-server  ${webserver_dir}/$${server}/$${server}.go" && \
+	echo "go build  -o ${bin_dir}/$${server}  ${webserver_dir}/$${server}/$${server}.go" && \
 	go build  -o ${bin_dir}/$${server}  ${webserver_dir}/$${server}/$${server}.go; \
 	done
 

@@ -77,9 +77,9 @@ func (webserver *WebServer) Start() {
 	errChan := make(chan error, 1)
 	go func() {
 		errChan <- server.ListenAndServe()
-		log.Println(webserver.Name + "shutting down....")
+		log.Println(webserver.Name + " shutting down....")
 	}()
-	log.Println(webserver.Name + "start successfully....")
+	log.Println(webserver.Name + " start successfully....")
 
 	// 捕获退出信号
 	signalChan := make(chan os.Signal, 1)

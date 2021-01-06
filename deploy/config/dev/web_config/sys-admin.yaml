@@ -1,6 +1,6 @@
 web-server:
   ip: 0.0.0.0
-  port: 8080
+  port: 6543
   database:
     dbconn_url: "root:mysqladmin@tcp(127.0.0.1:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local"
     cacheconn_url: "127.0.0.1:6379"

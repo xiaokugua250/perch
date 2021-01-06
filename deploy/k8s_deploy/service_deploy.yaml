@@ -1,0 +1,54 @@
+
+
+---
+# kubectl create configmap nginx-configmap --from-file nginx.conf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-server
+  namespace: liangdu
+spec:
+  ports:
+  - port: 8080
+  selector:
+    app: backend-server
+  clusterIP: None
+
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: backend-server-deployment
+  namespace: liangdu
+spec:
+  selector:
+    matchLabels:
+      app: backend-server
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: backend-server
+    spec:
+      hostAliases:
+      - ip: "127.0.0.1"
+        hostnames:
+        - "z-gour.com"
+      containers:
+      - name: backend-site
+        image: z-gour.com/perch/site_server:897a432
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+          - name: service-configmaps
+            mountPath: config
+          #readOnly: true
+          #subPath: nginx.conf
+      volumes:
+      - name: service-configmaps
+        configMap:
+          name: sys-configmap
+        
+         
+      
