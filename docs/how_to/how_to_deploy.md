@@ -1,6 +1,9 @@
 
 # 部署环境说明
-&emsp;本次部署采用搬瓦工VPS虚拟机,配置为2GB内存,40GB硬盘。采用的操作系统为ubuntu18.04,docker版本为19.03,kubernetes版本为1.20.0
+&emsp;本次部署采用搬瓦工VPS虚拟机,配置为2GB内存,40GB硬盘。
+- 操作系统为ubuntu18.04  
+- docker版本为19.03 
+- kubernetes版本为1.20.0
 
 ![vps](../asserts/images/md/how_to/vps_info.png)
 
@@ -11,13 +14,65 @@
 
 ![minikube](../asserts/images/md/how_to/minikube_start.png)
 
+- 首先部署数据库,采用kubernetes中部署Mysql的方式进行部署。  
+执行命令如下:  
+```
+kubectl create -f namespace_deploy.yaml
+kubectl create -f pvc_deploy.yaml
+kubectl create -f mysql_deploy.yaml
+```
+
+mysql创建完成后如下  
+
+![mysql](../asserts/images/md/how_to/k8s_mysql.png)
 ## 资源说明
+- k8s 中namespace yaml
+```
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: liangdu
+```
+- k8s中pv&pvc的创建yaml
+```
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv-volume
+  namespace: liangdu
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+  namespace: liangdu
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+```
 - MySQL数据库的K8S版本
 ```
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mysql
+  namespace: liangdu
   labels:
     app: mysql
 data:
@@ -29,6 +84,22 @@ data:
     # Apply this config only on slaves.
     [mysqld]
     super-read-only
+---
+## k8s secrete config 
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-credentials
+  namespace: liangdu
+data: 
+  mysql_user: cGVyY2hfb25seQ==
+  mysql_password: QjdiOGtSJGRUUQ==
+  mysql_root_password: RVk5XmUjWiVMaDhNZmVhJQ==
+  #mysql_root_password: MTIz
+  mysql_host: bXlzcWwtc2VydmljZQ==
+  mysql_db: bW9ydHlfZGIK
+  allow_hosts: bG9jYWxob3N0
 ---
 apiVersion: v1
 kind: Service
@@ -64,7 +135,26 @@ spec:
         env:
           # Use secret in real usage
         - name: MYSQL_ROOT_PASSWORD
-          value: password
+          #value: "123456"
+          valueFrom:
+            secretKeyRef:
+              name: secret-credentials
+              key: mysql_root_password
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: secret-credentials
+              key: mysql_user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: secret-credentials
+              key: mysql_password
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: secret-credentials
+              key: mysql_db
         ports:
         - containerPort: 3306
           name: mysql
@@ -75,6 +165,7 @@ spec:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
           claimName: mysql-pv-claim
+
 ```
 
 - nginx的k8s部署yaml
@@ -165,6 +256,4 @@ spec:
   resources:
     requests:
       storage: 5Gi
-
-
 ```
