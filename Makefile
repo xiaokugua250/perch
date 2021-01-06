@@ -40,6 +40,9 @@ website:
 	npm --prefix ${website_dir} install 
 	npm --prefix ${website_dir} run build:prod
 	mv -v ${website_dir}/dist  ${deploy_dir}/resource/
+website_image:
+	$(eval GIT_COMMIT=$(shell cd ${shell pwd} && git rev-parse --short HEAD))
+	docker build -t ${images_prefix}/website:$(GIT_COMMIT) -f ${deploy_dir}/dockerfiles/website/Dockerfile ${deploy_dir}
 	
 
 images:
