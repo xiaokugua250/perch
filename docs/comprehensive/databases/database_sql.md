@@ -80,7 +80,19 @@ SELECT id FROM TABLEA WHERE  field= A union all SELECT id FROM TABLEA WHERE fiel
   SELECT id FROM A WHERE year(addate) <2020 修改为
   SELECT id FROM A where addate<'2020-01-01'
   ```
-  
+- 多字段排序问题
+  - mysql查询时是只会使用一个索引，如果where子句中已经使用了索引，那么在order by时是不会使用索引的，尽量避免执行多字段的排序操作，不得己时简易对排序字段建立复合索引
+
+- 尽量使用union all替换union
+  - union操作会将两个或多个结果集再合并后在进行唯一性过滤，这一过程会设计到排序以及大量的cpu计算。当确认不会出现重复结果集或重复结果集不重要的情况下，使用union all替换union
+- inner join与outer join
+  - 尽量使用inner join
+  - 使用join时，选择小表作为驱动表
+- exits与in 比较
+  ```
+  SELECT * from A WHERE id in ( SELECT id from B )
+  ```
+  - select in 是在内存中进行遍历比较，exists需要查询数据库，当B表中数据比较大是exits效率优于in；而B表数据比A小的情况下用in比较适合。
 ## MySQL相关
 
 ## 参考
