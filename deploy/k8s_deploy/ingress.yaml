@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sites-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+spec:
+  tls:
+  - hosts:
+    - z-gour.com
+    secretName: site-tls
+  rules:
+  - host: z-gour.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+           service:
+             name: website
+             port:
+               number: 80
+#  - host: echo2.example.com
+#    http:
+#      paths:
+#      - backend:
+#          serviceName: echo2
+#          servicePort: 80
