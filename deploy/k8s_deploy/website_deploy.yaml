@@ -12,7 +12,7 @@ spec:
   - port: 80
   selector:
     app: website
-  clusterIP: None
+    #  clusterIP: None
 
 ---
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
@@ -36,7 +36,7 @@ spec:
         - "z-gour.com"
       containers:
       - name: website
-        image: z-gour.com/perch/website:c925cde
+        image: z-gour.com/perch/website:320673c
         ports:
         - containerPort: 80
        

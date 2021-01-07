@@ -3,7 +3,8 @@ kind: Ingress
 metadata:
   name: sites-ingress
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+          #    cert-manager.io/cluster-issuer: "letsencrypt-staging"
 spec:
   tls:
   - hosts:
