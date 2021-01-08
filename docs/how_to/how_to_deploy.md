@@ -274,18 +274,17 @@ helm install ingress-nginx/ingress-nginx --set controller.hostNetwork=true--crea
 kubectl get -A ValidatingWebhookConfiguration
 kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 ```
+## 项目初始化
+### 数据库操作初始化
+```
 
+GRANT ALL PRIVILEGES ON ${DATABASE_NAME} . * TO '${USER_NAME}'@'%';
+
+GRANT ALL PRIVILEGES ON  ${DATABASE_NAME} . * TO '${USER_NAME}'@'%';
 ```
-iptables -I INPUT -p tcp --dport 8181 -j DROP
-iptables -I INPUT -p tcp --dport 8181 -j ACCEPT
-```
+
 # 参考
 [1].https://cert-manager.io/docs/installation/kubernetes/
 
 
 
-```
-
-GRANT ALL PRIVILEGES ON morty_db . * TO 'perch_only'@'%';
-GRANT ALL PRIVILEGES ON morty_db . * TO 'perch_only'@'%';
-```

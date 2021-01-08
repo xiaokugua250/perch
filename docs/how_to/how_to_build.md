@@ -97,3 +97,7 @@ help:
 	@echo "make gotool - 运行 Go 工具 'fmt' and 'vet'"
 
 ```
+
+## minikube安装和部署
+
+## 
