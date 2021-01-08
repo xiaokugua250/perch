@@ -10,7 +10,15 @@
  3. 基于`colly`的go语言爬虫开发
  4. 基于`grpc`的分布式服务调用和任务分发
  
-&emsp;&emsp;项目主要目的是对自己技能的总结和部分想法的实现。
+&emsp;&emsp;项目主要目的是对自己技能的总结和部分想法的实现。  
+&emsp;&emsp;目前项目部署实例为 [https://z-gour.com](https://z-gour.com)    
+&emsp;&emsp;部署方式为[minkube](https://minikube.sigs.k8s.io/)集群中以kubernete容器方式进行部署。采用到的kubernetes资源有
+- pod  运行底层前端服务和后端服务
+- service 集群内网络访问
+- ingress  允许外部网络访问
+- [cert-manager](https://cert-manager.io/) 证书签发和续期
+
+在[minikube](https://minikube.sigs.k8s.io/) 或[kubernete](https://kubernetes.io/zh/)集群中部署可以参考deploy目录中的k8s_deploy目录。
 
 下面对项目中各目录对应信息进行说明:
 * api:  项目API
@@ -52,6 +60,7 @@
 ## 已完成
 
 ## 待完善
+* [x]  minikube集群部署(cert-manager 证书管理)
 * [ ] 基于jwt-go的jwt 认证
 * [ ] 基于RBAC的用户管理
 * [ ] 基于Makefile 和docker-compose的环境部署
