@@ -71,7 +71,7 @@
     * [x] web配置文件解析(`yaml`配置文件的解析)
 ## TODO
 * [ ] golang 配置文件解析
-* [ ] Linux 监控服务API开发
+* [x] Linux 监控服务API开发
 * [ ] 前端开发
 * [ ] 用户管理与RBAC
 * [ ] kubernetes集群管理
