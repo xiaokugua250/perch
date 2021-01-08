@@ -1,7 +1,8 @@
 apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
+kind: Issuer
 metadata:
   name: letsencrypt-staging
+  # namespace: liangdu
 spec:
   acme:
     # You must replace this email address with your own.
