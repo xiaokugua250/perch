@@ -28,7 +28,7 @@ examples/
 init/
 pkg/general/storage/
 test/
-
-
+website/node_modules
+deploy/bin/
 ./configs/
 .idea/*
