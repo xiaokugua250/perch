@@ -257,3 +257,35 @@ spec:
     requests:
       storage: 5Gi
 ```
+
+- 安装cert-manager
+```
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.1.0/cert-manager.yaml
+```
+
+helm安装ingress
+```
+helm install my-release ingress-nginx/ingress-nginx --set controller.hostNetwork=true,controller.service.type="",controller.kind=DaemonSet
+
+helm install z-gour ingress-nginx/ingress-nginx --set controller.hostNetwork=true,controller.service.type="",controller.kind=DaemonSet --create-namespace   --namespace liangdu
+
+helm install ingress-nginx/ingress-nginx --set controller.hostNetwork=true--create-namespace   --namespace ingress-nginx
+
+kubectl get -A ValidatingWebhookConfiguration
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+```
+
+```
+iptables -I INPUT -p tcp --dport 8181 -j DROP
+iptables -I INPUT -p tcp --dport 8181 -j ACCEPT
+```
+# 参考
+[1].https://cert-manager.io/docs/installation/kubernetes/
+
+
+
+```
+
+GRANT ALL PRIVILEGES ON morty_db . * TO 'perch_only'@'%';
+GRANT ALL PRIVILEGES ON morty_db . * TO 'perch_only'@'%';
+```
