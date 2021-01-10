@@ -6,6 +6,7 @@ import (
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"os"
+	"runtime"
 	"sync"
 )
 
@@ -25,6 +26,13 @@ var (
 	DefaultDevConfigDir = "configs/dev/web_config/" //DEV_CONFIG_DIR
 	DefaultProConfigDir = "configs/pro/web_config/" //PRO_CONFIG_DIR
 )
+
+func init() {
+	if runtime.GOOS != "windows" {
+		DefaultDevConfigDir = "/configs/dev/web_config/" //DEV_CONFIG_DIR
+		DefaultProConfigDir = "/configs/pro/web_config/" //PRO_CONFIG_DIR
+	}
+}
 
 type WebServerConfig struct {
 	ServerIP   string `yaml:"ip"`
