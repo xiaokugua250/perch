@@ -37,18 +37,18 @@ spec:
         - "z-gour.com"
       containers:
       - name: backend-site
-        image: z-gour.com/perch/site_server:897a432
+        image: z-gour.com/perch/backend_server:d602383
         ports:
         - containerPort: 8080
         volumeMounts:
           - name: service-configmaps
-            mountPath: config
+            mountPath: /configs/dev/web_config/
           #readOnly: true
           #subPath: nginx.conf
       volumes:
       - name: service-configmaps
         configMap:
-          name: sys-configmap
+          name: service-config
         
          
       
