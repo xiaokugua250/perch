@@ -19,6 +19,7 @@ import (
 type OptionFunc func(options *WebServer)
 
 func NewWebServerWithOptions(Name string, opts ...OptionFunc) WebServer {
+
 	initFuncs := make(map[string]func(interface{}) error)
 
 	webserver := WebServer{
@@ -28,26 +29,27 @@ func NewWebServerWithOptions(Name string, opts ...OptionFunc) WebServer {
 		InitFuncs: initFuncs,
 		CleanFunc: nil,
 	}
+	webserver.Init()
 	for _, o := range opts {
 		o(&webserver)
 	}
+
 	return webserver
 }
-
 
 func WithMySQLDBOptions(dbconfig interface{}) OptionFunc {
 	return func(options *WebServer) {
 		var (
 			err      error
 			DBConfig string
-
 		)
 		if dbconfig, ok := dbconfig.(string); ok {
 
 			if dbconfig != "" { //"genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local
 				DBConfig = dbconfig
 			} else {
-				DBConfig= viperconf.WebServiceConfig.WebConfig.ServerDB.DBConnURL
+
+				DBConfig = viperconf.WebServiceConfig.WebConfig.ServerDB.DBConnURL
 				//DBConfig = "genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local"
 			}
 		}
@@ -108,7 +110,6 @@ func WithETCDOptions(etcdConfig interface{}) OptionFunc {
 
 	}
 }
-
 
 func WithKubernetesOptions(dbconfig interface{}) OptionFunc {
 	return func(options *WebServer) {

@@ -57,7 +57,7 @@ func (webserver *WebServer) Init() {
 
 func (webserver *WebServer) Start() {
 
-	webserver.Init()
+	//webserver.Init()
 	httpAddr := viperconf.WebServiceConfig.WebConfig.ServerIP + ":" + strconv.Itoa(viperconf.WebServiceConfig.WebConfig.ServerPort)
 
 	log.Println(webserver.Name + " service starting...")
