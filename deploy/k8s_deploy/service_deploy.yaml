@@ -13,7 +13,7 @@ spec:
   - port: 8080
   selector:
     app: backend-server
-  clusterIP: None
+  #clusterIP: None
 
 ---
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
@@ -37,7 +37,7 @@ spec:
         - "z-gour.com"
       containers:
       - name: backend-site
-        image: z-gour.com/perch/backend_server:d602383
+        image: z-gour.com/perch/backend_server:4e81c47
         ports:
         - containerPort: 8080
         volumeMounts:
@@ -51,4 +51,4 @@ spec:
           name: service-config
         
          
-      
+   
