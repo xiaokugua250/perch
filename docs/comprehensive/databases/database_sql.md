@@ -24,6 +24,8 @@
   可以接受参数，可以回传值
   - 坏处:  
   针对特定的某种数据库，不兼容，难维护  
+  - 触发器与存储过程  
+&emsp;触发器与存储过程非常相似，触发器也是SQL语句集，两者唯一的区别是触发器不能用EXECUTE语句调用，而是在用户执行Transact-SQL语句时自动触发（激活）执行。触发器是在一个修改了指定表中的数据时执行的存储过程。通常通过创建触发器来强制实现不同表中的逻辑相关数据的引用完整性和一致性。由于用户不能绕过触发器，所以可以用它来强制实施复杂的业务规则，以确保数据的完整性。触发器不同于存储过程，触发器主要是通过事件执行触发而被执行的，而存储过程可以通过存储过程名称名字而直接调用。当对某一表进行诸如UPDATE、INSERT、DELETE这些操作时，SQLSERVER就会自动执行触发器所定义的SQL语句，从而确保对数据的处理必须符合这些SQL语句所定义的规则。  
 - 视图
 视图是从一个或多个表导出的虚拟的表，具有普通表的结构，但是不实现数据存储。  
   - 作用：  
@@ -33,7 +35,13 @@
   - 缺点：  
     性能差：视图是由一个复杂的多表查询所定义  
     修改限制： 当用户试图修改视图的某些信息时，数据库必须把它转化为对基本表的某些信息的修改
-- 事务隔离级别
+- 事务隔离级别  
+  - Read Uncommitted（读取未提交内容）：在该隔离级别，所有事务都可以看到其他未提交事务的执行结果。本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少。读取未提交的数据，也被称之为脏读（Dirty Read）。
+  - Read Committed（读取提交内容）：这是大多数数据库系统的默认隔离级别（但不是MySQL默认的）。它满足了隔离的简单定义：一个事务只能看见已经提交事务所做的改变。这种隔离级别 也支持所谓的不可重复读（Nonrepeatable Read），因为同一事务的其他实例在该实例处理其间可能会有新的commit，所以同一select可能返回不同结果。
+  - Repeatable Read（可重读）：这是MySQL的默认事务隔离级别，它确保同一事务的多个实例在并发读取数据时，会看到同样的数据行。不过理论上，这会导致另一个棘手的问题：幻读 （Phantom Read）。简单的说，幻读指当用户读取某一范围的数据行时，另一个事务又在该范围内插入了新行，当用户再读取该范围的数据行时，会发现有新的“幻影” 行。InnoDB和Falcon存储引擎通过多版本并发控制（MVCC，Multiversion Concurrency Control）机制解决了该问题。
+  - Serializable（可串行化）：这是最高的隔离级别，它通过强制事务排序，使之不可能相互冲突，从而解决幻读问题。简言之，它是在每个读的数据行上加上共享锁。在这个级别，可能导致大量的超时现象和锁竞争。
+
+  这四种隔离级别采取不同的锁类型来实现，若读取的是同一个数据的话，就容易发生问题。例如：脏读(Drity Read)：某个事务已更新一份数据，另一个事务在此时读取了同一份数据，由于某些原因，前一个RollBack了操作，则后一个事务所读取的数据就会是不正确的。不可重复读(Non-repeatable read):在一个事务的两次查询之中数据不一致，这可能是两次查询过程中间插入了一个事务更新的原有的数据。幻读(Phantom Read):在一个事务的两次查询中数据笔数不一致，例如有一个事务查询了几列(Row)数据，而另一个事务却在此时插入了新的几列数据，先前的事务在接下来的查询中，就会发现有几列数据是它先前所没有的。
 
 |                 |脏读|不可重复读	| 幻读 |    	
 |-----            |---|---	       |---	 |
@@ -155,6 +163,17 @@ MySQL InooDB和MyISAM存储引擎区别
 |聚集索引|	数据按索引顺序存储，数据行的物理顺序与列值的顺序相同
 |非聚集索引|	存储指向真正数据行的指针
 |
+聚簇索引的叶节点就是数据节点，而非聚簇索引的叶节点仍然是索引节点，并保留一个链接指向对应数据块。  
+MyISAM的是非聚簇索引，B+Tree的叶子节点上的data，并不是数据本身，而是数据存放的地址。  
+InnoDB使用的是聚簇索引，将主键组织到一棵B+树中，而行数据就储存在叶子节点上  
+MySQL InnoDB一定会建立聚簇索引，把实际数据行和相关的键值保存在一块，这也决定了一个表只能有一个聚簇索引  
+1.InnoDB通常根据主键值(primary key)进行聚簇  
+2.如果没有创建主键，则会用一个唯一且不为空的索引列做为主键，成为此表的聚簇索引  
+3.上面二个条件都不满足，InnoDB会自己创建一个虚拟的聚集索引  
+聚簇索引的  
+优点：就是提高数据访问性能。  
+缺点：维护索引很昂贵，特别是插入新行或者主键被更新导至要分页(page split)的时候。
+
 
 索引底层用B+树而不是用红黑树
 
@@ -214,11 +233,31 @@ SELECT <select_list> FROM Table_A A FULL OUTER JOIN Table_B B
 ON A.Key = B.Key
 WHERE A.Key IS NULL OR B.Key IS NULL
 ```
-&emsp;对于mysql数据库中的join实现算法为`Nested-loop join Algorithms` [2],根据该算法的实现逻辑在执行mysql join操作时实际上是执行循环对比，因此优化的思路和目标即是尽量将循环的次数变小。在优化join操作时典型的优化方法有：  
-  - 尽量选择小表作为驱动表
-  - 对被驱动表的join字段添加索引
+ - &emsp;对于mysql数据库中的join实现算法为`Nested-loop join Algorithms` [2],根据该算法的实现逻辑在执行mysql join操作时实际上是执行循环对比，因此优化的思路和目标即是尽量将循环的次数变小。在优化join操作时典型的优化方法有：  
+    -   尽量选择小表作为驱动表
+      - 对被驱动表的join字段添加索引
   
-
+- SQL中高效率获取随机N调数据
+```
+SELECT *
+FROM `TABLE_NAME` AS t1 JOIN (SELECT ROUND(RAND() * (SELECT MAX(id) FROM `TABLE_NAME`)) AS id) AS t2
+WHERE t1.id >= t2.id
+ORDER BY t1.id ASC LIMIT 4;
+或
+SELECT * FROM `TABLE_NAME` 
+WHERE id >= (SELECT floor(RAND() * (SELECT MAX(id) FROM `TABLE_NAME`)))  and city="city_91" and showSex=1
+ORDER BY id LIMIT 4;
+或 
+SELECT * FROM TABLE_NAME 
+WHERE id >= ((SELECT MAX(id) FROM TABLE_NAME)-(SELECT MIN(id) FROM TABLE_NAME)) * RAND() + (SELECT MIN(id) FROM TABLE_NAME)
+limit 5;
+或
+SELECT *
+FROM `TABLE_NAME` AS t1 JOIN (SELECT ROUND(RAND() * (
+(SELECT MAX(id) FROM `TABLE_NAME` where id<1000 )-(SELECT MIN(id) FROM `TABLE_NAME` where id<1000 ))+(SELECT MIN(id) FROM `TABLE_NAME` where id<1000 )) AS id) AS t2
+WHERE t1.id >= t2.id
+ORDER BY t1.id LIMIT 5;
+```
 ## SQL 操作过程中的性能优化方法
 **sql 查询的优化的主要方向在优化索引的使用和避免全表扫描**
   - join操作时
