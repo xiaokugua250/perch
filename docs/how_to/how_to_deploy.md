@@ -265,11 +265,8 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.1
 
 helm安装ingress
 ```
-helm install my-release ingress-nginx/ingress-nginx --set controller.hostNetwork=true,controller.service.type="",controller.kind=DaemonSet
+helm install my-release ingress-nginx/ingress-nginx --set controller.hostNetwork=true,controller.service.type="",controller.kind=DaemonSet --create-namespace   --namespace liangdu
 
-helm install z-gour ingress-nginx/ingress-nginx --set controller.hostNetwork=true,controller.service.type="",controller.kind=DaemonSet --create-namespace   --namespace liangdu
-
-helm install ingress-nginx/ingress-nginx --set controller.hostNetwork=true--create-namespace   --namespace ingress-nginx
 
 kubectl get -A ValidatingWebhookConfiguration
 kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
@@ -283,6 +280,11 @@ GRANT ALL PRIVILEGES ON ${DATABASE_NAME} . * TO '${USER_NAME}'@'%';
 GRANT ALL PRIVILEGES ON  ${DATABASE_NAME} . * TO '${USER_NAME}'@'%';
 ```
 
+## 创建部署configmap
+```
+
+kubectl create configmap  service-config --from-file web_config/ -n liangdu
+```
 # 参考
 [1].https://cert-manager.io/docs/installation/kubernetes/
 
