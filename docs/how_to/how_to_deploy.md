@@ -275,16 +275,16 @@ kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 ### 数据库操作初始化
 ```
 
+ CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
+ CREATE USER 'perch_only'@'%' IDENTIFIED BY 'B7b8kR$dTQ';
+ GRANT ALL PRIVILEGES ON morty_db.* TO 'perch_only'@'%';
 GRANT ALL PRIVILEGES ON ${DATABASE_NAME} . * TO '${USER_NAME}'@'%';
 
 GRANT ALL PRIVILEGES ON  ${DATABASE_NAME} . * TO '${USER_NAME}'@'%';
 ```
 
 ## 创建部署configmap
-```
 
-kubectl create configmap  service-config --from-file web_config/ -n liangdu
-```
 # 参考
 [1].https://cert-manager.io/docs/installation/kubernetes/
 
