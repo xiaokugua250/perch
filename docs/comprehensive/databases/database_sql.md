@@ -56,16 +56,26 @@
 - MySQL存储引擎  
 最常见的是InnoDB和MyISAM
 
-|Innodb|	myisam|
-|-----|---------|
+|特性|Innodb|	myisam|
+|-|----|---------|
 |事务 |	支持|	不支持|
 |外键	|支持	|不支持|
-|全文本搜索|不支持|	支持
-|使用场景	|频繁修改	|查询和插入为主
+|全文本搜索|不支持|	支持|
+|使用场景	|频繁修改	|查询和插入为主|
+|锁级别|行级别|表级别|
+|Mvcc|支持|不支持|
+|多种行格式|支持| 不支持|
+|表类型|索引组织表|堆表|
+|文件拷贝迁移|不支持|支持|
 |
 
 &emsp;另外还有MEMORY，存储在内存中，速度快，安全性不高  
-1.InnoDB：默认存储引擎，使用最广泛。  
+1.InnoDB：默认存储引擎，使用最广泛。  具有四大特性:  
+  1. .插入缓冲（insert buffer)  
+  2.  二次写(double write)  
+  3. 自适应哈希索引(ahi)  
+  4. 预读(read ahead)  
+  
 2.MyISAM：表锁，不支持事务。  
 3.Archive：适合日志和数据采集类应用。  
 4.Memory：适合访问速度快，数据丢失也没有关系的场景。  
@@ -109,7 +119,65 @@ MySQL InooDB和MyISAM存储引擎区别
       - 崩溃自动恢复  
       MyISAM：不支持    
       InnoDB：支持  
+  - Innodb的读写参数优化  
+  > 读参数
 
+   ```
+    # global buffer 以及 local buffer；
+    # Global buffer：
+    Innodb_buffer_pool_size
+    innodb_log_buffer_size
+    innodb_additional_mem_pool_size
+    # local buffer(下面的都是 server 层的 session 变量，不是 innodb 的)：
+    Read_buffer_size
+    Join_buffer_size
+    Sort_buffer_size
+    Key_buffer_size
+    Binlog_cache_size
+  ```
+
+  > 写参数  
+
+  ```
+  innodb_flush_log_at_trx_commit
+  innodb_buffer_pool_size  
+  insert_buffer_size
+  innodb_double_write
+  innodb_write_io_thread
+  innodb_flush_method
+  ```
+  >IO 相关
+  ```
+  innodb_write_io_threads = 8
+innodb_read_io_threads = 8
+innodb_thread_concurrency = 0
+Sync_binlog
+Innodb_flush_log_at_trx_commit
+Innodb_lru_scan_depth
+Innodb_io_capacity
+Innodb_io_capacity_max
+innodb_log_buffer_size
+innodb_max_dirty_pages_pct
+  ```
+  > 缓存参数和缓存适用场景
+  ```
+  query cache/query_cache_type
+
+并不是所有表都适合使用query cache。造成query cache失效的原因主要是相应的table发生了变更
+
+第一个：读操作多的话看看比例，简单来说，如果是用户清单表，或者说是数据比例比较固定，比如说商品列表，是可以打开的，前提是这些库比较集中，数据库中的实务比较小。
+
+第二个：我们“行骗”的时候，比如说我们竞标的时候压测，把query cache打开，还是能收到qps激增的效果，当然前提示前端的连接池什么的都配置一样。大部分情况下如果写入的居多，访问量并不多，那么就不要打开，例如社交网站的，10%的人产生内容，其余的90%都在消费，打开还是效果很好的，但是你如果是qq消息，或者聊天，那就很要命。
+
+第三个：小网站或者没有高并发的无所谓，高并发下，会看到 很多 qcache 锁 等待，所以一般高并发下，不建议打开query cache
+  ```
+  > Innodb行锁的实现
+  ```
+  InnoDB是基于索引来完成行锁
+
+例: select * from tab_with_index where id = 1 for update;  
+for update 可以根据条件来完成行锁锁定，并且 id 是有索引键的列，如果 id 不是索引键那么InnoDB将完成表锁，并发将无从谈起
+  ```
 - MySQL乐观锁和悲观锁  
   悲观锁和乐观锁都是为保证一致性的一种锁。
   - 悲观锁  
@@ -218,7 +286,6 @@ ON A.Key = B.Key
 ```
 SELECT <select_list> FROM Table_A A FULL OUTER JOIN Table_B B
 ON A.Key = B.Key
-
 ```
 ```
 SELECT <select_list>  FROM Table_A A LEFT JOIN Table_B B ON A.Key = B.Key
@@ -365,7 +432,76 @@ mysqlcheck -o –all-databases 会让 ibdata1 不断增大，真正的优化只�
 2. 通过EXPLAIN关键字分析SQL  
 使用 EXPLAIN 关键字可以知道MySQL是如何处理你的SQL语句的
 3. 进行优化
+- MySQL EXPLAIN使用和解析  
+  > id：每个被独立执行的操作的标志，表示对象被操作的顺序。一般来说， id 值大，先被执行；如果 id 值相同，则顺序从上到下。  
+  select_type：查询中每个 select 子句的类型。  
+  table：名字，被操作的对象名称，通常的表名(或者别名)，但是也有其他格式。  
+  partitions：匹配的分区信息。  
+  type:join 类型。  
+  possible_keys：列出可能会用到的索引。  
+  key：实际用到的索引。  
+  key_len：用到的索引键的平均长度，单位为字节。  
+  ref：表示本行被操作的对象的参照对象，可能是一个常量用 const 表示，也可能是其他表的  
+  key：指向的对象，比如说驱动表的连接列。  
+  rows：估计每次需要扫描的行数。  
+  filtered:rows*filtered/100 表示该步骤最后得到的行数(估计值)。  
+  extra：重要的补充信息。  
 
+  - Explain 结果中，一般来说，要看到尽量用 index(type 为 const、 ref 等， key 列有值)，避免使用全表扫描(type 显式为 ALL)。比如说有 where 条件且选择性不错的列，需要建立索引。
+  被驱动表的连接列，也需要建立索引。被驱动表的连接列也可能会跟 where 条件列一起建立联合索引。当有排序或者 group by 的需求时，也可以考虑建立索引来达到直接排序和汇总的需求。
+- MySQL Profile分析
+  > Profile 用来分析 sql 性能的消耗分布情况。当用 explain 无法解决慢 SQL 的时候，需要用profile 来对 sql 进行更细致的分析，找出 sql 所花的时间大部分消耗在哪个部分，确认 sql的性能瓶颈
+### MySQL复制原理及流程
+ - 复制基本原理流程  
+  1.主：binlog线程——记录下所有改变了数据库数据的语句，放进master上的binlog中;  
+  2.从：io线程——在使用start slave 之后，负责从master上拉取 binlog 内容，放进 自己的relay log中;  
+  3.从：sql执行线程——执行relay log中的语句;  
+- MySQL复制的线程有几个及之间的关联  
+   > MySQL 的复制是基于如下 3 个线程的交互（ 多线程复制里面应该是 4 类线程）：  
+  1.Master 上面的 binlog dump 线程，该线程负责将 master 的 binlog event 传到slave；  
+  2.Slave 上面的 IO 线程，该线程负责接收 Master 传过来的 binlog，并写入 relay log；  
+  3.Slave 上面的 SQL 线程，该线程负责读取 relay log 并执行；
+  4.如果是多线程复制，无论是 5.6 库级别的假多线程还是 MariaDB 或者 5.7 的真正的多线程复制， SQL 线程只做 coordinator，只负责把 relay log 中的 binlog读出来然后交给 worker 线程， woker 线程负责具体 binlog event 的执行
+- MySQL如何保证复制过程中数据一致性及减少数据同步延时  
+  >一致性主要有以下几个方面
+  1.在 MySQL5.5 以及之前， slave 的 SQL 线程执行的 relay log 的位置只能保存在文件（ relay-log.info）里面，并且该文件默认每执行 10000 次事务做一次同步到磁盘， 这意味着 slave 意外 crash 重启时， SQL 线程执行到的位置和数据库的数据是不一致的，将导致复制报错，如果不重搭复制，则有可能会导致数据不一致。 MySQL 5.6 引入参数 relay_log_info_repository，将该参数设置为 TABLE 时， MySQL 将 SQL 线程执行到的位置存到mysql.slave_relay_log_info 表，这样更新该表的位置和 SQL 线程执行的用户事务绑定成一个事务，这样 slave 意外宕机后， slave 通过 innodb 的崩溃恢复可以把 SQL 线程执行到的位置和用户事务恢复到一致性的状态。  
+  1). MySQL 5.6 引入 GTID 复制，每个 GTID 对应的事务在每个实例上面最多执行一次， 这极大地提高了复制的数据一致性；
+  2).MySQL 5.5 引入半同步复制， 用户安装半同步复制插件并且开启参数后，设置超时时间，可保证在超时时间内如果 binlog 不传到 slave 上面，那么用户提交事务时不会返回，直到超时后切成异步复制，但是如果切成异步之前用户线程提交时在 master 上面等待的时候，事务已经提交，该事务对 master 上面的其他 session 是可见的，如果这时 master 宕机，那么到 slave 上面该事务又不可见了，该问题直到 5.7 才解决；
+  3).MySQL 5.7 引入无损半同步复制，引入参rpl_semi_sync_master_wait_point，该参数默认为 after_sync，指的是在切成半同步之前，事务不提交，而是接收到 slave 的 ACK 确认之后才提交该事务，从此，复制真正可以做到无损的了。
+  5.可以再说一下 5.7 的无损复制情况下， master 意外宕机，重启后发现有 binlog没传到 slave 上面，这部分 binlog 怎么办？？？分 2 种情况讨论， 1 宕机时已经切成异步了， 2 是宕机时还没切成异步？？？ 这个怎么判断宕机时有没有切成异步呢？？？ 分别怎么处理？？？  
+延时性  
+5.5 是单线程复制， 5.6 是多库复制（对于单库或者单表的并发操作是没用的）， 5.7 是真正意义的多线程复制，它的原理是基于 group commit， 只要 master 上面的事务是 group commit 的，那 slave 上面也可以通过多个 worker线程去并发执行。 和 MairaDB10.0.0.5 引入多线程复制的原理基本一样。  
+### MySQL innodb事务与日志
+- 日志类型  
+  > 1.redo  
+  2.undo  
+- 日志存放形式  
+  >  - redo：在页修改的时候，先写到 redo log buffer 里面， 然后写到 redo log 的文件系统缓存里面(fwrite)，然后再同步到磁盘文件（ fsync）。
+  >  - Undo:在 MySQL5.5 之前， undo 只能存放在 ibdata文件里面， 5.6 之后，可以通过设置 innodb_undo_tablespaces 参数把 undo log 存放在 ibdata之外。
+- 事务是如何通过日志实现的  
+  > 因为事务在修改页时，要先记 undo，在记 undo 之前要记 undo 的 redo， 然后修改数据页，再记数据页修改的 redo。 Redo（里面包括 undo 的修改） 一定要比数据页先持久化到磁盘。 当事务需要回滚时，因为有 undo，可以把数据页回滚到前镜像的 状态，崩溃恢复时，如果 redo log 中事务没有对应的 commit 记录，那么需要用 undo把该事务的修改回滚到事务开始之前。 如果有 commit 记录，就用 redo 前滚到该事务完成时并提交掉。
+- binlog的日志格式以及区别  
+> 1.Statement：每一条会修改数据的sql都会记录在binlog中。
+  - 优点：不需要记录每一行的变化，减少了binlog日志量，节约了IO，提高性能。(相比row能节约多少性能 与日志量，这个取决于应用的SQL情况，正常同一条记录修改或者插入row格式所产生的日志量还小于Statement产生的日志量， 但是考虑到如果带条 件的update操作，以及整表删除，alter表等操作，ROW格式会产生大量日志，因此在考虑是否使用ROW格式日志时应该跟据应用的实际情况，其所 产生的日志量会增加多少，以及带来的IO性能问题。)
+ - 缺点：由于记录的只是执行语句，为了这些语句能在slave上正确运行，因此还必须记录每条语句在执行的时候的 一些相关信息，以保证所有语句能在slave得到和在master端执行时候相同 的结果。另外mysql 的复制,像一些特定函数功能，slave可与master上要保持一致会有很多相关问题(如sleep()函数， last_insert_id()，以及user-defined functions(udf)会出现问题).  
+使用以下函数的语句也无法被复制：  
+  LOAD_FILE()  
+  UUID()  
+  USER()  
+  FOUND_ROWS()  
+  SYSDATE() (除非启动时启用了 —sysdate-is-now 选项) 同时在INSERT …SELECT 会产生比 RBR 更多的行级锁  
+>2.Row:不记录sql语句上下文相关信息，仅保存哪条记录被修改。
+
+- 优点：binlog中可以不记录执行的sql语句的上下文相关的信息，仅需要记录那一条记录被修改成什么了。所以rowlevel的日志内容会非常清楚的记录下 每一行数据修改的细节。而且不会出现某些特定情况下的存储过程，或function，以及trigger的调用和触发无法被正确复制的问题
+
+- 缺点：所有的执行的语句当记录到日志中的时候，都将以每行记录的修改来记录，这样可能会产生大量的日志内容,比 如一条update语句，修改多条记录，则binlog中每一条修改都会有记录，这样造成binlog日志量会很大，特别是当执行alter table之类的语句的时候，由于表结构修改，每条记录都发生改变，那么该表每一条记录都会记录到日志中。
+- 3.Mixedlevel: 是以上两种level的混合使用，一般的语句修改使用statment格式保存binlog，如一些函数，statement无法完成主从复制的操作，则 采用row格式保存binlog,MySQL会根据执行的每一条具体的sql语句来区分对待记录的日志形式，也就是在Statement和Row之间选择 一种.新版本的MySQL中队row level模式也被做了优化，并不是所有的修改都会以row level来记录，像遇到表结构变更的时候就会以statement模式来记录。至于update或者delete等修改数据的语句，还是会记录所有行的变更。
+
+- 适用场景
+在一条 SQL 操作了多行数据时， statement 更节省空间， row 更占用空间。但是 row模式更可靠。
+## MySQL异常处理
+- MySQL 数据库cpu飙升到500%案例处理
+> 当 cpu 飙升到 500%时，先用操作系统命令 top 命令观察是不是mysqld 占用导致的，如果不是，找出占用高的进程，并进行相关处理。如果是 mysqld 造成的， show processlist，看看里面跑的 session 情况，是不是有消耗资源的 sql 在运行。找出消耗高的 sql，看看执行计划是否准确， index 是否缺失，或者实在是数据量太大造成。一般来说，肯定要 kill 掉这些线程(同时观察 cpu 使用率是否下降)，等进行相应的调整(比如说加索引、改 sql、改内存参数)之后，再重新跑这些 SQL。也有可能是每个 sql 消耗资源并不多，但是突然之间，有大量的 session 连进来导致 cpu 飙升，这种情况就需要跟应用一起来分析为何连接数会激增，再做出相应的调整，比如说限制连接数等
 ## 参考
 [1]. https://www.codeproject.com/Articles/33052/Visual-Representation-of-SQL-Joins  
 [2]. https://dev.mysql.com/doc/refman/5.7/en/nested-loop-joins.html  
