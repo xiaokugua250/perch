@@ -10,22 +10,23 @@ import (
 )
 
 const (
-	PRIVATE_ACCESS_SECRETE = `bCBsb3ZlIGJlZXJz` //此处可换成特定加密私钥，比如rsa生成的私钥信息
-	TOKEN_EXPIRE_TIME      = 12
+	PrivateAccessSecrete = `bCBsb3ZlIGJlZXJz` //此处可换成特定加密私钥，比如rsa生成的私钥信息
+	TokenExpireTime      = 12
 )
 
 func GenJwtToken(user rbac.AuthUser) (string, error) {
-	claims := model.PEXToken{
-		UserID:   user.ID,
+	claims := model.PerchToken{
+		UserUID:  user.UserUID,
+		UserGID:  user.UserUID,
 		UserName: user.UserName,
 		Status:   user.UserStatus,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(TOKEN_EXPIRE_TIME * time.Hour).Unix(),
+			ExpiresAt: time.Now().Add(TokenExpireTime * time.Hour).Unix(),
 			//	Issuer:    "test",
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString([]byte(PRIVATE_ACCESS_SECRETE))
+	return token.SignedString([]byte(PrivateAccessSecrete))
 }
 
 func VerifyToken(tokenString string) (*jwt.Token, error) {
@@ -36,7 +37,7 @@ func VerifyToken(tokenString string) (*jwt.Token, error) {
 
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
-		return []byte(PRIVATE_ACCESS_SECRETE), nil
+		return []byte(PrivateAccessSecrete), nil
 	})
 	if err != nil {
 		return nil, err
@@ -44,21 +45,21 @@ func VerifyToken(tokenString string) (*jwt.Token, error) {
 	return token, nil
 }
 
-func ParseJwtToken(tokenStr string) (model.PEXToken, error) {
+func ParseJwtToken(tokenStr string) (model.PerchToken, error) {
 
-	token, err := jwt.ParseWithClaims(tokenStr, &model.PEXToken{}, func(token *jwt.Token) (i interface{}, e error) {
+	token, err := jwt.ParseWithClaims(tokenStr, &model.PerchToken{}, func(token *jwt.Token) (i interface{}, e error) {
 		if _, ok := token.Method.(*jwt.SigningMethodRSA); ok {
 			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 		}
 
-		return []byte(PRIVATE_ACCESS_SECRETE), nil
+		return []byte(PrivateAccessSecrete), nil
 
 	})
 	if err != nil {
-		return model.PEXToken{}, err
+		return model.PerchToken{}, err
 	}
-	if aesUser, ok := token.Claims.(*model.PEXToken); ok && token.Valid {
+	if aesUser, ok := token.Claims.(*model.PerchToken); ok && token.Valid {
 		return *aesUser, nil
 	}
-	return model.PEXToken{}, errors.New("Parse Token Failed!!!")
+	return model.PerchToken{}, errors.New("Parse Token Failed!!!")
 }

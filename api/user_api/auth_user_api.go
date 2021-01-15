@@ -19,7 +19,7 @@ import (
 )
 
 func PlatAuthUsersGetHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			user []rbac.AuthUser
 
@@ -47,7 +47,7 @@ func PlatAuthUsersGetHandler(w http.ResponseWriter, r *http.Request) {
 
 //todo 需要获取到用户角色，权限等信息
 func PlatSpecAuthUserGetHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			user      rbac.AuthUser
 			userRoles []rbac.AuthRBACRoles
@@ -87,7 +87,7 @@ func PlatSpecAuthUserGetHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func PlatAuthUserUpdateHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			user   rbac.AuthUser
 			userID int
@@ -122,7 +122,7 @@ func PlatAuthUserUpdateHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func PlatAuthUserDeleteHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			user   rbac.AuthUser
 			userID int
@@ -153,13 +153,13 @@ func PlatAuthUserDeleteHandler(w http.ResponseWriter, r *http.Request) {
 
 /**
 用户注册接口
- */
+*/
 func AuthUserSignUpHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
-			user        rbac.AuthUser
+			user      rbac.AuthUser
 			userExist int64
-			err         error
+			err       error
 		)
 		response.Kind = "auth user"
 		if err = json.NewDecoder(r.Body).Decode(&user); err != nil {
@@ -169,15 +169,15 @@ func AuthUserSignUpHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err =database.MysqlDb.Model(&rbac.AuthUser{}).Where("user_name=?",user.UserName).Count(&userExist).Error;err!= nil{
+		if err = database.MysqlDb.Model(&rbac.AuthUser{}).Where("user_name=?", user.UserName).Count(&userExist).Error; err != nil {
 			return err
 		}
-		if userExist>0{
-			 return errors.New(fmt.Sprintf("user_name %s already used by other users,please modify your user name...",user.UserName))
+		if userExist > 0 {
+			return errors.New(fmt.Sprintf("user_name %s already used by other users,please modify your user name...", user.UserName))
 		}
-		user.UserSalt= secure.GenerateRandomeStringBytes(12)
-		user.UserPasswd=user.UserPasswd+user.UserSalt
-		user.UserPasswd=secure.GenerateSHA1Hash(secure.GenerateMd5Hash(user.UserPasswd))
+		user.UserSalt = secure.GenerateRandomeStringBytes(12)
+		user.UserPasswd = user.UserPasswd + user.UserSalt
+		user.UserPasswd = secure.GenerateSHA1Hash(secure.GenerateMd5Hash(user.UserPasswd))
 		if err = database.MysqlDb.Create(&user).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()

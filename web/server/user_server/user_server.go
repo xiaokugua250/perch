@@ -9,10 +9,9 @@ import (
 func main() {
 
 	serverRouter := []service.WebRouter{
-		{RouterPath: "/sign_in", RouterHandlerFunc: admin.PlatLoginHandler, RouterMethod: http.MethodPost},
-		{RouterPath: "/sign_up", RouterHandlerFunc: admin.AuthUserSignUpHandler, RouterMethod: http.MethodPost,RouterDescription: "用户注册"},
+		{RouterPath: "/sign_in", RouterHandlerFunc: admin.AuthUserSignInHandler, RouterMethod: http.MethodPost},
+		{RouterPath: "/sign_up", RouterHandlerFunc: admin.AuthUserSignUpHandler, RouterMethod: http.MethodPost, RouterDescription: "用户注册"},
 
-		{RouterPath: "/login", RouterHandlerFunc: admin.PlatLoginHandler, RouterMethod: http.MethodPost},
 		{RouterPath: "/logout", RouterHandlerFunc: admin.PlatLogoutHandler, RouterMethod: http.MethodPost},
 		{RouterPath: "/info", RouterHandlerFunc: admin.PlatUserInfoHandler, RouterMethod: http.MethodGet},
 		{RouterPath: "/admin", RouterHandlerFunc: admin.PlatAdminHandler, RouterMethod: http.MethodPost},
@@ -21,7 +20,6 @@ func main() {
 		{RouterPath: "/auth-user/user/{id}", RouterHandlerFunc: admin.PlatAuthUserUpdateHandler, RouterMethod: http.MethodPatch},
 		{RouterPath: "/auth-user/user/{id}", RouterHandlerFunc: admin.PlatAuthUserDeleteHandler, RouterMethod: http.MethodDelete},
 		{RouterPath: "/auth-user/user/{id}", RouterHandlerFunc: admin.PlatSpecAuthUserGetHandler, RouterMethod: http.MethodGet},
-
 		{RouterPath: "/auth-rbac/roles", RouterHandlerFunc: admin.PlatAuthRolesGetHandler, RouterMethod: http.MethodGet},
 		{RouterPath: "/auth-rbac/role/{id}", RouterHandlerFunc: admin.PlatAuthRoleUpdateHandler, RouterMethod: http.MethodPatch},
 		{RouterPath: "/auth-rbac/role/{id}", RouterHandlerFunc: admin.PlatAuthRoleDeleteHandler, RouterMethod: http.MethodDelete},
@@ -38,7 +36,6 @@ func main() {
 	webServer.Router = serverRouter
 
 	InitFunc := make(map[string]func(config interface{}) error)
-	//InitFunc["database"]=database.InitMySQLDBWithConig
 	webServer.InitFuncs = InitFunc
 	webServer.Start()
 
