@@ -14,7 +14,7 @@ import (
 )
 
 func CloudResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			sysMemInfo sysinfo.SysMemInformation
 		//	err        error
@@ -31,7 +31,7 @@ func CloudResoucesHandler(w http.ResponseWriter, r *http.Request) {
 根据资源文件进行k8s 集群资源处理
 */
 func CloudResourceFileHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			yamlFile string
 			err      error

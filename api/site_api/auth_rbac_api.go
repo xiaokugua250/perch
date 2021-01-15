@@ -14,7 +14,7 @@ import (
 )
 
 func PlatAuthRolesGetHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userRoles []rbac.AuthRBACRoles
 
@@ -22,13 +22,13 @@ func PlatAuthRolesGetHandler(w http.ResponseWriter, r *http.Request) {
 		)
 		response.Kind = "auth rbac roles"
 
-		if err = database.MySQL_DB.Find(&userRoles).Error; err != nil {
+		if err = database.MysqlDb.Find(&userRoles).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			return err
 		}
 
-		if err = database.MySQL_DB.Model(&rbac.AuthRBACRoles{}).Count(&response.Total).Error; err != nil {
+		if err = database.MysqlDb.Model(&rbac.AuthRBACRoles{}).Count(&response.Total).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			return err
@@ -41,7 +41,7 @@ func PlatAuthRolesGetHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func PlatSpecAuthRoleGetHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userRoles rbac.AuthRBACRoles
 			roleID    int
@@ -56,7 +56,7 @@ func PlatSpecAuthRoleGetHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Where("id=?", roleID).First(userRoles).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", roleID).First(userRoles).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = userRoles
@@ -72,7 +72,7 @@ func PlatSpecAuthRoleGetHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func PlatAuthRoleUpdateHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userRoles rbac.AuthRBACRoles
 			roleID    int
@@ -92,7 +92,7 @@ func PlatAuthRoleUpdateHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Where("id=?", roleID).Updates(userRoles).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", roleID).Updates(userRoles).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = userRoles
@@ -106,7 +106,7 @@ func PlatAuthRoleUpdateHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func PlatAuthRoleDeleteHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userRoles rbac.AuthRBACRoles
 			roleID    int
@@ -121,7 +121,7 @@ func PlatAuthRoleDeleteHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Where("id=?", roleID).Delete(&rbac.AuthRBACRoles{}).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", roleID).Delete(&rbac.AuthRBACRoles{}).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = userRoles
@@ -136,7 +136,7 @@ func PlatAuthRoleDeleteHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func PlatAuthRoleCreateHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userRoles rbac.AuthRBACRoles
 			err       error
@@ -149,7 +149,7 @@ func PlatAuthRoleCreateHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Create(&userRoles).Error; err != nil {
+		if err = database.MysqlDb.Create(&userRoles).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = userRoles
@@ -166,7 +166,7 @@ func PlatAuthRoleCreateHandler(w http.ResponseWriter, r *http.Request) {
 
 //todo 获取特定用户的权限
 func PlatAuthSpecRolePermissionsGetHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userRoles rbac.AuthRBACRoles
 			err       error
@@ -179,7 +179,7 @@ func PlatAuthSpecRolePermissionsGetHandler(w http.ResponseWriter, r *http.Reques
 			return err
 		}
 
-		if err = database.MySQL_DB.Create(&userRoles).Error; err != nil {
+		if err = database.MysqlDb.Create(&userRoles).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = userRoles
@@ -195,7 +195,7 @@ func PlatAuthSpecRolePermissionsGetHandler(w http.ResponseWriter, r *http.Reques
 }
 
 func PlatAuthPermissionsGetHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userPermissions []rbac.AuthRBACPermissions
 
@@ -203,13 +203,13 @@ func PlatAuthPermissionsGetHandler(w http.ResponseWriter, r *http.Request) {
 		)
 		response.Kind = "auth users"
 
-		if err = database.MySQL_DB.Find(&userPermissions).Error; err != nil {
+		if err = database.MysqlDb.Find(&userPermissions).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			return err
 		}
 
-		if err = database.MySQL_DB.Model(&rbac.AuthRBACPermissions{}).Count(&response.Total).Error; err != nil {
+		if err = database.MysqlDb.Model(&rbac.AuthRBACPermissions{}).Count(&response.Total).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			return err
@@ -223,7 +223,7 @@ func PlatAuthPermissionsGetHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func PlatSpecAuthPermissionGetHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userPermissions rbac.AuthRBACPermissions
 			permissionID    int
@@ -238,7 +238,7 @@ func PlatSpecAuthPermissionGetHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Where("id=?", permissionID).First(&userPermissions).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", permissionID).First(&userPermissions).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = userPermissions
@@ -253,7 +253,7 @@ func PlatSpecAuthPermissionGetHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func PlatAuthPermissionUpdateHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userPermissions rbac.AuthRBACPermissions
 			permissionID    int
@@ -273,7 +273,7 @@ func PlatAuthPermissionUpdateHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Where("id=?", permissionID).Updates(&userPermissions).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", permissionID).Updates(&userPermissions).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = userPermissions
@@ -289,7 +289,7 @@ func PlatAuthPermissionUpdateHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func PlatAuthPermissionDeleteHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userPermissions rbac.AuthRBACPermissions
 			permissionID    int
@@ -304,7 +304,7 @@ func PlatAuthPermissionDeleteHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Where("id=?", permissionID).Delete(&rbac.AuthRBACPermissions{}).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", permissionID).Delete(&rbac.AuthRBACPermissions{}).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = userPermissions
@@ -319,7 +319,7 @@ func PlatAuthPermissionDeleteHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func PlatAuthPermissionCreateHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userPermissions rbac.AuthRBACPermissions
 
@@ -333,7 +333,7 @@ func PlatAuthPermissionCreateHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Create(&userPermissions).Error; err != nil {
+		if err = database.MysqlDb.Create(&userPermissions).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = userPermissions

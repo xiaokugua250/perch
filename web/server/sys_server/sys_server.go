@@ -11,7 +11,6 @@ func main() {
 	serverRouter := []service.WebRouter{
 		{RouterPath: "/monitor/basicinfo", RouterHandlerFunc: sysadmin.SysBasicInfoHandler, RouterMethod: http.MethodGet},
 		{RouterPath: "/monitor/memadvanced", RouterHandlerFunc: sysadmin.SysMemInfoHandler, RouterMethod: http.MethodGet},
-
 		{RouterPath: "/monitor/hostadvanced", RouterHandlerFunc: sysadmin.SysHostInfoHandler, RouterMethod: http.MethodGet},
 
 		{RouterPath: "/monitor/cpuadvanced", RouterHandlerFunc: sysadmin.SysCpuInfoHandler, RouterMethod: http.MethodGet},
@@ -27,7 +26,7 @@ func main() {
 		{RouterPath: "/monitor/processadvanced", RouterHandlerFunc: sysadmin.SysProcessInfoHandler, RouterMethod: http.MethodGet}, //todo 方法需完善
 
 	}
-	webServer := service.NewWebServerWithOptions("system")
+	webServer := service.NewWebServerWithOptions("sys-micro")
 	webServer.Router = serverRouter
 	webServer.Start()
 }

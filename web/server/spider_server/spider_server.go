@@ -12,7 +12,7 @@ func main() {
 		{RouterPath: "/spiders", RouterHandlerFunc: spider_api.CreateCollySpider, RouterMethod: http.MethodPost},
 	}
 
-	webServer := service.NewWebServerWithOptions("plat-spider", service.WithMySQLDBOptions(""))
+	webServer := service.NewWebServerWithOptions("spider-micro", service.WithMySQLDBOptions(""))
 	webServer.Router = serverRouter
 	webServer.Start()
 }

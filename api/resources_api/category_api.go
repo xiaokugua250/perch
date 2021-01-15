@@ -15,21 +15,21 @@ import (
 )
 
 func GetResourcesCategorysHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			resourceCategory []resource.ResourceCategory
 
-			err          error
+			err error
 		)
 		response.Kind = "Categorys"
 
-		if err = database.MySQL_DB.Find(&resourceCategory).Error; err != nil {
+		if err = database.MysqlDb.Find(&resourceCategory).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
 			return err
 		}
-		if err = database.MySQL_DB.Model(resource.ResourceCategory{}).Count(&response.Total).Error; err != nil {
+		if err = database.MysqlDb.Model(resource.ResourceCategory{}).Count(&response.Total).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
@@ -44,17 +44,17 @@ func GetResourcesCategorysHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func SpecGetResourcesCategorysHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			resourceCategory resource.ResourceCategory
-			DocID        string
-			err          error
+			DocID            string
+			err              error
 		)
 		DocID = mux.Vars(r)["id"]
 
 		response.Kind = "Categorys"
 
-		if err = database.MySQL_DB.Where("id=?", DocID).First(&resourceCategory).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", DocID).First(&resourceCategory).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
@@ -70,20 +70,20 @@ func SpecGetResourcesCategorysHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateResourcesCategorysHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			resourceCategory []resource.ResourceCategory
-			err          error
+			err              error
 		)
-		response.Kind ="Categorys"
+		response.Kind = "Categorys"
 
-		if err = database.MySQL_DB.Find(&resourceCategory).Error; err != nil {
+		if err = database.MysqlDb.Find(&resourceCategory).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
 			return err
 		}
-		if err = database.MySQL_DB.Model(resource.ResourceCategory{}).Count(&response.Total).Error; err != nil {
+		if err = database.MysqlDb.Model(resource.ResourceCategory{}).Count(&response.Total).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
@@ -98,16 +98,16 @@ func CreateResourcesCategorysHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateSpecResourcesCategorysHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			resourceCategory []resource.ResourceCategory
-			DocID        string
-			err          error
+			DocID            string
+			err              error
 		)
 		DocID = mux.Vars(r)["id"]
-		response.Kind ="Categorys"
+		response.Kind = "Categorys"
 
-		if err = database.MySQL_DB.Where("id=?", DocID).Updates(&resource.ResourceCategory{}).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", DocID).Updates(&resource.ResourceCategory{}).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
@@ -122,14 +122,14 @@ func UpdateSpecResourcesCategorysHandler(w http.ResponseWriter, r *http.Request)
 }
 
 func DeleteSpecResourcesCategorysHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			resourceCategory []resource.ResourceCategory
-			DocID        string
-			err          error
+			DocID            string
+			err              error
 		)
 		DocID = mux.Vars(r)["id"]
-		if err = database.MySQL_DB.Where("id=?", DocID).Delete(&resource.ResourceCategory{}).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", DocID).Delete(&resource.ResourceCategory{}).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()

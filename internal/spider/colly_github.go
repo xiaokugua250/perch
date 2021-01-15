@@ -88,7 +88,7 @@ handler:
 		fmt.Println("Visiting", r.URL)
 	})
 	var project_github int64
-	err = database.MySQL_DB.Limit(-1).Where("oldest_commit_at=0").Find(&basicInfos).Error
+	err = database.MysqlDb.Limit(-1).Where("oldest_commit_at=0").Find(&basicInfos).Error
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -152,7 +152,7 @@ handler:
 
 	collector_clone.OnHTML("",github.AdvancedInformationsWithFileList)*/
 	fmt.Print("gityhub project is ", project_github)
-	if err = database.MySQL_DB.Model(&github.BasicInfo{}).Where("oldest_commit_at=0").Count(&unHandledCount).Error; err != nil {
+	if err = database.MysqlDb.Model(&github.BasicInfo{}).Where("oldest_commit_at=0").Count(&unHandledCount).Error; err != nil {
 		log.Error(err)
 	}
 	if unHandledCount >= 5 {

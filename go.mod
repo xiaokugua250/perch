@@ -8,11 +8,12 @@ require (
 	github.com/antchfx/htmlquery v1.2.3 // indirect
 	github.com/antchfx/xmlquery v1.3.2 // indirect
 	github.com/coreos/bbolt v1.3.5 // indirect
-	github.com/coreos/etcd v3.3.10+incompatible
+	github.com/coreos/etcd v3.3.13+incompatible
 	github.com/coreos/pkg v0.0.0-20180928190104-399ea9e2e55f // indirect
 	github.com/corpix/uarand v0.1.1 // indirect
 	github.com/davecgh/go-spew v1.1.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/dimiro1/banner v1.1.0
 	github.com/gdamore/tcell v1.3.0
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/go-redis/redis/v8 v8.4.0
@@ -43,6 +44,7 @@ require (
 	github.com/libp2p/go-tcp-transport v0.2.0
 	github.com/libp2p/go-ws-transport v0.3.1
 	github.com/libp2p/go-yamux v1.3.7
+	github.com/mattn/go-colorable v0.1.4
 	github.com/mitchellh/mapstructure v1.1.2
 	github.com/mottet-dev/medium-go-colly-basics v0.0.0-20190610193548-ce60257193c9
 	github.com/multiformats/go-multiaddr v0.2.2

@@ -13,7 +13,7 @@ spec:
   - port: 8080
   selector:
     app: backend-server
-  clusterIP: None
+  #clusterIP: None
 
 ---
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
@@ -37,18 +37,18 @@ spec:
         - "z-gour.com"
       containers:
       - name: backend-site
-        image: z-gour.com/perch/site_server:897a432
+        image: z-gour.com/perch/backend_server:4e81c47
         ports:
         - containerPort: 8080
         volumeMounts:
           - name: service-configmaps
-            mountPath: config
+            mountPath: /configs/dev/web_config/
           #readOnly: true
           #subPath: nginx.conf
       volumes:
       - name: service-configmaps
         configMap:
-          name: sys-configmap
+          name: service-config
         
          
-      
+   

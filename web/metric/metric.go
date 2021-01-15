@@ -22,24 +22,34 @@ import (
 @param
 @param
 */
-func ProcessMetricFunc(w http.ResponseWriter, r *http.Request, bean interface{}, f func(ctx context.Context, bean interface{}, respone *model.ResultReponse) error) {
+func ProcessMetricFunc(w http.ResponseWriter, r *http.Request, bean interface{}, middlePlugin MiddlewarePlugins, f func(ctx context.Context, bean interface{}, respone *model.ResultResponse) error) {
 	var (
-		response model.ResultReponse
+		response model.ResultResponse
 		ctx      context.Context
 		err      error
 	)
 	defer func() {
+		if err == nil {
+			response.Code = http.StatusOK
+		} else {
+			if response.Spec == nil {
+				response.Spec = err.Error()
+			}
+			response.Total = 1
+		}
 		if w != nil {
 			err = json.NewEncoder(w).Encode(response)
 			if err != nil {
 				log.Println(err)
 			}
 		}
+
+		log.Printf("request url %s with method %s,remote addr is %s\n", r.URL, r.Method, GetRemoteIP(r))
 	}()
 	now := time.Now()
-	timeoutStr := r.Header.Get("TIMEOUT")
+	timeoutStr := r.Header.Get("Time_Out")
 	if timeoutStr == "" {
-		deadlineStr := r.Header.Get("DEADLINE")
+		deadlineStr := r.Header.Get("Dead_Line")
 		if deadlineStr == "" {
 			// 无需设置截止时间
 			ctx = context.Background()
@@ -80,26 +90,31 @@ func ProcessMetricFunc(w http.ResponseWriter, r *http.Request, bean interface{},
 		err = errors.New("函数处理超时")
 		break
 	case err = <-errChan:
+		//fmt.Printf("error is %+v\n",err)
 		break
 	}
 }
-func MerticFunc(ctx context.Context, result model.ResultReponse, err error) http.HandlerFunc {
 
-	//log.Println(r.RequestURI)
-	// Call the next handler, which can be another middleware in the chain, or the final handler.
+/**
+中间件插件
+*/
+type MiddlewarePlugins struct {
+	AuthPlugin `json:"auth_plugin"`
+}
 
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Do stuff here
-		start := time.Now()
-		log.Printf(
-			"%s\t%s\t%s\t%s",
-			r.Method,
-			r.RequestURI,
-			r.Response,
-			time.Since(start),
-		)
+type AuthPlugin struct {
+	AuthToken bool `json:"auth_token"` //token 进行认证
+}
 
-	})
+func GetRemoteIP(r *http.Request) string {
+	clientIp := r.Header.Get("X-Real-Ip")
+	if clientIp == "" {
+		clientIp = r.Header.Get("X-Forwarded-For")
+	}
+	if clientIp == "" {
+		clientIp = r.RemoteAddr
+	}
+	return clientIp
 }
 
 // 处理请求

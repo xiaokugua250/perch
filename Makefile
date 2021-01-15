@@ -10,7 +10,7 @@ images_prefix=z-gour.com/perch
 deploy_dir = ${shell pwd}/deploy
 webserver_dir =${shell pwd}/web/server
 website_dir = ${shell pwd}/website
-bin_dir = ${shell pwd}/deploy/bin/
+bin_dir = ${shell pwd}/deploy/bin
 dockerfiles_dir= ${shell pwd}/deploy/dockerfiles
 gotool:
 	@echo "格式化代码"

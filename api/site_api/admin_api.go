@@ -14,7 +14,7 @@ import (
 )
 
 func PlatLoginHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			user        rbac.AuthUser
 			currentUser rbac.AuthUser
@@ -28,7 +28,7 @@ func PlatLoginHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Where("username=?", user.UserName).First(&currentUser).Error; err != nil {
+		if err = database.MysqlDb.Where("username=?", user.UserName).First(&currentUser).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = user
@@ -51,7 +51,7 @@ func PlatLoginHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func PlatLoginGenTokenHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			user        rbac.AuthUser
 			currentUser rbac.AuthUser
@@ -65,7 +65,7 @@ func PlatLoginGenTokenHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Where("username=?", user.UserName).First(&currentUser).Error; err != nil {
+		if err = database.MysqlDb.Where("username=?", user.UserName).First(&currentUser).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = user
@@ -94,13 +94,13 @@ func PlatLoginGenTokenHandler(w http.ResponseWriter, r *http.Request) {
 
 //todo
 func PlatLogoutHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		return nil
 	})
 }
 
 func PlatUserInfoHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			token string
 		)
@@ -130,8 +130,7 @@ func PlatUserInfoHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func PlatAdminHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
-
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		return nil
 	})
 

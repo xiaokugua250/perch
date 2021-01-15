@@ -1,4 +1,4 @@
-package sysadmin
+package k8scloud
 
 import (
 	"context"
@@ -16,7 +16,7 @@ import (
 )
 
 func CloudNameSpacesResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
@@ -43,7 +43,7 @@ func CloudNameSpacesResoucesHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func CloudNodeResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
@@ -67,7 +67,7 @@ func CloudNodeResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudConfigMapResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
@@ -91,7 +91,7 @@ func CloudConfigMapResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudServiceAccountResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
@@ -115,7 +115,7 @@ func CloudServiceAccountResoucesHandler(w http.ResponseWriter, r *http.Request) 
 	})
 }
 func CloudPODResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
@@ -139,7 +139,7 @@ func CloudPODResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudJOBResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
@@ -163,7 +163,7 @@ func CloudJOBResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudBatchJOBResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
@@ -187,7 +187,7 @@ func CloudBatchJOBResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudServiceResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
@@ -211,7 +211,7 @@ func CloudServiceResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudDeploymentResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
@@ -235,7 +235,7 @@ func CloudDeploymentResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudDaemonSetResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
@@ -259,7 +259,7 @@ func CloudDaemonSetResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudReplicasetResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
@@ -283,7 +283,7 @@ func CloudReplicasetResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudStatefuleSetResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
@@ -307,7 +307,7 @@ func CloudStatefuleSetResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudPVResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
@@ -331,7 +331,7 @@ func CloudPVResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudPVCResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)

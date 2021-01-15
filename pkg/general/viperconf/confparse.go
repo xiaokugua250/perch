@@ -6,6 +6,7 @@ import (
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"os"
+	"runtime"
 	"sync"
 )
 
@@ -22,9 +23,16 @@ web-server:
 */
 
 var (
-	DEFAULT_DEV_CONFIG_DIR = "configs/dev/web_config/" //DEV_CONFIG_DIR
-	DEFAULT_PRO_CONFIG_DIR = "configs/pro/web_config/" //PRO_CONFIG_DIR
+	DefaultDevConfigDir = "configs/dev/web_config/" //DEV_CONFIG_DIR
+	DefaultProConfigDir = "configs/pro/web_config/" //PRO_CONFIG_DIR
 )
+
+func init() {
+	if runtime.GOOS != "windows" {
+		DefaultDevConfigDir = "/configs/dev/web_config/" //DEV_CONFIG_DIR
+		DefaultProConfigDir = "/configs/pro/web_config/" //PRO_CONFIG_DIR
+	}
+}
 
 type WebServerConfig struct {
 	ServerIP   string `yaml:"ip"`
@@ -65,15 +73,15 @@ func InitGenWebConfig(configfile string) error {
 		err error
 	)
 	if os.Getenv("DEV_CONFIG_DIR") != "" {
-		DEFAULT_DEV_CONFIG_DIR = os.Getenv("DEV_CONFIG_DIR")
+		DefaultDevConfigDir = os.Getenv("DEV_CONFIG_DIR")
 	}
 	if os.Getenv("PRO_CONFIG_DIR") != "" {
-		DEFAULT_PRO_CONFIG_DIR = os.Getenv("DEV_CONFIG_DIR")
+		DefaultProConfigDir = os.Getenv("DEV_CONFIG_DIR")
 	}
 	if os.Getenv("PRO_ENV") != "" {
-		configfile = DEFAULT_PRO_CONFIG_DIR + configfile + ".yaml"
+		configfile = DefaultProConfigDir + configfile + ".yaml"
 	} else {
-		configfile = DEFAULT_DEV_CONFIG_DIR + configfile + ".yaml"
+		configfile = DefaultDevConfigDir + configfile + ".yaml"
 
 	}
 	_, err = os.Stat(configfile)

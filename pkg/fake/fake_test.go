@@ -44,7 +44,7 @@ func TestGenFakeUsers(t *testing.T) {
 		}(i)
 	}
 	wg.Wait()
-	if err = database.MySQL_DB.Create(&blogs).Error; err != nil {
+	if err = database.MysqlDb.Create(&blogs).Error; err != nil {
 		fmt.Print(err)
 	}
 }

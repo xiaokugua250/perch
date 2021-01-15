@@ -14,7 +14,7 @@ import (
 )
 
 func SysBasicInfoHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			//sysBasicInfo = make(map[string]interface{})
 			sysBasicInfo sysinfo.HostAdvancedInfo
@@ -38,7 +38,7 @@ func SysBasicInfoHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func SysMemInfoHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			sysMemInfo sysinfo.SysMemInformation
 			err        error
@@ -61,7 +61,7 @@ func SysMemInfoHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func SysCpuInfoHandler(w http.ResponseWriter, req *http.Request) {
-	metric.ProcessMetricFunc(w, req, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, req, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			sysCpuInfo sysinfo.CpuAdvancedInfo
 			logical    bool
@@ -123,7 +123,7 @@ func SysCpuInfoHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func SysHostInfoHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			sysHostInfo sysinfo.HostAdvancedInfo
 			err         error
@@ -146,7 +146,7 @@ func SysHostInfoHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func SysDockerInfoHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			sysDockerInfo sysinfo.DockerAdvancedInfo
 			err           error
@@ -170,7 +170,7 @@ func SysDockerInfoHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func SysDiskInfoHandler(w http.ResponseWriter, req *http.Request) {
-	metric.ProcessMetricFunc(w, req, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, req, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			diskSerialName string
 			diskLableName  string
@@ -218,7 +218,7 @@ func SysDiskInfoHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func SysNetInfoHandler(w http.ResponseWriter, req *http.Request) {
-	metric.ProcessMetricFunc(w, req, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, req, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			sysNetInfo sysinfo.NetAdvancedInfo
 			percpu     bool
@@ -252,7 +252,7 @@ func SysNetInfoHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func SysProcessInfoHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			sysProcessInfo sysinfo.ProcessAdvancedInfo
 			err            error
@@ -275,7 +275,7 @@ func SysProcessInfoHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func SysLoadInfoHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
+	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			sysLoadInfo sysinfo.LoadAdvancedInfo
 			err         error
