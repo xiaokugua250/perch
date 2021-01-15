@@ -1,19 +1,24 @@
 package service
 
 import (
+	"bytes"
 	"context"
+	"fmt"
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
+
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
-
-	"github.com/gorilla/handlers"
-	"github.com/gorilla/mux"
-
+	"perch/api"
 	"perch/pkg/general/viperconf"
 	"strconv"
 	"syscall"
 	"time"
+
+	"github.com/dimiro1/banner"
+	"github.com/mattn/go-colorable"
 )
 
 type WebRouter struct {
@@ -38,6 +43,9 @@ func (webserver *WebServer) GenRouter() *mux.Router {
 	/*	router.Use(middleware.CROSMiddleware)
 		router.Use(middleware.MetricMiddleWare)
 		router.Use(middleware.LoggingMiddleware)*/
+	//append(webserver.Router, ,)
+	webserver.Router = append(webserver.Router, WebRouter{RouterPath: "/version", RouterHandlerFunc: api.ServiceVersionandler, RouterMethod: http.MethodGet})
+	webserver.Router = append(webserver.Router, WebRouter{RouterPath: "/health", RouterHandlerFunc: api.ServiceHealthHandler, RouterMethod: http.MethodGet})
 	for _, r := range webserver.Router {
 		if r.RouterPathPrefiex {
 			router.Methods(r.RouterMethod).PathPrefix(r.RouterPath).Path(r.RouterPath).HandlerFunc(r.RouterHandlerFunc)
@@ -45,6 +53,9 @@ func (webserver *WebServer) GenRouter() *mux.Router {
 			router.Methods(r.RouterMethod).Path(r.RouterPath).HandlerFunc(r.RouterHandlerFunc)
 		}
 	}
+
+	//,
+
 	return router
 }
 func (webserver *WebServer) Init() {
@@ -60,6 +71,9 @@ func (webserver *WebServer) Start() {
 	//webserver.Init()
 	httpAddr := viperconf.WebServiceConfig.WebConfig.ServerIP + ":" + strconv.Itoa(viperconf.WebServiceConfig.WebConfig.ServerPort)
 
+	//templ := `{{ .Title "Banner" "" 4 }}`
+	banner.Init(colorable.NewColorableStdout(), true, true, bytes.NewBufferString(fmt.Sprintf("{{ .Title \" %s \" \"\" 4 }}", webserver.Name)))
+	fmt.Println()
 	log.Println(webserver.Name + " service starting...")
 	log.Println("service listening on：http://" + httpAddr)
 	// 设置和启动服务

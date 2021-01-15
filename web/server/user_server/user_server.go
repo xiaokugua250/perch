@@ -2,7 +2,6 @@ package main
 
 import (
 	"net/http"
-	"perch/api"
 	admin "perch/api/user_api"
 	"perch/web/service"
 )
@@ -10,8 +9,6 @@ import (
 func main() {
 
 	serverRouter := []service.WebRouter{
-		{RouterPath: "/version", RouterHandlerFunc: api.ServiceVersionandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/health", RouterHandlerFunc: api.ServiceHealthHandler, RouterMethod: http.MethodGet},
 
 		{RouterPath: "/user/login", RouterHandlerFunc: admin.PlatLoginHandler, RouterMethod: http.MethodPost},
 		{RouterPath: "/user/logout", RouterHandlerFunc: admin.PlatLogoutHandler, RouterMethod: http.MethodPost},
@@ -36,7 +33,7 @@ func main() {
 		{RouterPath: "/auth-rbac/permission/{id}", RouterHandlerFunc: admin.PlatSpecAuthPermissionGetHandler, RouterMethod: http.MethodGet},
 		{RouterPath: "/auth-rbac/permission", RouterHandlerFunc: admin.PlatAuthPermissionCreateHandler, RouterMethod: http.MethodPost},
 	}
-	webServer := service.NewWebServerWithOptions("plat-admin", service.WithMySQLDBOptions(""))
+	webServer := service.NewWebServerWithOptions("user-micro", service.WithMySQLDBOptions(""))
 	webServer.Router = serverRouter
 
 	InitFunc := make(map[string]func(config interface{}) error)

@@ -1,13 +1,11 @@
 package main
 
-
-
 /**
 网站基本信息
- */
+*/
 import (
 	"net/http"
-	cloud "perch/api/cloud_api"
+	cloud "perch/api/k8scloud_api"
 	"perch/web/service"
 )
 
@@ -32,7 +30,7 @@ func main() {
 		{RouterPath: "/construct/resource", RouterHandlerFunc: cloud.CloudResourceFileHandler, RouterMethod: http.MethodPost},
 	}
 
-	webServer := service.NewWebServerWithOptions("plat-cloud", service.WithMySQLDBOptions(""), service.WithKubernetesOptions(""))
+	webServer := service.NewWebServerWithOptions("site-micro", service.WithMySQLDBOptions(""), service.WithKubernetesOptions(""))
 	webServer.Router = serverRouter
 
 	InitFunc := make(map[string]func(config interface{}) error)

@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	 api "perch/api/data_api"
+	api "perch/api/data_api"
 	"perch/web/service"
 )
 
@@ -17,10 +17,8 @@ func main() {
 		{RouterPath: "/fake/ip", RouterHandlerFunc: api.GetFakeIPHandler, RouterMethod: http.MethodGet},
 		{RouterPath: "/fake/loc", RouterHandlerFunc: api.GetFakeLocHandler, RouterMethod: http.MethodGet},
 		{RouterPath: "/fake/times", RouterHandlerFunc: api.GetFakeTimesHandler, RouterMethod: http.MethodGet},
-
-
 	}
-	webServer := service.NewWebServerWithOptions("plat-data",)
+	webServer := service.NewWebServerWithOptions("data-micro")
 	webServer.Router = serverRouter
 
 	InitFunc := make(map[string]func(config interface{}) error)

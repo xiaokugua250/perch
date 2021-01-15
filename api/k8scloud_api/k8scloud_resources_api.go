@@ -1,4 +1,4 @@
-package sysadmin
+package k8scloud
 
 import (
 	"context"

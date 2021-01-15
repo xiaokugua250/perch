@@ -13,6 +13,7 @@ require (
 	github.com/corpix/uarand v0.1.1 // indirect
 	github.com/davecgh/go-spew v1.1.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/dimiro1/banner v1.1.0
 	github.com/gdamore/tcell v1.3.0
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/go-redis/redis/v8 v8.4.0
@@ -43,12 +44,14 @@ require (
 	github.com/libp2p/go-tcp-transport v0.2.0
 	github.com/libp2p/go-ws-transport v0.3.1
 	github.com/libp2p/go-yamux v1.3.7
+	github.com/mattn/go-colorable v0.1.4
 	github.com/mitchellh/mapstructure v1.1.2
 	github.com/mottet-dev/medium-go-colly-basics v0.0.0-20190610193548-ce60257193c9
 	github.com/multiformats/go-multiaddr v0.2.2
 	github.com/multiformats/go-multiaddr-net v0.1.5
 	github.com/multiformats/go-multibase v0.0.3
 	github.com/multiformats/go-multihash v0.0.13
+	github.com/onsi/ginkgo v1.14.2
 	github.com/pkg/errors v0.9.1
 	github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5
 	github.com/rivo/tview v0.0.0-20200528200248-fe953220389f
