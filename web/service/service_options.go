@@ -56,7 +56,7 @@ func WithMySQLDBOptions(dbconfig interface{}) OptionFunc {
 
 		//dsn := DBConfig
 
-		database.MySQL_DB, err = gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
+		database.MysqlDb, err = gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -79,7 +79,7 @@ func WithRedisOptions(redisConfig interface{}) OptionFunc {
 
 		//dsn := DBConfig
 
-		database.MySQL_DB, err = gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
+		database.MysqlDb, err = gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -103,7 +103,7 @@ func WithETCDOptions(etcdConfig interface{}) OptionFunc {
 
 		//dsn := DBConfig
 
-		database.MySQL_DB, err = gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
+		database.MysqlDb, err = gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
 		if err != nil {
 			log.Fatalln(err)
 		}

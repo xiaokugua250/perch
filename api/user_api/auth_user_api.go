@@ -3,10 +3,14 @@ package admin
 import (
 	"context"
 	"encoding/json"
+	"errors"
+	"fmt"
 	_ "fmt"
+
 	"github.com/gorilla/mux"
 	"net/http"
 	database "perch/database/mysql"
+	"perch/pkg/general/utils/secure"
 	"perch/web/metric"
 	"perch/web/model"
 	rbac "perch/web/model/rbac"
@@ -23,13 +27,13 @@ func PlatAuthUsersGetHandler(w http.ResponseWriter, r *http.Request) {
 		)
 		response.Kind = "auth users"
 
-		if err = database.MySQL_DB.Find(&user).Error; err != nil {
+		if err = database.MysqlDb.Find(&user).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			return err
 		}
 
-		if err = database.MySQL_DB.Model(&rbac.AuthUser{}).Count(&response.Total).Error; err != nil {
+		if err = database.MysqlDb.Model(&rbac.AuthUser{}).Count(&response.Total).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			return err
@@ -59,16 +63,16 @@ func PlatSpecAuthUserGetHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Where("id=?", userID).First(&user).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", userID).First(&user).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = user
 			return err
 		}
 		//	subQuery := database.MySQL_DB.Table("auth_rbac_user_roles").Select("role_id").Where("user_id=?",userID)
-		subQuery := database.MySQL_DB.Model(rbac.AuthRBACUserRoles{}).Select("role_id").Where("user_id=?", userID)
+		subQuery := database.MysqlDb.Model(rbac.AuthRBACUserRoles{}).Select("role_id").Where("user_id=?", userID)
 
-		if err = database.MySQL_DB.Where("id in (?)", subQuery).Find(&userRoles).Error; err != nil {
+		if err = database.MysqlDb.Where("id in (?)", subQuery).Find(&userRoles).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = nil
@@ -103,7 +107,7 @@ func PlatAuthUserUpdateHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Where("id=?", userID).Updates(user).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", userID).Updates(user).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = user
@@ -133,7 +137,7 @@ func PlatAuthUserDeleteHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Where("id=?", userID).Delete(&rbac.AuthUser{}).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", userID).Delete(&rbac.AuthUser{}).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = user
@@ -142,33 +146,44 @@ func PlatAuthUserDeleteHandler(w http.ResponseWriter, r *http.Request) {
 
 		response.Total = 1
 		response.Code = http.StatusOK
-		//response.Spec = "user with uid "+userID+" delete "
 		response.Message = " delete auth users successfully!!!"
 		return nil
 	})
 }
-func PlatAuthUserCreateHandler(w http.ResponseWriter, r *http.Request) {
+
+/**
+用户注册接口
+ */
+func AuthUserSignUpHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, func(ctx context.Context, bean interface{}, response *model.ResultReponse) error {
 		var (
 			user        rbac.AuthUser
-			currentUser rbac.AuthUser
+			userExist int64
 			err         error
 		)
 		response.Kind = "auth user"
 		if err = json.NewDecoder(r.Body).Decode(&user); err != nil {
 			response.Code = http.StatusBadRequest
 			response.Message = "user create failed !!!"
-			response.Spec = currentUser
+			response.Spec = user
 			return err
 		}
 
-		if err = database.MySQL_DB.Create(&user).Error; err != nil {
+		if err =database.MysqlDb.Model(&rbac.AuthUser{}).Where("user_name=?",user.UserName).Count(&userExist).Error;err!= nil{
+			return err
+		}
+		if userExist>0{
+			 return errors.New(fmt.Sprintf("user_name %s already used by other users,please modify your user name...",user.UserName))
+		}
+		user.UserSalt= secure.GenerateRandomeStringBytes(12)
+		user.UserPasswd=user.UserPasswd+user.UserSalt
+		user.UserPasswd=secure.GenerateSHA1Hash(secure.GenerateMd5Hash(user.UserPasswd))
+		if err = database.MysqlDb.Create(&user).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = user
 			return err
 		}
-
 		response.Total = 1
 		response.Code = http.StatusOK
 		response.Spec = user

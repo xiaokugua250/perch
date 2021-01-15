@@ -28,7 +28,7 @@ func PlatLoginHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Where("username=?", user.UserName).First(&currentUser).Error; err != nil {
+		if err = database.MysqlDb.Where("username=?", user.UserName).First(&currentUser).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = user
@@ -65,7 +65,7 @@ func PlatLoginGenTokenHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Where("username=?", user.UserName).First(&currentUser).Error; err != nil {
+		if err = database.MysqlDb.Where("username=?", user.UserName).First(&currentUser).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = user

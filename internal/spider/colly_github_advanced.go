@@ -96,7 +96,7 @@ var (
 	})
 
 
-	err = database.MySQL_DB.Limit(-1).Where("oldest_commit_at=0").Find(&basicInfos).Error
+	err = database.MysqlDb.Limit(-1).Where("oldest_commit_at=0").Find(&basicInfos).Error
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -159,7 +159,7 @@ func BasictInformations(elment *colly.HTMLElement) {
 	updated_map["newest_commit_at"] = basicInfo.NewestCommitAt
 	if basicInfo.NewestCommitAt != 0 {
 		link := strings.TrimSuffix(elment.Request.URL.String(),"/file-list/master")
-		if err = database.MySQL_DB.Model(&basicInfo).Where("link=?", link).Updates(&updated_map).Error; err != nil {
+		if err = database.MysqlDb.Model(&basicInfo).Where("link=?", link).Updates(&updated_map).Error; err != nil {
 			log.Error(err)
 		}
 

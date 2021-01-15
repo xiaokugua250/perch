@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	MySQL_DB *gorm.DB
+	MysqlDb *gorm.DB
 )
 
 //初始化数据库
@@ -21,8 +21,11 @@ func InitMySQLDB() error {
 	var (
 		err error
 	)
-	MySQL_DB, err = gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
-	newLogger := logger.New(
+	MysqlDb, err = gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
+	if err!= nil{
+		return err
+	}
+	MysqlDb.Logger = logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
 		logger.Config{
 			SlowThreshold: time.Second,   // Slow SQL threshold
@@ -30,8 +33,9 @@ func InitMySQLDB() error {
 			Colorful:      false,         // Disable color
 		},
 	)
-	MySQL_DB.Logger = newLogger
-	MySQL_DB = MySQL_DB.Debug()
+
+	//MySQL_DB = MySQL_DB.Debug()
+
 	return err
 }
 
@@ -44,6 +48,6 @@ func InitMySQLDBWithConig(config interface{}) error {
 	var (
 		err error
 	)
-	MySQL_DB, err = gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
+	MysqlDb, err = gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
 	return err
 }

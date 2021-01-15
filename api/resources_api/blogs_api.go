@@ -22,13 +22,13 @@ func GetResourcesBlogsHandler(w http.ResponseWriter, r *http.Request) {
 		)
 		response.Kind = "docs"
 
-		if err = database.MySQL_DB.Find(&resourceDocs).Error; err != nil {
+		if err = database.MysqlDb.Find(&resourceDocs).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
 			return err
 		}
-		if err = database.MySQL_DB.Model(resource.ResourceBlogs{}).Count(&response.Total).Error; err != nil {
+		if err = database.MysqlDb.Model(resource.ResourceBlogs{}).Count(&response.Total).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
@@ -53,7 +53,7 @@ func SpecGetResourcesBlogsHandler(w http.ResponseWriter, r *http.Request) {
 
 		response.Kind = "docs"
 
-		if err = database.MySQL_DB.Where("id=?", DocID).First(&resourceDocs).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", DocID).First(&resourceDocs).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
@@ -76,13 +76,13 @@ func CreateResourcesBlogsHandler(w http.ResponseWriter, r *http.Request) {
 		)
 		response.Kind ="docs"
 
-		if err = database.MySQL_DB.Find(&resourceDocs).Error; err != nil {
+		if err = database.MysqlDb.Find(&resourceDocs).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
 			return err
 		}
-		if err = database.MySQL_DB.Model(resource.ResourceBlogs{}).Count(&response.Total).Error; err != nil {
+		if err = database.MysqlDb.Model(resource.ResourceBlogs{}).Count(&response.Total).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
@@ -106,7 +106,7 @@ func UpdateSpecResourcesBlogsHandler(w http.ResponseWriter, r *http.Request) {
 		DocID = mux.Vars(r)["id"]
 		response.Kind ="docs"
 
-		if err = database.MySQL_DB.Where("id=?", DocID).Updates(&resource.ResourceBlogs{}).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", DocID).Updates(&resource.ResourceBlogs{}).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
@@ -128,7 +128,7 @@ func DeleteSpecResourcesBlogsHandler(w http.ResponseWriter, r *http.Request) {
 			err          error
 		)
 		DocID = mux.Vars(r)["id"]
-		if err = database.MySQL_DB.Where("id=?", DocID).Delete(&resource.ResourceBlogs{}).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", DocID).Delete(&resource.ResourceBlogs{}).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()

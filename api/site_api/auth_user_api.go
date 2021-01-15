@@ -23,13 +23,13 @@ func PlatAuthUsersGetHandler(w http.ResponseWriter, r *http.Request) {
 		)
 		response.Kind = "auth users"
 
-		if err = database.MySQL_DB.Find(&user).Error; err != nil {
+		if err = database.MysqlDb.Find(&user).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			return err
 		}
 
-		if err = database.MySQL_DB.Model(&rbac.AuthUser{}).Count(&response.Total).Error; err != nil {
+		if err = database.MysqlDb.Model(&rbac.AuthUser{}).Count(&response.Total).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			return err
@@ -59,16 +59,16 @@ func PlatSpecAuthUserGetHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Where("id=?", userID).First(&user).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", userID).First(&user).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = user
 			return err
 		}
 		//	subQuery := database.MySQL_DB.Table("auth_rbac_user_roles").Select("role_id").Where("user_id=?",userID)
-		subQuery := database.MySQL_DB.Model(rbac.AuthRBACUserRoles{}).Select("role_id").Where("user_id=?", userID)
+		subQuery := database.MysqlDb.Model(rbac.AuthRBACUserRoles{}).Select("role_id").Where("user_id=?", userID)
 
-		if err = database.MySQL_DB.Where("id in (?)", subQuery).Find(&userRoles).Error; err != nil {
+		if err = database.MysqlDb.Where("id in (?)", subQuery).Find(&userRoles).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = nil
@@ -103,7 +103,7 @@ func PlatAuthUserUpdateHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Where("id=?", userID).Updates(user).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", userID).Updates(user).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = user
@@ -133,7 +133,7 @@ func PlatAuthUserDeleteHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Where("id=?", userID).Delete(&rbac.AuthUser{}).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", userID).Delete(&rbac.AuthUser{}).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = user
@@ -162,7 +162,7 @@ func PlatAuthUserCreateHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err = database.MySQL_DB.Create(&user).Error; err != nil {
+		if err = database.MysqlDb.Create(&user).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = user

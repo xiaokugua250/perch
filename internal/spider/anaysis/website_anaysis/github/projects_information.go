@@ -142,7 +142,7 @@ func BasictInformations(elment *colly.HTMLElement) {
 	updated_map["oldest_commit_at"] = basicInfo.OldestCommitAt
 	updated_map["newest_commit_at"] = basicInfo.NewestCommitAt
 	if basicInfo.NewestCommitAt != 0 {
-		if err = database.MySQL_DB.Model(&basicInfo).Where("link=?", basicInfo.Link).Updates(&updated_map).Error; err != nil {
+		if err = database.MysqlDb.Model(&basicInfo).Where("link=?", basicInfo.Link).Updates(&updated_map).Error; err != nil {
 			log.Error(err)
 		}
 
@@ -194,7 +194,7 @@ func AdvancedInformationsWithFileList(elment *colly.HTMLElement) {
 	updated_map["oldest_commit_at"] = basicInfo.OldestCommitAt
 	updated_map["newest_commit_at"] = basicInfo.NewestCommitAt
 	if basicInfo.NewestCommitAt != 0 {
-		if err = database.MySQL_DB.Model(&basicInfo).Where("link=?", strings.TrimSuffix(elment.Request.URL.String(), "/file-list/master")).Updates(&updated_map).Error; err != nil {
+		if err = database.MysqlDb.Model(&basicInfo).Where("link=?", strings.TrimSuffix(elment.Request.URL.String(), "/file-list/master")).Updates(&updated_map).Error; err != nil {
 			log.Error(err)
 		}
 	}

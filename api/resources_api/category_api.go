@@ -23,13 +23,13 @@ func GetResourcesCategorysHandler(w http.ResponseWriter, r *http.Request) {
 		)
 		response.Kind = "Categorys"
 
-		if err = database.MySQL_DB.Find(&resourceCategory).Error; err != nil {
+		if err = database.MysqlDb.Find(&resourceCategory).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
 			return err
 		}
-		if err = database.MySQL_DB.Model(resource.ResourceCategory{}).Count(&response.Total).Error; err != nil {
+		if err = database.MysqlDb.Model(resource.ResourceCategory{}).Count(&response.Total).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
@@ -54,7 +54,7 @@ func SpecGetResourcesCategorysHandler(w http.ResponseWriter, r *http.Request) {
 
 		response.Kind = "Categorys"
 
-		if err = database.MySQL_DB.Where("id=?", DocID).First(&resourceCategory).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", DocID).First(&resourceCategory).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
@@ -77,13 +77,13 @@ func CreateResourcesCategorysHandler(w http.ResponseWriter, r *http.Request) {
 		)
 		response.Kind ="Categorys"
 
-		if err = database.MySQL_DB.Find(&resourceCategory).Error; err != nil {
+		if err = database.MysqlDb.Find(&resourceCategory).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
 			return err
 		}
-		if err = database.MySQL_DB.Model(resource.ResourceCategory{}).Count(&response.Total).Error; err != nil {
+		if err = database.MysqlDb.Model(resource.ResourceCategory{}).Count(&response.Total).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
@@ -107,7 +107,7 @@ func UpdateSpecResourcesCategorysHandler(w http.ResponseWriter, r *http.Request)
 		DocID = mux.Vars(r)["id"]
 		response.Kind ="Categorys"
 
-		if err = database.MySQL_DB.Where("id=?", DocID).Updates(&resource.ResourceCategory{}).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", DocID).Updates(&resource.ResourceCategory{}).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()
@@ -129,7 +129,7 @@ func DeleteSpecResourcesCategorysHandler(w http.ResponseWriter, r *http.Request)
 			err          error
 		)
 		DocID = mux.Vars(r)["id"]
-		if err = database.MySQL_DB.Where("id=?", DocID).Delete(&resource.ResourceCategory{}).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", DocID).Delete(&resource.ResourceCategory{}).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			response.Spec = err.Error()

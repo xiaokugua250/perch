@@ -29,6 +29,12 @@ func ProcessMetricFunc(w http.ResponseWriter, r *http.Request, bean interface{},
 		err      error
 	)
 	defer func() {
+		if err== nil{
+			response.Code= http.StatusOK
+		}else {
+			response.Spec=err.Error()
+			response.Total=1
+		}
 		if w != nil {
 			err = json.NewEncoder(w).Encode(response)
 			if err != nil {
@@ -37,9 +43,9 @@ func ProcessMetricFunc(w http.ResponseWriter, r *http.Request, bean interface{},
 		}
 	}()
 	now := time.Now()
-	timeoutStr := r.Header.Get("TIMEOUT")
+	timeoutStr := r.Header.Get("Time_Out")
 	if timeoutStr == "" {
-		deadlineStr := r.Header.Get("DEADLINE")
+		deadlineStr := r.Header.Get("Dead_Line")
 		if deadlineStr == "" {
 			// 无需设置截止时间
 			ctx = context.Background()
@@ -80,26 +86,10 @@ func ProcessMetricFunc(w http.ResponseWriter, r *http.Request, bean interface{},
 		err = errors.New("函数处理超时")
 		break
 	case err = <-errChan:
+		//fmt.Printf("error is %+v\n",err)
 		break
 	}
 }
-func MerticFunc(ctx context.Context, result model.ResultReponse, err error) http.HandlerFunc {
 
-	//log.Println(r.RequestURI)
-	// Call the next handler, which can be another middleware in the chain, or the final handler.
-
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Do stuff here
-		start := time.Now()
-		log.Printf(
-			"%s\t%s\t%s\t%s",
-			r.Method,
-			r.RequestURI,
-			r.Response,
-			time.Since(start),
-		)
-
-	})
-}
 
 // 处理请求
