@@ -16,7 +16,6 @@ func main() {
 		{RouterPath: "/version", RouterHandlerFunc: api.ServiceVersionandler, RouterMethod: http.MethodGet},
 		{RouterPath: "/health", RouterHandlerFunc: api.ServiceHealthHandler, RouterMethod: http.MethodGet},
 
-		{RouterPath: "/user/login", RouterHandlerFunc: admin.PlatLoginHandler, RouterMethod: http.MethodPost},
 		{RouterPath: "/user/logout", RouterHandlerFunc: admin.PlatLogoutHandler, RouterMethod: http.MethodPost},
 		{RouterPath: "/user/info", RouterHandlerFunc: admin.PlatUserInfoHandler, RouterMethod: http.MethodGet},
 		{RouterPath: "/user/admin", RouterHandlerFunc: admin.PlatAdminHandler, RouterMethod: http.MethodPost},
@@ -25,7 +24,6 @@ func main() {
 		{RouterPath: "/auth-user/user/{id}", RouterHandlerFunc: admin.PlatAuthUserUpdateHandler, RouterMethod: http.MethodPatch},
 		{RouterPath: "/auth-user/user/{id}", RouterHandlerFunc: admin.PlatAuthUserDeleteHandler, RouterMethod: http.MethodDelete},
 		{RouterPath: "/auth-user/user/{id}", RouterHandlerFunc: admin.PlatSpecAuthUserGetHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/auth-user/user", RouterHandlerFunc: admin.PlatAuthUserCreateHandler, RouterMethod: http.MethodPost},
 
 		{RouterPath: "/auth-rbac/roles", RouterHandlerFunc: admin.PlatAuthRolesGetHandler, RouterMethod: http.MethodGet},
 		{RouterPath: "/auth-rbac/role/{id}", RouterHandlerFunc: admin.PlatAuthRoleUpdateHandler, RouterMethod: http.MethodPatch},
@@ -39,7 +37,9 @@ func main() {
 		{RouterPath: "/auth-rbac/permission/{id}", RouterHandlerFunc: admin.PlatSpecAuthPermissionGetHandler, RouterMethod: http.MethodGet},
 		{RouterPath: "/auth-rbac/permission", RouterHandlerFunc: admin.PlatAuthPermissionCreateHandler, RouterMethod: http.MethodPost},
 	}
-	webServer := service.NewWebServerWithOptions("filesystem-miro", service.WithMySQLDBOptions(""))
+//	webServer := service.NewWebServerWithOptions("filesystem-miro", service.WithMySQLDBOptions(""))
+	webServer := service.NewWebServerWithOptions("filesystem-micro", )
+
 	webServer.Router = serverRouter
 
 	InitFunc := make(map[string]func(config interface{}) error)

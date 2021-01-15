@@ -66,6 +66,7 @@ require (
 	go.etcd.io/bbolt v1.3.5 // indirect
 	golang.org/x/crypto v0.0.0-20201016220609-9e8e0b390897
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
+	golang.org/x/sys v0.0.0-20210113181707-4bcb84eeeb78 // indirect
 	golang.org/x/tools v0.0.0-20200708183856-df98bc6d456c // indirect
 	google.golang.org/grpc v1.29.1
 	google.golang.org/protobuf v1.25.0
