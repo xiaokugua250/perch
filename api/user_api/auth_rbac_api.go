@@ -14,7 +14,7 @@ import (
 )
 
 func PlatAuthRolesGetHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userRoles []rbac.AuthRBACRoles
 
@@ -41,7 +41,7 @@ func PlatAuthRolesGetHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func PlatSpecAuthRoleGetHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userRoles rbac.AuthRBACRoles
 			roleID    int
@@ -72,7 +72,7 @@ func PlatSpecAuthRoleGetHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func PlatAuthRoleUpdateHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userRoles rbac.AuthRBACRoles
 			roleID    int
@@ -106,7 +106,7 @@ func PlatAuthRoleUpdateHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func PlatAuthRoleDeleteHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userRoles rbac.AuthRBACRoles
 			roleID    int
@@ -136,7 +136,7 @@ func PlatAuthRoleDeleteHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func PlatAuthRoleCreateHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userRoles rbac.AuthRBACRoles
 			err       error
@@ -166,7 +166,7 @@ func PlatAuthRoleCreateHandler(w http.ResponseWriter, r *http.Request) {
 
 //todo 获取特定用户的权限
 func PlatAuthSpecRolePermissionsGetHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userRoles rbac.AuthRBACRoles
 			err       error
@@ -195,7 +195,7 @@ func PlatAuthSpecRolePermissionsGetHandler(w http.ResponseWriter, r *http.Reques
 }
 
 func PlatAuthPermissionsGetHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userPermissions []rbac.AuthRBACPermissions
 
@@ -223,7 +223,7 @@ func PlatAuthPermissionsGetHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func PlatSpecAuthPermissionGetHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userPermissions rbac.AuthRBACPermissions
 			permissionID    int
@@ -253,7 +253,7 @@ func PlatSpecAuthPermissionGetHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func PlatAuthPermissionUpdateHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userPermissions rbac.AuthRBACPermissions
 			permissionID    int
@@ -289,7 +289,7 @@ func PlatAuthPermissionUpdateHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func PlatAuthPermissionDeleteHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userPermissions rbac.AuthRBACPermissions
 			permissionID    int
@@ -319,7 +319,7 @@ func PlatAuthPermissionDeleteHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func PlatAuthPermissionCreateHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userPermissions rbac.AuthRBACPermissions
 

@@ -12,10 +12,11 @@ import (
 const (
 	PrivateAccessSecrete = `bCBsb3ZlIGJlZXJz` //此处可换成特定加密私钥，比如rsa生成的私钥信息
 	TokenExpireTime      = 12
+	TokenName="Secret-Token"
 )
 
 func GenJwtToken(user rbac.AuthUser) (string, error) {
-	claims := model.PerchToken{
+	claims := model.SecretToken{
 		UserUID:  user.UserUID,
 		UserGID:  user.UserUID,
 		UserName: user.UserName,
@@ -42,12 +43,13 @@ func VerifyToken(tokenString string) (*jwt.Token, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	return token, nil
 }
 
-func ParseJwtToken(tokenStr string) (model.PerchToken, error) {
+func ParseJwtToken(tokenStr string) (model.SecretToken, error) {
 
-	token, err := jwt.ParseWithClaims(tokenStr, &model.PerchToken{}, func(token *jwt.Token) (i interface{}, e error) {
+	token, err := jwt.ParseWithClaims(tokenStr, &model.SecretToken{}, func(token *jwt.Token) (i interface{}, e error) {
 		if _, ok := token.Method.(*jwt.SigningMethodRSA); ok {
 			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 		}
@@ -56,10 +58,10 @@ func ParseJwtToken(tokenStr string) (model.PerchToken, error) {
 
 	})
 	if err != nil {
-		return model.PerchToken{}, err
+		return model.SecretToken{}, err
 	}
-	if aesUser, ok := token.Claims.(*model.PerchToken); ok && token.Valid {
+	if aesUser, ok := token.Claims.(*model.SecretToken); ok && token.Valid {
 		return *aesUser, nil
 	}
-	return model.PerchToken{}, errors.New("Parse Token Failed!!!")
+	return model.SecretToken{}, errors.New("parse secret token failed...")
 }

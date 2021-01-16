@@ -11,11 +11,12 @@ type BasicResponse struct {
 }
 type ResultResponse struct {
 	BasicResponse
+	SecretToken `json:"-"`
 	Spec interface{} `json:"spec"`
 }
 
 
-type PerchToken struct {
+type SecretToken struct {
 	//UserID             int      `json:"id"`
 	UserName           string   `json:"user_name"` // 用户名
 	//UserRoles          []string `json:"user_roles"`

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"perch/web/auth"
 	"perch/web/model"
 
 	"strconv"
@@ -22,7 +23,7 @@ import (
 @param
 @param
 */
-func ProcessMetricFunc(w http.ResponseWriter, r *http.Request, bean interface{}, middlePlugin MiddlewarePlugins, f func(ctx context.Context, bean interface{}, respone *model.ResultResponse) error) {
+func ProcessMetricFunc(w http.ResponseWriter, r *http.Request, bean interface{}, middlePlugin *MiddlewarePlugins, f func(ctx context.Context, bean interface{}, respone *model.ResultResponse) error) {
 	var (
 		response model.ResultResponse
 		ctx      context.Context
@@ -43,9 +44,21 @@ func ProcessMetricFunc(w http.ResponseWriter, r *http.Request, bean interface{},
 				log.Println(err)
 			}
 		}
-
-		log.Printf("request url %s with method %s,remote addr is %s\n", r.URL, r.Method, GetRemoteIP(r))
+		//todo 可以根据需求将所需要记录的日志记录下来
+		log.Printf("request url %s request method %s,remote addr is %s\n", r.URL, r.Method, GetRemoteIP(r))
 	}()
+
+	if middlePlugin.AuthToken{ //验证token
+		if r.Header.Get(auth.TokenName)==""{
+			err = errors.New("user token is none...")
+			return
+		}else {
+			response.SecretToken,err =auth.ParseJwtToken(r.Header.Get(auth.TokenName))
+			if err!= nil{
+				return
+			}
+		}
+	}
 	now := time.Now()
 	timeoutStr := r.Header.Get("Time_Out")
 	if timeoutStr == "" {

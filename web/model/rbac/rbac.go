@@ -8,10 +8,10 @@ type AuthUser struct {
 	UserGID         int64    `json:"user_gid" gorm:"column:user_gid;type:int(10)"`
 	UserName        string    `json:"user_name" gorm:"column:user_name;type:varchar(128);not null"`
 	UserPasswd      string    `json:"password" gorm:"column:password;type:varchar(128);not null"`
-	UserSalt      string    	`json:"salt" gorm:"column:salt;type:varchar(128);not null"`
+	UserSalt      string    	`json:"-" gorm:"column:salt;type:varchar(128);not null"`
 	UserEmail       string    `json:"email" gorm:"column:email;type:varchar(128);not null"`
 	UserAvatar      string    `json:"avatar" gorm:"column:avatar;type:varchar(128);not null"`
-	UserLastLogin   time.Time `json:"last_login" gorm:"column:last_login;type:varchar(128);not null"`
+	UserLastLogin   int64 `json:"last_login" gorm:"column:last_login;type:bigint(12);not null"`
 	UserStatus         int64    `json:"user_status" gorm:"column:user_status;type:int(10)"`
 	CreatedAt   time.Time `json:"created_at" gorm:"column:created_at;type:bigint(20);not null"`
 	UpdatedAt   time.Time `json:"updated_at" gorm:"column:updated_at;type:bigint(20);not null"`

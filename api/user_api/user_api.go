@@ -6,10 +6,10 @@ import (
 	"errors"
 	"fmt"
 	"perch/pkg/general/utils/secure"
+	"time"
 
 	_ "fmt"
 	"net/http"
-	"net/url"
 	database "perch/database/mysql"
 	"perch/web/auth"
 	"perch/web/metric"
@@ -22,7 +22,7 @@ import (
 
 */
 func AuthUserSignInHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			user        rbac.AuthUser
 			currentUser rbac.AuthUser
@@ -50,6 +50,9 @@ func AuthUserSignInHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return err
 		}
+		if err= database.MysqlDb.Model(&rbac.AuthUser{}).Where("user_name=?",user.UserName).Update("last_login",time.Now().Unix()).Error;err!= nil{
+			return err
+		}
 		response.Spec = userToken
 
 		response.Code = http.StatusOK
@@ -60,7 +63,7 @@ func AuthUserSignInHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func PlatLoginGenTokenHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			user        rbac.AuthUser
 			currentUser rbac.AuthUser
@@ -103,43 +106,38 @@ func PlatLoginGenTokenHandler(w http.ResponseWriter, r *http.Request) {
 
 //todo
 func PlatLogoutHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		return nil
 	})
 }
 
-func PlatUserInfoHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+func AuthUserInfoHandler(w http.ResponseWriter, r *http.Request) {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{AuthPlugin: metric.AuthPlugin{AuthToken: true}}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
-			token string
+			err error
+			user rbac.AuthUser
 		)
-		query, err := url.ParseQuery(r.URL.RawQuery)
-		if err != nil {
-			response.Message = err.Error()
-			return nil
+		if err= database.MysqlDb.Where("user_name=?",response.SecretToken.UserName).First(&user).Error;err!= nil{
+			return err
 		}
-		token = query.Get("token")
-		if token == "" {
-			response.Message = "token is empty"
-			response.Code = http.StatusBadRequest
-			return nil
-		}
-		response.Code = http.StatusOK
 
-		result := make(map[string]interface{})
+		response.Spec=user
+		response.Total=1
+		response.Code=http.StatusOK
+		/*result := make(map[string]interface{})
 		result["roles"] = []string{"admin"}
 		result["introduction"] = "i am a super administrator ..."
 		result["avatar"] = "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"
 		result["name"] = "Super Admin"
 		response.Spec = result
-		response.Message = " Get User Info Successfully !!!"
+		response.Message = " Get User Info Successfully !!!"*/
 		response.Kind = "user info"
 		return nil
 	})
 }
 
 func PlatAdminHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 
 		return nil
 	})
