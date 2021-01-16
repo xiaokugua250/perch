@@ -1,6 +1,7 @@
 <template>
   <div :class="classObj" class="app-wrapper">
     <div v-if="true" >
+      <Header></Header>
       <app-main />
       <Footer></Footer>
       <div>
@@ -38,10 +39,12 @@ import RightPanel from '@/components/RightPanel'
 import { AppMain, Navbar, Settings, Sidebar, TagsView ,Footer} from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
+import Header from "@/layout/components/Header/index";
 
 export default {
   name: 'Layout',
   components: {
+    Header,
     AppMain,
     Navbar,
     RightPanel,
