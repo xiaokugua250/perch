@@ -5,33 +5,58 @@ import Layout from '@/layout'
 const sitesBackendRouter = {
   path: '/backend',
   component: Layout,
-  redirect: '/backend',
-  name: 'Table',
+ // redirect: 'backend',
+  name: 'backend',
   meta: {
     title: 'resources',
     icon: 'peoples'
   },
   children: [
+   {
+      path: 'user',
+      component: () => import('@/views/sites/backend/user/index'),
+      name: 'user',
+      // meta: { title: 'resources' }
+    },
     {
-      path: '/backend',
+      path: 'monitor',
+      component: () => import('@/views/sites/backend/monitor/monitor'),
+      name: 'monitor',
+      // meta: { title: 'resources' }
+    },
+    {
+      path: 'k8scloud',
+      component: () => import('@/views/sites/backend/k8scloud/k8scloud'),
+      name: 'user',
+      // meta: { title: 'resources' }
+    },
+    {
+      path: 'filesystem',
+      component: () => import('@/views/sites/backend/filesystem/index'),
+      name: 'user',
+      // meta: { title: 'resources' }
+    },
+    {
+      path: 'resources',
+      component: () => import('@/views/sites/backend/resources/index'),
+      name: 'user',
+      // meta: { title: 'resources' }
+    },
+    {
+      path: 'spider',
+      component: () => import('@/views/sites/backend/spider/index'),
+      name: 'user',
+      // meta: { title: 'resources' }
+    },
+    {
+      path: '/',
       component: () => import('@/views/sites/backend/index'),
       name: 'backend'
       // redirect: '/sites',
       //  meta: { title: 'z-gour.com', icon: 'dashboard', affix: true }
 
     },
-   /* {
-      path: '/search',
-      component: () => import('@/views/sites/search/index'),
-      name: 'search',
-     // meta: { title: 'resources' }
-    },
-    {
-      path: '/about',
-      component: () => import('@/views/sites/about/index'),
-      name: 'about',
-      meta: { title: 'resources' }
-    }*/
+
 
     /*
      {

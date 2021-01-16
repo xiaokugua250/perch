@@ -10,5 +10,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="overlayscrollbars" level="application" />
+    <orderEntry type="library" name="bulma" level="application" />
+    <orderEntry type="library" name="bulma-modal-fx" level="application" />
   </component>
 </module>

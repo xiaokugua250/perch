@@ -61,7 +61,7 @@
 
 ## 待完善
 * [x]  minikube集群部署(cert-manager 证书管理)
-* [ ] 基于jwt-go的jwt 认证
+* [x] 基于jwt-go的jwt 认证
 * [ ] 基于RBAC的用户管理
 * [ ] 基于Makefile 和docker-compose的环境部署
 * [ ] web 框架调整和优化
@@ -70,7 +70,7 @@
     * [ ] Error错误处理
     * [x] web配置文件解析(`yaml`配置文件的解析)
 ## TODO
-* [ ] golang 配置文件解析
+* [x] golang 配置文件解析
 * [x] Linux 监控服务API开发
 * [ ] 前端开发
 * [ ] 用户管理与RBAC
@@ -84,7 +84,7 @@
 项目布局参考:  
 https://github.com/golang-standards/project-layout
 
-* [ ] 去除src目录
+* [x] 去除src目录
 * [ ]  使用expvar包进行服务监控
 
 

@@ -25,14 +25,14 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                      <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-48x48">
-                          <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                          <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
                         </figure>
                       </div>
                       <div class="media-content">
@@ -55,14 +55,14 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                      <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-48x48">
-                          <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                          <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
                         </figure>
                       </div>
                       <div class="media-content">
@@ -85,14 +85,14 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                      <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-48x48">
-                          <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                          <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
                         </figure>
                       </div>
                       <div class="media-content">
@@ -115,14 +115,14 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                      <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-48x48">
-                          <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                          <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
                         </figure>
                       </div>
                       <div class="media-content">
@@ -145,14 +145,14 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                      <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-48x48">
-                          <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                          <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
                         </figure>
                       </div>
                       <div class="media-content">
@@ -175,14 +175,14 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                      <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-48x48">
-                          <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                          <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
                         </figure>
                       </div>
                       <div class="media-content">
@@ -218,12 +218,9 @@
                 categories
               </p>
               <ul class="menu-list">
-                <li class="is-right"><a href="#backend/user" class="is-active"><i class="fab fa-css3-alt"></i>用户</a></li>
-                <li><a href="#let" class="is-active"><i class="fab fa-js"></i> 资源</a></li>
-                <li><a href="#let" class="is-active"><i class="fab fa-html5"></i> 系统监控</a></li>
-                <li><a href="#let" class="is-active"><i class="fab fa-html5"></i> 文件系统</a></li>
-                <li><a href="#let" class="is-active"><i class="fab fa-html5"></i> k8sCloud</a></li>
-                <li><a href="#let" class="is-active"><i class="fab fa-html5"></i> 爬虫Spider</a></li>
+                <li class="is-right"><a href="#const" class="is-active"><i class="fab fa-css3-alt"></i> CSS</a></li>
+                <li><a href="#let" class="is-active"><i class="fab fa-js"></i> JS</a></li>
+                <li><a href="#let" class="is-active"><i class="fab fa-html5"></i> HTML</a></li>
               </ul>
               <p class="menu-label">
                 More to read...
