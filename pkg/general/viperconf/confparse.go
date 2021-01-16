@@ -28,6 +28,7 @@ var (
 )
 
 func init() {
+
 	if runtime.GOOS != "windows" {
 		DefaultDevConfigDir = "/configs/dev/web_config/" //DEV_CONFIG_DIR
 		DefaultProConfigDir = "/configs/pro/web_config/" //PRO_CONFIG_DIR
