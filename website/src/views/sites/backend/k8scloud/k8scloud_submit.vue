@@ -14,15 +14,151 @@
     <section class="hero is-primary">
 
       <div class="hero-body">
-        <div style="margin-left: 200px;margin-right: 200px">
+        <div style="margin-left: 100px;margin-right: 100px">
           <div class="container">
             <section class="section">
               <div class="container">
-                <h1 class="title">平台应用111</h1>
+                <h1 class="title">平台应用</h1>
                 <h2 class="subtitle">
                   A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading
                 </h2>
-dddddddd
+
+              </div>
+
+            </section>
+            <section class="hero is-primary">
+
+              <div class="hero-body">
+                <div class="columns">
+                  <div class="column is-four-fifths">
+                    <div class="columns">
+                      <div class="column is-offset-2">
+                        <div class="card">
+                          <div class="card-image">
+                            <figure class="image is-4by3">
+                              <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
+                            </figure>
+                          </div>
+                          <div class="card-content">
+                            <div class="media">
+                              <div class="media-left">
+                                <figure class="image is-48x48">
+                                  <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
+                                </figure>
+                              </div>
+                              <div class="media-content">
+                                <p class="title is-4">John Smith</p>
+                                <p class="subtitle is-6">@johnsmith</p>
+                              </div>
+                            </div>
+
+                            <div class="content">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                              Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+                              <a href="#">#css</a> <a href="#">#responsive</a>
+                              <br>
+                              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="column">
+                        <div class="card">
+                          <div class="card-image">
+                            <figure class="image is-4by3">
+                              <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
+                            </figure>
+                          </div>
+                          <div class="card-content">
+                            <div class="media">
+                              <div class="media-left">
+                                <figure class="image is-48x48">
+                                  <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
+                                </figure>
+                              </div>
+                              <div class="media-content">
+                                <p class="title is-4">John Smith</p>
+                                <p class="subtitle is-6">@johnsmith</p>
+                              </div>
+                            </div>
+
+                            <div class="content">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                              Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+                              <a href="#">#css</a> <a href="#">#responsive</a>
+                              <br>
+                              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="column">
+                        <div class="card">
+                          <div class="card-image">
+                            <figure class="image is-4by3">
+                              <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
+                            </figure>
+                          </div>
+                          <div class="card-content">
+                            <div class="media">
+                              <div class="media-left">
+                                <figure class="image is-48x48">
+                                  <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
+                                </figure>
+                              </div>
+                              <div class="media-content">
+                                <p class="title is-4">John Smith</p>
+                                <p class="subtitle is-6">@johnsmith</p>
+                              </div>
+                            </div>
+
+                            <div class="content">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                              Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+                              <a href="#">#css</a> <a href="#">#responsive</a>
+                              <br>
+                              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="column">
+                        <div class="card">
+                          <div class="card-image">
+                            <figure class="image is-4by3">
+                              <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
+                            </figure>
+                          </div>
+                          <div class="card-content">
+                            <div class="media">
+                              <div class="media-left">
+                                <figure class="image is-48x48">
+                                  <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
+                                </figure>
+                              </div>
+                              <div class="media-content">
+                                <p class="title is-4">John Smith</p>
+                                <p class="subtitle is-6">@johnsmith</p>
+                              </div>
+                            </div>
+
+                            <div class="content">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                              Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+                              <a href="#">#css</a> <a href="#">#responsive</a>
+                              <br>
+                              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+
+
               </div>
             </section>
           </div>
@@ -33,6 +169,43 @@ dddddddd
 
       </div>
     </section>
+    <div class="column is-offset-2 is-8">
+      <div class="box">
+        <section class="section">
+          <div class="container">
+            <b-field horizontal label="Subject" type="is-danger" message="Please enter a subject">
+              <b-input name="subject" expanded></b-input>
+            </b-field>
+
+            <b-field horizontal label="From">
+              <b-input name="name" placeholder="Name" expanded></b-input>
+              <b-input name="email" type="email" placeholder="nobody@nowhere.com" expanded></b-input>
+            </b-field>
+
+            <b-field horizontal label="Topic">
+              <b-select placeholder="Select a topic">
+                <option value="1">Bulma</option>
+                <option value="2">Vue.js</option>
+                <option value="3">Buefy</option>
+              </b-select>
+            </b-field>
+
+            <b-field horizontal label="Message">
+              <b-input type="textarea"></b-input>
+            </b-field>
+
+            <b-field horizontal><!-- Label left empty for spacing -->
+              <p class="control">
+                <b-button label="Send message" type="is-primary" />
+              </p>
+            </b-field>
+
+          </div>
+        </section>
+      </div>
+    </div>
+
+
     <section class="section">
       <div class="container">
         <div class="columns">
@@ -145,7 +318,7 @@ dddddddd
           </div>
           <div class="column is-9">
             <div class="content is-medium">
-              <h3 class="title is-3">Snippetaaas ¯\_(ツ)_/¯</h3>
+              <h3 class="title is-3">Snippet ¯\_(ツ)_/¯</h3>
               <div class="box">
                 <h4 id="basic_user" class="title is-3">平台软件(SoftWares)</h4>
                 <article class="message is-primary">
