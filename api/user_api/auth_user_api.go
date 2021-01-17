@@ -18,7 +18,7 @@ import (
 	"strconv"
 )
 
-func PlatAuthUsersGetHandler(w http.ResponseWriter, r *http.Request) {
+func AuthUsersGetHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			user []rbac.AuthUser

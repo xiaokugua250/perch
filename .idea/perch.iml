@@ -12,5 +12,6 @@
     <orderEntry type="library" name="overlayscrollbars" level="application" />
     <orderEntry type="library" name="bulma" level="application" />
     <orderEntry type="library" name="bulma-modal-fx" level="application" />
+    <orderEntry type="library" name="@mdi/font" level="application" />
   </component>
 </module>

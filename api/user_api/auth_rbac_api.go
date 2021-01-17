@@ -13,7 +13,7 @@ import (
 	"strconv"
 )
 
-func PlatAuthRolesGetHandler(w http.ResponseWriter, r *http.Request) {
+func AuthRolesGetHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			userRoles []rbac.AuthRBACRoles

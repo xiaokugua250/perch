@@ -136,10 +136,4 @@ func AuthUserInfoHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func PlatAdminHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 
-		return nil
-	})
-
-}
