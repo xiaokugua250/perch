@@ -25,14 +25,14 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                      <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-48x48">
-                          <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                          <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                         </figure>
                       </div>
                       <div class="media-content">
@@ -55,14 +55,14 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                      <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-48x48">
-                          <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                          <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                         </figure>
                       </div>
                       <div class="media-content">
@@ -85,14 +85,14 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                      <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-48x48">
-                          <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                          <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                         </figure>
                       </div>
                       <div class="media-content">
@@ -115,14 +115,14 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                      <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-48x48">
-                          <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                          <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                         </figure>
                       </div>
                       <div class="media-content">
@@ -145,14 +145,14 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                      <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-48x48">
-                          <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                          <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                         </figure>
                       </div>
                       <div class="media-content">
@@ -175,14 +175,14 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                      <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-48x48">
-                          <img src="../../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                          <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                         </figure>
                       </div>
                       <div class="media-content">
@@ -214,34 +214,109 @@
         <div class="columns">
           <div class="column is-3">
             <aside class="is-medium menu">
-              <p class="menu-label">
-                categories
-              </p>
-              <ul class="menu-list">
-                <li class="is-right"><a href="#const" class="is-active"><i class="fab fa-css3-alt"></i> CSS</a></li>
-                <li><a href="#let" class="is-active"><i class="fab fa-js"></i> JS</a></li>
-                <li><a href="#let" class="is-active"><i class="fab fa-html5"></i> HTML</a></li>
-              </ul>
+              <b-menu>
+                <b-menu-list label="Menu">
+                  <b-menu-item icon="information-outline" label="Info"></b-menu-item>
+                  <b-menu-item icon="settings" :active="isActive" expanded>
+                    <template #label="props">
+                      Administrator
+                      <b-icon class="is-pulled-right" :icon="props.expanded ? 'menu-down' : 'menu-up'"></b-icon>
+                    </template>
+                    <b-menu-item icon="account" label="Users"></b-menu-item>
+                    <b-menu-item icon="cellphone-link">
+                      <template #label>
+                        Devices
+                        <b-dropdown aria-role="list" class="is-pulled-right" position="is-bottom-left">
+                          <template #trigger>
+                            <b-icon icon="dots-vertical"></b-icon>
+                          </template>
+                          <b-dropdown-item aria-role="listitem">Action</b-dropdown-item>
+                          <b-dropdown-item aria-role="listitem">Another action</b-dropdown-item>
+                          <b-dropdown-item aria-role="listitem">Something else</b-dropdown-item>
+                        </b-dropdown>
+                      </template>
+                    </b-menu-item>
+                    <b-menu-item icon="cash-multiple" label="Payments" disabled></b-menu-item>
+                  </b-menu-item>
+                  <b-menu-item icon="account" label="My Account">
+                    <b-menu-item label="Account data"></b-menu-item>
+                    <b-menu-item label="Addresses"></b-menu-item>
+                  </b-menu-item>
+                </b-menu-list>
+                <b-menu-list>
+                  <b-menu-item label="Expo" icon="link" tag="router-link" target="_blank" to="/expo"></b-menu-item>
+                </b-menu-list>
+                <b-menu-list label="Actions">
+                  <b-menu-item label="Logout"></b-menu-item>
+                </b-menu-list>
+              </b-menu>
               <p class="menu-label">
                 More to read...
               </p>
-              <ul class="menu-list">
-                <li><span class="tag is-white is-medium">Lorem</span></li>
-                <li><span class="tag is-white is-medium">Ipsum</span></li>
-                <li><span class="tag is-white is-medium">Dolor</span></li>
-                <li><span class="tag is-white is-medium">Animi</span></li>
-                <li><span class="tag is-white is-medium">Eximi</span></li>
-                <li><span class="tag is-white is-medium">Nullius</span></li>
-                <li><span class="tag is-white is-medium">Oxipi</span></li>
-                <li><span class="tag is-white is-medium">Vultus</span></li>
-                <li><span class="tag is-white is-medium">Voluptatis</span></li>
-                <li><span class="tag is-white is-medium">Exomarphis</span></li>
-                <li><span class="tag is-white is-medium">Finimi</span></li>
-                <li><span class="tag is-white is-medium">Aenigma</span></li>
-                <li><span class="tag is-white is-medium">Arkham</span></li>
-                <li><span class="tag is-white is-medium">Blue</span></li>
-                <li><span class="tag is-white is-medium">Medium</span></li>
-              </ul>
+              <section>
+                <b-field>
+                  <b-tag v-if="isTag1Active"
+                         type="is-primary"
+                         closable
+                         aria-close-label="Close tag"
+                         @close="isTag1Active = false">
+                    Colored closable tag label
+                  </b-tag>
+                </b-field>
+                <b-field>
+                  <b-tag v-if="isTag2Active"
+                         type="is-success"
+                         closable
+                         closeType='is-danger'
+                         aria-close-label="Close tag"
+                         @close="isTag2Active = false">
+                    Colored closable tag label with colored closed icon
+                  </b-tag>
+                </b-field>
+
+                <b-field>
+                  <b-tag v-if="isTag3Active"
+                         attached
+                         closable
+                         aria-close-label="Close tag"
+                         @close="isTag3Active = false">
+                    Attached closable tag label
+                  </b-tag>
+                </b-field>
+
+                <b-field>
+                  <b-tag v-if="isTag4Active"
+                         type="is-danger"
+                         attached
+                         closable
+                         aria-close-label="Close tag"
+                         @close="isTag4Active = false">
+                    Colored attached closable tag label
+                  </b-tag>
+                </b-field>
+                <b-field>
+                  <b-tag v-if="isTag5Active"
+                         close-type='is-danger'
+                         attached
+                         closable
+                         aria-close-label="Close tag"
+                         @close="isTag5Active = false">
+                    Attached tag label with colored close type
+                  </b-tag>
+                </b-field>
+                <b-field>
+                  <b-tag v-if="isTag6Active"
+                         close-type='is-warning'
+                         close-icon-type='is-dark'
+                         attached
+                         closable
+                         close-icon='delete'
+                         aria-close-label="Close tag"
+                         @close="isTag6Active = false">
+                    Attached tag label with custom and colored icon
+                  </b-tag>
+                </b-field>
+              </section>
             </aside>
           </div>
           <div class="column is-9">
@@ -293,12 +368,24 @@
 
     </body>
 
-</div>
+  </div>
 
 </template>
 
 
 <script>
+export default {
+  data() {
+    return {
+      isTag1Active: true,
+      isTag2Active: true,
+      isTag3Active: true,
+      isTag4Active: true,
+      isTag5Active: true,
+      isTag6Active: true,
+    }
+  }
+}
 window.addEventListener('resize', () => {
   const divs = document.querySelectorAll(".menu-list");
   if (window.innerWidth < 768){
@@ -309,10 +396,10 @@ window.addEventListener('resize', () => {
   }
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+/*document.addEventListener("DOMContentLoaded", function() {
   //The first argument are the elements to which the plugin shall be initialized
   //The second argument has to be at least a empty object or a object with your desired options
   OverlayScrollbars(document.querySelectorAll("body"), { });
-});
+});*/
 
 </script>

@@ -36,7 +36,7 @@ if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')
   mockXHR()
 }
-Vue.use(dataV)
+
 Vue.use(Buefy)
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size

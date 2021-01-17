@@ -25,14 +25,14 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                      <img src="../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-48x48">
-                          <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                          <img src="../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                         </figure>
                       </div>
                       <div class="media-content">
@@ -55,14 +55,14 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                      <img src="../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-48x48">
-                          <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                          <img src="../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                         </figure>
                       </div>
                       <div class="media-content">
@@ -85,14 +85,14 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                      <img src="../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-48x48">
-                          <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                          <img src="../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                         </figure>
                       </div>
                       <div class="media-content">
@@ -115,14 +115,14 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                      <img src="../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-48x48">
-                          <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                          <img src="../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                         </figure>
                       </div>
                       <div class="media-content">
@@ -145,14 +145,14 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                      <img src="../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-48x48">
-                          <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                          <img src="../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                         </figure>
                       </div>
                       <div class="media-content">
@@ -175,14 +175,14 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                      <img src="../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-48x48">
-                          <img src="../../../assets/images/sites/backend/monitorpng.png" alt="Placeholder image">
+                          <img src="../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
                         </figure>
                       </div>
                       <div class="media-content">
