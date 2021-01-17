@@ -27,7 +27,13 @@ const sitesBackendRouter = {
     {
       path: 'k8scloud',
       component: () => import('@/views/sites/backend/k8scloud/k8scloud'),
-      name: 'user',
+       name: 'k8scloud',
+       children:[{
+        path: 'submit',
+        component: () => import('@/views/sites/backend/k8scloud/k8scloud_submit'),
+        name: 'submit',
+      }
+      ]
       // meta: { title: 'resources' }
     },
     {

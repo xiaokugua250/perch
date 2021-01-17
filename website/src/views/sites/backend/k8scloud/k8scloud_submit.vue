@@ -22,50 +22,7 @@
                 <h2 class="subtitle">
                   A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading
                 </h2>
-            <div class="columns" v-for="item in 2" :key="item">
-              <div class="column"  v-for="item in 5" :key="item">
-                <div class="card">
-                  <div class="card-image">
-                    <figure class="image ">
-                      <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
-                    </figure>
-                  </div>
-                  <div class="card-content">
-                  <!--  <div class="media">
-                   <div class="media-left">
-                        <figure class="image is-48x48">
-                          <img src="../../../../assets/images/sites/backend/monitor.png" alt="Placeholder image">
-                        </figure>
-                      </div>
-                      <div class="media-content">
-                        <p class="title is-4">John Smith</p>
-                        <p class="subtitle is-6">@johnsmith</p>
-                      </div>
-                    </div>-->
-                    <div class="media-content">
-                      <b-taglist>
-                        <b-tag type="is-info">First</b-tag>
-                        <b-tag type="is-info">Second</b-tag>
-                        <b-tag type="is-info">Third</b-tag>
-
-                      </b-taglist>
-                    </div>
-                    <div class="content">
-
-                      Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-                      <a href="#">#css</a> <a href="#">#responsive</a>
-                      <br>
-                      <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-                      <b-button type="is-success is-light "   @click="isCardModalActive = true" >提交任务(submit)</b-button>
-
-                    </div>
-
-
-
-                  </div>
-                </div>
-              </div>
-            </div>
+dddddddd
               </div>
             </section>
           </div>
