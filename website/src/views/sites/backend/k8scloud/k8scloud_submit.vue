@@ -145,7 +145,7 @@ dddddddd
           </div>
           <div class="column is-9">
             <div class="content is-medium">
-              <h3 class="title is-3">Snippets ¯\_(ツ)_/¯</h3>
+              <h3 class="title is-3">Snippetaaas ¯\_(ツ)_/¯</h3>
               <div class="box">
                 <h4 id="basic_user" class="title is-3">平台软件(SoftWares)</h4>
                 <article class="message is-primary">

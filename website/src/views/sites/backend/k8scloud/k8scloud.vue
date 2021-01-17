@@ -11,6 +11,7 @@
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     </head>
     <body>
+    <router-view></router-view>
     <section class="hero is-primary">
 
       <div class="hero-body">

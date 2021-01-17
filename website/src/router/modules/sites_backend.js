@@ -26,15 +26,21 @@ const sitesBackendRouter = {
     },
     {
       path: 'k8scloud',
-
-     component: () => import('@/views/sites/backend/k8scloud/k8scloud'),
+     // redirect:"k8scloud/a",
+     // component: Layout,
+       component: () => import('@/views/sites/backend/k8scloud/k8scloud'),
        name: 'k8scloud',
       children:[
-
+/*
+        {
+          path: '',
+          component: () => import('@/views/sites/backend/k8scloud/k8scloud'),
+       //   name: 'basic',
+        },*/
            {
              path: 'submit',
              component: () => import('@/views/sites/backend/k8scloud/k8scloud_submit'),
-             name: 'submit',
+         //    name: 'submit',
            }
       ]
       // meta: { title: 'resources' }
