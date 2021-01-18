@@ -6,7 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"perch/pkg/cluster/k8scloud"
+
 	"perch/pkg/sysinfo"
 	"perch/web/metric"
 	"perch/web/model"
@@ -33,7 +33,7 @@ func CloudResoucesHandler(w http.ResponseWriter, r *http.Request) {
 func CloudResourceFileHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
-			yamlFile string
+		//	yamlFile string
 			err      error
 		)
 		file, fileHeader, err := r.FormFile("yamlfile")
@@ -47,8 +47,8 @@ func CloudResourceFileHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 		io.Copy(targetFile, file)
-		yamlFile = "/pathToStorageFile/" + targetFileName
-		err = k8scloud.K8SClientSet.K8SConstructorFileValidate(yamlFile)
+		//yamlFile = "/pathToStorageFile/" + targetFileName
+	//	err = k8scloud.K8SClientSet.K8SConstructorFileValidate(yamlFile)
 		response.Code = http.StatusOK
 		response.Spec = "k8s resource created by file successfully!!"
 		response.Message = "k8s resource created by file successfully!!"

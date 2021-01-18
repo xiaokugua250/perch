@@ -92,7 +92,7 @@ type ClientSet struct {
 var (
 	ClusterClientMap = make(map[string]ClientSet)
 
-	K8SClientSet = ClientSet{}
+
 )
 
 /**
@@ -167,8 +167,7 @@ func InitKubernetesCluster() error {
 		K8SClientSet:      clientset,
 		K8sDynamitcClient: &dynamicClient,
 	}
-	K8SClientSet.K8SClientSet = clientset
-	K8SClientSet.K8sDynamitcClient = &dynamicClient
+
 
 	return nil
 

@@ -5,18 +5,18 @@ import (
 )
 
 const (
-	K8sResourceNode           = "NODE"
+	KubernetesNode            = "NODE"
 	K8sResourceConfigmap      = "CONFIGMAP"
-	K8sResourceNamespaces     = "NAMESPACES"
+	KubernetesNamespaces      = "NAMESPACES"
 	K8sResourceServiceaccount = "SERVICEACCOUNT"
-	K8sResourcePod            = "POD"
-	K8S_RESOURCE_JOB          = "JOB"
-	K8sResourceBatchjob       = "BATCHJOB"
-	K8sResourceService        = "SERVICE"
-	K8sResourceDeployment     = "DEPLOYMENT"
-	K8sResourceDaemonset      = "DAEMONSET"
+	KubernetesPod             = "POD"
+	KubernetesJOB             = "JOB"
+	KubernetesCronjob         = "CronJob"
+	KubernetesService         = "SERVICE"
+	KubernetesDeployment      = "DEPLOYMENT"
+	KubernetesDaemonset       = "DAEMONSET"
 	K8sResourceReplicaset     = "REPLICASET"
 	K8sResourceStatefulset    = "STATEFULESET"
-	K8sResourcePv             = "PersistentVolume"
-	K8sResourcePvc            = "PersistentVolumeClaim"
+	KubernetesPv              = "PersistentVolume"
+	KubernetesPvc            = "PersistentVolumeClaim"
 )

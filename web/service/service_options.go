@@ -149,8 +149,7 @@ func WithClustersOptions(cluster interface{}) OptionFunc {
 			K8SClientSet:      clientset,
 			K8sDynamitcClient: &dynamicClient,
 		}
-		k8scloud.K8SClientSet.K8SClientSet = clientset
-		k8scloud.K8SClientSet.K8sDynamitcClient = &dynamicClient
+
 
 	}
 }
