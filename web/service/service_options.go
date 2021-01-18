@@ -1,16 +1,17 @@
 package service
 
 import (
-	"github.com/mitchellh/mapstructure"
-	"github.com/spf13/viper"
+	"fmt"
+	"gopkg.in/yaml.v2"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"io/ioutil"
 	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
 	"os"
 	database "perch/database/mysql"
-	"perch/pkg/cluster/k8s"
+	"perch/pkg/cluster/k8scloud"
 	"perch/pkg/general/viperconf"
 
 	log "github.com/sirupsen/logrus"
@@ -111,17 +112,25 @@ func WithETCDOptions(etcdConfig interface{}) OptionFunc {
 	}
 }
 
-func WithKubernetesOptions(dbconfig interface{}) OptionFunc {
+/*func WithKubernetesOptions(k8sConfig interface{}) OptionFunc {
 	return func(options *WebServer) {
 		var (
-			k8sClusterManager k8s.ClusterManager
+			k8sClusterManager k8scloud.ClusterManager
 			err               error
+			KubernetesConfig string
 		)
 
-		RunEnv := os.Getenv("RUN_ENV")
-		if RunEnv == "" {
-			RunEnv = "dev"
+
+		if k8sConfig, ok := k8sConfig.(string); ok {
+
+			if KubernetesConfig != "" { //"genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local
+				KubernetesConfig = k8sConfig
+			} else {
+				KubernetesConfig = viperconf.WebServiceConfig.WebConfig.ServerDB.DBConnURL
+				//DBConfig = "genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local"
+			}
 		}
+
 		//	viper.AddConfigPath("E:\\WorksSpaces\\GoWorkSpaces\\perch\\configs\\"+RunEnv+"\\cluster_config")
 		viper.AddConfigPath("E:\\WorksSpaces\\GoWorkSpaces\\perch\\configs\\dev\\cluster_config")
 		viper.SetConfigName("kubernetes")
@@ -148,12 +157,126 @@ func WithKubernetesOptions(dbconfig interface{}) OptionFunc {
 		if err != nil {
 			log.Fatalln(err)
 		}
-		k8s.ClusterClientMap[k8sClusterManager.KubeConfig.ClusterName] = k8s.ClientSet{
+		k8scloud.ClusterClientMap[k8sClusterManager.KubeConfig.ClusterName] = k8scloud.ClientSet{
 			K8SClientSet:      clientset,
 			K8sDynamitcClient: &dynamicClient,
 		}
-		k8s.K8SClientSet.K8SClientSet = clientset
-		k8s.K8SClientSet.K8sDynamitcClient = &dynamicClient
+		k8scloud.K8SClientSet.K8SClientSet = clientset
+		k8scloud.K8SClientSet.K8sDynamitcClient = &dynamicClient
 
 	}
+}*/
+
+
+
+func WithClustersOptions(cluster interface{}) OptionFunc {
+	return func(options *WebServer) {
+		var (
+			k8sClusterManager k8scloud.ClusterManager
+			err               error
+			clusterConfig string
+		)
+		if clusterConfigStr, ok := cluster.(string); ok {
+			if clusterConfig != "" { //"genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local
+				clusterConfig = clusterConfigStr
+			} else {
+				if os.Getenv("RUN_ENV") != "" {
+					clusterConfig = viperconf.DefaultconfigsDir+os.Getenv("RUN_ENV")+"/cluster_config/cluster.yaml"
+				} else {
+					clusterConfig =viperconf.DefaultconfigsDir+"/dev/cluster_config/cluster.yaml"
+				}
+
+				//DBConfig = "genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local"
+			}
+		}
+
+
+		conifgyaml, err := ioutil.ReadFile(clusterConfig)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		if err = yaml.Unmarshal(conifgyaml, &viperconf.ClustersConfigurations); err != nil {
+			log.Fatalln(err)
+		}
+		fmt.Printf("%+v\n",viperconf.ClustersConfigurations)
+		//	viper.AddConfigPath("E:\\WorksSpaces\\GoWorkSpaces\\perch\\configs\\"+RunEnv+"\\cluster_config")
+
+
+		config, err := clientcmd.BuildConfigFromFlags("", k8sClusterManager.KubeConfig.ConfigFile)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		clientset, err := kubernetes.NewForConfig(config)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		dynamicClient, err := dynamic.NewForConfig(config)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		k8scloud.ClusterClientMap[k8sClusterManager.KubeConfig.ClusterName] = k8scloud.ClientSet{
+			K8SClientSet:      clientset,
+			K8sDynamitcClient: &dynamicClient,
+		}
+		k8scloud.K8SClientSet.K8SClientSet = clientset
+		k8scloud.K8SClientSet.K8sDynamitcClient = &dynamicClient
+
+	}
+}
+
+
+
+func WithKubernetesOptions(configfile interface{}) OptionFunc {
+	return func(options *WebServer) {
+		var (
+			err               error
+			clusterConfig string
+		)
+		if clusterConfigStr, ok := configfile.(string); ok {
+			if clusterConfig != "" { //"genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local
+				clusterConfig = clusterConfigStr
+			} else {
+				if os.Getenv("RUN_ENV") != "" {
+					clusterConfig = viperconf.DefaultconfigsDir+os.Getenv("RUN_ENV")+"/cluster_config/cluster.yaml"
+				} else {
+					clusterConfig =viperconf.DefaultconfigsDir+"/dev/cluster_config/cluster.yaml"
+				}
+
+				//DBConfig = "genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local"
+			}
+		}
+
+
+		conifgyaml, err := ioutil.ReadFile(clusterConfig)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		if err = yaml.Unmarshal(conifgyaml, &viperconf.ClustersConfigurations); err != nil {
+			log.Fatalln(err)
+		}
+
+		for _,cluster:= range viperconf.ClustersConfigurations.Clusters{
+			if cluster.ClusterConfig.ClusterType==viperconf.CLUSTER_TYPE_KUBERNETES{
+				fmt.Printf("%+s",cluster.ClusterConfig.ClusterFile)
+				config, err := clientcmd.BuildConfigFromFlags("", cluster.ClusterConfig.ClusterFile)
+				if err != nil {
+					log.Fatalln(err)
+				}
+				clientset, err := kubernetes.NewForConfig(config)
+				if err != nil {
+					log.Fatalln(err)
+				}
+				dynamicClient, err := dynamic.NewForConfig(config)
+				if err != nil {
+					log.Fatalln(err)
+				}
+				k8scloud.ClusterClientMap[cluster.ClusterConfig.ClusterName] = k8scloud.ClientSet{
+					K8SClientSet:      clientset,
+					K8sDynamitcClient: &dynamicClient,
+				}
+			}
+		}
+
+	}
+
 }

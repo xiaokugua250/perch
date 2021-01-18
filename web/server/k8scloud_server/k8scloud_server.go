@@ -31,7 +31,7 @@ func main() {
 	webServer.Router = serverRouter
 
 	InitFunc := make(map[string]func(config interface{}) error)
-	//InitFunc["database"]=database.InitMySQLDBWithConig
+
 	webServer.InitFuncs = InitFunc
 	webServer.Start()
 

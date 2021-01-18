@@ -1,4 +1,4 @@
-package k8s
+package k8scloud
 
 import (
 	"github.com/mitchellh/mapstructure"
@@ -77,9 +77,9 @@ func NewClusterClientInstance() *clusterClientManager {
 }
 
 type ClusterManager struct {
-	KubeConfig KUBEConfig `yaml:"kubeconfig"`
+	KubeConfig KubeConfig `yaml:"kubernetes_config"`
 }
-type KUBEConfig struct {
+type KubeConfig struct {
 	ClusterName string `yaml:"cluster_name"`
 	ConfigFile  string `yaml:"config_file"`
 }
@@ -173,7 +173,7 @@ func InitKubernetesCluster() error {
 	return nil
 
 }
-
+/*
 func InitKubernetesClusterWithOptions() error {
 	var (
 		k8sClusterManager ClusterManager
@@ -219,4 +219,4 @@ func InitKubernetesClusterWithOptions() error {
 
 	return nil
 
-}
+}*/

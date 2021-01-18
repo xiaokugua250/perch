@@ -22,17 +22,33 @@ web-server:
 `
 */
 
+/*集群配置文件
+
+clusters_config:
+  - cluster:
+      name:
+	  type:
+      config_file:
+      config:
+
+ */
 var (
-	DefaultDevConfigDir = "configs/dev/web_config/" //DEV_CONFIG_DIR
-	DefaultProConfigDir = "configs/pro/web_config/" //PRO_CONFIG_DIR
-)
+	DefaultconfigsDir string  //默认配置文件目录
+	DefaultClusterconfigurationfile string
+	)
 
 func init() {
 
-	if runtime.GOOS != "windows" {
-		DefaultDevConfigDir = "/configs/dev/web_config/" //DEV_CONFIG_DIR
-		DefaultProConfigDir = "/configs/pro/web_config/" //PRO_CONFIG_DIR
+
+	if os.Getenv("CONFIG_DIR") != "" {
+		DefaultconfigsDir = os.Getenv("DEV_CONFIG_DIR")
+	}else {
+		DefaultconfigsDir="configs"
+		if runtime.GOOS!="windows"{
+			DefaultconfigsDir="/configs"
+		}
 	}
+
 }
 
 type WebServerConfig struct {
@@ -43,51 +59,25 @@ type WebServerConfig struct {
 		CacheURL  string `yaml:"cacheconn_url"`
 	} `yaml:"database"`
 }
-type GenWebConfig struct {
+type GeneralWebConfig struct {
 	WebConfig WebServerConfig `yaml:"web-server"`
 }
 type DataBaseConfig struct {
 }
 
-var WebServiceConfig *GenWebConfig
+var WebServiceConfig *GeneralWebConfig
 
-/**
-解析yaml形式config文件
-*/
-func InitYamlconfig(configfile string, result *interface{}) error {
-	_, err := os.Stat(configfile)
-	if os.IsNotExist(err) {
-		return err
-	}
-	conifgyaml, err := ioutil.ReadFile(configfile)
-	if err != nil {
-		return err
-	}
-	if err = yaml.Unmarshal(conifgyaml, &result); err != nil {
-		return err
-	}
-	return nil
-}
 
-func InitGenWebConfig(configfile string) error {
+func InitGeneralWebConfig(configfile string) error {
 	var (
 		err error
 	)
-	if os.Getenv("DEV_CONFIG_DIR") != "" {
-		DefaultDevConfigDir = os.Getenv("DEV_CONFIG_DIR")
-	}
-	if os.Getenv("PRO_CONFIG_DIR") != "" {
-		DefaultProConfigDir = os.Getenv("DEV_CONFIG_DIR")
-	}
-	if os.Getenv("PRO_ENV") != "" {
-		configfile = DefaultProConfigDir + configfile + ".yaml"
-	} else {
-		configfile = DefaultDevConfigDir + configfile + ".yaml"
 
-	}
-	_, err = os.Stat(configfile)
-	if os.IsNotExist(err) {
-		return err
+
+	if os.Getenv("RUN_ENV") != "" {
+		configfile = DefaultconfigsDir +os.Getenv("RUN_ENV")+"/web_config/"+ configfile + ".yaml"
+	} else {
+		configfile = DefaultconfigsDir + "/dev/web_config/"+configfile + ".yaml"
 	}
 	conifgyaml, err := ioutil.ReadFile(configfile)
 	if err != nil {
@@ -98,6 +88,31 @@ func InitGenWebConfig(configfile string) error {
 	}
 	return nil
 }
+
+//***********clusters config *********************
+
+
+type Cluster struct {
+	 ClusterConfig struct{
+		 ClusterName  string `yaml:"cluster_name"`
+		 ClusterType string    `yaml:"cluster_type"`
+		 ClusterFile string `yaml:"config_file"`
+		 //ClusterConfig string `yaml:"config"`
+} `yaml:"cluster"`
+}
+
+type ClusterConfiguration struct {
+	Clusters []Cluster `yaml:"clusters_configiruation"`
+}
+
+var ClustersConfigurations *ClusterConfiguration
+
+const  (
+	CLUSTER_TYPE_KUBERNETES="kubernetes"
+	CLUSTER_TYPE_SLURM="slurm"
+)
+
+
 
 type App struct {
 	Address string
@@ -137,3 +152,7 @@ func LoadConfig() *Configuration {
 	})
 	return config
 }
+
+
+
+

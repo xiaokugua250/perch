@@ -6,7 +6,7 @@ import (
 )
 
 func TestInitYamlconfig(t *testing.T) {
-	err :=InitGenWebConfig("E:/WorksSpaces/GoWorkSpaces/perch/configs/web_config/admin.yaml")
+	err := InitGeneralWebConfig("E:/WorksSpaces/GoWorkSpaces/perch/configs/web_config/admin.yaml")
 	if err!= nil{
 		fmt.Print("error is ",err)
 	}

@@ -10,20 +10,20 @@ import (
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/labels"
 	"net/http"
-	"perch/pkg/cluster/k8s"
+	"perch/pkg/cluster/k8scloud"
 	"perch/web/metric"
 	"perch/web/model"
 )
 
 func CloudNameSpacesResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
 		response.Kind = "cloud resources"
 		fmt.Printf("==>%v")
-		fmt.Println(k8s.K8SClientSet)
-		result, err := k8s.K8SClientSet.K8sResourceListWithInformer(k8s.K8S_RESOURCE_NAMESPACES, "", labels.NewSelector())
+		fmt.Println(k8scloud.K8SClientSet)
+		result, err := k8scloud.K8SClientSet.K8sResourceListWithInformer(k8scloud.K8sResourceNamespaces, "", labels.NewSelector())
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -43,12 +43,12 @@ func CloudNameSpacesResoucesHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func CloudNodeResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
 		response.Kind = "cloud resources"
-		result, err := k8s.K8SClientSet.K8sResourceListWithInformer(k8s.K8S_RESOURCE_NODE, "", labels.NewSelector())
+		result, err := k8scloud.K8SClientSet.K8sResourceListWithInformer(k8scloud.K8sResourceNode, "", labels.NewSelector())
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -67,12 +67,12 @@ func CloudNodeResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudConfigMapResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
 		response.Kind = "cloud resources"
-		result, err := k8s.K8SClientSet.K8sResourceListWithInformer(k8s.K8S_RESOURCE_CONFIGMAP, "", labels.NewSelector())
+		result, err := k8scloud.K8SClientSet.K8sResourceListWithInformer(k8scloud.K8sResourceConfigmap, "", labels.NewSelector())
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -91,12 +91,12 @@ func CloudConfigMapResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudServiceAccountResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
 		response.Kind = "cloud resources"
-		result, err := k8s.K8SClientSet.K8sResourceListWithInformer(k8s.K8S_RESOURCE_SERVICEACCOUNT, "", labels.NewSelector())
+		result, err := k8scloud.K8SClientSet.K8sResourceListWithInformer(k8scloud.K8sResourceServiceaccount, "", labels.NewSelector())
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -115,12 +115,12 @@ func CloudServiceAccountResoucesHandler(w http.ResponseWriter, r *http.Request) 
 	})
 }
 func CloudPODResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
 		response.Kind = "cloud resources"
-		result, err := k8s.K8SClientSet.K8sResourceListWithInformer(k8s.K8S_RESOURCE_POD, "", labels.NewSelector())
+		result, err := k8scloud.K8SClientSet.K8sResourceListWithInformer(k8scloud.K8sResourcePod, "", labels.NewSelector())
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -139,12 +139,12 @@ func CloudPODResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudJOBResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
 		response.Kind = "cloud resources"
-		result, err := k8s.K8SClientSet.K8sResourceListWithInformer(k8s.K8S_RESOURCE_JOB, "", labels.NewSelector())
+		result, err := k8scloud.K8SClientSet.K8sResourceListWithInformer(k8scloud.K8S_RESOURCE_JOB, "", labels.NewSelector())
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -163,12 +163,12 @@ func CloudJOBResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudBatchJOBResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
 		response.Kind = "cloud resources"
-		result, err := k8s.K8SClientSet.K8sResourceListWithInformer(k8s.K8S_RESOURCE_BATCHJOB, "", labels.NewSelector())
+		result, err := k8scloud.K8SClientSet.K8sResourceListWithInformer(k8scloud.K8sResourceBatchjob, "", labels.NewSelector())
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -187,12 +187,12 @@ func CloudBatchJOBResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudServiceResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
 		response.Kind = "cloud resources"
-		result, err := k8s.K8SClientSet.K8sResourceListWithInformer(k8s.K8S_RESOURCE_SERVICE, "", labels.NewSelector())
+		result, err := k8scloud.K8SClientSet.K8sResourceListWithInformer(k8scloud.K8sResourceService, "", labels.NewSelector())
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -211,12 +211,12 @@ func CloudServiceResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudDeploymentResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
 		response.Kind = "cloud resources"
-		result, err := k8s.K8SClientSet.K8sResourceListWithInformer(k8s.K8S_RESOURCE_DEPLOYMENT, "", labels.NewSelector())
+		result, err := k8scloud.K8SClientSet.K8sResourceListWithInformer(k8scloud.K8sResourceDeployment, "", labels.NewSelector())
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -235,12 +235,12 @@ func CloudDeploymentResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudDaemonSetResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
 		response.Kind = "cloud resources"
-		result, err := k8s.K8SClientSet.K8sResourceListWithInformer(k8s.K8S_RESOURCE_DAEMONSET, "", labels.NewSelector())
+		result, err := k8scloud.K8SClientSet.K8sResourceListWithInformer(k8scloud.K8sResourceDaemonset, "", labels.NewSelector())
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -259,12 +259,12 @@ func CloudDaemonSetResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudReplicasetResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
 		response.Kind = "cloud resources"
-		result, err := k8s.K8SClientSet.K8sResourceListWithInformer(k8s.K8S_RESOURCE_REPLICASET, "", labels.NewSelector())
+		result, err := k8scloud.K8SClientSet.K8sResourceListWithInformer(k8scloud.K8sResourceReplicaset, "", labels.NewSelector())
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -283,12 +283,12 @@ func CloudReplicasetResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudStatefuleSetResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
 		response.Kind = "cloud resources"
-		result, err := k8s.K8SClientSet.K8sResourceListWithInformer(k8s.K8S_RESOURCE_STATEFULSET, "", labels.NewSelector())
+		result, err := k8scloud.K8SClientSet.K8sResourceListWithInformer(k8scloud.K8sResourceStatefulset, "", labels.NewSelector())
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -307,12 +307,12 @@ func CloudStatefuleSetResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudPVResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
 		response.Kind = "cloud resources"
-		result, err := k8s.K8SClientSet.K8sResourceListWithInformer(k8s.K8S_RESOURCE_PV, "", labels.NewSelector())
+		result, err := k8scloud.K8SClientSet.K8sResourceListWithInformer(k8scloud.K8sResourcePv, "", labels.NewSelector())
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -331,12 +331,12 @@ func CloudPVResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func CloudPVCResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			err error
 		)
 		response.Kind = "cloud resources"
-		result, err := k8s.K8SClientSet.K8sResourceListWithInformer(k8s.K8S_RESOURCE_PVC, "", labels.NewSelector())
+		result, err := k8scloud.K8SClientSet.K8sResourceListWithInformer(k8scloud.K8sResourcePvc, "", labels.NewSelector())
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()

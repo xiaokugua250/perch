@@ -4,9 +4,9 @@ ref:
 1.https://github.com/kubernetes/client-go/issues/193
 2.https://gist.github.com/pytimer/0ad436972a073bb37b8b6b8b474520fc
 */
-package k8s
+package k8scloud
 
-import "perch/pkg/cluster/k8s/tools"
+import "perch/pkg/cluster/k8scloud/tools"
 
 /**
 

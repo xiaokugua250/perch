@@ -1,4 +1,4 @@
-package k8s
+package k8scloud
 
 import (
 	"fmt"
@@ -15,7 +15,7 @@ func TestK8SClusterManager_InitK8SClusterClient(t *testing.T) {
 	clusterManager := ClusterManager{
 
 
-		KubeConfig:   KUBEConfig{
+		KubeConfig:   KubeConfig{
 			ClusterName:"k8s_dev",
 			ConfigFile: "E:\\WorksSpaces\\GoWorkSpaces\\perch\\configs\\dev\\cluster_config\\kubernetes_clusters\\k8s_dev.config",
 		},

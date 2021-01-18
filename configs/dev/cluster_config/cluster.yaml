@@ -1,0 +1,9 @@
+
+clusters_configiruation:
+  - cluster:
+      cluster_name: k8s_dev
+      cluster_type: kubernetes
+      config_file: configs/dev/cluster_config/kubernetes_clusters/k8s_dev.config
+
+
+

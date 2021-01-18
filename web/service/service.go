@@ -59,7 +59,7 @@ func (webserver *WebServer) GenRouter() *mux.Router {
 	return router
 }
 func (webserver *WebServer) Init() {
-	err := viperconf.InitGenWebConfig(webserver.Name)
+	err := viperconf.InitGeneralWebConfig(webserver.Name)
 	if err != nil {
 		log.Fatalln(err)
 	}

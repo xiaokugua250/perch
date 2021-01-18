@@ -1,4 +1,4 @@
-package k8s
+package k8scloud
 
 import (
 	"errors"
@@ -24,7 +24,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 	stopChan := make(chan struct{})
 	factory := informers.NewSharedInformerFactoryWithOptions(k8sClientSet.K8SClientSet, 15*time.Second, informers.WithNamespace(namespaces))
 	switch resouceType {
-	case K8S_RESOURCE_NODE:
+	case K8sResourceNode:
 		informer = factory.Core().V1().Nodes()
 		//nodeInformer:= factory.Core().V1().Nodes()
 		go informer.(v1.NodeInformer).Informer().Run(stopChan)
@@ -42,7 +42,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 		}
 		*/
 		return informer.(v1.NodeInformer).Lister().List(selector)
-	case K8S_RESOURCE_NAMESPACES:
+	case K8sResourceNamespaces:
 		informer = factory.Core().V1().Namespaces()
 		go informer.(v1.NamespaceInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
@@ -51,7 +51,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
 		return informer.(v1.NamespaceInformer).Lister().List(selector)
-	case K8S_RESOURCE_CONFIGMAP:
+	case K8sResourceConfigmap:
 		informer = factory.Core().V1().ConfigMaps()
 		go informer.(v1.ConfigMapInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
@@ -60,7 +60,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
 		return informer.(v1.ConfigMapInformer).Lister().List(selector)
-	case K8S_RESOURCE_SERVICE:
+	case K8sResourceService:
 		informer = factory.Core().V1().Services()
 		go informer.(v1.ServiceInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
@@ -69,7 +69,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
 		return informer.(v1.ServiceInformer).Lister().List(selector)
-	case K8S_RESOURCE_SERVICEACCOUNT:
+	case K8sResourceServiceaccount:
 		informer = factory.Core().V1().ServiceAccounts()
 		go informer.(v1.ServiceAccountInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
@@ -78,7 +78,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
 		return informer.(v1.ServiceAccountInformer).Lister().List(selector)
-	case K8S_RESOURCE_POD:
+	case K8sResourcePod:
 		informer = factory.Core().V1().Pods()
 		go informer.(v1.PodInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
@@ -100,7 +100,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 
 		return factory.Batch().V1().Jobs().Lister().List(selector)
 	//	return informer.(batchv1.JobInformer).Lister().List(selector)
-	case K8S_RESOURCE_BATCHJOB: //todo 需要重新处理
+	case K8sResourceBatchjob: //todo 需要重新处理
 		BatchJobinformer := factory.Batch().V2alpha1().CronJobs().Informer()
 		//	go informer.(batchv2.CronJobInformer).Informer().Run(stopChan)
 		go BatchJobinformer.Run(stopChan)
@@ -111,7 +111,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 		}
 
 		return informer.(batchv2.CronJobInformer).Lister().List(selector)
-	case K8S_RESOURCE_DEPLOYMENT:
+	case K8sResourceDeployment:
 		informer = factory.Apps().V1().Deployments()
 		go informer.(appv1.DeploymentInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
@@ -121,7 +121,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 		}
 		return informer.(appv1.DeploymentInformer).Lister().List(selector)
 
-	case K8S_RESOURCE_DAEMONSET:
+	case K8sResourceDaemonset:
 		informer = factory.Apps().V1().DaemonSets()
 		go informer.(appv1.DaemonSetInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
@@ -131,7 +131,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 		}
 		return informer.(appv1.DaemonSetInformer).Lister().List(selector)
 
-	case K8S_RESOURCE_REPLICASET:
+	case K8sResourceReplicaset:
 		informer = factory.Apps().V1().ReplicaSets()
 		go informer.(appv1.ReplicaSetInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
@@ -140,7 +140,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
 		return informer.(appv1.ReplicaSetInformer).Lister().List(selector)
-	case K8S_RESOURCE_STATEFULSET:
+	case K8sResourceStatefulset:
 		informer = factory.Apps().V1().StatefulSets()
 		go informer.(appv1.StatefulSetInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
@@ -149,7 +149,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
 		return informer.(appv1.StatefulSetInformer).Lister().List(selector)
-	case K8S_RESOURCE_PV:
+	case K8sResourcePv:
 		informer = factory.Core().V1().PersistentVolumes()
 		go informer.(v1.PersistentVolumeInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
@@ -158,7 +158,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
 		return informer.(v1.PersistentVolumeInformer).Lister().List(selector)
-	case K8S_RESOURCE_PVC:
+	case K8sResourcePvc:
 		informer = factory.Core().V1().PersistentVolumeClaims()
 		go informer.(v1.PersistentVolumeClaimInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)

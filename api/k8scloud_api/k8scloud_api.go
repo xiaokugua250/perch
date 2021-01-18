@@ -6,7 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"perch/pkg/cluster/k8s"
+	"perch/pkg/cluster/k8scloud"
 	"perch/pkg/sysinfo"
 	"perch/web/metric"
 	"perch/web/model"
@@ -14,7 +14,7 @@ import (
 )
 
 func CloudResoucesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			sysMemInfo sysinfo.SysMemInformation
 			//	err        error
@@ -31,7 +31,7 @@ func CloudResoucesHandler(w http.ResponseWriter, r *http.Request) {
 根据资源文件进行k8s 集群资源处理
 */
 func CloudResourceFileHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			yamlFile string
 			err      error
@@ -48,7 +48,7 @@ func CloudResourceFileHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		io.Copy(targetFile, file)
 		yamlFile = "/pathToStorageFile/" + targetFileName
-		err = k8s.K8SClientSet.K8SConstructorFileValidate(yamlFile)
+		err = k8scloud.K8SClientSet.K8SConstructorFileValidate(yamlFile)
 		response.Code = http.StatusOK
 		response.Spec = "k8s resource created by file successfully!!"
 		response.Message = "k8s resource created by file successfully!!"
