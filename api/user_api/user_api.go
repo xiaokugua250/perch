@@ -50,7 +50,7 @@ func AuthUserSignInHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return err
 		}
-		if err= database.MysqlDb.Model(&rbac.AuthUser{}).Where("user_name=?",user.UserName).Update("last_login",time.Now().Unix()).Error;err!= nil{
+		if err = database.MysqlDb.Model(&rbac.AuthUser{}).Where("user_name=?", user.UserName).Update("last_login", time.Now().Unix()).Error; err != nil {
 			return err
 		}
 		response.Spec = userToken
@@ -114,16 +114,16 @@ func PlatLogoutHandler(w http.ResponseWriter, r *http.Request) {
 func AuthUserInfoHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{AuthPlugin: metric.AuthPlugin{AuthToken: true}}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
-			err error
+			err  error
 			user rbac.AuthUser
 		)
-		if err= database.MysqlDb.Where("user_name=?",response.SecretToken.UserName).First(&user).Error;err!= nil{
+		if err = database.MysqlDb.Where("user_name=?", response.SecretToken.UserName).First(&user).Error; err != nil {
 			return err
 		}
 
-		response.Spec=user
-		response.Total=1
-		response.Code=http.StatusOK
+		response.Spec = user
+		response.Total = 1
+		response.Code = http.StatusOK
 		/*result := make(map[string]interface{})
 		result["roles"] = []string{"admin"}
 		result["introduction"] = "i am a super administrator ..."
@@ -135,5 +135,3 @@ func AuthUserInfoHandler(w http.ResponseWriter, r *http.Request) {
 		return nil
 	})
 }
-
-

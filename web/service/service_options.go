@@ -22,11 +22,10 @@ type OptionFunc func(options *WebServer)
 func NewWebServerWithOptions(Name string, opts ...OptionFunc) WebServer {
 
 	initFuncs := make(map[string]func(interface{}) error)
-
 	webserver := WebServer{
 		Name:   Name,
 		Router: nil,
-		//InitFuncConfigMaps: initFuncMaps,
+
 		InitFuncs: initFuncs,
 		CleanFunc: nil,
 	}
@@ -51,12 +50,8 @@ func WithMySQLDBOptions(dbconfig interface{}) OptionFunc {
 			} else {
 
 				DBConfig = viperconf.WebServiceConfig.WebConfig.ServerDB.DBConnURL
-				//DBConfig = "genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local"
 			}
 		}
-
-		//dsn := DBConfig
-
 		database.MysqlDb, err = gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
 		if err != nil {
 			log.Fatalln(err)
@@ -77,8 +72,6 @@ func WithRedisOptions(redisConfig interface{}) OptionFunc {
 				DBConfig = "genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local"
 			}
 		}
-
-		//dsn := DBConfig
 
 		database.MysqlDb, err = gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
 		if err != nil {
@@ -112,84 +105,25 @@ func WithETCDOptions(etcdConfig interface{}) OptionFunc {
 	}
 }
 
-/*func WithKubernetesOptions(k8sConfig interface{}) OptionFunc {
-	return func(options *WebServer) {
-		var (
-			k8sClusterManager k8scloud.ClusterManager
-			err               error
-			KubernetesConfig string
-		)
-
-
-		if k8sConfig, ok := k8sConfig.(string); ok {
-
-			if KubernetesConfig != "" { //"genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local
-				KubernetesConfig = k8sConfig
-			} else {
-				KubernetesConfig = viperconf.WebServiceConfig.WebConfig.ServerDB.DBConnURL
-				//DBConfig = "genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local"
-			}
-		}
-
-		//	viper.AddConfigPath("E:\\WorksSpaces\\GoWorkSpaces\\perch\\configs\\"+RunEnv+"\\cluster_config")
-		viper.AddConfigPath("E:\\WorksSpaces\\GoWorkSpaces\\perch\\configs\\dev\\cluster_config")
-		viper.SetConfigName("kubernetes")
-		//viper.SetConfigFile("kubernetes_cluster.config")
-		err = viper.ReadInConfig()
-		if err != nil {
-			log.Fatalln(err)
-		}
-		err = viper.Unmarshal(&k8sClusterManager, func(config *mapstructure.DecoderConfig) {
-			config.TagName = "yaml"
-		})
-		if err != nil {
-			log.Fatalln(err)
-		}
-		config, err := clientcmd.BuildConfigFromFlags("", k8sClusterManager.KubeConfig.ConfigFile)
-		if err != nil {
-			log.Fatalln(err)
-		}
-		clientset, err := kubernetes.NewForConfig(config)
-		if err != nil {
-			log.Fatalln(err)
-		}
-		dynamicClient, err := dynamic.NewForConfig(config)
-		if err != nil {
-			log.Fatalln(err)
-		}
-		k8scloud.ClusterClientMap[k8sClusterManager.KubeConfig.ClusterName] = k8scloud.ClientSet{
-			K8SClientSet:      clientset,
-			K8sDynamitcClient: &dynamicClient,
-		}
-		k8scloud.K8SClientSet.K8SClientSet = clientset
-		k8scloud.K8SClientSet.K8sDynamitcClient = &dynamicClient
-
-	}
-}*/
-
-
-
 func WithClustersOptions(cluster interface{}) OptionFunc {
 	return func(options *WebServer) {
 		var (
 			k8sClusterManager k8scloud.ClusterManager
 			err               error
-			clusterConfig string
+			clusterConfig     string
 		)
 		if clusterConfigStr, ok := cluster.(string); ok {
 			if clusterConfig != "" { //"genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local
 				clusterConfig = clusterConfigStr
 			} else {
 				if os.Getenv("RUN_ENV") != "" {
-					clusterConfig = viperconf.DefaultconfigsDir+os.Getenv("RUN_ENV")+"/cluster_config/cluster.yaml"
+					clusterConfig = viperconf.DefaultconfigsDir + os.Getenv("RUN_ENV") + "/cluster_config/cluster.yaml"
 				} else {
-					clusterConfig =viperconf.DefaultconfigsDir+"/dev/cluster_config/cluster.yaml"
+					clusterConfig = viperconf.DefaultconfigsDir + "/dev/cluster_config/cluster.yaml"
 				}
 
-				//DBConfig = "genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local"
 			}
 		}
-
 
 		conifgyaml, err := ioutil.ReadFile(clusterConfig)
 		if err != nil {
@@ -198,9 +132,6 @@ func WithClustersOptions(cluster interface{}) OptionFunc {
 		if err = yaml.Unmarshal(conifgyaml, &viperconf.ClustersConfigurations); err != nil {
 			log.Fatalln(err)
 		}
-		fmt.Printf("%+v\n",viperconf.ClustersConfigurations)
-		//	viper.AddConfigPath("E:\\WorksSpaces\\GoWorkSpaces\\perch\\configs\\"+RunEnv+"\\cluster_config")
-
 
 		config, err := clientcmd.BuildConfigFromFlags("", k8sClusterManager.KubeConfig.ConfigFile)
 		if err != nil {
@@ -224,12 +155,10 @@ func WithClustersOptions(cluster interface{}) OptionFunc {
 	}
 }
 
-
-
 func WithKubernetesOptions(configfile interface{}) OptionFunc {
 	return func(options *WebServer) {
 		var (
-			err               error
+			err           error
 			clusterConfig string
 		)
 		if clusterConfigStr, ok := configfile.(string); ok {
@@ -237,15 +166,12 @@ func WithKubernetesOptions(configfile interface{}) OptionFunc {
 				clusterConfig = clusterConfigStr
 			} else {
 				if os.Getenv("RUN_ENV") != "" {
-					clusterConfig = viperconf.DefaultconfigsDir+os.Getenv("RUN_ENV")+"/cluster_config/cluster.yaml"
+					clusterConfig = viperconf.DefaultconfigsDir + os.Getenv("RUN_ENV") + "/cluster_config/cluster.yaml"
 				} else {
-					clusterConfig =viperconf.DefaultconfigsDir+"/dev/cluster_config/cluster.yaml"
+					clusterConfig = viperconf.DefaultconfigsDir + "/dev/cluster_config/cluster.yaml"
 				}
-
-				//DBConfig = "genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local"
 			}
 		}
-
 
 		conifgyaml, err := ioutil.ReadFile(clusterConfig)
 		if err != nil {
@@ -255,9 +181,9 @@ func WithKubernetesOptions(configfile interface{}) OptionFunc {
 			log.Fatalln(err)
 		}
 
-		for _,cluster:= range viperconf.ClustersConfigurations.Clusters{
-			if cluster.ClusterConfig.ClusterType==viperconf.CLUSTER_TYPE_KUBERNETES{
-				fmt.Printf("%+s",cluster.ClusterConfig.ClusterFile)
+		for _, cluster := range viperconf.ClustersConfigurations.Clusters {
+			if cluster.ClusterConfig.ClusterType == viperconf.CLUSTER_TYPE_KUBERNETES {
+				fmt.Printf("%+s", cluster.ClusterConfig.ClusterFile)
 				config, err := clientcmd.BuildConfigFromFlags("", cluster.ClusterConfig.ClusterFile)
 				if err != nil {
 					log.Fatalln(err)

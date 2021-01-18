@@ -22,7 +22,7 @@ func InitMySQLDB() error {
 		err error
 	)
 	MysqlDb, err = gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
-	if err!= nil{
+	if err != nil {
 		return err
 	}
 	MysqlDb.Logger = logger.New(

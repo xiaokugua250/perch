@@ -18,6 +18,3 @@ useragent 信息可以参考 https://developers.whatismybrowser.com/useragents/d
 https://blog.hartleybrody.com/scrape-amazon/#code
 */
 package crawl
-
-
-

@@ -31,21 +31,20 @@ clusters_config:
       config_file:
       config:
 
- */
+*/
 var (
-	DefaultconfigsDir string  //默认配置文件目录
+	DefaultconfigsDir               string //默认配置文件目录
 	DefaultClusterconfigurationfile string
-	)
+)
 
 func init() {
 
-
 	if os.Getenv("CONFIG_DIR") != "" {
 		DefaultconfigsDir = os.Getenv("DEV_CONFIG_DIR")
-	}else {
-		DefaultconfigsDir="configs"
-		if runtime.GOOS!="windows"{
-			DefaultconfigsDir="/configs"
+	} else {
+		DefaultconfigsDir = "configs"
+		if runtime.GOOS != "windows" {
+			DefaultconfigsDir = "/configs"
 		}
 	}
 
@@ -67,17 +66,15 @@ type DataBaseConfig struct {
 
 var WebServiceConfig *GeneralWebConfig
 
-
 func InitGeneralWebConfig(configfile string) error {
 	var (
 		err error
 	)
 
-
 	if os.Getenv("RUN_ENV") != "" {
-		configfile = DefaultconfigsDir +os.Getenv("RUN_ENV")+"/web_config/"+ configfile + ".yaml"
+		configfile = DefaultconfigsDir + os.Getenv("RUN_ENV") + "/web_config/" + configfile + ".yaml"
 	} else {
-		configfile = DefaultconfigsDir + "/dev/web_config/"+configfile + ".yaml"
+		configfile = DefaultconfigsDir + "/dev/web_config/" + configfile + ".yaml"
 	}
 	conifgyaml, err := ioutil.ReadFile(configfile)
 	if err != nil {
@@ -91,14 +88,13 @@ func InitGeneralWebConfig(configfile string) error {
 
 //***********clusters config *********************
 
-
 type Cluster struct {
-	 ClusterConfig struct{
-		 ClusterName  string `yaml:"cluster_name"`
-		 ClusterType string    `yaml:"cluster_type"`
-		 ClusterFile string `yaml:"config_file"`
-		 //ClusterConfig string `yaml:"config"`
-} `yaml:"cluster"`
+	ClusterConfig struct {
+		ClusterName string `yaml:"cluster_name"`
+		ClusterType string `yaml:"cluster_type"`
+		ClusterFile string `yaml:"config_file"`
+		//ClusterConfig string `yaml:"config"`
+	} `yaml:"cluster"`
 }
 
 type ClusterConfiguration struct {
@@ -107,12 +103,10 @@ type ClusterConfiguration struct {
 
 var ClustersConfigurations *ClusterConfiguration
 
-const  (
-	CLUSTER_TYPE_KUBERNETES="kubernetes"
-	CLUSTER_TYPE_SLURM="slurm"
+const (
+	CLUSTER_TYPE_KUBERNETES = "kubernetes"
+	CLUSTER_TYPE_SLURM      = "slurm"
 )
-
-
 
 type App struct {
 	Address string
@@ -152,7 +146,3 @@ func LoadConfig() *Configuration {
 	})
 	return config
 }
-
-
-
-

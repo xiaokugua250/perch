@@ -1,7 +1,6 @@
 package stream
 
 import (
-
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -12,6 +11,7 @@ import (
 type Server struct {
 	pbStream.UnimplementedStream_ServiceServer
 }
+
 func (*Server) PushStream(srv pbStream.Stream_Service_PushStreamServer) error {
 	log.Println("Start new server....")
 	//startime:= time.Now()
@@ -23,7 +23,7 @@ func (*Server) PushStream(srv pbStream.Stream_Service_PushStreamServer) error {
 			ErrorMessage: "",
 			Total:        1,
 		})
-		time.Sleep(2*time.Second);
+		time.Sleep(2 * time.Second)
 	}
 	return status.Errorf(codes.Unimplemented, "method PushStream not implemented")
 }

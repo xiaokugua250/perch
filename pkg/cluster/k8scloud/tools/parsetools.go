@@ -1,7 +1,7 @@
 /**
 目标是通过解析yaml 构造k8s 集群资源对象
 https://stackoverflow.com/questions/58783939/using-client-go-to-kubectl-apply-against-the-kubernetes-api-directly-with-mult
- */
+*/
 package tools
 
 import (
@@ -22,23 +22,20 @@ import (
 	"k8s.io/client-go/restmapper"
 )
 
-
-
 /**
 解析YAML格式的配置信息，并利用k8sclient 进行资源创建
 
- */
-func ResourceConfigParser(client kubernetes.Clientset,dynamicClient dynamic.Interface,yamlfile string) ( err error){
+*/
+func ResourceConfigParser(client kubernetes.Clientset, dynamicClient dynamic.Interface, yamlfile string) (err error) {
 
-
-	fileBytes,err:= ioutil.ReadFile(yamlfile)
-	if err!= nil{
+	fileBytes, err := ioutil.ReadFile(yamlfile)
+	if err != nil {
 		return err
 	}
 
 	log.Printf("%q \n", string(fileBytes))
 
-	yamlDecoder:= yamlutil.NewYAMLOrJSONDecoder(bytes.NewReader(fileBytes),4096)
+	yamlDecoder := yamlutil.NewYAMLOrJSONDecoder(bytes.NewReader(fileBytes), 4096)
 	for {
 		var rawObj runtime.RawExtension
 		if err = yamlDecoder.Decode(&rawObj); err != nil {
@@ -54,7 +51,7 @@ func ResourceConfigParser(client kubernetes.Clientset,dynamicClient dynamic.Inte
 
 		gr, err := restmapper.GetAPIGroupResources(client.Discovery())
 		if err != nil {
-		return err
+			return err
 		}
 
 		mapper := restmapper.NewDiscoveryRESTMapper(gr)
@@ -81,7 +78,5 @@ func ResourceConfigParser(client kubernetes.Clientset,dynamicClient dynamic.Inte
 		return err
 	}
 	return nil
-
-
 
 }

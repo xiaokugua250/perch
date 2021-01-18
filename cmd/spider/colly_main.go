@@ -11,9 +11,9 @@ import (
 )
 
 func main() {
-	startTime := time.Date(2020,11,18,10,16,30,55,time.Local)
+	startTime := time.Date(2020, 11, 18, 10, 16, 30, 55, time.Local)
 	for {
-		if time.Now().After(startTime )&& time.Now().Before(startTime.Add(time.Minute*1)) {
+		if time.Now().After(startTime) && time.Now().Before(startTime.Add(time.Minute*1)) {
 			for {
 				c := colly.NewCollector(colly.Debugger(&debug.LogDebugger{}))
 
@@ -42,7 +42,6 @@ func main() {
 				//extensions.RandomUserAgent(c)
 				//extensions.Referer(c)
 
-
 				c.OnError(func(_ *colly.Response, err error) {
 					log.Println("Something went wrong:", err)
 				})
@@ -52,18 +51,16 @@ func main() {
 				})
 				c.OnResponse(func(response *colly.Response) {
 					//fmt.Println("-=----", response.StatusCode)
-					fmt.Printf("response from %s is %s\n",response.Request.URL,string(response.Body))
+					fmt.Printf("response from %s is %s\n", response.Request.URL, string(response.Body))
 				})
 				err := c.Post("https://www.youcash.com/wechat-web/limitTimeCoupon/currentTime", nil)
 				//err :=c.Visit("https://www.youcash.com/wechat-web/html/psbcTribleGift/index.html?channelCode=1000000499999999&activityId=3fc213ae83a74ea299148073796cdeb7&usage=1&override=0#/home")
 				if err != nil {
 					fmt.Println("error is", err)
 				}
-				time.Sleep(3*time.Nanosecond)
+				time.Sleep(3 * time.Nanosecond)
 			}
 		}
 	}
-
-
 
 }

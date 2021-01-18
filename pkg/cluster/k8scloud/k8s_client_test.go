@@ -14,10 +14,9 @@ func TestK8SClusterManager_InitK8SClusterClient(t *testing.T) {
 	)
 	clusterManager := ClusterManager{
 
-
-		KubeConfig:   KubeConfig{
-			ClusterName:"k8s_dev",
-			ConfigFile: "E:\\WorksSpaces\\GoWorkSpaces\\perch\\configs\\dev\\cluster_config\\kubernetes_clusters\\k8s_dev.config",
+		KubeConfig: KubeConfig{
+			ClusterName: "k8s_dev",
+			ConfigFile:  "E:\\WorksSpaces\\GoWorkSpaces\\perch\\configs\\dev\\cluster_config\\kubernetes_clusters\\k8s_dev.config",
 		},
 	}
 	if err = clusterManager.InitK8SClusterClient(); err != nil {
@@ -44,33 +43,29 @@ func TestK8SClusterManager_InitK8SClusterClient(t *testing.T) {
 	fmt.Println("result is ", result)
 	*/
 
-
 }
 
-
 func TestInitKubernetesCluster(t *testing.T) {
-	if err :=InitKubernetesCluster();err!= nil{
+	if err := InitKubernetesCluster(); err != nil {
 		fmt.Println(err)
 	}
 }
 
 func TestClusterManager_InitK8SClusterClient(t *testing.T) {
 
-	var funcArray []func(string )error
-	funcArray=append(funcArray,a)
-	funcArray=append(funcArray,b)
+	var funcArray []func(string) error
+	funcArray = append(funcArray, a)
+	funcArray = append(funcArray, b)
 	fmt.Println(funcArray)
 
 }
 
-func a(string2 string)error{
+func a(string2 string) error {
 	fmt.Println(string2)
 	return nil
 }
 
-
-
-func b(string2 string)error{
+func b(string2 string) error {
 	fmt.Println(string2)
 	return nil
 }

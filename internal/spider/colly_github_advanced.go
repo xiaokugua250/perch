@@ -41,15 +41,14 @@ func FileLinesScanner(fileName string) ([]string, error) {
 }
 
 func main() {
-var (
-	basicInfos     []github.BasicInfo
-	err error
-)
+	var (
+		basicInfos []github.BasicInfo
+		err        error
+	)
 	/*CollySpider := &crawl.CrawlColly{}
 	CollySpider.CollyInit()
 	CollySpider.Collystart()*/
 	database.InitMySQLDB()
-
 
 	//targetURL := "https://github.com/avelino/awesome-go"
 	collector := colly.NewCollector(
@@ -95,13 +94,12 @@ var (
 		fmt.Println("Visiting", r.URL)
 	})
 
-
 	err = database.MysqlDb.Limit(-1).Where("oldest_commit_at=0").Find(&basicInfos).Error
 	if err != nil {
 		log.Fatalln(err)
 	}
 	for _, item := range basicInfos {
-		err = collector.Visit(item.Link+"/file-list/master")
+		err = collector.Visit(item.Link + "/file-list/master")
 
 		if err != nil {
 			fmt.Printf("error in visist url %s is %s\n", item.Link, err)
@@ -121,9 +119,6 @@ func BasictInformations(elment *colly.HTMLElement) {
 	doc := elment.DOM
 
 	basicBodyDom := doc
-
-
-
 
 	var CommitTimeLines tools.TimeSlice
 
@@ -147,9 +142,7 @@ func BasictInformations(elment *colly.HTMLElement) {
 		basicInfo.NewestCommitAt = CommitTimeLines[CommitTimeLines.Len()-1].Unix()
 	}
 
-
-
-	fmt.Printf("%+v\n",CommitTimeLines)
+	fmt.Printf("%+v\n", CommitTimeLines)
 	/*if err =database.MySQL_DB.Create(&basicInfo).Error;err!= nil{
 		log.Printf("error in create basic info is %s\n",err)
 	}*/
@@ -158,7 +151,7 @@ func BasictInformations(elment *colly.HTMLElement) {
 	updated_map["oldest_commit_at"] = basicInfo.OldestCommitAt
 	updated_map["newest_commit_at"] = basicInfo.NewestCommitAt
 	if basicInfo.NewestCommitAt != 0 {
-		link := strings.TrimSuffix(elment.Request.URL.String(),"/file-list/master")
+		link := strings.TrimSuffix(elment.Request.URL.String(), "/file-list/master")
 		if err = database.MysqlDb.Model(&basicInfo).Where("link=?", link).Updates(&updated_map).Error; err != nil {
 			log.Error(err)
 		}
@@ -169,4 +162,3 @@ func BasictInformations(elment *colly.HTMLElement) {
 	//Log.Printf(" basic info is %+v\n", basicInfo)
 	//log.Infof(" %+v\n", basicInfo)
 }
-

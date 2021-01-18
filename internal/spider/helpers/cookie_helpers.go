@@ -1,32 +1,28 @@
 package helpers
 
-
-
-
-
 //todo httpCookie 设置
-func HttpCookieHelper()(string,error){
+func HttpCookieHelper() (string, error) {
 	var (
 		userAgent string
-		err error
+		err       error
 	)
-	return userAgent,err
+	return userAgent, err
 }
 
 //todo httpCookie 设置
-func HttpRequestCookieHelper()(string,error){
+func HttpRequestCookieHelper() (string, error) {
 	var (
 		userAgent string
-		err error
+		err       error
 	)
-	return userAgent,err
+	return userAgent, err
 }
 
 //todo httpCookie 设置
-func HttpResponseCookieHelper()(string,error){
+func HttpResponseCookieHelper() (string, error) {
 	var (
 		userAgent string
-		err error
+		err       error
 	)
-	return userAgent,err
+	return userAgent, err
 }

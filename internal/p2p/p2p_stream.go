@@ -19,8 +19,6 @@ import (
 	"strings"
 )
 
-
-
 type StarfsDataStream struct {
 	ID         int64         `json:"id"`      //ID
 	Channel    string        `json:"channel"` //Channel

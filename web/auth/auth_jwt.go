@@ -12,7 +12,7 @@ import (
 const (
 	PrivateAccessSecrete = `bCBsb3ZlIGJlZXJz` //此处可换成特定加密私钥，比如rsa生成的私钥信息
 	TokenExpireTime      = 12
-	TokenName="Secret-Token"
+	TokenName            = "Secret-Token"
 )
 
 func GenJwtToken(user rbac.AuthUser) (string, error) {

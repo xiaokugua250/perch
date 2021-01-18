@@ -204,9 +204,6 @@ func AdvancedInformationsWithFileList(elment *colly.HTMLElement) {
 	//Log.Infof(" %+v\n", basicInfo, err)
 }
 
-
-
-
 func AdvancedInformationsWithTag(elment *colly.HTMLElement) {
 	//queryDom := elment.DOM.Find("#readme")
 
@@ -249,8 +246,6 @@ func AdvancedInformationsWithTag(elment *colly.HTMLElement) {
 
 }
 
-
-
 func AdvancedInformationsWithHtml(htmlDir string) {
 	//queryDom := elment.DOM.Find("#readme")
 
@@ -264,8 +259,8 @@ func AdvancedInformationsWithHtml(htmlDir string) {
 
 	//fmt.Printf("readme text is %s\n",Readme.Text())
 	var CommitTimeLines tools.TimeSlice
-	fileList .Find("time-ago").Each(func(i int, selection *goquery.Selection) {
-		fmt.Printf("%s\n",selection.Text())
+	fileList.Find("time-ago").Each(func(i int, selection *goquery.Selection) {
+		fmt.Printf("%s\n", selection.Text())
 		commitHistorys, _ := selection.Attr("datetime")
 
 		//fmt.Printf("commit date is %s,%b\n",commitHistorys,ok)
@@ -277,7 +272,6 @@ func AdvancedInformationsWithHtml(htmlDir string) {
 		//if selection.Children()
 	})
 	sort.Sort(CommitTimeLines)
-	fmt.Printf("%+v,%+v\n",CommitTimeLines[0].Unix(),CommitTimeLines[CommitTimeLines.Len()-1].Unix())
-
+	fmt.Printf("%+v,%+v\n", CommitTimeLines[0].Unix(), CommitTimeLines[CommitTimeLines.Len()-1].Unix())
 
 }

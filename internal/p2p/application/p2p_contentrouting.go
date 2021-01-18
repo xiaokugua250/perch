@@ -7,19 +7,19 @@ package main
 
 import (
 	"context"
-	"github.com/ipfs/go-cid"
-	"github.com/libp2p/go-libp2p-core/peer"
-	mh "github.com/multiformats/go-multihash"
-	"time"
 	"fmt"
-	"github.com/libp2p/go-libp2p"
+	"github.com/ipfs/go-cid"
 	ds "github.com/ipfs/go-datastore"
 	dsync "github.com/ipfs/go-datastore/sync"
+	"github.com/libp2p/go-libp2p"
+	"github.com/libp2p/go-libp2p-core/peer"
 	dht "github.com/libp2p/go-libp2p-kad-dht"
 	rhost "github.com/libp2p/go-libp2p/p2p/host/routed"
 	ma "github.com/multiformats/go-multiaddr"
+	mh "github.com/multiformats/go-multihash"
 	log "github.com/sirupsen/logrus"
 	_ "perch/pkg/general/log"
+	"time"
 )
 
 func main() {

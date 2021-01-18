@@ -1,6 +1,6 @@
 /**
 ref https://medium.com/swlh/increase-your-scraping-speed-with-go-and-colly-the-basics-41038bc3647e
- */
+*/
 
 package crawl
 
@@ -39,8 +39,8 @@ func TestCrawlColly_CollyElmentHTMLHandler(t *testing.T) {
 		})
 	})
 
-	err :=c.Visit("https://www.amazon.com/s?k=nintendo+switch&ref=nb_sb_noss_1")
-	if err!= nil{
+	err := c.Visit("https://www.amazon.com/s?k=nintendo+switch&ref=nb_sb_noss_1")
+	if err != nil {
 		log.Print(err)
 	}
 }

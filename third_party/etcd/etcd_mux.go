@@ -1,6 +1,6 @@
 /**
 ETCD 分布式锁
- */
+*/
 package etcd
 
 import (
@@ -11,7 +11,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func main(){
+func main() {
 	cli, err := clientv3.New(clientv3.Config{Endpoints: []string{"127.0.0.1:2379"}})
 	if err != nil {
 		log.Fatal(err)

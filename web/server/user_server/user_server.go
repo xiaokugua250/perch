@@ -20,7 +20,7 @@ func main() {
 		{RouterPath: "/user/{id}", RouterHandlerFunc: admin.PlatAuthUserDeleteHandler, RouterMethod: http.MethodDelete},
 		{RouterPath: "/user/{id}", RouterHandlerFunc: admin.PlatSpecAuthUserGetHandler, RouterMethod: http.MethodGet},
 
-		{RouterPath: "/roles", RouterHandlerFunc: admin.AuthRolesGetHandler, RouterMethod: http.MethodGet,RouterDescription: "获取用户角色"},
+		{RouterPath: "/roles", RouterHandlerFunc: admin.AuthRolesGetHandler, RouterMethod: http.MethodGet, RouterDescription: "获取用户角色"},
 		{RouterPath: "/role/{id}", RouterHandlerFunc: admin.PlatAuthRoleUpdateHandler, RouterMethod: http.MethodPatch},
 
 		{RouterPath: "/role/{id}", RouterHandlerFunc: admin.PlatAuthRoleDeleteHandler, RouterMethod: http.MethodDelete},

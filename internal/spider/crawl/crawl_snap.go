@@ -25,17 +25,16 @@ import (
 	"perch/internal/spider/anaysis"
 )
 
-func CrawSpiderWithSnapTask(collecter *colly.Collector,url string)(error){
+func CrawSpiderWithSnapTask(collecter *colly.Collector, url string) error {
 	var (
 		err error
 	)
 
 	collecter.OnError(anaysis.GeneralOnErrorFunc)
 
-	err =collecter.Visit(url)
-	if err!= nil{
+	err = collecter.Visit(url)
+	if err != nil {
 		log.Error(err)
 	}
 	return err
 }
-

@@ -30,8 +30,6 @@ func ApplicationsInstancesCreateHandler(w http.ResponseWriter, r *http.Request) 
 			return err
 		}
 
-
-
 		if err = database.MysqlDb.Create(&instance).Error; err != nil {
 			return err
 		}
@@ -45,7 +43,6 @@ func ApplicationsInstancesCreateHandler(w http.ResponseWriter, r *http.Request) 
 	})
 }
 
-
 /**
 
 查询应用实例
@@ -54,12 +51,11 @@ func ApplicationsInstancesCreateHandler(w http.ResponseWriter, r *http.Request) 
 func ApplicationsInstancesGetHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
-			instances  []applications.ApplicationInstances
+			instances []applications.ApplicationInstances
 
-			err         error
+			err error
 		)
 		response.Kind = "application_instances"
-
 
 		if err = database.MysqlDb.Find(&instances).Error; err != nil {
 			response.Code = http.StatusInternalServerError
@@ -67,10 +63,9 @@ func ApplicationsInstancesGetHandler(w http.ResponseWriter, r *http.Request) {
 
 			return err
 		}
-		if err= database.MysqlDb.Model(&applications.ApplicationInstances{}).Count(&response.Total).Error;err!= nil{
+		if err = database.MysqlDb.Model(&applications.ApplicationInstances{}).Count(&response.Total).Error; err != nil {
 			return err
 		}
-
 
 		response.Spec = instances
 
@@ -81,16 +76,14 @@ func ApplicationsInstancesGetHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-
-
 /**
 获取特定应用实例
- */
+*/
 func ApplicationsInstancesSpecGetHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			instance applications.ApplicationInstances
-			id          int
+			id       int
 
 			err error
 		)
@@ -122,7 +115,7 @@ func ApplicationsInstancesSpecUpdateHandler(w http.ResponseWriter, r *http.Reque
 	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			instance applications.ApplicationInstances
-			id          int
+			id       int
 
 			err error
 		)
@@ -150,7 +143,6 @@ func ApplicationsInstancesSpecUpdateHandler(w http.ResponseWriter, r *http.Reque
 	})
 }
 
-
 /**
 删除应用实例
 
@@ -159,7 +151,7 @@ func ApplicationsInstancesSpecDeleteHandler(w http.ResponseWriter, r *http.Reque
 	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			instance applications.ApplicationInstances
-			id          int
+			id       int
 
 			err error
 		)
@@ -181,5 +173,3 @@ func ApplicationsInstancesSpecDeleteHandler(w http.ResponseWriter, r *http.Reque
 		return nil
 	})
 }
-
-

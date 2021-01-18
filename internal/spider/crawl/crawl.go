@@ -59,14 +59,14 @@ func CrawlerFetch(url string, method string, depth int, requestData io.Reader, c
 func CrawlSpiderCollyInitWithOptions(options ...CollyOptionFunc) (*colly.Collector, error) {
 	var (
 		collyCollector *colly.Collector
-		err   error
+		err            error
 	)
 	collyCollector = colly.NewCollector()
 
 	defaultOptions := &CollyConfigOptions{
-		IgnoreRobotsTxt:true,
-		AllowRevisitURL:false,
-		UseRandomeUserAgent:true,
+		IgnoreRobotsTxt:     true,
+		AllowRevisitURL:     false,
+		UseRandomeUserAgent: true,
 	}
 	for _, opt := range options {
 		//opt(&defaultOptions)
@@ -85,23 +85,21 @@ func CrawlSpiderCollyInitWithOptions(options ...CollyOptionFunc) (*colly.Collect
 
 func CrawlSpiderCollyStart(taskConf CrawTaskConfig) error {
 	var (
-		err error
+		err       error
 		collector *colly.Collector
 	)
-	collector,err = CrawlSpiderCollyInitWithOptions(nil)
-	collector.DisallowedDomains=taskConf.TaskDisallowDomains
-
+	collector, err = CrawlSpiderCollyInitWithOptions(nil)
+	collector.DisallowedDomains = taskConf.TaskDisallowDomains
 
 	switch taskConf.TaskType {
 	case CrawTaskType_Snap:
 		//todo
 	case CrawTaskType_Complex:
-			//todo
+		//todo
 	case CrawTaskType_Normal:
 		//todo
 
 	}
-
 
 	return err
 }

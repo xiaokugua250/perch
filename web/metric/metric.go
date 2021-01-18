@@ -48,13 +48,13 @@ func ProcessMetricFunc(w http.ResponseWriter, r *http.Request, bean interface{},
 		log.Printf("request url %s request method %s,remote addr is %s\n", r.URL, r.Method, GetRemoteIP(r))
 	}()
 
-	if middlePlugin.AuthToken{ //验证token
-		if r.Header.Get(auth.TokenName)==""{
+	if middlePlugin.AuthToken { //验证token
+		if r.Header.Get(auth.TokenName) == "" {
 			err = errors.New("user token is none...")
 			return
-		}else {
-			response.SecretToken,err =auth.ParseJwtToken(r.Header.Get(auth.TokenName))
-			if err!= nil{
+		} else {
+			response.SecretToken, err = auth.ParseJwtToken(r.Header.Get(auth.TokenName))
+			if err != nil {
 				return
 			}
 		}

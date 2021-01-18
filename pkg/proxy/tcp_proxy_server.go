@@ -11,11 +11,9 @@ import (
 )
 
 type TCPProxyTarget struct {
-	ProxyServer string `json:"proxy_server"`
+	ProxyServer  string `json:"proxy_server"`
 	RemoteServer string `json:"remote_server"`
 }
-
-
 
 func (tcpproxy *TCPProxyTarget) StartTCPProxy() {
 	var (
@@ -28,8 +26,8 @@ func (tcpproxy *TCPProxyTarget) StartTCPProxy() {
 	}
 	defer tcpServer.Close()
 	for {
-		conn,err := tcpServer.Accept()
-		if err!= nil{
+		conn, err := tcpServer.Accept()
+		if err != nil {
 			log.Error(err)
 			continue
 		}
@@ -39,16 +37,14 @@ func (tcpproxy *TCPProxyTarget) StartTCPProxy() {
 
 }
 
-
 /**
 TCP 连接处理函数，主要用于数据交换使用
 将连接的数据进行转发
 */
-func (tcpproxy *TCPProxyTarget)TCPProxyConnHandler(clientConn net.Conn) {
+func (tcpproxy *TCPProxyTarget) TCPProxyConnHandler(clientConn net.Conn) {
 
-
-	 remoteConn ,err := net.Dial("tcp",tcpproxy.RemoteServer)
-	 if err!=nil{
+	remoteConn, err := net.Dial("tcp", tcpproxy.RemoteServer)
+	if err != nil {
 		log.Error(err)
 	}
 	//fmt.Println(clientConn.RemoteAddr().String(),remoteConn,clientConn.LocalAddr(),remoteConn.LocalAddr(),remoteConn.RemoteAddr())
@@ -58,7 +54,7 @@ func (tcpproxy *TCPProxyTarget)TCPProxyConnHandler(clientConn net.Conn) {
 		errChan <- err
 	}()
 	go func() {
-		_, err := io.Copy(remoteConn,clientConn)
+		_, err := io.Copy(remoteConn, clientConn)
 		errChan <- err
 	}()
 

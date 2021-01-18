@@ -10,12 +10,9 @@ type SpiderAnaysier interface {
 	SpiderParser(selector interface{}) (interface{}, error)
 }
 
-func GeneralOnErrorFunc(response *colly.Response,err error){
+func GeneralOnErrorFunc(response *colly.Response, err error) {
 
 }
-
-
-
 
 /**
 html dom 元素解析

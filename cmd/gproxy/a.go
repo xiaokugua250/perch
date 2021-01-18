@@ -41,7 +41,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Failed to parse private key")
 	}
-/*	config.PasswordCallback= func(conn ssh.ConnMetadata, password []byte) (permissions *ssh.Permissions, e error) {
+	/*	config.PasswordCallback= func(conn ssh.ConnMetadata, password []byte) (permissions *ssh.Permissions, e error) {
 		fmt.Println(conn.User(),string(password))
 		if conn.User()== "duliang" && string(password)=="duliang"{
 			return nil,nil
@@ -49,31 +49,31 @@ func main() {
 		return nil, fmt.Errorf("password rejected for %q", conn.User())
 
 	}*/
-	config.KeyboardInteractiveCallback= func(conn ssh.ConnMetadata, client ssh.KeyboardInteractiveChallenge) (permissions *ssh.Permissions, e error) {
+	config.KeyboardInteractiveCallback = func(conn ssh.ConnMetadata, client ssh.KeyboardInteractiveChallenge) (permissions *ssh.Permissions, e error) {
 		loginUser := conn.User()
-		ans, err := client("", "", []string{"Server: ","username:","password"}, []bool{true,true,true})
-		if err!= nil{
+		ans, err := client("", "", []string{"Server: ", "username:", "password"}, []bool{true, true, true})
+		if err != nil {
 			log.Println(err)
 		}
-		fmt.Println(ans,loginUser)
+		fmt.Println(ans, loginUser)
 
-		return nil,nil
+		return nil, nil
 	}
-	config.PublicKeyCallback= func(conn ssh.ConnMetadata, key ssh.PublicKey) (permissions *ssh.Permissions, e error) {
+	config.PublicKeyCallback = func(conn ssh.ConnMetadata, key ssh.PublicKey) (permissions *ssh.Permissions, e error) {
 		var privatekey []byte
-			signers,err := ssh.ParsePrivateKey(privatekey)
-			if err!= nil{
-				log.Println(e)
-			}
-			if string(signers.PublicKey().Marshal())==string(key.Marshal()){
+		signers, err := ssh.ParsePrivateKey(privatekey)
+		if err != nil {
+			log.Println(e)
+		}
+		if string(signers.PublicKey().Marshal()) == string(key.Marshal()) {
 
-			}
-		return nil,nil
+		}
+		return nil, nil
 	}
-	config.MaxAuthTries  =5
-	config.AuthLogCallback= func(conn ssh.ConnMetadata, method string, err error) {
+	config.MaxAuthTries = 5
+	config.AuthLogCallback = func(conn ssh.ConnMetadata, method string, err error) {
 
-		fmt.Println("==>",conn.User(),method,err)
+		fmt.Println("==>", conn.User(), method, err)
 	}
 	config.AddHostKey(private)
 	listener, err := net.Listen("tcp", "0.0.0.0:2022")

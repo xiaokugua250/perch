@@ -17,7 +17,7 @@ import (
 
 /**
 扫描本机中所有保存的cookies
- */
+*/
 func ScannLocalCookies(domainStr string, namesStr string, storageDir string) error {
 	var (
 		err          error
@@ -36,7 +36,7 @@ func ScannLocalCookies(domainStr string, namesStr string, storageDir string) err
 	}
 
 	if currentOs == "windows" { //windows
-		cookiesFile = storageDir + "\\" + currentOs+"_" + "cookies.json"
+		cookiesFile = storageDir + "\\" + currentOs + "_" + "cookies.json"
 
 		cookies := kooky.ReadCookies(cookiefiltes...)
 
@@ -59,7 +59,7 @@ func ScannLocalCookies(domainStr string, namesStr string, storageDir string) err
 			log.Error(err)
 			return err
 		}
-		cookiesFile = storageDir + "/" + currentOs +"_"+ "cookies.json"
+		cookiesFile = storageDir + "/" + currentOs + "_" + "cookies.json"
 		fileCookieInChrome, err := json.MarshalIndent(cookiesInChrome, "", " ")
 		if err != nil {
 			log.Error(err)
@@ -95,24 +95,22 @@ func ScannLocalCookies(domainStr string, namesStr string, storageDir string) err
 	return err
 }
 
-
-
-func LoadCookies(cookieFile string)([]http.Cookie,error){
+func LoadCookies(cookieFile string) ([]http.Cookie, error) {
 	var (
 		kookyCookie []kooky.Cookie
-		Cookies []http.Cookie
-		err error
+		Cookies     []http.Cookie
+		err         error
 	)
-	cookies ,err := ioutil.ReadFile(cookieFile)
-	if err!= nil{
-		return Cookies,nil
+	cookies, err := ioutil.ReadFile(cookieFile)
+	if err != nil {
+		return Cookies, nil
 	}
-	if err =json.Unmarshal(cookies,&kookyCookie);err!= nil{
-		return Cookies,err
+	if err = json.Unmarshal(cookies, &kookyCookie); err != nil {
+		return Cookies, err
 	}
-	for _,kcookie := range kookyCookie{
-		Cookies=append(Cookies,kcookie.HTTPCookie())
+	for _, kcookie := range kookyCookie {
+		Cookies = append(Cookies, kcookie.HTTPCookie())
 	}
 
-	return Cookies,err
+	return Cookies, err
 }

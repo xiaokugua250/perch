@@ -31,9 +31,9 @@ func GenFakeUsers() map[string]string {
 
 func GenFakeEmails() map[string]string {
 	fakeEmail := make(map[string]string)
-	fakeEmail ["email_address"] = fake.EmailAddress()
-	fakeEmail ["email_body"] = fake.EmailBody()
-	fakeEmail ["email_subject"] = fake.EmailSubject()
+	fakeEmail["email_address"] = fake.EmailAddress()
+	fakeEmail["email_body"] = fake.EmailBody()
+	fakeEmail["email_subject"] = fake.EmailSubject()
 
 	return fakeEmail
 
@@ -60,7 +60,7 @@ func GenFakeLocs() map[string]string {
 	locationInfo["latitude_degrees"] = fmt.Sprintf("%d", fake.LatitudeDegrees())
 	locationInfo["latitude_direction"] = fake.LatitudeDirection()
 	locationInfo["latitude_minutes"] = fmt.Sprintf("%d", fake.LatitudeMinutes())
-	locationInfo["latitude_seconds"] = strconv.Itoa( fake.LatitudeSeconds())
+	locationInfo["latitude_seconds"] = strconv.Itoa(fake.LatitudeSeconds())
 	locationInfo["longitude_drees"] = fmt.Sprintf("%d", fake.LongitudeDegrees())
 	locationInfo["longitude"] = fmt.Sprintf("%f", fake.Longitude())
 	locationInfo["longitude_direction"] = fake.LongitudeDirection()
@@ -92,8 +92,3 @@ func GenFakeTimes() map[string]string {
 	return timeInfo
 
 }
-
-
-
-
-

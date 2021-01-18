@@ -1,15 +1,16 @@
 package etcd
+
 import (
 	"context"
 	"fmt"
 
-	"time"
 	"github.com/coreos/etcd/clientv3"
 	log "github.com/sirupsen/logrus"
+	"time"
 )
 
 var (
-	EtcdClient  *clientv3.Client
+	EtcdClient *clientv3.Client
 )
 
 // etcd client put/get demo
@@ -48,7 +49,7 @@ func main() {
 	}
 }
 
-func KeepAlived(){
+func KeepAlived() {
 	cli, err := clientv3.New(clientv3.Config{
 		Endpoints:   []string{"127.0.0.1:2379"},
 		DialTimeout: time.Second * 5,
@@ -80,7 +81,7 @@ func KeepAlived(){
 	}
 }
 
-func Lease(){
+func Lease() {
 	cli, err := clientv3.New(clientv3.Config{
 		Endpoints:   []string{"127.0.0.1:2379"},
 		DialTimeout: time.Second * 5,
@@ -104,7 +105,7 @@ func Lease(){
 	}
 }
 
-func Watch(){
+func Watch() {
 	cli, err := clientv3.New(clientv3.Config{
 		Endpoints:   []string{"127.0.0.1:2379"},
 		DialTimeout: 5 * time.Second,

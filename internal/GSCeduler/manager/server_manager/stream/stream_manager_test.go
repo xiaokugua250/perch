@@ -2,16 +2,16 @@ package stream
 
 import (
 	"context"
+	log "github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"net"
 	"perch/internal/GSCeduler/manager/proto/pb_stream"
 	"testing"
-	 log "github.com/sirupsen/logrus"
 )
 
 func TestNewStream_ServiceClient(t *testing.T) {
-	lis,err := net.Listen("tcp","0.0.0.0:5668")
-	if err != nil{
+	lis, err := net.Listen("tcp", "0.0.0.0:5668")
+	if err != nil {
 		return
 	}
 	//创建一个grpc 服务器
@@ -25,11 +25,9 @@ func TestNewStream_ServiceClient(t *testing.T) {
 	s.Serve(lis)
 }
 
-
-
 func TestNewStream_ServiceClient2(t *testing.T) {
-	conn ,err := grpc.Dial("127.0.0.1:5668",grpc.WithInsecure())
-	if err != nil{
+	conn, err := grpc.Dial("127.0.0.1:5668", grpc.WithInsecure())
+	if err != nil {
 		return
 	}
 	defer conn.Close()
@@ -44,9 +42,9 @@ func TestNewStream_ServiceClient2(t *testing.T) {
 		Status:     "",
 		StreamData: nil,
 	}*/
-	res,_ := c.PushStream(context.Background())
+	res, _ := c.PushStream(context.Background())
 	for {
-		aa,err := res.Recv()
+		aa, err := res.Recv()
 		if err != nil {
 			log.Println(err)
 			break
@@ -54,14 +52,6 @@ func TestNewStream_ServiceClient2(t *testing.T) {
 		log.Println(aa)
 	}
 
-
-	select {
-	}
+	select {}
 
 }
-
-
-
-
-
-

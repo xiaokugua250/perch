@@ -1,9 +1,9 @@
 package database
+
 import (
 	"context"
 	"fmt"
 	"github.com/go-redis/redis/v8"
-
 )
 
 var (
@@ -18,18 +18,18 @@ func InitRedisDB() error {
 		DB:       0,  // use default DB
 	})
 
-	err := 	Redis_DB.Set(ctx, "key", "value", 0).Err()
+	err := Redis_DB.Set(ctx, "key", "value", 0).Err()
 	if err != nil {
 		panic(err)
 	}
 
-	val, err := 	Redis_DB.Get(ctx, "key").Result()
+	val, err := Redis_DB.Get(ctx, "key").Result()
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println("key", val)
 
-	val2, err := 	Redis_DB.Get(ctx, "key2").Result()
+	val2, err := Redis_DB.Get(ctx, "key2").Result()
 	if err == redis.Nil {
 		fmt.Println("key2 does not exist")
 	} else if err != nil {
@@ -42,24 +42,24 @@ func InitRedisDB() error {
 
 //初始化数据库
 func InitRedisDBWithConig(config interface{}) error {
-	Redis_DB= redis.NewClient(&redis.Options{
+	Redis_DB = redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
 
-	err := 	Redis_DB.Set(ctx, "key", "value", 0).Err()
+	err := Redis_DB.Set(ctx, "key", "value", 0).Err()
 	if err != nil {
 		panic(err)
 	}
 
-	val, err := 	Redis_DB.Get(ctx, "key").Result()
+	val, err := Redis_DB.Get(ctx, "key").Result()
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println("key", val)
 
-	val2, err := 	Redis_DB.Get(ctx, "key2").Result()
+	val2, err := Redis_DB.Get(ctx, "key2").Result()
 	if err == redis.Nil {
 		fmt.Println("key2 does not exist")
 	} else if err != nil {
@@ -69,9 +69,6 @@ func InitRedisDBWithConig(config interface{}) error {
 	}
 	return nil
 }
-
-
-
 
 var ctx = context.Background()
 

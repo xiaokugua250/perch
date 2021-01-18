@@ -12,45 +12,42 @@ import (
 	"syscall"
 	"unsafe"
 
-
 	"github.com/kr/pty"
 	"golang.org/x/crypto/ssh"
 
 	"log"
-
-//	"sshfortress/util"
+	//	"sshfortress/util"
 )
 
-func  main()  {
+func main() {
 
-		config := &ssh.ServerConfig{
-			NoClientAuth: false,
-			PasswordCallback: func(conn ssh.ConnMetadata, password []byte) (*ssh.Permissions, error) {
-				fmt.Println(conn.User(),conn.ClientVersion(),conn.LocalAddr(),conn.RemoteAddr().String(),string(conn.SessionID()))
-				/*if conn.User() == "duliang" && string(password) == "duliang" {
-					return nil, nil
-				}*/
-				return nil, fmt.Errorf("password rejected for %v", conn.User())
-			},
-			//PublicKeyCallback:           nil,
-			KeyboardInteractiveCallback: func(conn ssh.ConnMetadata, client ssh.KeyboardInteractiveChallenge) (*ssh.Permissions, error) {
-				return nil,nil
-			},
-			// Remove to disable public key auth.
+	config := &ssh.ServerConfig{
+		NoClientAuth: false,
+		PasswordCallback: func(conn ssh.ConnMetadata, password []byte) (*ssh.Permissions, error) {
+			fmt.Println(conn.User(), conn.ClientVersion(), conn.LocalAddr(), conn.RemoteAddr().String(), string(conn.SessionID()))
+			/*if conn.User() == "duliang" && string(password) == "duliang" {
+				return nil, nil
+			}*/
+			return nil, fmt.Errorf("password rejected for %v", conn.User())
+		},
+		//PublicKeyCallback:           nil,
+		KeyboardInteractiveCallback: func(conn ssh.ConnMetadata, client ssh.KeyboardInteractiveChallenge) (*ssh.Permissions, error) {
+			return nil, nil
+		},
+		// Remove to disable public key auth.
 		/*	PublicKeyCallback: func(c ssh.ConnMetadata, pubKey ssh.PublicKey) (*ssh.Permissions, error) {
-				if authorizedKeysMap[string(pubKey.Marshal())] {
-					return &ssh.Permissions{
-						// Record the public key used for authentication.
-						Extensions: map[string]string{
-							"pubkey-fp": ssh.FingerprintSHA256(pubKey),
-						},
-					}, nil
-				}
-				return nil, fmt.Errorf("unknown public key for %q", c.User())
-			},*/
-			ServerVersion:               "SSH-2.0-OWN-SERVER",
-
-		}
+			if authorizedKeysMap[string(pubKey.Marshal())] {
+				return &ssh.Permissions{
+					// Record the public key used for authentication.
+					Extensions: map[string]string{
+						"pubkey-fp": ssh.FingerprintSHA256(pubKey),
+					},
+				}, nil
+			}
+			return nil, fmt.Errorf("unknown public key for %q", c.User())
+		},*/
+		ServerVersion: "SSH-2.0-OWN-SERVER",
+	}
 	// You can generate a keypair with 'ssh-keygen -t rsa'
 	privateBytes, err := ioutil.ReadFile("id_rsa")
 	if err != nil {
@@ -68,10 +65,10 @@ func  main()  {
 		return
 	}
 	config.AddHostKey(private)
-	config.PasswordCallback= func(conn ssh.ConnMetadata, password []byte) (*ssh.Permissions, error) {
+	config.PasswordCallback = func(conn ssh.ConnMetadata, password []byte) (*ssh.Permissions, error) {
 		return nil, fmt.Errorf("password rejected for %v", conn.User())
 	}
-	fmt.Printf("==>%s\n",private)
+	fmt.Printf("==>%s\n", private)
 	//config.AddHostKey(private)
 	listener, err := net.Listen("tcp", "192.168.80.129:2022")
 	if err != nil {
@@ -112,7 +109,6 @@ func handleChannel(newChannel ssh.NewChannel) {
 	// channel type of "session". The also describes
 	// "x11", "direct-tcpip" and "forwarded-tcpip"
 	// channel types.
-
 
 	if t := newChannel.ChannelType(); t != "session" {
 		newChannel.Reject(ssh.UnknownChannelType, fmt.Sprintf("unknown channel type: %s", t))

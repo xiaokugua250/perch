@@ -14,8 +14,6 @@ import (
 	"perch/web/model/applications"
 
 	"strconv"
-
-
 )
 
 /**
@@ -68,10 +66,9 @@ func ApplicationsGetHandler(w http.ResponseWriter, r *http.Request) {
 		var (
 			apps []applications.Applications
 
-			err         error
+			err error
 		)
 		response.Kind = "applications"
-
 
 		if err = database.MysqlDb.Find(&apps).Error; err != nil {
 			response.Code = http.StatusInternalServerError
@@ -79,10 +76,9 @@ func ApplicationsGetHandler(w http.ResponseWriter, r *http.Request) {
 
 			return err
 		}
-		if err= database.MysqlDb.Model(applications.Applications{}).Count(&response.Total).Error;err!= nil{
+		if err = database.MysqlDb.Model(applications.Applications{}).Count(&response.Total).Error; err != nil {
 			return err
 		}
-
 
 		response.Spec = apps
 
@@ -95,7 +91,7 @@ func ApplicationsGetHandler(w http.ResponseWriter, r *http.Request) {
 
 /**
 查询特定应用
- */
+*/
 func ApplicationsSpecGetHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (

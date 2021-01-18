@@ -15,37 +15,29 @@ type server struct {
 	pb_normal.UnimplementedHealth_ServiceServer
 }
 
-
-func (s *server) Registry(ctx context.Context, request *pb_normal.RegistryRequest)(*pb_normal.RegistryResponse, error){
+func (s *server) Registry(ctx context.Context, request *pb_normal.RegistryRequest) (*pb_normal.RegistryResponse, error) {
 	var (
 		response pb_normal.RegistryResponse
 		err      error
 	)
-	log.Printf("request info is %s\n",request.String())
+	log.Printf("request info is %s\n", request.String())
 
-
-	return &response,err
+	return &response, err
 }
 
-
-func (s *server) UnRegistry(ctx context.Context, request *pb_normal.RegistryRequest)(*pb_normal.RegistryResponse, error){
+func (s *server) UnRegistry(ctx context.Context, request *pb_normal.RegistryRequest) (*pb_normal.RegistryResponse, error) {
 	var (
 		response pb_normal.RegistryResponse
 		err      error
 	)
-	log.Printf("request info is %s\n",request.String())
+	log.Printf("request info is %s\n", request.String())
 
-
-	return &response,err
+	return &response, err
 }
-
-
 
 func (s *server) UnSubscribe(context.Context, *pb_normal.SubscribeRequest) (*pb_normal.SubscribeResponse, error) {
 	return nil, nil
 }
-
-
 
 func (s *server) Subscribe(context.Context, *pb_normal.SubscribeRequest) (*pb_normal.SubscribeResponse, error) {
 	return nil, nil

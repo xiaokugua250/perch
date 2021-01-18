@@ -20,7 +20,6 @@ func main() {
 
 		{RouterPath: "/instances/{id}", RouterHandlerFunc: app.ApplicationsInstancesSpecUpdateHandler, RouterMethod: http.MethodPatch},
 		{RouterPath: "/instances/{id}", RouterHandlerFunc: app.ApplicationsInstancesSpecDeleteHandler, RouterMethod: http.MethodDelete},
-
 	}
 
 	webServer := service.NewWebServerWithOptions("application-micro", service.WithMySQLDBOptions(""), service.WithKubernetesOptions(""))

@@ -54,7 +54,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("host listening to %s",h.Addrs)
+	fmt.Printf("host listening to %s", h.Addrs)
 	ui := InitChatUI(chatroom)
 
 	if err = ui.Run(); err != nil {
