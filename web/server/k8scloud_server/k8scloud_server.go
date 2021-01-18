@@ -16,20 +16,19 @@ func main() {
 		{RouterPath: "/workload/{cluster}", RouterHandlerFunc: cloud.CloudWorkloadHandler, RouterMethod: http.MethodGet},
 		{RouterPath: "/workload/{cluster}/{namespaces}/{type}", RouterHandlerFunc: cloud.CloudWorkloadResourcesHandler, RouterMethod: http.MethodGet},
 
-
 		/*
-		{RouterPath: "/service", RouterHandlerFunc: cloud.CloudServiceResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/configmap", RouterHandlerFunc: cloud.CloudConfigMapResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/serviceaccount", RouterHandlerFunc: cloud.CloudServiceAccountResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/pod", RouterHandlerFunc: cloud.CloudPODResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/job", RouterHandlerFunc: cloud.CloudJOBResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/batchjob", RouterHandlerFunc: cloud.CloudBatchJOBResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/deployment", RouterHandlerFunc: cloud.CloudDeploymentResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/daemonset", RouterHandlerFunc: cloud.CloudDaemonSetResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/replicaset", RouterHandlerFunc: cloud.CloudReplicasetResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/statefulset", RouterHandlerFunc: cloud.CloudStatefuleSetResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/pv", RouterHandlerFunc: cloud.CloudPVResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/pvc", RouterHandlerFunc: cloud.CloudPVCResoucesHandler, RouterMethod: http.MethodGet},
+			{RouterPath: "/service", RouterHandlerFunc: cloud.CloudServiceResoucesHandler, RouterMethod: http.MethodGet},
+			{RouterPath: "/configmap", RouterHandlerFunc: cloud.CloudConfigMapResoucesHandler, RouterMethod: http.MethodGet},
+			{RouterPath: "/serviceaccount", RouterHandlerFunc: cloud.CloudServiceAccountResoucesHandler, RouterMethod: http.MethodGet},
+			{RouterPath: "/pod", RouterHandlerFunc: cloud.CloudPODResoucesHandler, RouterMethod: http.MethodGet},
+			{RouterPath: "/job", RouterHandlerFunc: cloud.CloudJOBResoucesHandler, RouterMethod: http.MethodGet},
+			{RouterPath: "/batchjob", RouterHandlerFunc: cloud.CloudBatchJOBResoucesHandler, RouterMethod: http.MethodGet},
+			{RouterPath: "/deployment", RouterHandlerFunc: cloud.CloudDeploymentResoucesHandler, RouterMethod: http.MethodGet},
+			{RouterPath: "/daemonset", RouterHandlerFunc: cloud.CloudDaemonSetResoucesHandler, RouterMethod: http.MethodGet},
+			{RouterPath: "/replicaset", RouterHandlerFunc: cloud.CloudReplicasetResoucesHandler, RouterMethod: http.MethodGet},
+			{RouterPath: "/statefulset", RouterHandlerFunc: cloud.CloudStatefuleSetResoucesHandler, RouterMethod: http.MethodGet},
+			{RouterPath: "/pv", RouterHandlerFunc: cloud.CloudPVResoucesHandler, RouterMethod: http.MethodGet},
+			{RouterPath: "/pvc", RouterHandlerFunc: cloud.CloudPVCResoucesHandler, RouterMethod: http.MethodGet},
 		*/
 		{RouterPath: "/resources", RouterHandlerFunc: cloud.CloudResoucesHandler, RouterMethod: http.MethodGet},
 		//----

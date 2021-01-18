@@ -33,8 +33,8 @@ func CloudResoucesHandler(w http.ResponseWriter, r *http.Request) {
 func CloudResourceFileHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
-		//	yamlFile string
-			err      error
+			//	yamlFile string
+			err error
 		)
 		file, fileHeader, err := r.FormFile("yamlfile")
 		if err != nil {
@@ -48,7 +48,7 @@ func CloudResourceFileHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		io.Copy(targetFile, file)
 		//yamlFile = "/pathToStorageFile/" + targetFileName
-	//	err = k8scloud.K8SClientSet.K8SConstructorFileValidate(yamlFile)
+		//	err = k8scloud.K8SClientSet.K8SConstructorFileValidate(yamlFile)
 		response.Code = http.StatusOK
 		response.Spec = "k8s resource created by file successfully!!"
 		response.Message = "k8s resource created by file successfully!!"

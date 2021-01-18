@@ -150,7 +150,6 @@ func WithClustersOptions(cluster interface{}) OptionFunc {
 			K8sDynamitcClient: &dynamicClient,
 		}
 
-
 	}
 }
 

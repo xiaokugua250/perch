@@ -18,5 +18,5 @@ const (
 	K8sResourceReplicaset     = "REPLICASET"
 	K8sResourceStatefulset    = "STATEFULESET"
 	KubernetesPv              = "PersistentVolume"
-	KubernetesPvc            = "PersistentVolumeClaim"
+	KubernetesPvc             = "PersistentVolumeClaim"
 )

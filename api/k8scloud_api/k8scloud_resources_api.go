@@ -165,25 +165,25 @@ func CloudWorkloadHandler(w http.ResponseWriter, r *http.Request) {
 			cluster string
 
 			workload struct {
-				Master   []string `json:"master"`
+				Master        []string    `json:"master"`
 				MatserMachine interface{} `json:"matser_machine"`
-				Worker   []string `json:"worker"`
-				WorkerMachine interface{}`json:"worker_machine"`
-				Resource struct {
+				Worker        []string    `json:"worker"`
+				WorkerMachine interface{} `json:"worker_machine"`
+				Resource      struct {
 					Avaliable struct {
-						CPU         int64 `json:"cpu"`
-						Storage     int64 `json:"storage"`
-						StorageEphemeral     int64 `json:"storage_ephemeral"`
-						Memory      int64 `json:"memory"`
-						NvidiaGPU   int   `json:"nvidia_gpu"`
+						CPU              int64 `json:"cpu"`
+						Storage          int64 `json:"storage"`
+						StorageEphemeral int64 `json:"storage_ephemeral"`
+						Memory           int64 `json:"memory"`
+						NvidiaGPU        int   `json:"nvidia_gpu"`
 					} `json:"avaliable"`
 					Used struct {
-						CPU         int64 `json:"cpu"`
-						Storage     int64 `json:"storage"`
-						Memory      int64 `json:"memory"`
-						StorageEphemeral     int64 `json:"storage_ephemeral"`
+						CPU              int64 `json:"cpu"`
+						Storage          int64 `json:"storage"`
+						Memory           int64 `json:"memory"`
+						StorageEphemeral int64 `json:"storage_ephemeral"`
 
-						NvidiaGPU   int   `json:"nvidia_gpu"`
+						NvidiaGPU int `json:"nvidia_gpu"`
 					} `json:"used"`
 				} `json:"resource"`
 			}
@@ -205,28 +205,27 @@ func CloudWorkloadHandler(w http.ResponseWriter, r *http.Request) {
 					response.Message = fmt.Sprintf("marsh result to v1.namespaces failed...")
 					return err
 				}
-				for _,node:= range nodes{
-					if _,ok := node.Labels["node-role.kubernetes.io/master"];ok{
-						workload.Master=append(workload.Master,node.Name)
+				for _, node := range nodes {
+					if _, ok := node.Labels["node-role.kubernetes.io/master"]; ok {
+						workload.Master = append(workload.Master, node.Name)
 						mastermachine := make(map[string]string)
-						mastermachine["arch"]=node.Labels["beta.kubernetes.io/arch"]
-						mastermachine["os"]=node.Labels["beta.kubernetes.io/os"]
-						workload.MatserMachine=node.Status.NodeInfo
+						mastermachine["arch"] = node.Labels["beta.kubernetes.io/arch"]
+						mastermachine["os"] = node.Labels["beta.kubernetes.io/os"]
+						workload.MatserMachine = node.Status.NodeInfo
 
-					}else { //todo 对于混合集群，这种处理方式错误
-						workload.Worker=append(workload.Worker,node.Name)
+					} else { //todo 对于混合集群，这种处理方式错误
+						workload.Worker = append(workload.Worker, node.Name)
 						workermachine := make(map[string]string)
-						workermachine["arch"]=node.Labels["beta.kubernetes.io/arch"]
-						workermachine["os"]=node.Labels["beta.kubernetes.io/os"]
-						workload.WorkerMachine=workermachine
+						workermachine["arch"] = node.Labels["beta.kubernetes.io/arch"]
+						workermachine["os"] = node.Labels["beta.kubernetes.io/os"]
+						workload.WorkerMachine = workermachine
 					}
-					workload.Resource.Avaliable.CPU+=node.Status.Allocatable.Cpu().Value()
-					workload.Resource.Avaliable.Memory+=node.Status.Allocatable.Memory().Value()/1024/1024/1024
-					workload.Resource.Avaliable.Storage+=node.Status.Allocatable.Storage().Value()
-					workload.Resource.Avaliable.StorageEphemeral+=node.Status.Allocatable.StorageEphemeral().Value()/1024/1024/1024
+					workload.Resource.Avaliable.CPU += node.Status.Allocatable.Cpu().Value()
+					workload.Resource.Avaliable.Memory += node.Status.Allocatable.Memory().Value() / 1024 / 1024 / 1024
+					workload.Resource.Avaliable.Storage += node.Status.Allocatable.Storage().Value()
+					workload.Resource.Avaliable.StorageEphemeral += node.Status.Allocatable.StorageEphemeral().Value() / 1024 / 1024 / 1024
 
 				}
-				//resultMap[cluster]=nodes
 
 			} else {
 				return errors.New(fmt.Sprintf("cluster %s not found....", cluster))
