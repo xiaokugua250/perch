@@ -1,1 +1,1 @@
-package resources_api
+package auth_api

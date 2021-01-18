@@ -1,4 +1,4 @@
-package admin
+package user_api
 
 import (
 	"context"

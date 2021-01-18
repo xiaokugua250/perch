@@ -2,32 +2,28 @@ package main
 
 import (
 	"net/http"
-	cloud "perch/api/k8scloud_api"
+	app "perch/api/applications_api"
 	"perch/web/service"
 )
 
 func main() {
 	serverRouter := []service.WebRouter{
-		{RouterPath: "/resources/namespaces", RouterHandlerFunc: cloud.CloudNameSpacesResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/resources/nodes", RouterHandlerFunc: cloud.CloudNodeResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/resources/service", RouterHandlerFunc: cloud.CloudServiceResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/resources/configmap", RouterHandlerFunc: cloud.CloudConfigMapResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/resources/serviceaccount", RouterHandlerFunc: cloud.CloudServiceAccountResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/resources/pod", RouterHandlerFunc: cloud.CloudPODResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/resources/job", RouterHandlerFunc: cloud.CloudJOBResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/resources/batchjob", RouterHandlerFunc: cloud.CloudBatchJOBResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/resources/deployment", RouterHandlerFunc: cloud.CloudDeploymentResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/resources/daemonset", RouterHandlerFunc: cloud.CloudDaemonSetResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/resources/replicaset", RouterHandlerFunc: cloud.CloudReplicasetResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/resources/statefulset", RouterHandlerFunc: cloud.CloudStatefuleSetResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/resources/pv", RouterHandlerFunc: cloud.CloudPVResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/resources/pvc", RouterHandlerFunc: cloud.CloudPVCResoucesHandler, RouterMethod: http.MethodGet},
-		{RouterPath: "/resources", RouterHandlerFunc: cloud.CloudResoucesHandler, RouterMethod: http.MethodGet},
-		//----
-		{RouterPath: "/construct/resource", RouterHandlerFunc: cloud.CloudResourceFileHandler, RouterMethod: http.MethodPost},
+		{RouterPath: "/application", RouterHandlerFunc: app.ApplicationsCreateHandler, RouterMethod: http.MethodPost},
+		{RouterPath: "/applications", RouterHandlerFunc: app.ApplicationsGetHandler, RouterMethod: http.MethodGet},
+		{RouterPath: "/applications/{id}", RouterHandlerFunc: app.ApplicationsSpecGetHandler, RouterMethod: http.MethodGet},
+		{RouterPath: "/applications/{id}", RouterHandlerFunc: app.ApplicationsSpecUpdateHandler, RouterMethod: http.MethodPatch},
+		{RouterPath: "/applications/{id}", RouterHandlerFunc: app.ApplicationsSpecDeleteHandler, RouterMethod: http.MethodDelete},
+
+		{RouterPath: "/instances", RouterHandlerFunc: app.ApplicationsInstancesCreateHandler, RouterMethod: http.MethodPost},
+		{RouterPath: "/instances", RouterHandlerFunc: app.ApplicationsInstancesGetHandler, RouterMethod: http.MethodGet},
+		{RouterPath: "/instances/{id}", RouterHandlerFunc: app.ApplicationsInstancesSpecGetHandler, RouterMethod: http.MethodDelete},
+
+		{RouterPath: "/instances/{id}", RouterHandlerFunc: app.ApplicationsInstancesSpecUpdateHandler, RouterMethod: http.MethodPatch},
+		{RouterPath: "/instances/{id}", RouterHandlerFunc: app.ApplicationsInstancesSpecDeleteHandler, RouterMethod: http.MethodDelete},
+
 	}
 
-	webServer := service.NewWebServerWithOptions("k8scloud-micro", service.WithMySQLDBOptions(""), service.WithKubernetesOptions(""))
+	webServer := service.NewWebServerWithOptions("application-micro", service.WithMySQLDBOptions(""), service.WithKubernetesOptions(""))
 	webServer.Router = serverRouter
 
 	InitFunc := make(map[string]func(config interface{}) error)

@@ -3,152 +3,141 @@ package applications_api
 import (
 	"context"
 	"encoding/json"
-	"errors"
-	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
 	database "perch/database/mysql"
 
 	"perch/web/metric"
-	"perch/web/model"
 	"perch/web/model/applications"
-
 	"strconv"
 
-
+	"perch/web/model"
 )
 
 /**
-
-创建软件应用
-
+生成应用实例
 */
-func ApplicationsCreateHandler(w http.ResponseWriter, r *http.Request) {
+func ApplicationsInstancesCreateHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
-			application    applications.Applications
-			isAlreadyExist int64
+			instance applications.ApplicationInstances
 
 			err error
 		)
-		response.Kind = "application"
-		if err = json.NewDecoder(r.Body).Decode(&application); err != nil {
+		response.Kind = "application_instances"
+		if err = json.NewDecoder(r.Body).Decode(&instance); err != nil {
 			response.Code = http.StatusBadRequest
 			return err
 		}
 
-		if err = database.MysqlDb.Model(applications.Applications{}).Where("name=?", application.Name).Count(&isAlreadyExist).Error; err != nil {
-			response.Code = http.StatusInternalServerError
-			response.Message = err.Error()
-			response.Spec = application
-			return err
-		}
-		if isAlreadyExist > 0 {
-			return errors.New(fmt.Sprintf(" application with name %s already exits..."))
-		}
-		if err = database.MysqlDb.Create(&application).Error; err != nil {
+
+
+		if err = database.MysqlDb.Create(&instance).Error; err != nil {
 			return err
 		}
 
-		response.Spec = application
+		response.Spec = instance
 
 		response.Code = http.StatusOK
 		response.Total = 1
-		response.Message = "create applications successfully !!!"
+		response.Message = "create application instance successfully !!!"
 		return nil
 	})
 }
 
+
 /**
-查询应用
+
+查询应用实例
 
 */
-func ApplicationsGetHandler(w http.ResponseWriter, r *http.Request) {
+func ApplicationsInstancesGetHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
-			apps []applications.Applications
+			instances  []applications.ApplicationInstances
 
 			err         error
 		)
-		response.Kind = "applications"
+		response.Kind = "application_instances"
 
 
-		if err = database.MysqlDb.Find(&apps).Error; err != nil {
+		if err = database.MysqlDb.Find(&instances).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 
 			return err
 		}
-		if err= database.MysqlDb.Model(applications.Applications{}).Count(&response.Total).Error;err!= nil{
+		if err= database.MysqlDb.Model(&applications.ApplicationInstances{}).Count(&response.Total).Error;err!= nil{
 			return err
 		}
 
 
-		response.Spec = apps
+		response.Spec = instances
 
 		response.Code = http.StatusOK
 
-		response.Message = "get all applications successfully !!!"
+		response.Message = "get all application instance successfully !!!"
 		return nil
 	})
 }
 
+
+
 /**
-查询特定应用
+获取特定应用实例
  */
-func ApplicationsSpecGetHandler(w http.ResponseWriter, r *http.Request) {
+func ApplicationsInstancesSpecGetHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
-			application applications.Applications
+			instance applications.ApplicationInstances
 			id          int
 
 			err error
 		)
-		response.Kind = "application"
+		response.Kind = "application_instances"
 		id, err = strconv.Atoi(mux.Vars(r)["id"])
 		if err != nil {
 			return err
 		}
 
-		if err = database.MysqlDb.Where("id=?", id).First(&application).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", id).First(&instance).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			return err
 		}
 
-		response.Spec = application
+		response.Spec = instance
 		response.Code = http.StatusOK
 		response.Total = 1
-		response.Message = "get spec application successfully !!!"
+		response.Message = "get spec application instance successfully !!!"
 		return nil
 	})
 }
 
 /**
-
-更新特定应用
+更新应用实例
 
 */
-func ApplicationsSpecUpdateHandler(w http.ResponseWriter, r *http.Request) {
+func ApplicationsInstancesSpecUpdateHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
-			application applications.Applications
+			instance applications.ApplicationInstances
 			id          int
 
 			err error
 		)
-		response.Kind = "application"
+		response.Kind = "application_instances"
 		id, err = strconv.Atoi(mux.Vars(r)["id"])
 		if err != nil {
 			return err
 		}
-		if err = json.NewDecoder(r.Body).Decode(&application); err != nil {
+		if err = json.NewDecoder(r.Body).Decode(&instance); err != nil {
 			response.Code = http.StatusBadRequest
 			return err
 		}
-		application.ID = id
+		instance.ID = id
 
-		if err = database.MysqlDb.Save(&application).Error; err != nil {
+		if err = database.MysqlDb.Save(&instance).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			return err
@@ -156,30 +145,31 @@ func ApplicationsSpecUpdateHandler(w http.ResponseWriter, r *http.Request) {
 
 		response.Code = http.StatusOK
 		response.Total = 1
-		response.Message = " application update successfully !!!"
+		response.Message = " application instance update successfully !!!"
 		return nil
 	})
 }
 
+
 /**
-删除特定应用
+删除应用实例
 
 */
-func ApplicationsSpecDeleteHandler(w http.ResponseWriter, r *http.Request) {
+func ApplicationsInstancesSpecDeleteHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
-			application applications.Applications
+			instance applications.ApplicationInstances
 			id          int
 
 			err error
 		)
-		response.Kind = "application"
+		response.Kind = "application_instances"
 		id, err = strconv.Atoi(mux.Vars(r)["id"])
 		if err != nil {
 			return err
 		}
 
-		if err = database.MysqlDb.Where("id=?", id).Delete(application).Error; err != nil {
+		if err = database.MysqlDb.Where("id=?", id).Delete(instance).Error; err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
 			return err
@@ -187,7 +177,9 @@ func ApplicationsSpecDeleteHandler(w http.ResponseWriter, r *http.Request) {
 
 		response.Code = http.StatusOK
 		response.Total = 1
-		response.Message = "application delete successfully !!!"
+		response.Message = "application instance delete successfully !!!"
 		return nil
 	})
 }
+
+
