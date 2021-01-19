@@ -1,4 +1,23 @@
 # 数据库知识综合
+<!-- TOC -->
+
+- [数据库知识综合](#数据库知识综合)
+  - [数据库基础](#数据库基础)
+  - [SQL](#sql)
+  - [SQL 操作过程中的性能优化方法](#sql-操作过程中的性能优化方法)
+  - [MySQL相关](#mysql相关)
+    - [MySQL 性能优化](#mysql-性能优化)
+    - [MySQL复制原理及流程](#mysql复制原理及流程)
+    - [MySQL innodb事务与日志](#mysql-innodb事务与日志)
+    - [MySQL数据维护](#mysql数据维护)
+  - [MySQL异常处理](#mysql异常处理)
+  - [参考](#参考)
+
+<!-- /TOC -->
+
+<div style="page-break-after: always;"></div>
+
+
 ## 数据库基础
 - 数据库范式  
 &emsp;范式，即Normal Form，指的是我们在构建数据库所需要遵守的规则和指导方针。
@@ -498,7 +517,17 @@ mysqlcheck -o –all-databases 会让 ibdata1 不断增大，真正的优化只�
 - 3.Mixedlevel: 是以上两种level的混合使用，一般的语句修改使用statment格式保存binlog，如一些函数，statement无法完成主从复制的操作，则 采用row格式保存binlog,MySQL会根据执行的每一条具体的sql语句来区分对待记录的日志形式，也就是在Statement和Row之间选择 一种.新版本的MySQL中队row level模式也被做了优化，并不是所有的修改都会以row level来记录，像遇到表结构变更的时候就会以statement模式来记录。至于update或者delete等修改数据的语句，还是会记录所有行的变更。
 
 - 适用场景
-在一条 SQL 操作了多行数据时， statement 更节省空间， row 更占用空间。但是 row模式更可靠。
+在一条 SQL 操作了多行数据时， statement 更节省空间， row 更占用空间。但是 row模式更可靠。  
+
+### MySQL数据维护
+- 为什么MySQL不建议使用delete删除数据
+通过从InnoDB存储空间分布，delete对性能的影响可以看到，delete物理删除既不能释放磁盘空间，而且会产生大量的碎片，导致索引频繁分裂，影响SQL执行计划的稳定性；
+
+同时在碎片回收时，会耗用大量的CPU，磁盘空间，影响表上正常的DML操作。
+
+在业务代码层面，应该做逻辑标记删除，避免物理删除；为了实现数据归档需求，可以用采用MySQL分区表特性来实现，都是DDL操作，没有碎片产生。
+
+另外一个比较好的方案采用Clickhouse，对有生命周期的数据表可以使用Clickhouse存储，利用其TTL特性实现无效数据自动清理。
 ## MySQL异常处理
 - MySQL 数据库cpu飙升到500%案例处理
 > 当 cpu 飙升到 500%时，先用操作系统命令 top 命令观察是不是mysqld 占用导致的，如果不是，找出占用高的进程，并进行相关处理。如果是 mysqld 造成的， show processlist，看看里面跑的 session 情况，是不是有消耗资源的 sql 在运行。找出消耗高的 sql，看看执行计划是否准确， index 是否缺失，或者实在是数据量太大造成。一般来说，肯定要 kill 掉这些线程(同时观察 cpu 使用率是否下降)，等进行相应的调整(比如说加索引、改 sql、改内存参数)之后，再重新跑这些 SQL。也有可能是每个 sql 消耗资源并不多，但是突然之间，有大量的 session 连进来导致 cpu 飙升，这种情况就需要跟应用一起来分析为何连接数会激增，再做出相应的调整，比如说限制连接数等
