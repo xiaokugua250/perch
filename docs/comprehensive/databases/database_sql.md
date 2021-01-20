@@ -1,10 +1,9 @@
 # 数据库知识综合
-<!-- TOC -->autoauto- [数据库知识综合](#数据库知识综合)auto    - [数据库基础](#数据库基础)auto    - [SQL](#sql)auto    - [SQL 操作过程中的性能优化方法](#sql-操作过程中的性能优化方法)auto    - [MySQL相关](#mysql相关)auto        - [MySQL 性能优化](#mysql-性能优化)auto        - [MySQL复制原理及流程](#mysql复制原理及流程)auto        - [MySQL 事务与日志](#mysql-事务与日志)auto        - [MySQL数据维护](#mysql数据维护)auto    - [MySQL异常处理](#mysql异常处理)auto    - [参考](#参考)autoauto<!-- /TOC -->
 
-<div style="page-break-after: always;"></div>
+<!-- TOC -->autoauto- [数据库知识综合](#数据库知识综合)auto    - [数据库基础](#数据库基础)auto    - [SQL](#sql)auto    - [SQL 操作过程中的性能优化方法](#sql-操作过程中的性能优化方法)auto    - [MySQL相关](#mysql相关)auto        - [MySQL 性能优化](#mysql-性能优化)auto        - [MySQL复制原理及流程](#mysql复制原理及流程)auto        - [MySQL 事务与日志](#mysql-事务与日志)auto        - [MySQL数据库引擎](#mysql数据库引擎)auto        - [MySQL数据维护](#mysql数据维护)auto    - [MySQL异常处理](#mysql异常处理)auto    - [参考](#参考)autoauto<!-- /TOC -->
 
 
-## 数据库基础
+## 数据库基础  
 - 数据库范式  
 &emsp;范式，即Normal Form，指的是我们在构建数据库所需要遵守的规则和指导方针。
 首先要明确的是：满足第三范式，那么就一定满足第二范式、满足第二范式就一定满足第一范式
@@ -526,8 +525,43 @@ mysqlcheck -o –all-databases 会让 ibdata1 不断增大，真正的优化只�
     > 　鉴于都聊到了插入缓冲，我就不得不需要提一嘴两次写，因为我认为这两个InnoDB的特性是相辅相成的。
 　　插入缓冲提高了MySQL的性能，而两次写则在此基础上提高了数据的可靠性。我们知道，当数据还在缓冲池中的时候，当机器宕机了，发生了写失效，有Redo Log来进行恢复。
 　　但是如果是在从缓冲池中将数据刷回磁盘的时候宕机了呢?这种情况叫做部分写失效，此时重做日志就无法解决问题。
+![两次写](../../asserts/images/md/comprehensive/database/innoDB_doublewrite.jpg)
+在刷脏页时，并不是直接刷入磁盘，而是copy到内存中的Doublewrite Buffer中，然后再拷贝至磁盘共享表空间(你可以就理解为磁盘)中，每次写入1M，等copy完成后，再将Doublewrite Buffer中的页写入磁盘文件。
+　　有了两次写机制，即使在刷脏页时宕机了，在实例恢复的时候也可以从共享表空间中找到Doublewrite Buffer的页副本，直接将其覆盖原来的数据页即可。
 
+**自适应哈希索引**
+>　自适应索引就跟JVM在运行过程中，会动态的把某些热点代码编译成Machine Code一样，InnoDB会监控对所有索引的查询，对热点访问的页建立哈希索引，以此来提升访问速度。
+　　你可能多次看到了一个关键字页，接下来那我们就来聊一下页是什么?
+　页，是InnoDB中数据管理的最小单位。当我们查询数据时，其是以页为单位，将磁盘中的数据加载到缓冲池中的。
+　同理，更新数据也是以页为单位，将我们对数据的修改刷回磁盘。每页的默认大小为16k，每页中包含了若干行的数据，页的结构如下图所示。
+![页](../../asserts/images/md/comprehensive/database/innoDB_page.jpg)
+不用太纠结每个区是干嘛的，我们只需要知道这样设计的好处在哪儿。每一页的数据，可以通过FileHeader中的上一下和下一页的数据，页与页之间可以形成双向链表。
+　　因为在实际的物理存储上，数据并不是连续存储的。你可以把它理解成G1的Region在内存中的分布。
+　　而一页中所包含的行数据，行与行之间则形成了单向链表。我们存入的行数据最终会到User Records中，当然最初User Records并不占据任何存储空间。
+　　随着我们存入的数据越来越多，User Records会越来越大，Free Space的空间会越来越小，直到被占用完，就会申请新的数据页。
+　　User Records中的数据，是按照主键id来进行排序的，当我们按照主键来进行查找时，会沿着这个单向链表一直往后
 
+**重做日志缓冲**
+>　上面聊过，InnoDB中缓冲池中的页数据更新会先于磁盘数据更新的，InnoDB也会采用日志先行(Write Ahead Log)策略来刷新数据，什么意思呢?当事务开始时，会先记录Redo Log到Redo Log Buffer中，然后再更新缓冲池页数据。
+　　Redo Log Buffer中的数据会按照一定的频率写到重做日志中去。被更改过的页就会被标记成脏页，InnoDB会根据CheckPoint机制来将脏页刷到磁盘。
+
+**Innodb日志**
+>　InnoDB日志就只有两种，Redo Log和Undo Log，
+
+　　Redo Log 重做日志，用于记录事务操作的变化，且记录的是修改之后的值。不管事务是否提交都会记录下来。
+
+　　例如在更新数据时，会先将更新的记录写到Redo Log中，再更新缓存中页中的数据。然后按照设置的更新策略，将内存中的数据刷回磁盘。
+
+　　
+Undo Log 记录的是记录的事务开始之前的一个版本，可用于事务失败之后发生的回滚。
+
+　　
+Redo Log记录的是具体某个数据页上的修改，只能在当前Server使用，而Binlog可以理解为可以给其他类型的存储引擎使用。这也是Binlog的一个重要作用，那就是主从复制，另外一个作用是数据恢复。
+　　上面提到过，Binlog中记录了所有对数据库的修改，其记录日志有三种格式。分别是Statement、Row和MixedLevel。\
+　　Statement 记录所有会修改数据的SQL，其只会记录SQL，并不需要记录下这个SQL影响的所有行，减少了日志量，提高了性能。但是由于只是记录执行语句，不能保证在Slave节点上能够正确执行，所以还需要额外的记录一些上下文信息。
+Row 只保存被修改的记录，与Statement只记录执行SQL来比较，Row会产生大量的日志。但是Row不用记录上下文信息了，只需要关注被改成啥样就行。
+MixedLevel 就是Statement和Row混合使用。
+具体使用哪种日志，需要根据实际情况来决定。例如一条UPDATE语句更新了很多的数据，采用Statement会更加节省空间，但是相对的，Row会更加的可靠
 ### MySQL数据维护
 - 为什么MySQL不建议使用delete删除数据
 通过从InnoDB存储空间分布，delete对性能的影响可以看到，delete物理删除既不能释放磁盘空间，而且会产生大量的碎片，导致索引频繁分裂，影响SQL执行计划的稳定性；
