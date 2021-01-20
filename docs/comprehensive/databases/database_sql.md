@@ -1,10 +1,27 @@
 # 数据库知识综合
-<!-- TOC -->autoauto- [数据库知识综合](#数据库知识综合)auto    - [数据库基础](#数据库基础)auto    - [SQL](#sql)auto    - [SQL 操作过程中的性能优化方法](#sql-操作过程中的性能优化方法)auto    - [MySQL相关](#mysql相关)auto        - [MySQL 性能优化](#mysql-性能优化)auto        - [MySQL复制原理及流程](#mysql复制原理及流程)auto        - [MySQL 事务与日志](#mysql-事务与日志)auto        - [MySQL数据维护](#mysql数据维护)auto    - [MySQL异常处理](#mysql异常处理)auto    - [参考](#参考)autoauto<!-- /TOC -->
+
+<!-- TOC -->
+
+- [数据库知识综合](#数据库知识综合)
+    - [数据库基础](#数据库基础)
+    - [SQL](#sql)
+    - [SQL 操作过程中的性能优化方法](#sql-操作过程中的性能优化方法)
+    - [MySQL相关](#mysql相关)
+        - [MySQL 性能优化](#mysql-性能优化)
+        - [MySQL复制原理及流程](#mysql复制原理及流程)
+        - [MySQL 事务与日志](#mysql-事务与日志)
+        - [MySQL数据库引擎](#mysql数据库引擎)
+        - [MySQL数据库suoysuoy](#mysql数据库suoysuoy)
+        - [MySQL数据维护](#mysql数据维护)
+    - [MySQL异常处理](#mysql异常处理)
+    - [参考](#参考)
+
+<!-- /TOC -->
 
 <div style="page-break-after: always;"></div>
 
 
-## 数据库基础
+## 数据库基础 
 - 数据库范式  
 &emsp;范式，即Normal Form，指的是我们在构建数据库所需要遵守的规则和指导方针。
 首先要明确的是：满足第三范式，那么就一定满足第二范式、满足第二范式就一定满足第一范式
@@ -527,7 +544,7 @@ mysqlcheck -o –all-databases 会让 ibdata1 不断增大，真正的优化只�
 　　插入缓冲提高了MySQL的性能，而两次写则在此基础上提高了数据的可靠性。我们知道，当数据还在缓冲池中的时候，当机器宕机了，发生了写失效，有Redo Log来进行恢复。
 　　但是如果是在从缓冲池中将数据刷回磁盘的时候宕机了呢?这种情况叫做部分写失效，此时重做日志就无法解决问题。
 
-
+### MySQL数据库suoysuoy
 ### MySQL数据维护
 - 为什么MySQL不建议使用delete删除数据
 通过从InnoDB存储空间分布，delete对性能的影响可以看到，delete物理删除既不能释放磁盘空间，而且会产生大量的碎片，导致索引频繁分裂，影响SQL执行计划的稳定性；
