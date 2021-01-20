@@ -12,3 +12,5 @@ iptables -I INPUT -p tcp --dport ${PORT} -j ACCEPT
 
 
 
+## 参考
+[1].https://www.shuzhiduo.com/A/rV57WBVR5P/
