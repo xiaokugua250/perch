@@ -2,6 +2,36 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  name: addons-pv-volume
+  namespace: liangdu
+  labels:
+    type: hostpath
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/addons
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: addons-pv-claim
+  namespace: liangdu
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
   name: mysql-pv-volume
   namespace: liangdu
   labels:

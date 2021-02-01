@@ -61,9 +61,10 @@
 
 ## 待完善
 * [x]  minikube集群部署(cert-manager 证书管理)
+* [ ]  利用[ttyd](https://github.com/tsl0922/ttyd)提供容器内终端访问
 * [x] 基于jwt-go的jwt 认证
 * [ ] 基于RBAC的用户管理
-* [ ] 基于Makefile 和docker-compose的环境部署
+* [ ] 基于Makefile和Dockerfile的服务构建
 * [ ] web 框架调整和优化
     * [x] 基于`mux`的微服务框架
     * [x] 日志功能

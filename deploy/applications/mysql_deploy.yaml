@@ -1,0 +1,119 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql
+  namespace: liangdu
+  labels:
+    app: mysql
+data:
+  master.cnf: |
+    # Apply this config only on the master.
+    [mysqld]
+    log-bin
+  slave.cnf: |
+    # Apply this config only on slaves.
+    [mysqld]
+    super-read-only
+---
+## k8s secrete config 
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-credentials
+  namespace: liangdu
+data: 
+  mysql_user: cGVyY2hfb25seQ==
+  mysql_password: QjdiOGtSJGRUUQ==
+  mysql_root_password: RVk5XmUjWiVMaDhNZmVhJQ==
+  #mysql_root_password: MTIz
+  mysql_host: bXlzcWwtc2VydmljZQ==
+  mysql_db: bW9ydHlfZGIK
+  allow_hosts: bG9jYWxob3N0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: liangdu
+spec:
+  ports:
+    - name: mysql-service
+      port: 3306
+      targetPort: 3306
+    - name: ttyd-service
+      port: 7681
+      targetPort: 7681
+
+
+  selector:
+    app: mysql
+  
+  #clusterIP: None
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: liangdu
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - image: mysql:8.0
+        name: mysql
+        env:
+          # Use secret in real usage
+        - name: MYSQL_ROOT_PASSWORD
+          #value: "123456"
+          valueFrom:
+            secretKeyRef:
+              name: secret-credentials
+              key: mysql_root_password
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: secret-credentials
+              key: mysql_user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: secret-credentials
+              key: mysql_password
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: secret-credentials
+              key: mysql_db
+        lifecycle:
+          postStart:
+            exec:
+#             #command: ["/bin/sh","-c","/usr/share/addons/ttyd_start.sh"]
+              command: ["/bin/sh","-c","/usr/share/addons/ttyd_1.6.3 bash &"]
+
+        ports:
+        - containerPort: 3306
+          name: mysql
+        - containerPort: 7681
+          name: ttyd
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+        - name: addons-persistent-storage
+          mountPath: /usr/share/addons
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim
+      - name: addons-persistent-storage
+        persistentVolumeClaim:
+          claimName: addons-pv-claim
