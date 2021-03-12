@@ -12,10 +12,27 @@
         - [MySQL复制原理及流程](#mysql复制原理及流程)
         - [MySQL 事务与日志](#mysql-事务与日志)
         - [MySQL数据库引擎](#mysql数据库引擎)
-        - [MySQL数据库suoysuoy](#mysql数据库suoysuoy)
+        - [MySQL数据库](#mysql数据库)
         - [MySQL数据维护](#mysql数据维护)
     - [MySQL异常处理](#mysql异常处理)
     - [参考](#参考)
+- [数据库知识综合](#数据库知识综合-1)
+    - [数据库基础](#数据库基础-1)
+    - [SQL](#sql-1)
+    - [SQL 操作过程中的性能优化方法](#sql-操作过程中的性能优化方法-1)
+    - [MySQL相关](#mysql相关-1)
+        - [MySQL架构](#mysql架构)
+        - [MySQL 性能优化](#mysql-性能优化-1)
+        - [MySQL复制原理及流程](#mysql复制原理及流程-1)
+        - [MySQL 事务与日志](#mysql-事务与日志-1)
+        - [MySQL数据库引擎](#mysql数据库引擎-1)
+        - [MySQL数据维护](#mysql数据维护-1)
+        - [MySQL索引](#mysql索引)
+        - [MySQL数据库锁](#mysql数据库锁)
+        - [MySQL MVCC](#mysql-mvcc)
+    - [MySQL异常处理](#mysql异常处理-1)
+        - [MySQL周边工具](#mysql周边工具)
+    - [参考](#参考-1)
 
 <!-- /TOC -->
 
@@ -545,7 +562,7 @@ mysqlcheck -o –all-databases 会让 ibdata1 不断增大，真正的优化只�
 　　插入缓冲提高了MySQL的性能，而两次写则在此基础上提高了数据的可靠性。我们知道，当数据还在缓冲池中的时候，当机器宕机了，发生了写失效，有Redo Log来进行恢复。
 　　但是如果是在从缓冲池中将数据刷回磁盘的时候宕机了呢?这种情况叫做部分写失效，此时重做日志就无法解决问题。
 
-### MySQL数据库suoysuoy
+### MySQL数据库
 ### MySQL数据维护
 - 为什么MySQL不建议使用delete删除数据
 通过从InnoDB存储空间分布，delete对性能的影响可以看到，delete物理删除既不能释放磁盘空间，而且会产生大量的碎片，导致索引频繁分裂，影响SQL执行计划的稳定性；
@@ -558,6 +575,7 @@ mysqlcheck -o –all-databases 会让 ibdata1 不断增大，真正的优化只�
 ## MySQL异常处理
 - MySQL 数据库cpu飙升到500%案例处理
 > 当 cpu 飙升到 500%时，先用操作系统命令 top 命令观察是不是mysqld 占用导致的，如果不是，找出占用高的进程，并进行相关处理。如果是 mysqld 造成的， show processlist，看看里面跑的 session 情况，是不是有消耗资源的 sql 在运行。找出消耗高的 sql，看看执行计划是否准确， index 是否缺失，或者实在是数据量太大造成。一般来说，肯定要 kill 掉这些线程(同时观察 cpu 使用率是否下降)，等进行相应的调整(比如说加索引、改 sql、改内存参数)之后，再重新跑这些 SQL。也有可能是每个 sql 消耗资源并不多，但是突然之间，有大量的 session 连进来导致 cpu 飙升，这种情况就需要跟应用一起来分析为何连接数会激增，再做出相应的调整，比如说限制连接数等
+
 ## 参考
 [1]. https://www.codeproject.com/Articles/33052/Visual-Representation-of-SQL-Joins  
 [2]. https://dev.mysql.com/doc/refman/5.7/en/nested-loop-joins.html  
@@ -1592,4 +1610,3 @@ UPDATE ：InnoDB会把原来的行复制一份到回滚段中，保存当前系�
 [15]. https://blog.csdn.net/sinat_27602945/article/details/80118362]
 [16]. https://bbs.huaweicloud.com/blogs/159475 [面试题目]
 
->>>>>>> 0caa6463fb2bbaadf1cf60d4c5f1a4febfb65cf7

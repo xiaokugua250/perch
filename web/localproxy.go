@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+
+	"github.com/gorilla/mux"
 )
 
 func sysUserProxy(w http.ResponseWriter, r *http.Request) {
