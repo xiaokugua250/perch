@@ -16,6 +16,7 @@ require (
 	github.com/dimiro1/banner v1.1.0
 	github.com/gdamore/tcell v1.3.0
 	github.com/go-delve/delve v1.6.0 // indirect
+	github.com/go-ldap/ldap/v3 v3.2.4
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/go-redis/redis/v8 v8.4.0
 	github.com/gocolly/colly v1.2.0

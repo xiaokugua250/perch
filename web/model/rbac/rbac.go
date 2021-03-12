@@ -8,6 +8,7 @@ type AuthUser struct {
 	UserGID       int64           `json:"user_gid" gorm:"column:user_gid;type:int(10)"`
 	UserName      string          `json:"user_name" gorm:"column:user_name;type:varchar(128);not null"`
 	UserPasswd    string          `json:"password" gorm:"column:password;type:varchar(128);not null"`
+	userHomeDir string `json:"user_home_dir" gorm:"column:home_dir;type:varchar(128);not null"`
 	UserSalt      string          `json:"-" gorm:"column:salt;type:varchar(128);not null"`
 	UserEmail     string          `json:"email" gorm:"column:email;type:varchar(128);not null"`
 	UserAvatar    string          `json:"avatar" gorm:"column:avatar;type:varchar(128);not null"`

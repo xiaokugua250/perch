@@ -2,7 +2,7 @@
 利用gopsutils 包获取服务器信息
 ref https://github.com/shirou/gopsutil
 */
-package sysinfo
+package system
 
 import (
 	"github.com/pkg/errors"
