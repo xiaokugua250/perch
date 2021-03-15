@@ -25,6 +25,7 @@ require (
 	github.com/googleapis/gnostic v0.5.1 // indirect
 	github.com/gorilla/handlers v1.5.0
 	github.com/gorilla/mux v1.7.4
+	github.com/gorilla/websocket v1.4.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2 // indirect
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0 // indirect
 	github.com/icrowley/fake v0.0.0-20180203215853-4178557ae428
@@ -79,6 +80,7 @@ require (
 	golang.org/x/arch v0.0.0-20210127225635-455c95562d18 // indirect
 	golang.org/x/crypto v0.0.0-20201016220609-9e8e0b390897
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
+	golang.org/x/net v0.0.0-20201031054903-ff519b6c9102
 	golang.org/x/sys v0.0.0-20210124154548-22da62e12c0c // indirect
 	golang.org/x/tools v0.0.0-20200708183856-df98bc6d456c // indirect
 	google.golang.org/grpc v1.29.1
