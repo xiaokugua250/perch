@@ -44,7 +44,7 @@ type ProxyEntry struct {
 
 }
 
-//https://github.com/golang/go/issues/26479
+// todo  https://github.com/golang/go/issues/26479
 type ProxyServer struct {
 	ProxyEntry *ProxyEntry
 	httpProxy   *httputil.ReverseProxy
