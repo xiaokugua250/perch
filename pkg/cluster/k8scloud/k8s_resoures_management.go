@@ -1,13 +1,14 @@
+/**
+k8s 资源管理
+*/
 package k8scloud
 
-func SubmitDeploymentType() {
+//todo 管理k8s namespace资源
+func NameSpacesMgr() error {
 
 }
 
-func SubmitJobType() {
-
-}
-
-func SubmitCronJobType() {
+//todo 管理k8s resource quota资源
+func ResourceQuotaMgr() error {
 
 }

@@ -80,6 +80,7 @@
 * [ ] 熔断器和限流器 
 * [ ] golang 代理服务
 * [ ] ssh /tcp 代理，多层代理
+* [ ] 采用[go-guard](https://github.com/shaj13/go-guardian)统一认证
  
 
 项目布局参考:  
