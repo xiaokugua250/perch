@@ -12,3 +12,9 @@ func NameSpacesMgr() error {
 func ResourceQuotaMgr() error {
 
 }
+
+
+//todo k8s ingress 资源管理
+func IngressMgr()(error){
+
+}

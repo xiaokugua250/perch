@@ -32,6 +32,7 @@ require (
 	github.com/ipfs/go-cid v0.0.6
 	github.com/ipfs/go-datastore v0.4.4
 	github.com/jonboulle/clockwork v0.2.2 // indirect
+	github.com/koding/websocketproxy v0.0.0-20181220232114-7ed82d81a28c
 	github.com/kr/pty v1.1.3
 	github.com/libp2p/go-libp2p v0.9.6
 	github.com/libp2p/go-libp2p-core v0.6.0
@@ -61,6 +62,8 @@ require (
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/russross/blackfriday v1.6.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
+	github.com/shaj13/go-guardian/v2 v2.11.3
+	github.com/shaj13/libcache v1.0.0
 	github.com/shirou/gopsutil v2.20.8+incompatible
 	github.com/sirupsen/logrus v1.7.0
 	github.com/soheilhy/cmux v0.1.4 // indirect
