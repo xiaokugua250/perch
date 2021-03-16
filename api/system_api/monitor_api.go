@@ -3,7 +3,7 @@ package sysadmin
 import (
 	"context"
 	_ "fmt"
-	"perch/pkg/sysinfo"
+	
 	"perch/web/metric"
 	"perch/web/model"
 	"strconv"

@@ -6,8 +6,8 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"perch/pkg/cluster/k8s"
-	"perch/pkg/sysinfo"
+
+
 	"perch/web/metric"
 	"perch/web/model"
 	"time"

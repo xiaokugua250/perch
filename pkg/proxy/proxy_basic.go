@@ -1,10 +1,15 @@
 package proxy
 
 import (
+	"log"
+	"net"
+	"net/http"
 	"net/http/httputil"
+
 	"github.com/gorilla/websocket"
 	"github.com/koding/websocketproxy"
 	"golang.org/x/net/http2"
+	"github.com/gorilla/mux"
 )
 
 const (
@@ -28,6 +33,10 @@ const (
 	Protocol_GRPC
 )
 
+type ProxyServerConf struct{
+
+}
+
 type ProxyEntry struct {
 	ID            string `json:"id"`
 	UserName      string //用户名称
@@ -50,4 +59,58 @@ type ProxyServer struct {
 	httpProxy   *httputil.ReverseProxy
 	httpsProxy *httputil.ReverseProxy
 	webSocketProxy *websocketproxy.WebsocketProxy
+}
+
+
+// 启动代理服务
+
+func ProxyServerSetup()(error){
+	var (
+		err error
+	)
+
+	defer func ListenerErrorHanlder(err *error){
+		if err != nil{
+		
+			log.Printf("error in creating proxyserver is %s",err.Error())
+		}
+	}(&err)
+	httpServerListener ,err = net.Listen("tcp",  "0.0.0.0:80")
+	if err != nil {
+		return err
+	}
+	//todo 需要在报错时，对上一步创建的httpserverproxy 进行资源释放
+	httpsServerListener,err= net.Listen("tcp", "0.0.0.0:443")
+	if err != nil {
+		return err
+	}
+	sshServerListener,err = net.Listen("tcp", "0.0.0.0:22")
+	if err != nil {
+		return err
+	}
+
+	httpServerMuxRouter := mux.NewRouter()
+	httpServerMuxRouter.HandlerFunc("/",ProxyRouterHandler)
+	httpServer=&http.Server{
+		Handler: 	httpServerMuxRouter ,
+		WriteTimeout: 15 * time.Second,
+        ReadTimeout:  15 * time.Second,
+	}
+//	sshServer=& //todo  解决ssh代理
+
+	go func(){
+		if err := httpServer.ListenAndServe(); err != nil {
+            log.Println(err)
+        }
+	}()
+	
+	go func(){
+		 http
+	}()
+
+}
+
+
+func ProxyRouterHandler(){
+
 }

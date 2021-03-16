@@ -40,7 +40,6 @@
         //"staticcheck": false,
     },
     "go.autocompleteUnimportedPackages": true,
-    "go.inferGopath": false,
     "go.gotoSymbol.includeImports": true,
     "go.gotoSymbol.includeGoroot": true,
     "go.languageServerExperimentalFeatures": {
@@ -80,7 +79,7 @@
         "debugTestAtCursor": true
     },
     "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true,
+        "source.fixAll.eslint": false,
         "source.organizeImports": true
     },
   

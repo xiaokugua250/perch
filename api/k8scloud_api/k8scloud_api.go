@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 
-	"perch/pkg/sysinfo"
+	
 	"perch/web/metric"
 	"perch/web/model"
 	"time"
