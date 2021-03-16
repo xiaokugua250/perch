@@ -1,19 +1,21 @@
 package proxy
 
 import (
+	"fmt"
 	"log"
-	"net"
-	"net/http"
-	"net/http/httputil"
-
-	"github.com/gorilla/websocket"
-	"github.com/koding/websocketproxy"
-	"golang.org/x/net/http2"
-	"github.com/gorilla/mux"
+	"testing"
 )
 
 
 
-func testProxyServerSetup(testing.T){
-	
+func TestProxyServerSetup(t *testing.T) {
+	var (
+		err error
+	)
+	err = ServerSetup()
+	if err!= nil{
+		log.Fatalln(err)
+	}
+	fmt.Printf("====%s","A")
+
 }
