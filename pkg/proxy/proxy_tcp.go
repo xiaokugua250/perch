@@ -32,18 +32,33 @@ func TCPPayLoadHandler(payloadIn io.ReadWriter, payloadOut io.ReadWriter) {
 
 }
 
-func (tcpProxy *TCPProxy) TCPProxyHandler(netCon net.Conn){
+func (tcpProxy *TCPProxy) TCPProxyHandler(netCon net.Conn) {
 
 	var (
-		err error
+		err    error
 		remote net.Conn
 	)
 	defer netCon.Close()
-	remote,err= net.Dial("tcp",tcpProxy.addr)
-	if err!= nil{
+	remote, err = net.Dial("tcp", tcpProxy.addr)
+	if err != nil {
 		log.Println(err)
 		return
 	}
-	TCPPayLoadHandler(netCon,remote)
+	TCPPayLoadHandler(netCon, remote)
 	remote.Close()
+}
+
+//监听tcp连接请求
+
+func (tcpProxy *TCPProxy) Serve(listener net.Listener) {
+
+	for {
+		if conn, err := listener.Accept(); err != nil {
+			log.Println(err)
+		} else {
+			go tcpProxy.TCPProxyHandler(conn)
+		}
+
+	}
+
 }
