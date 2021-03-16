@@ -68,10 +68,8 @@ func ProxyServerSetup()(error){
 	var (
 		err error
 	)
-
 	defer func ListenerErrorHanlder(err *error){
 		if err != nil{
-		
 			log.Printf("error in creating proxyserver is %s",err.Error())
 		}
 	}(&err)
@@ -99,13 +97,15 @@ func ProxyServerSetup()(error){
 //	sshServer=& //todo  解决ssh代理
 
 	go func(){
-		if err := httpServer.ListenAndServe(); err != nil {
+		if err := httpServer.Serve(httpsListener.(*net.TCPListener)); err != nil {
             log.Println(err)
         }
 	}()
 	
 	go func(){
-		 http
+		httpServer.TLSConfig = tlsConfig
+		httpServer.ServeTLS(httpsListener.(*net.TCPListener)}, "", "")
+		log.Println(err)
 	}()
 
 }
