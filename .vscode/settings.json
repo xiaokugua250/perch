@@ -33,6 +33,8 @@
         },
     },
     "gopls": {
+        "usePlaceholders": true, // add parameter placeholders when completing a function
+        "wantCompletionDocumentation": true // for documentation in completion items
         // Add parameter placeholders when completing a function.
        // "usePlaceholders": true,
         // If true, enable additional analyses with staticcheck.
