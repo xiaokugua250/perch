@@ -40,13 +40,15 @@ const (
 )
 
 const (
-	TokenName = "Secret-Token"
+	TokenName  = "Secret-Token"
+	BaseDomain = "z-gour.com" //配置基础域名
 )
 
 type ServerOptions struct {
 	HTTPPort    int
 	HTTPSPort   int
 	SSHPort     int
+	BaseDomain  string
 	MiddleLayer string // 中间代理层
 	SSLCertFile string
 	SSLKeyFile  string
@@ -95,6 +97,7 @@ func init() {
 	serverOptions.HTTPPort = 8080
 	serverOptions.HTTPSPort = 4430
 	serverOptions.SSHPort = 8022
+	serverOptions.BaseDomain = "z-gour.com"
 
 }
 
@@ -212,41 +215,6 @@ func ServerSetup() error {
 	return nil
 }
 
-type ProxyHandler struct {
-}
-
-func (*ProxyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	var (
-		server *PanDomainServer
-	)
-
-	server = domainServers["a"]
-	/**
-	//todo 域名处理，比如需要对域名进行校验，
-
-	*/
-	//reqDomain:=r.Host
-	if r.Header.Get("Upgrade") == "websocket" {
-		//todo 处理websocket请求
-
-		//host := strings.SplitN(r.Header.Get("Origin"), "://", 2)
-		//		addr := host[len(host)-1]
-		//		r.Header.Set("Host", addr)
-		server.webSocketProxy.ServeHTTP(w, r)
-		return
-	}
-	if AuthAndFilterLayer(server.ProxyEntry, w, r) {
-		switch server.ProxyEntry.Protocol {
-		case Protocol_HTTP:
-			server.httpProxy.ServeHTTP(w, r)
-		case Protocol_HTTPS:
-			server.httpsProxy.ServeHTTP(w, r)
-		default:
-			return
-		}
-	}
-}
-
 //固定端口，通过泛域名形式进行路由转发
 func RouterHandler(w http.ResponseWriter, r *http.Request) {
 	var (
@@ -268,7 +236,7 @@ func RouterHandler(w http.ResponseWriter, r *http.Request) {
 		server.webSocketProxy.ServeHTTP(w, r)
 		return
 	}
-	if AuthAndFilterLayer(server.ProxyEntry, w, r) {
+	if AuthAndFilterMiddleware(server.ProxyEntry, w, r) {
 		switch server.ProxyEntry.Protocol {
 		case Protocol_HTTP:
 			server.httpProxy.ServeHTTP(w, r)
@@ -283,7 +251,7 @@ func RouterHandler(w http.ResponseWriter, r *http.Request) {
 /**
 代理服务中间认证和请求过滤层
 */
-func AuthAndFilterLayer(proxyReq *EntryInstance, w http.ResponseWriter, r *http.Request) bool {
+func AuthAndFilterMiddleware(proxyReq *EntryInstance, w http.ResponseWriter, r *http.Request) bool {
 
 	if proxyReq.Layer == User_Layer_Proxy { //外层，用户层代理，需要做权限验证
 		switch proxyReq.SecuryBy {
@@ -327,7 +295,7 @@ func ServerCleanup() error {
 }
 
 //创建代理请求实例
-func InitEntryInst() error {
+func InitEntryInst(entry EntryInstance) error {
 
 	var (
 		err error
