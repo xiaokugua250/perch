@@ -15,6 +15,8 @@ func sysUserProxy(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Printf("error is %s", err.Error())
 	}
+
+	fmt.Println(r.Host)
 	//r.URL.Path = strings.Replace(r.RequestURI, "/forum", "", 1)
 
 	r.URL.Path = r.URL.Path[10:]
