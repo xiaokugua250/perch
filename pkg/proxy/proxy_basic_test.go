@@ -13,6 +13,10 @@ func TestProxyServerSetup(t *testing.T) {
 		err error
 	)
 	fmt.Println("=============")
+	err = ServerInit()
+	if err != nil {
+		log.Fatalln(err)
+	}
 	err = ServerSetup()
 	if err != nil {
 		log.Fatalln(err)
@@ -26,6 +30,7 @@ func TestProxyServerUpWithOptions(t *testing.T) {
 	var (
 		err error
 	)
+
 	err = ServerSetup()
 	if err != nil {
 		log.Fatalln(err)

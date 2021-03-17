@@ -2,16 +2,18 @@ package proxy
 
 import (
 	"context"
+	"fmt"
+	"github.com/gorilla/mux"
 	"log"
 	"net"
 	"net/http"
 	"net/http/httputil"
+	"net/url"
 	"os"
 	"os/signal"
 	"strconv"
 	"time"
 
-	"github.com/gorilla/mux"
 	"github.com/koding/websocketproxy"
 )
 
@@ -50,7 +52,7 @@ type ServerOptions struct {
 	SSLKeyFile  string
 }
 
-type ProxyEntry struct {
+type EntryInstance struct {
 	ID          string `json:"id"`
 	UserName    string //用户名称
 	EntryURL    string //代理URL
@@ -59,7 +61,7 @@ type ProxyEntry struct {
 	Domain      string //外部域名
 	SSLCertFile []byte //ssl 证书
 	SSLKeyFile  []byte //ssl 证书
-	TargrtIP    string
+	TargetIP    string
 	TargetPort  string
 	//TargetProtocl string
 	SecuryBy int // 安全配置
@@ -69,7 +71,7 @@ type ProxyEntry struct {
 // todo  https://github.com/golang/go/issues/26479
 //泛域名代理服务器
 type PanDomainServer struct {
-	ProxyEntry     *ProxyEntry
+	ProxyEntry     *EntryInstance
 	httpProxy      *httputil.ReverseProxy
 	httpsProxy     *httputil.ReverseProxy
 	webSocketProxy *websocketproxy.WebsocketProxy
@@ -80,14 +82,61 @@ var (
 	httpsServerListener net.Listener
 	sshServerListener   net.Listener
 	errStream           chan error //错误信息
+
 )
 
 var (
 	serverOptions ServerOptions //
+	domainServers = make(map[string]*PanDomainServer)
 )
 
-// 启动代理服务
+func init() {
 
+	serverOptions.HTTPPort = 8080
+	serverOptions.HTTPSPort = 4430
+	serverOptions.SSHPort = 8022
+
+}
+
+//根据代理
+func ServerInit() error {
+	var (
+		err          error
+		webremote    *url.URL
+		domainServer = &PanDomainServer{
+			ProxyEntry: &EntryInstance{
+				ID:          "",
+				UserName:    "",
+				EntryURL:    "",
+				Layer:       User_Layer_Proxy,
+				Protocol:    Protocol_HTTP,
+				Domain:      "",
+				SSLCertFile: nil,
+				SSLKeyFile:  nil,
+				TargetIP:    "127.0.0.1",
+				TargetPort:  "8000",
+				SecuryBy:    0,
+			},
+			//httpProxy:      httputil.NewSingleHostReverseProxy(webremote),
+			//httpsProxy:     httputil.NewSingleHostReverseProxy(webremote),
+			webSocketProxy: nil,
+		}
+	)
+
+	webremoteStr := "http://" + domainServer.ProxyEntry.TargetIP + ":" + domainServer.ProxyEntry.TargetPort
+	fmt.Println("===>", webremoteStr)
+	webremote, err = url.Parse(webremoteStr)
+	if err != nil {
+		return err
+	}
+	domainServer.httpProxy = httputil.NewSingleHostReverseProxy(webremote)
+	domainServer.httpsProxy = httputil.NewSingleHostReverseProxy(webremote)
+	domainServers["a"] = domainServer
+
+	return err
+}
+
+// 启动代理服务
 func ServerSetup() error {
 	var (
 		err error
@@ -97,6 +146,7 @@ func ServerSetup() error {
 			log.Printf("error in creating proxyserver is %s",err.Error())
 		}
 	}(&err)*/
+
 	httpServerListener, err = net.Listen("tcp", "0.0.0.0:"+strconv.Itoa(serverOptions.HTTPPort))
 	if err != nil {
 		return err
@@ -111,8 +161,12 @@ func ServerSetup() error {
 		return err
 	}
 
+	//httpServerMuxRouter:=http.NewServeMux()
 	httpServerMuxRouter := mux.NewRouter()
-	httpServerMuxRouter.HandleFunc("/", RouterHandler)
+	httpServerMuxRouter.PathPrefix("/").HandlerFunc(RouterHandler)
+
+	//http.Handle("/",httpServerMuxRouter)
+
 	httpServer := &http.Server{
 		Handler:      httpServerMuxRouter,
 		WriteTimeout: 15 * time.Second,
@@ -135,7 +189,6 @@ func ServerSetup() error {
 		}
 	}()
 
-	/*
 	closeSignal := make(chan os.Signal, 1)
 	// We'll accept graceful shutdowns when quit via SIGINT (Ctrl+C)
 	// SIGKILL, SIGQUIT or SIGTERM (Ctrl+/) will not be caught.
@@ -155,8 +208,43 @@ func ServerSetup() error {
 	// to finalize based on context cancellation.
 	log.Println("proxy server shutting down....")
 	//os.Exit(0)
-	*/
+
 	return nil
+}
+
+type ProxyHandler struct {
+}
+
+func (*ProxyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	var (
+		server *PanDomainServer
+	)
+
+	server = domainServers["a"]
+	/**
+	//todo 域名处理，比如需要对域名进行校验，
+
+	*/
+	//reqDomain:=r.Host
+	if r.Header.Get("Upgrade") == "websocket" {
+		//todo 处理websocket请求
+
+		//host := strings.SplitN(r.Header.Get("Origin"), "://", 2)
+		//		addr := host[len(host)-1]
+		//		r.Header.Set("Host", addr)
+		server.webSocketProxy.ServeHTTP(w, r)
+		return
+	}
+	if AuthAndFilterLayer(server.ProxyEntry, w, r) {
+		switch server.ProxyEntry.Protocol {
+		case Protocol_HTTP:
+			server.httpProxy.ServeHTTP(w, r)
+		case Protocol_HTTPS:
+			server.httpsProxy.ServeHTTP(w, r)
+		default:
+			return
+		}
+	}
 }
 
 //固定端口，通过泛域名形式进行路由转发
@@ -164,12 +252,13 @@ func RouterHandler(w http.ResponseWriter, r *http.Request) {
 	var (
 		server *PanDomainServer
 	)
+
+	server = domainServers["a"]
 	/**
 	//todo 域名处理，比如需要对域名进行校验，
 
 	*/
 	//reqDomain:=r.Host
-
 	if r.Header.Get("Upgrade") == "websocket" {
 		//todo 处理websocket请求
 
@@ -194,7 +283,7 @@ func RouterHandler(w http.ResponseWriter, r *http.Request) {
 /**
 代理服务中间认证和请求过滤层
 */
-func AuthAndFilterLayer(proxyReq *ProxyEntry, w http.ResponseWriter, r *http.Request) bool {
+func AuthAndFilterLayer(proxyReq *EntryInstance, w http.ResponseWriter, r *http.Request) bool {
 
 	if proxyReq.Layer == User_Layer_Proxy { //外层，用户层代理，需要做权限验证
 		switch proxyReq.SecuryBy {
@@ -234,5 +323,16 @@ func ServerCleanup() error {
 		err = sshServerListener.Close()
 
 	}
+	return err
+}
+
+//创建代理请求实例
+func InitEntryInst() error {
+
+	var (
+		err error
+	//	entryInst EntryInstance
+	)
+
 	return err
 }

@@ -50,12 +50,13 @@ func (tcpProxy *TCPProxy) TCPProxyHandler(netCon net.Conn) {
 
 //监听tcp连接请求
 
-func (tcpProxy *TCPProxy) Serve(listener net.Listener) {
+func (tcpProxy *TCPProxy) TcpProxyServe(listener net.Listener) {
 
 	for {
 		if conn, err := listener.Accept(); err != nil {
 			log.Println(err)
 		} else {
+
 			go tcpProxy.TCPProxyHandler(conn)
 		}
 
