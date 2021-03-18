@@ -60,9 +60,9 @@ type ServerOptions struct {
 
 //需要代理的网络目标请求，可以是HTTP 请求，HTTPS请求以及Websocket请求等
 type TargetRequest struct {
-	ID         string `json:"id"`
-	UserName   string //用户名称
-	RequestURL string //泛域名请求URL
+	ID          string `json:"id"`
+	UserName    string //用户名称
+	RequestURL  string //泛域名请求URL
 	Protocol    int    // 代理协议
 	Domain      string //外部域名
 	SSLCertFile []byte //ssl 证书
@@ -266,6 +266,16 @@ func RouterHandler(w http.ResponseWriter, r *http.Request) {
 	//todo 域名处理，比如需要对域名进行校验，
 
 	*/
+	if AuthAndFilterMiddleware(server.targetRequest) {
+		switch server.targetRequest.Protocol {
+		case Protocol_HTTP:
+			server.httpProxy.ServeHTTP(w, r)
+		case Protocol_HTTPS:
+			server.httpsProxy.ServeHTTP(w, r)
+		default:
+			return
+		}
+	}
 	//reqDomain:=r.Host
 	if r.Header.Get("Upgrade") == "websocket" {
 		//todo 处理websocket请求
@@ -276,16 +286,7 @@ func RouterHandler(w http.ResponseWriter, r *http.Request) {
 		server.webSocketProxy.ServeHTTP(w, r)
 		return
 	}
-	if AuthAndFilterMiddleware(server.targetRequest, w, r) {
-		switch server.targetRequest.Protocol {
-		case Protocol_HTTP:
-			server.httpProxy.ServeHTTP(w, r)
-		case Protocol_HTTPS:
-			server.httpsProxy.ServeHTTP(w, r)
-		default:
-			return
-		}
-	}
+
 }
 
 /**
@@ -308,7 +309,6 @@ func AuthAndFilterMiddleware(proxyReq *TargetRequest) bool {
 	}
 	//todo 新增过滤处理 filter 可以采用mux router中所具有的中间件处理过滤模式进行处理，只需要编写mux 中间件即可
 	//参考 https://stackoverflow.com/questions/26204485/gorilla-mux-custom-middleware
-
 
 	return true
 }
