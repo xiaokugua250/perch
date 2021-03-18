@@ -58,17 +58,19 @@ type ServerOptions struct {
 	SSLKeyFile  string
 }
 
-type EntryInstance struct {
-	ID          string `json:"id"`
-	UserName    string //用户名称
-	EntryURL    string //代理URL
-	Layer       int    //代理所在层次
+//需要代理的网络目标请求，可以是HTTP 请求，HTTPS请求以及Websocket请求等
+type TargetRequest struct {
+	ID         string `json:"id"`
+	UserName   string //用户名称
+	RequestURL string //泛域名请求URL
+	//	EntryURL    string //代理URL
+	//Layer       int    //代理所在层次
 	Protocol    int    // 代理协议
 	Domain      string //外部域名
 	SSLCertFile []byte //ssl 证书
 	SSLKeyFile  []byte //ssl 证书
-	TargetIP    string
-	TargetPort  string
+	TargetIP    string //目标IP
+	TargetPort  string //目标端口
 	//TargetProtocl string
 	SecuryBy int // 安全配置
 
@@ -77,7 +79,7 @@ type EntryInstance struct {
 // todo  https://github.com/golang/go/issues/26479
 //泛域名代理服务器
 type PanDomainServer struct {
-	ProxyEntry     *EntryInstance
+	targetRequest  *TargetRequest
 	httpProxy      *httputil.ReverseProxy
 	httpsProxy     *httputil.ReverseProxy
 	webSocketProxy *websocketproxy.WebsocketProxy
@@ -92,169 +94,28 @@ var (
 )
 
 var (
-	serverOptions ServerOptions //
+	serverOpts ServerOptions
+	//泛域名服务器，key为用户泛域名前缀，value为泛域名代理服务
+	//example pro.z-gour.com;--->map['pro']=&pandomainserver
 	domainServers = make(map[string]*PanDomainServer)
 )
 
 func init() {
-
-	serverOptions.BaseDomain = "z-gour.com"
-	serverOptions.ServerLayer = User_Layer_Proxy
-
 }
 
 //根据代理
-func ServerInit() error {
-	var (
-		err          error
-		webRemoteStr string
-		webremote    *url.URL
-		domainServer = &PanDomainServer{
-			ProxyEntry: &EntryInstance{
-				ID:          "",
-				UserName:    "",
-				EntryURL:    "",
-				Layer:       User_Layer_Proxy,
-				Protocol:    Protocol_HTTP,
-				Domain:      "",
-				SSLCertFile: nil,
-				SSLKeyFile:  nil,
-				TargetIP:    "127.0.0.1",
-				TargetPort:  "8000",
-				SecuryBy:    0,
-			},
-			//httpProxy:      httputil.NewSingleHostReverseProxy(webremote),
-			//httpsProxy:     httputil.NewSingleHostReverseProxy(webremote),
-			webSocketProxy: nil,
-		}
-	)
 
-	switch serverOptions.ServerLayer {
-
-	case User_Layer_Proxy:
-		if serverOptions.ForwardServer.Existed { //存在中间层代理
-
-		} else { //不存在中间层代理，则用户层代理直接对接底层目标服务器，即只有单层代理
-			switch domainServer.ProxyEntry.Protocol { //对代理协议进行处理
-			case Protocol_HTTP:
-				webRemoteStr = "http://" + domainServer.ProxyEntry.TargetIP + ":" + domainServer.ProxyEntry.TargetPort
-
-			default:
-				return nil
-			}
-		}
-
-	case Middle_Layer_Proxy:
-	default:
-		return nil
-
-	}
-	webremote, err = url.Parse(webRemoteStr)
-	if err != nil {
-		return err
-	}
-	domainServer.httpProxy = httputil.NewSingleHostReverseProxy(webremote)
-	domainServer.httpsProxy = httputil.NewSingleHostReverseProxy(webremote)
-	domainServers["a"] = domainServer
-
-	switch serverOptions.ServerLayer {
-	case User_Layer_Proxy: //用户层代理，最外层
-
-	case Middle_Layer_Proxy: //中间层代理(目标层)，
-	default:
-		return nil
-
-	}
-
-	return err
-}
-
-// 启动代理服务
-func ServerSetup() error {
-	var (
-		err error
-	)
-	/*	defer func ListenerErrorHanlder(err *error){
-		if err != nil{
-			log.Printf("error in creating proxyserver is %s",err.Error())
-		}
-	}(&err)*/
-
-	httpServerListener, err = net.Listen("tcp", "0.0.0.0:"+strconv.Itoa(serverOptions.HTTPPort))
-	if err != nil {
-		return err
-	}
-	//todo 需要在报错时，对上一步创建的httpserverproxy 进行资源释放
-	httpsServerListener, err = net.Listen("tcp", "0.0.0.0:"+strconv.Itoa(serverOptions.HTTPSPort))
-	if err != nil {
-		return err
-	}
-	sshServerListener, err = net.Listen("tcp", "0.0.0.0:"+strconv.Itoa(serverOptions.SSHPort))
-	if err != nil {
-		return err
-	}
-
-	//httpServerMuxRouter:=http.NewServeMux()
-	httpServerMuxRouter := mux.NewRouter()
-	httpServerMuxRouter.PathPrefix("/").HandlerFunc(RouterHandler)
-
-	//http.Handle("/",httpServerMuxRouter)
-
-	httpServer := &http.Server{
-		Handler:      httpServerMuxRouter,
-		WriteTimeout: 15 * time.Second,
-		ReadTimeout:  15 * time.Second,
-	}
-	//	sshServer=& //todo  解决ssh代理
-
-	go func() {
-		if errStream <- httpServer.Serve(httpServerListener.(*net.TCPListener)); err != nil {
-			log.Println(err)
-			errStream <- err
-		}
-	}()
-
-	go func() {
-		httpServer.TLSConfig = nil // todo
-		if err = httpServer.ServeTLS(httpsServerListener.(*net.TCPListener), "", ""); err != nil {
-			log.Println(err)
-			errStream <- err
-		}
-	}()
-
-	closeSignal := make(chan os.Signal, 1)
-	// We'll accept graceful shutdowns when quit via SIGINT (Ctrl+C)
-	// SIGKILL, SIGQUIT or SIGTERM (Ctrl+/) will not be caught.
-	signal.Notify(closeSignal, os.Interrupt)
-
-	// Block until we receive our signal.
-	<-closeSignal
-
-	// Create a deadline to wait for.
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-	// Doesn't block if no connections, but will otherwise wait
-	// until the timeout deadline.
-	httpServer.Shutdown(ctx)
-	// Optionally, you could run srv.Shutdown in a goroutine and block on
-	// <-ctx.Done() if your application should wait for other services
-	// to finalize based on context cancellation.
-	log.Println("proxy server shutting down....")
-	//os.Exit(0)
-
-	return nil
-}
 func ServerInitWithOps(serverOpts ServerOptions) error {
 	var (
 		err          error
 		webRemoteStr string
 		webremote    *url.URL
 		domainServer = &PanDomainServer{
-			ProxyEntry: &EntryInstance{
-				ID:          "",
-				UserName:    "",
-				EntryURL:    "",
-				Layer:       User_Layer_Proxy,
+			targetRequest: &TargetRequest{
+				ID:         "",
+				UserName:   "",
+				RequestURL: "",
+
 				Protocol:    Protocol_HTTP,
 				Domain:      "",
 				SSLCertFile: nil,
@@ -273,15 +134,18 @@ func ServerInitWithOps(serverOpts ServerOptions) error {
 
 	case User_Layer_Proxy:
 		if serverOpts.ForwardServer.Existed { //存在中间层代理
-			switch domainServer.ProxyEntry.Protocol {
-			case Protocol_HTTP:
+			switch domainServer.targetRequest.Protocol {
+			case Protocol_HTTP: //进行转发，将请求转发到中间代理层
 				webRemoteStr = "http://" + serverOpts.ForwardServer.IP + ":" + serverOpts.ForwardServer.Port + "/"
-
 			}
 		} else { //不存在中间层代理，则用户层代理直接对接底层目标服务器，即只有单层代理
-			switch domainServer.ProxyEntry.Protocol { //对代理协议进行处理
+			switch domainServer.targetRequest.Protocol { //对代理协议进行处理
 			case Protocol_HTTP:
-				webRemoteStr = "http://" + domainServer.ProxyEntry.TargetIP + ":" + domainServer.ProxyEntry.TargetPort
+				webRemoteStr = "http://" + domainServer.targetRequest.TargetIP + ":" + domainServer.targetRequest.TargetPort
+			case Protocol_HTTPS:
+			//todo 处理https请求
+			case Protocol_WS:
+				//todo 处理websocket
 
 			default:
 				return nil
@@ -289,12 +153,25 @@ func ServerInitWithOps(serverOpts ServerOptions) error {
 		}
 
 	case Middle_Layer_Proxy:
-		if serverOpts.ForwardServer.Existed { //存在中间层
+		if serverOpts.ForwardServer.Existed { //存在中间层，多层中间代理层情况 ，在这里就进行请求转发，将请求转发到下一层的中间代理服务中
+			switch domainServer.targetRequest.Protocol {
+			case Protocol_HTTP: //进行转发，将请求转发到中间代理层
+				webRemoteStr = "http://" + serverOpts.ForwardServer.IP + ":" + serverOpts.ForwardServer.Port + "/"
+			case Protocol_HTTPS:
+			//todo 处理https请求
+			case Protocol_WS:
+				//todo 处理websocket
 
-		} else {
-			switch domainServer.ProxyEntry.Protocol { //对代理协议进行处理
-			case Protocol_HTTP:
-				webRemoteStr = "http://" + domainServer.ProxyEntry.TargetIP + ":" + domainServer.ProxyEntry.TargetPort
+			}
+
+		} else { //只有一层中间层，该中间层可直接访问目标IP和端口
+			switch domainServer.targetRequest.Protocol { //对代理协议进行处理
+			case Protocol_HTTP: //中间层代理或最内层代理，将请求进行直接转发，转发到目标IP和端口
+				webRemoteStr = "http://" + domainServer.targetRequest.TargetIP + ":" + domainServer.targetRequest.TargetPort
+			case Protocol_HTTPS:
+			//todo 处理https请求
+			case Protocol_WS:
+				//todo 处理websocket
 
 			default:
 				return nil
@@ -318,11 +195,6 @@ func ServerSetupWithOps(serverOpts ServerOptions) error {
 	var (
 		err error
 	)
-	/*	defer func ListenerErrorHanlder(err *error){
-		if err != nil{
-			log.Printf("error in creating proxyserver is %s",err.Error())
-		}
-	}(&err)*/
 
 	httpServerListener, err = net.Listen("tcp", "0.0.0.0:"+strconv.Itoa(serverOpts.HTTPPort))
 	if err != nil {
@@ -338,19 +210,14 @@ func ServerSetupWithOps(serverOpts ServerOptions) error {
 		return err
 	}
 
-	//httpServerMuxRouter:=http.NewServeMux()
 	httpServerMuxRouter := mux.NewRouter()
 	httpServerMuxRouter.PathPrefix("/").HandlerFunc(RouterHandler)
-
-	//http.Handle("/",httpServerMuxRouter)
-
 	httpServer := &http.Server{
 		Handler:      httpServerMuxRouter,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
 	//	sshServer=& //todo  解决ssh代理
-
 	go func() {
 		if errStream <- httpServer.Serve(httpServerListener.(*net.TCPListener)); err != nil {
 			log.Println(err)
@@ -410,8 +277,8 @@ func RouterHandler(w http.ResponseWriter, r *http.Request) {
 		server.webSocketProxy.ServeHTTP(w, r)
 		return
 	}
-	if AuthAndFilterMiddleware(server.ProxyEntry, w, r) {
-		switch server.ProxyEntry.Protocol {
+	if AuthAndFilterMiddleware(server.targetRequest, w, r) {
+		switch server.targetRequest.Protocol {
 		case Protocol_HTTP:
 			server.httpProxy.ServeHTTP(w, r)
 		case Protocol_HTTPS:
@@ -425,9 +292,9 @@ func RouterHandler(w http.ResponseWriter, r *http.Request) {
 /**
 代理服务中间认证和请求过滤层
 */
-func AuthAndFilterMiddleware(proxyReq *EntryInstance, w http.ResponseWriter, r *http.Request) bool {
+func AuthAndFilterMiddleware(proxyReq *TargetRequest, w http.ResponseWriter, r *http.Request) bool {
 
-	if proxyReq.Layer == User_Layer_Proxy { //外层，用户层代理，需要做权限验证
+	if serverOpts.ServerLayer == User_Layer_Proxy { //外层，用户层代理，需要做权限验证
 		switch proxyReq.SecuryBy {
 		case SecureBy_None:
 			return true
@@ -469,7 +336,7 @@ func ServerCleanup() error {
 }
 
 //创建代理请求实例
-func InitEntryInst(entry EntryInstance) error {
+func InitEntryInst(entry TargetRequest) error {
 
 	var (
 		err error
