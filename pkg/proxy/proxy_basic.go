@@ -63,8 +63,6 @@ type TargetRequest struct {
 	ID         string `json:"id"`
 	UserName   string //用户名称
 	RequestURL string //泛域名请求URL
-	//	EntryURL    string //代理URL
-	//Layer       int    //代理所在层次
 	Protocol    int    // 代理协议
 	Domain      string //外部域名
 	SSLCertFile []byte //ssl 证书
@@ -212,6 +210,7 @@ func ServerSetupWithOps(serverOpts ServerOptions) error {
 
 	httpServerMuxRouter := mux.NewRouter()
 	httpServerMuxRouter.PathPrefix("/").HandlerFunc(RouterHandler)
+	//httpServerMuxRouter.Use() // tod 可以在此处进行中间件处理
 	httpServer := &http.Server{
 		Handler:      httpServerMuxRouter,
 		WriteTimeout: 15 * time.Second,
@@ -292,8 +291,7 @@ func RouterHandler(w http.ResponseWriter, r *http.Request) {
 /**
 代理服务中间认证和请求过滤层
 */
-func AuthAndFilterMiddleware(proxyReq *TargetRequest, w http.ResponseWriter, r *http.Request) bool {
-
+func AuthAndFilterMiddleware(proxyReq *TargetRequest) bool {
 	if serverOpts.ServerLayer == User_Layer_Proxy { //外层，用户层代理，需要做权限验证
 		switch proxyReq.SecuryBy {
 		case SecureBy_None:
@@ -307,8 +305,10 @@ func AuthAndFilterMiddleware(proxyReq *TargetRequest, w http.ResponseWriter, r *
 		default:
 			return true
 		}
-
 	}
+	//todo 新增过滤处理 filter 可以采用mux router中所具有的中间件处理过滤模式进行处理，只需要编写mux 中间件即可
+	//参考 https://stackoverflow.com/questions/26204485/gorilla-mux-custom-middleware
+
 
 	return true
 }
