@@ -2,7 +2,6 @@ package proxy
 
 import (
 	"context"
-	"fmt"
 	"github.com/gorilla/mux"
 	"log"
 	"net"
@@ -45,11 +44,16 @@ const (
 )
 
 type ServerOptions struct {
-	HTTPPort    int
-	HTTPSPort   int
-	SSHPort     int
-	BaseDomain  string
-	MiddleLayer string // 中间代理层
+	HTTPPort      int
+	HTTPSPort     int
+	SSHPort       int
+	BaseDomain    string
+	ServerLayer   int      // 代理运行层次，外层代理或中间层代理
+	ForwardServer struct { //转发中间层代理服务配置
+		Existed bool   //是否存在中间层代理
+		IP      string //转发中间层代理IP
+		Port    string //转发中间层代理端口
+	}
 	SSLCertFile string
 	SSLKeyFile  string
 }
@@ -94,10 +98,8 @@ var (
 
 func init() {
 
-	serverOptions.HTTPPort = 8080
-	serverOptions.HTTPSPort = 4430
-	serverOptions.SSHPort = 8022
 	serverOptions.BaseDomain = "z-gour.com"
+	serverOptions.ServerLayer = User_Layer_Proxy
 
 }
 
@@ -105,6 +107,7 @@ func init() {
 func ServerInit() error {
 	var (
 		err          error
+		webRemoteStr string
 		webremote    *url.URL
 		domainServer = &PanDomainServer{
 			ProxyEntry: &EntryInstance{
@@ -126,15 +129,42 @@ func ServerInit() error {
 		}
 	)
 
-	webremoteStr := "http://" + domainServer.ProxyEntry.TargetIP + ":" + domainServer.ProxyEntry.TargetPort
-	fmt.Println("===>", webremoteStr)
-	webremote, err = url.Parse(webremoteStr)
+	switch serverOptions.ServerLayer {
+
+	case User_Layer_Proxy:
+		if serverOptions.ForwardServer.Existed { //存在中间层代理
+
+		} else { //不存在中间层代理，则用户层代理直接对接底层目标服务器，即只有单层代理
+			switch domainServer.ProxyEntry.Protocol { //对代理协议进行处理
+			case Protocol_HTTP:
+				webRemoteStr = "http://" + domainServer.ProxyEntry.TargetIP + ":" + domainServer.ProxyEntry.TargetPort
+
+			default:
+				return nil
+			}
+		}
+
+	case Middle_Layer_Proxy:
+	default:
+		return nil
+
+	}
+	webremote, err = url.Parse(webRemoteStr)
 	if err != nil {
 		return err
 	}
 	domainServer.httpProxy = httputil.NewSingleHostReverseProxy(webremote)
 	domainServer.httpsProxy = httputil.NewSingleHostReverseProxy(webremote)
 	domainServers["a"] = domainServer
+
+	switch serverOptions.ServerLayer {
+	case User_Layer_Proxy: //用户层代理，最外层
+
+	case Middle_Layer_Proxy: //中间层代理(目标层)，
+	default:
+		return nil
+
+	}
 
 	return err
 }
@@ -192,6 +222,150 @@ func ServerSetup() error {
 		}
 	}()
 
+	closeSignal := make(chan os.Signal, 1)
+	// We'll accept graceful shutdowns when quit via SIGINT (Ctrl+C)
+	// SIGKILL, SIGQUIT or SIGTERM (Ctrl+/) will not be caught.
+	signal.Notify(closeSignal, os.Interrupt)
+
+	// Block until we receive our signal.
+	<-closeSignal
+
+	// Create a deadline to wait for.
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	// Doesn't block if no connections, but will otherwise wait
+	// until the timeout deadline.
+	httpServer.Shutdown(ctx)
+	// Optionally, you could run srv.Shutdown in a goroutine and block on
+	// <-ctx.Done() if your application should wait for other services
+	// to finalize based on context cancellation.
+	log.Println("proxy server shutting down....")
+	//os.Exit(0)
+
+	return nil
+}
+func ServerInitWithOps(serverOpts ServerOptions) error {
+	var (
+		err          error
+		webRemoteStr string
+		webremote    *url.URL
+		domainServer = &PanDomainServer{
+			ProxyEntry: &EntryInstance{
+				ID:          "",
+				UserName:    "",
+				EntryURL:    "",
+				Layer:       User_Layer_Proxy,
+				Protocol:    Protocol_HTTP,
+				Domain:      "",
+				SSLCertFile: nil,
+				SSLKeyFile:  nil,
+				TargetIP:    "127.0.0.1",
+				TargetPort:  "8000",
+				SecuryBy:    0,
+			},
+			//httpProxy:      httputil.NewSingleHostReverseProxy(webremote),
+			//httpsProxy:     httputil.NewSingleHostReverseProxy(webremote),
+			webSocketProxy: nil,
+		}
+	)
+
+	switch serverOpts.ServerLayer {
+
+	case User_Layer_Proxy:
+		if serverOpts.ForwardServer.Existed { //存在中间层代理
+			switch domainServer.ProxyEntry.Protocol {
+			case Protocol_HTTP:
+				webRemoteStr = "http://" + serverOpts.ForwardServer.IP + ":" + serverOpts.ForwardServer.Port + "/"
+
+			}
+		} else { //不存在中间层代理，则用户层代理直接对接底层目标服务器，即只有单层代理
+			switch domainServer.ProxyEntry.Protocol { //对代理协议进行处理
+			case Protocol_HTTP:
+				webRemoteStr = "http://" + domainServer.ProxyEntry.TargetIP + ":" + domainServer.ProxyEntry.TargetPort
+
+			default:
+				return nil
+			}
+		}
+
+	case Middle_Layer_Proxy:
+		if serverOpts.ForwardServer.Existed { //存在中间层
+
+		} else {
+			switch domainServer.ProxyEntry.Protocol { //对代理协议进行处理
+			case Protocol_HTTP:
+				webRemoteStr = "http://" + domainServer.ProxyEntry.TargetIP + ":" + domainServer.ProxyEntry.TargetPort
+
+			default:
+				return nil
+			}
+		}
+	default:
+		return nil
+
+	}
+	webremote, err = url.Parse(webRemoteStr)
+	if err != nil {
+		return err
+	}
+	domainServer.httpProxy = httputil.NewSingleHostReverseProxy(webremote)
+	domainServer.httpsProxy = httputil.NewSingleHostReverseProxy(webremote)
+	domainServers["a"] = domainServer
+
+	return err
+}
+func ServerSetupWithOps(serverOpts ServerOptions) error {
+	var (
+		err error
+	)
+	/*	defer func ListenerErrorHanlder(err *error){
+		if err != nil{
+			log.Printf("error in creating proxyserver is %s",err.Error())
+		}
+	}(&err)*/
+
+	httpServerListener, err = net.Listen("tcp", "0.0.0.0:"+strconv.Itoa(serverOpts.HTTPPort))
+	if err != nil {
+		return err
+	}
+	//todo 需要在报错时，对上一步创建的httpserverproxy 进行资源释放
+	httpsServerListener, err = net.Listen("tcp", "0.0.0.0:"+strconv.Itoa(serverOpts.HTTPSPort))
+	if err != nil {
+		return err
+	}
+	sshServerListener, err = net.Listen("tcp", "0.0.0.0:"+strconv.Itoa(serverOpts.SSHPort))
+	if err != nil {
+		return err
+	}
+
+	//httpServerMuxRouter:=http.NewServeMux()
+	httpServerMuxRouter := mux.NewRouter()
+	httpServerMuxRouter.PathPrefix("/").HandlerFunc(RouterHandler)
+
+	//http.Handle("/",httpServerMuxRouter)
+
+	httpServer := &http.Server{
+		Handler:      httpServerMuxRouter,
+		WriteTimeout: 15 * time.Second,
+		ReadTimeout:  15 * time.Second,
+	}
+	//	sshServer=& //todo  解决ssh代理
+
+	go func() {
+		if errStream <- httpServer.Serve(httpServerListener.(*net.TCPListener)); err != nil {
+			log.Println(err)
+			errStream <- err
+		}
+	}()
+
+	go func() {
+		httpServer.TLSConfig = nil // todo
+		if err = httpServer.ServeTLS(httpsServerListener.(*net.TCPListener), "", ""); err != nil {
+			log.Println(err)
+			errStream <- err
+		}
+	}()
+	log.Printf("proxy server staring ....,listen up at %s:%d\n", "0.0.0.0", serverOpts.HTTPPort)
 	closeSignal := make(chan os.Signal, 1)
 	// We'll accept graceful shutdowns when quit via SIGINT (Ctrl+C)
 	// SIGKILL, SIGQUIT or SIGTERM (Ctrl+/) will not be caught.
