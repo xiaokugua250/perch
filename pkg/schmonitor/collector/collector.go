@@ -5,6 +5,7 @@ import "perch/pkg/schmonitor"
 type Collector interface {
 	CollectorRegisterWithOpt(server schmonitor.ServerTarget) error
 	CollectorAgent() error
+	CollectorConnection(server schmonitor.ServerTarget) error
 	//CollectorPush() error
 }
 
@@ -34,6 +35,13 @@ func (log *LoggerCollector) CollectorRegisterWithOpt(server schmonitor.ServerTar
 		return nil
 
 	}
+	return err
+}
+
+func (log *LoggerCollector) CollectorConnection(server schmonitor.ServerTarget) error {
+	var (
+		err error
+	)
 	return err
 }
 
@@ -74,6 +82,12 @@ func (file *FileCollector) CollectorAgent() error {
 	)
 	return err
 }
+func (file *FileCollector) CollectorConnection(server schmonitor.ServerTarget) error {
+	var (
+		err error
+	)
+	return err
+}
 
 //--
 
@@ -94,6 +108,13 @@ func (basic *BasicCollector) CollectorRegisterWithOpt(server schmonitor.ServerTa
 }
 
 func (basic *BasicCollector) CollectorAgent() error {
+	var (
+		err error
+	)
+	return err
+}
+
+func (basic *BasicCollector) CollectorConnection(server schmonitor.ServerTarget) error {
 	var (
 		err error
 	)

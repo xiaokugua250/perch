@@ -13,13 +13,9 @@ import (
 	"time"
 )
 
-type SetupOptions struct {
-	IP          string
-	Port        string
-	SSLCertFile string
-	SSLKeyFile  string
-	Protocols   []int
-}
+var (
+	serverTargets []schmonitor.ServerTarget
+)
 
 /**
 TCP 协议接收文件服务端,支持大文件传输
@@ -43,7 +39,7 @@ func serverWithTCP(target schmonitor.ServerTarget) error {
 		go TcpConnectionHandler(conn)
 	}
 
-	return err
+	//return err
 
 }
 
@@ -115,10 +111,6 @@ func ServerWithGRPC(target schmonitor.ServerTarget) error {
 	return nil
 }
 
-func ServerWithSocket() {
-
-}
-
 func SetupWithOpt(target schmonitor.ServerTarget) error {
 
 	var (
@@ -127,11 +119,12 @@ func SetupWithOpt(target schmonitor.ServerTarget) error {
 
 	switch target.Protocol {
 	case schmonitor.GrpcProtocol:
-
+		ServerWithGRPC(target)
 	case schmonitor.HttpProtocol:
+		ServerWithHTTP(target)
 
-	case schmonitor.SocketProtocol:
 	case schmonitor.TcpProtocol:
+		serverWithTCP(target)
 	default:
 		log.Fatalln("protocol not support....")
 	}
@@ -143,38 +136,41 @@ func InitWithOpt() {
 
 }
 
-func ServerSetupWithOpt(options SetupOptions) error {
+func ServerSetupWithOpt(serverTargets []schmonitor.ServerTarget) error {
 
 	var (
 		err error
 		wg  sync.WaitGroup
 	)
-	if len(options.Protocols) == 0 {
+	if len(serverTargets) == 0 {
 		return errors.New(fmt.Sprintf("protocol options is none,i.e len(options.protocol)==0"))
 	}
-	wg.Add(len(options.Protocols))
-	for _, protocol := range options.Protocols {
-
-		targetServer := schmonitor.ServerTarget{
-			IP:       options.IP,
-			Port:     options.Port,
-			Protocol: protocol,
-		}
-		//wg.Done()
-		//fmt.Println(targetServer)
-		//	go SetupWithOpt(targetServer)
-		//wg.Done()
-		go func() {
+	wg.Add(len(serverTargets))
+	for _, serverOpt := range serverTargets {
+		/*server := schmonitor.ServerTarget{
+			IP:          serverOpt.IP,
+			Port:        serverOpt.Port,
+			EnableSSL:   serverOpt.EnableSSL,
+			SSLCertFile: serverOpt.SSLCertFile,
+			SSLKeyFile:  serverOpt.SSLKeyFile,
+			Protocol:    serverOpt.Protocol,
+		}*/
+		go func(server schmonitor.ServerTarget) {
 			defer wg.Done()
-			SetupWithOpt(targetServer)
-		}()
-
+			SetupWithOpt(server)
+		}(serverOpt)
 	}
+
 	wg.Wait()
 	return err
 
 }
 
 func TcpConnectionHandler(conn net.Conn) {
+	defer conn.Close()
+	for {
+		//todo  read from the connection
 
+		//todo write to the connection
+	}
 }

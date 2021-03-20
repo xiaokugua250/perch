@@ -2,16 +2,34 @@ package server
 
 import (
 	"log"
+	"perch/pkg/schmonitor"
 	"testing"
 )
 
 func TestServerSetupWithOpt(t *testing.T) {
 
-	var options SetupOptions
-	options.IP = "127.0.0.1"
-	options.Port = "9999"
-	options.Protocols = []int{1, 2, 3}
-	if err := ServerSetupWithOpt(options); err != nil {
+	var (
+		servers []schmonitor.ServerTarget
+	)
+	servers = []schmonitor.ServerTarget{
+		schmonitor.ServerTarget{
+			IP:          "127.0.0.1",
+			Port:        "9898",
+			EnableSSL:   false,
+			SSLCertFile: "",
+			SSLKeyFile:  "",
+			Protocol:    schmonitor.TcpProtocol,
+		},
+		schmonitor.ServerTarget{
+			IP:          "127.0.0.1",
+			Port:        "9899",
+			EnableSSL:   false,
+			SSLCertFile: "",
+			SSLKeyFile:  "",
+			Protocol:    schmonitor.HttpProtocol,
+		},
+	}
+	if err := ServerSetupWithOpt(servers); err != nil {
 		log.Println(err)
 	}
 }
