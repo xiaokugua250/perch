@@ -11,8 +11,15 @@ type AgentBasicInfo struct {
 	UUID       string
 	Name       string
 	IP         string
-	Location   string
+	Location   Location
 	SystemInfo interface{}
+}
+type Location struct {
+	AreaName  string //区域名称
+	AreaCode  int    //区域编码
+	latitude  string //经度
+	Longitude string //纬度
+
 }
 
 func AgentExector() error {
