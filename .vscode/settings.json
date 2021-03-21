@@ -33,6 +33,8 @@
         },
     },
     "gopls": {
+        "usePlaceholders": true, // add parameter placeholders when completing a function
+        "wantCompletionDocumentation": true // for documentation in completion items
         // Add parameter placeholders when completing a function.
        // "usePlaceholders": true,
         // If true, enable additional analyses with staticcheck.
@@ -40,7 +42,6 @@
         //"staticcheck": false,
     },
     "go.autocompleteUnimportedPackages": true,
-    "go.inferGopath": false,
     "go.gotoSymbol.includeImports": true,
     "go.gotoSymbol.includeGoroot": true,
     "go.languageServerExperimentalFeatures": {
@@ -78,6 +79,10 @@
         "testCoverage": true,
         "playground": true,
         "debugTestAtCursor": true
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": false,
+        "source.organizeImports": true
     },
   
 }

@@ -3,7 +3,7 @@ package sysadmin
 import (
 	"context"
 	_ "fmt"
-	"perch/pkg/sysinfo"
+	
 	"perch/web/metric"
 	"perch/web/model"
 	"strconv"
@@ -17,11 +17,11 @@ func SysBasicInfoHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			//sysBasicInfo = make(map[string]interface{})
-			sysBasicInfo sysinfo.HostAdvancedInfo
+			sysBasicInfo monitor.HostAdvancedInfo
 			err          error
 		)
 
-		sysBasicInfo, err = sysinfo.SysHostAdvancedInfo()
+		sysBasicInfo, err = monitor.SysHostAdvancedInfo()
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -40,13 +40,13 @@ func SysBasicInfoHandler(w http.ResponseWriter, r *http.Request) {
 func SysMemInfoHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
-			sysMemInfo sysinfo.SysMemInformation
+			sysMemInfo monitor.SysMemInformation
 			err        error
 		)
 
 		response.Kind = "sysinfo memory"
 
-		sysMemInfo, err = sysinfo.SysMemInfo()
+		sysMemInfo, err = monitor.SysMemInfo()
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -63,7 +63,7 @@ func SysMemInfoHandler(w http.ResponseWriter, r *http.Request) {
 func SysCpuInfoHandler(w http.ResponseWriter, req *http.Request) {
 	metric.ProcessMetricFunc(w, req, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
-			sysCpuInfo sysinfo.CpuAdvancedInfo
+			sysCpuInfo monitor.CpuAdvancedInfo
 			logical    bool
 			percpu     bool
 			interval   time.Duration
@@ -107,7 +107,7 @@ func SysCpuInfoHandler(w http.ResponseWriter, req *http.Request) {
 
 		response.Kind = "sysinfo cpu"
 
-		sysCpuInfo, err = sysinfo.SysAdvancedCpuInfo(logical, percpu, interval)
+		sysCpuInfo, err = monitor.SysAdvancedCpuInfo(logical, percpu, interval)
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -125,13 +125,13 @@ func SysCpuInfoHandler(w http.ResponseWriter, req *http.Request) {
 func SysHostInfoHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
-			sysHostInfo sysinfo.HostAdvancedInfo
+			sysHostInfo monitor.HostAdvancedInfo
 			err         error
 		)
 
 		response.Kind = "sysinfo memory"
 
-		sysHostInfo, err = sysinfo.SysHostAdvancedInfo()
+		sysHostInfo, err = monitor.SysHostAdvancedInfo()
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -148,13 +148,13 @@ func SysHostInfoHandler(w http.ResponseWriter, r *http.Request) {
 func SysDockerInfoHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
-			sysDockerInfo sysinfo.DockerAdvancedInfo
+			sysDockerInfo monitor.DockerAdvancedInfo
 			err           error
 		)
 
 		response.Kind = "sysinfo docker"
 
-		sysDockerInfo, err = sysinfo.SysAdvancedDockerInfo()
+		sysDockerInfo, err = monitor.SysAdvancedDockerInfo()
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -177,7 +177,7 @@ func SysDiskInfoHandler(w http.ResponseWriter, req *http.Request) {
 			partions       bool
 			path           string
 			iocounters     []string
-			sysDiskInfo    sysinfo.DiskAdvacedInfo
+			sysDiskInfo    monitor.DiskAdvacedInfo
 
 			err error
 		)
@@ -202,7 +202,7 @@ func SysDiskInfoHandler(w http.ResponseWriter, req *http.Request) {
 		iocounters = strings.Split(iocountersStr, ",")
 		response.Kind = "sysinfo disk"
 
-		sysDiskInfo, err = sysinfo.SysAdvancedDiskInfo(diskSerialName, diskLableName, partions, path, iocounters...)
+		sysDiskInfo, err = monitor.SysAdvancedDiskInfo(diskSerialName, diskLableName, partions, path, iocounters...)
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -220,7 +220,7 @@ func SysDiskInfoHandler(w http.ResponseWriter, req *http.Request) {
 func SysNetInfoHandler(w http.ResponseWriter, req *http.Request) {
 	metric.ProcessMetricFunc(w, req, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
-			sysNetInfo sysinfo.NetAdvancedInfo
+			sysNetInfo monitor.NetAdvancedInfo
 			percpu     bool
 			err        error
 		)
@@ -237,7 +237,7 @@ func SysNetInfoHandler(w http.ResponseWriter, req *http.Request) {
 				return err
 			}
 		}
-		sysNetInfo, err = sysinfo.SysAdvancedNetInfo(percpu)
+		sysNetInfo, err = monitor.SysAdvancedNetInfo(percpu)
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -254,13 +254,13 @@ func SysNetInfoHandler(w http.ResponseWriter, req *http.Request) {
 func SysProcessInfoHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
-			sysProcessInfo sysinfo.ProcessAdvancedInfo
+			sysProcessInfo monitor.ProcessAdvancedInfo
 			err            error
 		)
 
 		response.Kind = "sysinfo process"
 
-		sysProcessInfo, err = sysinfo.SysAdvancedProcessInfo()
+		sysProcessInfo, err = monitor.SysAdvancedProcessInfo()
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()
@@ -277,13 +277,13 @@ func SysProcessInfoHandler(w http.ResponseWriter, r *http.Request) {
 func SysLoadInfoHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
-			sysLoadInfo sysinfo.LoadAdvancedInfo
+			sysLoadInfo monitor.LoadAdvancedInfo
 			err         error
 		)
 
 		response.Kind = "sysinfo memory"
 
-		sysLoadInfo, err = sysinfo.SysAdvancedLoadInfo()
+		sysLoadInfo, err = monitor.SysAdvancedLoadInfo()
 		if err != nil {
 			response.Code = http.StatusInternalServerError
 			response.Message = err.Error()

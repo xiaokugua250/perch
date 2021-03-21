@@ -10,7 +10,7 @@ import (
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/labels"
 	"net/http"
-	"perch/pkg/cluster/k8s"
+
 	"perch/web/metric"
 	"perch/web/model"
 )

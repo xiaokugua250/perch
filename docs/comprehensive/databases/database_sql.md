@@ -1624,4 +1624,3 @@ UPDATE ：InnoDB会把原来的行复制一份到回滚段中，保存当前系�
 [15]. https://blog.csdn.net/sinat_27602945/article/details/80118362]
 [16]. https://bbs.huaweicloud.com/blogs/159475 [面试题目]
 
->>>>>>> 0caa6463fb2bbaadf1cf60d4c5f1a4febfb65cf7
