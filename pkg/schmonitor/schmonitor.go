@@ -6,9 +6,10 @@ import (
 )
 
 const (
-	TcpProtocol  = iota + 1 //tcp 协议
-	HttpProtocol            //HTTP协议
-	GrpcProtocol            //GRPC协议
+	TcpProtocol       = iota + 1 //tcp 协议
+	HttpProtocol                 //HTTP协议
+	GrpcProtocol                 //GRPC协议
+	WebSocketProtocol            //WEBSOCKET 协议
 
 )
 
