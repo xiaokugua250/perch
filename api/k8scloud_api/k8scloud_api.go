@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 
-	
 	"perch/web/metric"
 	"perch/web/model"
 	"time"
@@ -15,14 +14,14 @@ import (
 
 func CloudResoucesHandler(w http.ResponseWriter, r *http.Request) {
 	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
-		var (
+		/*var (
 			sysMemInfo monitor.SysMemInformation
 			//	err        error
 		)
 
 		response.Code = http.StatusOK
 		response.Spec = sysMemInfo
-		response.Message = " sys mem info"
+		response.Message = " sys mem info"*/
 		return nil
 	})
 }
@@ -52,6 +51,24 @@ func CloudResourceFileHandler(w http.ResponseWriter, r *http.Request) {
 		response.Code = http.StatusOK
 		response.Spec = "k8s resource created by file successfully!!"
 		response.Message = "k8s resource created by file successfully!!"
+		return nil
+	})
+}
+
+/**
+用户软件部署和创建服务
+*/
+func CloudResoucesUserSoftwareWithDeployHandler(w http.ResponseWriter, r *http.Request) {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+		/*var (
+			sysMemInfo monitor.SysMemInformation
+			//	err        error
+		)
+
+
+		response.Code = http.StatusOK
+		response.Spec = sysMemInfo
+		response.Message = " sys mem info"*/
 		return nil
 	})
 }
