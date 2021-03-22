@@ -81,6 +81,7 @@
 * [ ] 熔断器和限流器 
 * [ ] golang 代理服务
 * [ ] ssh /tcp 代理，多层代理
+* [ ] 基于NSQ的消息订阅发布模式
 * [ ] 采用[go-guard](https://github.com/shaj13/go-guardian)统一认证
  
 
