@@ -21,7 +21,6 @@ require (
 	github.com/gocolly/colly v1.2.0
 	github.com/golang/protobuf v1.4.3
 	github.com/google/gofuzz v1.2.0 // indirect
-	github.com/google/uuid v1.1.1
 	github.com/googleapis/gnostic v0.5.1 // indirect
 	github.com/gorilla/handlers v1.5.0
 	github.com/gorilla/mux v1.7.4
@@ -54,6 +53,8 @@ require (
 	github.com/multiformats/go-multiaddr-net v0.1.5
 	github.com/multiformats/go-multibase v0.0.3
 	github.com/multiformats/go-multihash v0.0.13
+	github.com/nsqio/go-nsq v1.0.8
+	github.com/nsqio/nsq v1.2.0
 	github.com/pkg/errors v0.9.1
 	github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5
 	github.com/rivo/tview v0.0.0-20200528200248-fe953220389f

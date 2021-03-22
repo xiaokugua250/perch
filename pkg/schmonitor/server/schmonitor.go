@@ -3,6 +3,7 @@ package server
 import (
 	"errors"
 	"fmt"
+	"github.com/gorilla/mux"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
 	"log"
@@ -46,17 +47,21 @@ func serverWithTCP(target schmonitor.ServerTarget) error {
 /**
 小文件，等进行HTTP传输
 */
-func ServerWithHTTP(target schmonitor.ServerTarget) error {
+func ServerWithHTTP(target schmonitor.ServerTarget, router *mux.Router) error {
 	var (
 		err error
+
 	//	listener net.Listener
 	)
+
 	httpServer := &http.Server{
-		Addr: target.IP + ":" + target.Port,
+		Addr:    target.IP + ":" + target.Port,
+		Handler: router,
 		// Good practice: enforce timeouts for servers you create!
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
+
 	if target.EnableSSL {
 		err = httpServer.ListenAndServeTLS(target.SSLCertFile, target.SSLKeyFile)
 		if err != nil {
@@ -119,12 +124,20 @@ func SetupWithOpt(target schmonitor.ServerTarget) error {
 
 	switch target.Protocol {
 	case schmonitor.GrpcProtocol:
-		ServerWithGRPC(target)
+		if err = ServerWithGRPC(target); err != nil {
+			return err
+		}
 	case schmonitor.HttpProtocol:
-		ServerWithHTTP(target)
+		router := mux.NewRouter()
+
+		if err = ServerWithHTTP(target, router); err != nil {
+			return err
+		}
 
 	case schmonitor.TcpProtocol:
-		serverWithTCP(target)
+		if err = serverWithTCP(target); err != nil {
+			return err
+		}
 	default:
 		log.Fatalln("protocol not support....")
 	}

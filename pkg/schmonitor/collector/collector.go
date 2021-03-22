@@ -179,8 +179,14 @@ func (basic *BasicCollector) CollectorRegisterWithOpt(server schmonitor.ServerTa
 
 func (basic *BasicCollector) CollectorAgent() error {
 	var (
-		err error
+		err            error
+		basicAgentInfo AgentBasicInfo
 	)
+	basicAgentInfo, err = AgentBasicCollector()
+	if err != nil {
+		return err
+	}
+	_ = basicAgentInfo //todo 处理basicinfo
 	return err
 }
 

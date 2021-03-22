@@ -28,6 +28,7 @@ config:
 #p2pnetwork:
 #	go build -mod=mod -race -o bin/application/p2pnetwork ../internal/p2p/application/p2p_network.go
 # go build   -gcflags="all=-m" -ldflags="-X main.version=1.2.3" -o ${bin_dir}/$${server}  ${webserver_dir}/$${server}/$${server}.go;
+# 参考：https://blog.kowalczyk.info/article/vEja/embedding-build-number-in-go-executable.html
 
 target:
 	@for server in `ls ${webserver_dir}`; \
