@@ -1,3 +1,148 @@
+## shell  cheet 卡片
+
+1. 特殊变量
+
+| 变量     | 含义 |
+| ----------- | ----------- |
+|$0	|脚本名字|
+|$1	|位置参数 #1|
+|$2 - $9|	位置参数 #2 - #9|
+|${10}|	位置参数 #10|
+|$#|	位置参数的个数|
+|"$*"|	所有的位置参数(作为单个字符串) *|
+|"$@"|	所有的位置参数(每个都作为独立的字符串)|
+|${#*}	|传递到脚本中的命令行参数的个数|
+|${#@}	|传递到脚本中的命令行参数的个数|
+|$?	|返回值|
+|$$|	脚本的进程ID(PID)|
+|$-	|传递到脚本中的标志(使用set)|
+|$_	|之前命令的最后一个参数|
+|$!	|运行在后台的最后一个作业的进程ID(PID)|
+
+
+
+2. 比较操作
+
+|操作|描述|---|操作|描述|
+| --- | --- | --- | --- | ---|	 	 	 	 
+|算术比较	||| 	 	字符串比较|	 
+|-eq	|等于	 ||	=	|等于|
+| 	 	| 	||==||	等于
+|-ne|	不等于	 	||!=|	不等于
+|-lt|	小于	 	||\<	|小于 (ASCII) *
+|-le|	小于等于	 	 	 
+|-gt|	大于	 	||\>	|大于 (ASCII) *
+|-ge|	大于等于	 	 	 
+| 	 |	|| 	-z|	字符串为空
+| 	 |||	 	-n|	字符串不为空
+| 	 	 	 	 
+|算术比较	|双括号(( ... ))结构	 	 	 
+|>	|大于	 |
+|>=	|大于等于|
+|<|	小于	 |	 	 
+|<=	|小于等于|
+
+
+3. 文件类型操作
+
+|操作|测试条件|---|操作|测试条件|
+| --- | --- | --- | --- | ---|
+|-e	|文件是否存在||	 	-s	|文件大小不为0|
+|-f	|是一个标准文件||	| 	 	 
+|-d	|是一个目录	 ||	-r|	文件具有读权限|
+|-h	|文件是一个符号链接	 ||	-w|	文件具有写权限|
+|-L	|文件是一个符号链接	 ||	-x|	文件具有执行权限|
+|-b	|文件是一个块设备	 	|| 	 ||
+|-c	|文件是一个字符设备	 	||-g	|设置了sgid标记|
+|-p	|文件是一个管道	|| 	-u	|设置了suid标记|
+|-S	|文件是一个socket||	 	-k|	设置了"粘贴位"|
+|-t	|文件与一个终端相关联	|||| 	 	 
+| 	| 	 	 	 
+|-N	|从这个文件最后一次被读取之后, 它被修改过	|| 	F1 |-nt F2|	文件F1比文件F2新 *|
+|-O	|这个文件的宿主是你	 ||	F1 -ot F2	|文件F1比文件F2旧 *|
+|-G	|文件的组id与你所属的组相同	 	||F1 -ef F2|	文件F1|和文件F2都是同一个文件的硬链接 *
+| 	 |	 	 	 
+|!	|"非" (反转上边的测试结果)	 	 |	 |
+
+4.参数扩展与替换
+
+|表达式|含义|
+| --- | --- |
+|${var} |变量var的值, 与$var相同|
+| 	 ||
+|${var-DEFAULT}	|如果var没有被声明, 那么就以$DEFAULT作为其值 *|
+|${var:-DEFAULT}	|如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *|
+| 	 |
+|${var=DEFAULT}|	如果var没有被声明, 那么就以$DEFAULT作为其值 *|
+|${var:=DEFAULT}|	如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *|
+| 	 |
+|${var+OTHER}|	如果var声明了, 那么其值就是$OTHER, 否则就为null字符串|
+|${var:+OTHER}|	如果var被设置了, 那么其值就是$OTHER, 否则就为null字符串|
+| 	 |
+|${var?ERR_MSG}|	如果var没被声明, 那么就打印$ERR_MSG *|
+|${var:?ERR_MSG}	|如果var没被设置, 那么就打印$ERR_MSG *|
+| 	 |
+|${!varprefix*}	|匹配之前所有以varprefix开头进行声明的变量|
+|${!varprefix@}	|匹配之前所有以varprefix开头进行声明的变量|
+
+5.字符串操作
+|表达式|含义|
+| --- | --- |
+|${#string}	|$string的长度 |
+|${string:position}	|在$string中, 从位置$position开始提取子串|
+|${string:position:length}	|在$string中, 从位置$position开始提取长度为$length的子串|
+| 	 |
+|${string#substring}	|从变量$string的开头, 删除最短匹配|$substring的子串
+|${string##substring}	|从变量$string的开头, 删除最长匹配|$substring的子串
+|${string%substring}	|从变量$string的结尾, 删除最短匹配|$substring的子串
+|${string%%substring}	|从变量$string的结尾, 删除最长匹配|$substring的子串
+| 	 
+|${string/substring/replacement}	|使用$replacement, 来代替第一个匹配的$substring|
+|${string//substring/replacement}	|使用$replacement, 代替所有匹配的$substring|
+|${string/#substring/replacement}	|如果$string的前缀匹配$substring, 那么就用$replacement来代替匹配到的$substring|
+|${string/%substring/replacement}	|如果$string的后缀匹配|$substring, 那么就用$replacement来代替匹配到的$substring|
+| 	 |
+| 	 |
+|expr match "$string" '$substring'|	匹配\$string开头的$substring*的长度|
+|expr "$string" : '$substring'	|匹配\$string开头的$substring*的长度|
+|expr index "$string" $substring	|在\$string中匹配到的$substring的第一个字符出现的位置|
+|expr substr $string $position $length	|在\$string中从位置\$position开始提取长度为$length的子串|
+|expr match "$string" '\\(\$substring\)'|	从\$string的开头位置提取$substring*|
+|expr "$string" : '\\(\$substring\\)'	|从\$string的开头位置提取$substring*|
+|expr match "$string" '.*\\(\$substring\\)'|	从\$string的结尾提取$substring*|
+|expr "$string" : '.*\\(\$substring\\)'|	从\$string的结尾提取$substring*|
+
+
+6.结构汇总
+|表达式|含义|
+| --- | --- |
+|中括号	 ||
+|if [ CONDITION ]	|测试结构|
+|if [[ CONDITION ]]	|扩展的测试结构|
+|Array[1]=element1|	数组初始化|
+|[a-z]	|正则表达式的字符范围	 |
+|大括号	 ||
+|${variable}|	参数替换|
+|${!variable}	|间接变量引用|
+|{ command1; command2; . . . commandN; }	|代码块|
+|{string1,string2,string3,...}	|大括号扩展|
+|圆括号	 ||
+|( command1; command2 )	|子shell中执行的命令组|
+|Array=(element1 element2 element3)	|数组初始化|
+|result=$(COMMAND)	|在子shell中执行命令, 并将结果赋值给变量|
+|>(COMMAND)	|进程替换|
+|<(COMMAND)|	进程替换|
+|双圆括号	 ||
+|(( var = 78 ))|	整型运算|
+|var=$(( 20 + 5 ))|	整型运算, 并将结果赋值给变量|
+| 	 |
+|引号	 ||
+|"$variable"|	"弱"引用|
+|'string'	|"强"引用|
+| 	 
+|后置引用	 ||
+|result=`COMMAND`	在子shell中运行命令, 并将结果赋值给变量|
+
 ## shell 脚本收集
 
 1. 备份最后一天修改的文件 [参考：https://teliute.org/linux/abs-3.9.1/special-chars.html]
