@@ -7,6 +7,7 @@ require (
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
 	github.com/antchfx/htmlquery v1.2.3 // indirect
 	github.com/antchfx/xmlquery v1.3.2 // indirect
+	github.com/casbin/casbin/v2 v2.25.5
 	github.com/coreos/bbolt v1.3.5 // indirect
 	github.com/coreos/etcd v3.3.13+incompatible
 	github.com/corpix/uarand v0.1.1 // indirect
@@ -54,7 +55,6 @@ require (
 	github.com/multiformats/go-multibase v0.0.3
 	github.com/multiformats/go-multihash v0.0.13
 	github.com/nsqio/go-nsq v1.0.8
-	github.com/nsqio/nsq v1.2.0
 	github.com/pkg/errors v0.9.1
 	github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5
 	github.com/rivo/tview v0.0.0-20200528200248-fe953220389f
