@@ -61,7 +61,7 @@ func (casbinAcm *CasbinAcm) CasbinAccess(request CasbinSpecRequest) (bool, error
 	var (
 		err error
 	)
-	passed, err := casbinAcm.Enforcer.Enforce(request.)
+	passed, err := casbinAcm.Enforcer.Enforce(request)
 	if err != nil {
 		return false, err
 	}
@@ -87,18 +87,36 @@ func (casbinAcm *CasbinAcm) CasbinAccessWithDB(db *gorm.DB, request CasbinSpecRe
 
 	//	e, _ := casbin.NewEnforcer("examples/rbac_model.conf", dbAdapter)
 
+	/**
 	// Load the policy from DB.
 	if err = casbinAcm.Enforcer.LoadPolicy(); err != nil {
 		return false, err
 	}
+*/	
+	filter := gormadapter.Filter{
+		PType: []string{},
+		V0: []string{},
+		V1: []string{},
+		V2: []string{},
+		V3: []string{},
+		V4: []string{},
+		V5: []string{},
+	}
+	
+	// Load the policy from DB.
+	if err = casbinAcm.Enforcer.LoadFilteredPolicy(filter); err != nil {
+		return false, err
+	}
+	
 
 	passed, err := casbinAcm.Enforcer.Enforce(request.Subject,request.Domain,request.Object)
 	if err != nil {
 		return false, err
 	}
+/*
 	if err = casbinAcm.Enforcer.SavePolicy(); err != nil {
 		return false, err
-	}
+	}*/
 
 	return passed, err
 }
