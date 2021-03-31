@@ -3,7 +3,6 @@ package auth
 import (
 	"fmt"
 
-
 	_ "github.com/go-sql-driver/mysql"
 
 	"log"
@@ -13,19 +12,15 @@ import (
 	"gorm.io/gorm"
 )
 
-
-
-func TestCasbinInit(t *testing.T){
+func TestCasbinInit(t *testing.T) {
 
 	casbinEnforcer, err := CasbinInit("./casbin.conf")
 	if err != nil {
 		log.Fatalln(err)
 	}
-	fmt.Println("----",casbinEnforcer)
+	fmt.Println("----", casbinEnforcer)
 
 }
-
-
 
 func TestCasbinAcm_CasbinAccessWithDB1(t *testing.T) {
 
@@ -38,20 +33,21 @@ func TestCasbinAcm_CasbinAccessWithDB1(t *testing.T) {
 	}
 
 	casbinEnforcer, err := CasbinInit("./casbin.conf")
-	if err != nil{
-		log.Fatalln("error iswwww ",err)
+	if err != nil {
+		log.Fatalln("error iswwww ", err)
 	}
-
 
 	request := CasbinSpecRequest{
-		Subject: "liangdu",
-		Domain:  "z-gour.com/*",
-		Object:  "write",
-	//	Actions: []string{"read"},
+		//Subject: "alice",
+		//	Role:    "group_admin",
+		//Domain: "z-gour.com",
+		//Object: "GET",
+		//	Actions: []string{"read"},
 	}
-	pass ,err :=		casbinEnforcer.CasbinAccessWithDB(MysqlDb, request)
-	if err!= nil{
-		log.Fatalln("error is----",err)
+
+	pass, err := casbinEnforcer.CasbinAccessWithDB(MysqlDb, request)
+	if err != nil {
+		log.Fatalln("error is----", err)
 	}
-	fmt.Println("====",pass)
+	fmt.Println("====", pass)
 }

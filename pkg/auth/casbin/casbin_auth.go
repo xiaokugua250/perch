@@ -1,6 +1,8 @@
 package auth
 
 import (
+	
+
 	"github.com/casbin/casbin/v2"
 	"github.com/casbin/casbin/v2/persist"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
@@ -14,6 +16,7 @@ type CasbinAcm struct { // access control model
 
 type CasbinSpecRequest struct {
 	Subject string
+//	Role    string
 	Domain  string
 	Object  string
 }
@@ -50,7 +53,7 @@ func CasbinInit(conf string) (CasbinAcm, error) {
 /**
 添加验证策略，策略从配置文件或者数据库中读取
 */
-func (casbinAcm *CasbinAcm) CasbinSetAdapters(adapter persist.Adapter ) (bool, error) {
+func (casbinAcm *CasbinAcm) CasbinSetAdapters(adapter persist.Adapter) (bool, error) {
 
 	casbinAcm.SyncedEnforcer.Enforcer.SetAdapter(adapter)
 	return false, nil
@@ -63,7 +66,7 @@ func (casbinAcm *CasbinAcm) CasbinAccess(request CasbinSpecRequest) (bool, error
 	var (
 		err error
 	)
-	passed, err := casbinAcm.Enforcer.Enforce(request.Subject,request.Domain,request.Object)
+	passed, err := casbinAcm.Enforcer.Enforce(request.Subject, request.Domain, request.Object)
 	if err != nil {
 		return false, err
 	}
@@ -89,36 +92,34 @@ func (casbinAcm *CasbinAcm) CasbinAccessWithDB(db *gorm.DB, request CasbinSpecRe
 	casbinAcm.SyncedEnforcer.Enforcer.SetAdapter(dbAdapter)
 
 	//	e, _ := casbin.NewEnforcer("examples/rbac_model.conf", dbAdapter)
-/*
-	filter := gormadapter.Filter{
-		PType: []string{},
-		V0: []string{},
-		V1: []string{},
-		V2: []string{},
-		V3: []string{},
-		V4: []string{},
-		V5: []string{},
-	}*/
+	/*
+		filter := gormadapter.Filter{
+			PType: []string{},
+			V0: []string{},
+			V1: []string{},
+			V2: []string{},
+			V3: []string{},
+			V4: []string{},
+			V5: []string{},
+		}*/
 
 	// Load the policy from DB.
+
 	if err = casbinAcm.Enforcer.LoadPolicy(); err != nil {
 		return false, err
 	}
 
-
-	passed, err := casbinAcm.Enforcer.Enforce(request.Subject,request.Domain,request.Object)
+	passed, err := casbinAcm.Enforcer.Enforce(request.Subject, request.Domain, request.Object)
 	if err != nil {
 		return false, err
 	}
 	/*
-	if err = casbinAcm.Enforcer.SavePolicy(); err != nil {
-		return false, err
-	}*/
+		if err = casbinAcm.Enforcer.SavePolicy(); err != nil {
+			return false, err
+		}*/
 
 	return passed, err
 }
-
-
 
 /**
 casbin进行权限验证,添加特定filter过滤
@@ -132,8 +133,8 @@ casbin进行权限验证,添加特定filter过滤
 		V4: []string{},
 		V5: []string{},
 	}*/
-*/
-func (casbinAcm *CasbinAcm) CasbinSpecAccessWithDB(db *gorm.DB,filter gormadapter.Filter, request CasbinSpecRequest) (bool, error) {
+
+func (casbinAcm *CasbinAcm) CasbinSpecAccessWithDB(db *gorm.DB, filter gormadapter.Filter, request CasbinSpecRequest) (bool, error) {
 	var (
 		dbAdapter *gormadapter.Adapter
 		err       error
@@ -149,15 +150,12 @@ func (casbinAcm *CasbinAcm) CasbinSpecAccessWithDB(db *gorm.DB,filter gormadapte
 
 	//	e, _ := casbin.NewEnforcer("examples/rbac_model.conf", dbAdapter)
 
-
-
 	// Load the policy from DB.
 	if err = casbinAcm.Enforcer.LoadFilteredPolicy(filter); err != nil {
 		return false, err
 	}
 
-
-	passed, err := casbinAcm.Enforcer.Enforce(request.Subject,request.Domain,request.Object)
+	passed, err := casbinAcm.Enforcer.Enforce(request.Subject, request.Domain, request.Object)
 	if err != nil {
 		return false, err
 	}
