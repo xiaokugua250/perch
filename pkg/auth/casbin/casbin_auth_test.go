@@ -2,28 +2,41 @@ package auth
 
 import (
 	"fmt"
+
 	"github.com/casbin/casbin/v2"
 	_ "github.com/go-sql-driver/mysql"
 
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 	"log"
 	"testing"
+
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
+
+
+
+func TestCasbinInit(t *testing.T){
+
+	casbinEnforcer, err := CasbinInit("./casbin.conf")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	fmt.Println("----",casbinEnforcer)
+
+}
+
 
 func TestCasbinAcm_CasbinAccessWithDB(t *testing.T) {
 
-	DBConfig := "genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local"
+	DBConfig := "root:mysqladmin@tcp(localhost:3306)/morty_db?charset=utf8mb4&parseTime=True&loc=Local"
 	//dsn := DBConfig
-	var (
-		err error
-	)
+
 	MysqlDb, err := gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	casbinEnforcer, err := CasbinInit("../../")
+	casbinEnforcer, err := CasbinInit("./casbin.conf")
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -48,12 +61,17 @@ func TestCasbinAcm_CasbinAccessWithDB(t *testing.T) {
 			struct {
 				db      *gorm.DB
 				request CasbinSpec
-			}{db: MysqlDb, request: nil},
+			}{db: MysqlDb, request: struct {
+				Subject string
+				Domain  string
+				Object  string
+				Actions []string
+			}{Subject: "a", Domain: "z-gour.com", Object: "resources", Actions: []string{"read"}}},
 			true,
 			false,
 		},
 	}
-
+	fmt.Println("-----")
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			casbinAcm := &CasbinAcm{
@@ -71,27 +89,29 @@ func TestCasbinAcm_CasbinAccessWithDB(t *testing.T) {
 	}
 }
 
-func TestCasbinAcm_CasbinAccessWithDB2(t *testing.T) {
-	CasbinAcm, err := CasbinInit("../")
-	if err != nil {
-		log.Fatalln(err)
-	}
-	DBConfig := "genuser:mysql123Admin@@tcp(172.16.171.84:3306)/morty?charset=utf8mb4&parseTime=True&loc=Local"
+
+
+func TestCasbinAcm_CasbinAccessWithDB1(t *testing.T) {
+
+	DBConfig := "root:mysqladmin@tcp(localhost:3306)/morty_db?charset=utf8mb4&parseTime=True&loc=Local"
 	//dsn := DBConfig
 
 	MysqlDb, err := gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
 	if err != nil {
 		log.Fatalln(err)
 	}
-	requst := CasbinSpec{
-		Subject: "",
-		Domain:  "",
-		Object:  "",
-		Actions: nil,
+
+	casbinEnforcer, err := CasbinInit("./casbin.conf")
+
+	request := CasbinSpec{
+		Subject: "liangdu",git 
+		Domain:  "z-gour.com",
+		Object:  "resource",
+		Actions: []string{"read"},
 	}
-	pass, err := CasbinAcm.CasbinAccessWithDB(MysqlDb, requst)
-	if err != nil {
+	pass ,err :=		casbinEnforcer.CasbinAccessWithDB(MysqlDb, request)
+	if err!= nil{
 		log.Fatalln(err)
 	}
-	fmt.Println(pass)
+	fmt.Println("====,",pass)
 }
