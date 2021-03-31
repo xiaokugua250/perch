@@ -24,7 +24,8 @@ func TestCasbinInit(t *testing.T) {
 
 func TestCasbinAcm_CasbinAccessWithDB1(t *testing.T) {
 
-	DBConfig := "root:mysqladmin@tcp(localhost:3306)/morty_db?charset=utf8mb4&parseTime=True&loc=Local"
+	 DBConfig := "root:mysqladmin@tcp(localhost:3306)/morty_db?charset=utf8mb4&parseTime=True&loc=Local"
+	//DBConfig := "perch_only:B7b8kR$dTQ@tcp(10.186.16.1:3306)/morty_db?charset=utf8mb4&parseTime=True&loc=Local"
 	//dsn := DBConfig
 
 	MysqlDb, err := gorm.Open(mysql.Open(DBConfig), &gorm.Config{})
@@ -38,11 +39,10 @@ func TestCasbinAcm_CasbinAccessWithDB1(t *testing.T) {
 	}
 
 	request := CasbinSpecRequest{
-		//Subject: "alice",
+		Subject: "alice",
 		//	Role:    "group_admin",
-		//Domain: "z-gour.com",
-		//Object: "GET",
-		//	Actions: []string{"read"},
+		Domain: "/bob_data/*",
+		Object: "POST",
 	}
 
 	pass, err := casbinEnforcer.CasbinAccessWithDB(MysqlDb, request)
