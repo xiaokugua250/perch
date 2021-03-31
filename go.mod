@@ -8,6 +8,7 @@ require (
 	github.com/antchfx/htmlquery v1.2.3 // indirect
 	github.com/antchfx/xmlquery v1.3.2 // indirect
 	github.com/casbin/casbin/v2 v2.25.5
+	github.com/casbin/gorm-adapter/v3 v3.2.5
 	github.com/coreos/bbolt v1.3.5 // indirect
 	github.com/coreos/etcd v3.3.13+incompatible
 	github.com/corpix/uarand v0.1.1 // indirect
@@ -19,6 +20,7 @@ require (
 	github.com/go-ldap/ldap/v3 v3.2.4
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/go-redis/redis/v8 v8.4.0
+	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gocolly/colly v1.2.0
 	github.com/golang/protobuf v1.4.3
 	github.com/google/gofuzz v1.2.0 // indirect
@@ -32,7 +34,7 @@ require (
 	github.com/ipfs/go-datastore v0.4.4
 	github.com/jonboulle/clockwork v0.2.2 // indirect
 	github.com/koding/websocketproxy v0.0.0-20181220232114-7ed82d81a28c
-	github.com/kr/pty v1.1.3
+	github.com/kr/pty v1.1.8
 	github.com/libp2p/go-libp2p v0.9.6
 	github.com/libp2p/go-libp2p-core v0.6.0
 	github.com/libp2p/go-libp2p-discovery v0.4.0
@@ -80,7 +82,7 @@ require (
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/yaml.v2 v2.4.0
 	gorm.io/driver/mysql v1.0.1
-	gorm.io/gorm v1.20.1
+	gorm.io/gorm v1.20.7
 	k8s.io/api v0.19.0
 	k8s.io/apimachinery v0.19.0
 	k8s.io/client-go v0.19.0
