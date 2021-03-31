@@ -11,11 +11,10 @@ type CasbinAcm struct { // access control model
 	*casbin.SyncedEnforcer
 }
 
-type CasbinSpec struct {
+type CasbinSpecRequest struct {
 	Subject string
 	Domain  string
 	Object  string
-	Actions []string
 }
 
 // Increase the column size to 512.
@@ -58,11 +57,11 @@ func (casbinAcm *CasbinAcm) CasbinAddPolicies(policies interface{}) (bool, error
 /**
 casbin进行权限验证
 */
-func (casbinAcm *CasbinAcm) CasbinAccess(request CasbinSpec) (bool, error) {
+func (casbinAcm *CasbinAcm) CasbinAccess(request CasbinSpecRequest) (bool, error) {
 	var (
 		err error
 	)
-	passed, err := casbinAcm.Enforcer.Enforce(request)
+	passed, err := casbinAcm.Enforcer.Enforce(request.)
 	if err != nil {
 		return false, err
 	}
@@ -73,7 +72,7 @@ func (casbinAcm *CasbinAcm) CasbinAccess(request CasbinSpec) (bool, error) {
 /**
 casbin进行权限验证
 */
-func (casbinAcm *CasbinAcm) CasbinAccessWithDB(db *gorm.DB, request CasbinSpec) (bool, error) {
+func (casbinAcm *CasbinAcm) CasbinAccessWithDB(db *gorm.DB, request CasbinSpecRequest) (bool, error) {
 	var (
 		dbAdapter *gormadapter.Adapter
 		err       error
@@ -84,7 +83,8 @@ func (casbinAcm *CasbinAcm) CasbinAccessWithDB(db *gorm.DB, request CasbinSpec) 
 	if err != nil {
 		return false, err
 	}
-	casbinAcm.Enforce(dbAdapter)
+	casbinAcm.SyncedEnforcer.Enforcer.SetAdapter(dbAdapter)
+
 	//	e, _ := casbin.NewEnforcer("examples/rbac_model.conf", dbAdapter)
 
 	// Load the policy from DB.
@@ -92,7 +92,7 @@ func (casbinAcm *CasbinAcm) CasbinAccessWithDB(db *gorm.DB, request CasbinSpec) 
 		return false, err
 	}
 
-	passed, err := casbinAcm.Enforcer.Enforce(request)
+	passed, err := casbinAcm.Enforcer.Enforce(request.Subject,request.Domain,request.Object)
 	if err != nil {
 		return false, err
 	}
