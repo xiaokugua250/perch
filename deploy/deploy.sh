@@ -9,6 +9,9 @@ set -v
 ## 通過uname -s 獲取操作系統類型
 #sysOS=$(uname -a)
 
+
+
+
 GIT_VERSION=$(git rev-parse --short HEAD)
 VERSION=V1.0-${GIT_VERSION}
 DOCKER_HUB=github.com/markov
