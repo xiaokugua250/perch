@@ -71,6 +71,7 @@
     * [x] 基于`mux`的微服务框架
     * [x] 日志功能
     * [ ] Error错误处理
+    * [x] 采用中间件模式添加服务[prometheus](https://prometheus.io/) 指标
     * [x] web配置文件解析(`yaml`配置文件的解析)
 ## TODO
 * [x] golang 配置文件解析
@@ -80,10 +81,11 @@
 * [ ] kubernetes集群管理
 * [ ] kubernetes YAML应用部署和访问
 * [ ] 熔断器和限流器 
+    *[x] [限流器](https://pkg.go.dev/golang.org/x/time/rate) 已完成
 * [ ] golang 代理服务
 * [ ] ssh /tcp 代理，多层代理
 * [ ] 基于NSQ的消息订阅发布模式
-* [ ] 采用[go-guard](https://github.com/shaj13/go-guardian)统一认证
+* [ ] 采用[go-guard](https://github.com/shaj13/go-guardian) 统一认证
  
 
 项目布局参考:  
