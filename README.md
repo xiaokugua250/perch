@@ -80,7 +80,7 @@
 * [ ] 用户管理与RBAC
 * [ ] kubernetes集群管理
 * [ ] kubernetes YAML应用部署和访问
-* [ ] 熔断器和限流器 
+* [ ] 熔断器和限流器   
     *[x] [限流器](https://pkg.go.dev/golang.org/x/time/rate) 已完成
 * [ ] golang 代理服务
 * [ ] ssh /tcp 代理，多层代理
