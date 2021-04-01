@@ -43,6 +43,7 @@ func (webserver *WebServer) GenRouter() *mux.Router {
 	router := mux.NewRouter()
 	// Prometheus endpoint
 	router.Path("/prometheus").Handler(promhttp.Handler())
+	//router.Path("/metrics").Handler(promhttp.Handler())
 	//router.Use(mux.CORSMethodMiddleware(router))
 	//router.Use(middleware.CROSMiddleware)
 	router.Use(middleware.CROSMiddleware)
