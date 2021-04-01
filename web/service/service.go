@@ -4,8 +4,9 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"perch/web/middleware"
 
 	"log"
 	"net/http"
@@ -40,9 +41,16 @@ type WebServer struct {
 
 func (webserver *WebServer) GenRouter() *mux.Router {
 	router := mux.NewRouter()
-	/*	router.Use(middleware.CROSMiddleware)
-		router.Use(middleware.MetricMiddleWare)
-		router.Use(middleware.LoggingMiddleware)*/
+	// Prometheus endpoint
+	router.Path("/prometheus").Handler(promhttp.Handler())
+	//router.Use(mux.CORSMethodMiddleware(router))
+	//router.Use(middleware.CROSMiddleware)
+	router.Use(middleware.CROSMiddleware)
+	router.Use(middleware.MetricMiddleWare)
+	//router.Use(middleware.LoggingMiddleware)
+	router.Use(middleware.RateLimiterMiddlerware)
+	router.Use(middleware.PrometheusMiddleware)
+
 	//append(webserver.Router, ,)
 	webserver.Router = append(webserver.Router, WebRouter{RouterPath: "/version", RouterHandlerFunc: api.ServiceVersionandler, RouterMethod: http.MethodGet})
 	webserver.Router = append(webserver.Router, WebRouter{RouterPath: "/health", RouterHandlerFunc: api.ServiceHealthHandler, RouterMethod: http.MethodGet})
@@ -78,12 +86,13 @@ func (webserver *WebServer) Start() {
 	log.Println("service listening on：http://" + httpAddr)
 	// 设置和启动服务
 	server := &http.Server{
-		Addr: httpAddr,
-		Handler: handlers.CORS(
+		Addr:    httpAddr,
+		Handler: webserver.GenRouter(),
+		/*Handler: handlers.CORS(
 			handlers.AllowedHeaders([]string{"*"}),
 			handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS", "PATCH"}),
 			handlers.AllowedHeaders([]string{"X-Requested-With", "Authorization", "Content-Type", "Cache-Control", "x-token", "ETag", "TIMEOUT", "DEADLINE", "content-range", "application/json"}),
-		)(webserver.GenRouter()),
+		)(webserver.GenRouter()),*/
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  time.Second * 15,
 		IdleTimeout:  time.Second * 60,
