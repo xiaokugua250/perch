@@ -7,12 +7,18 @@ if [ $? -ne 0 ]; then
 fi
 
 compile=`date +"%F %T %z"`" by "`go version`
-
+author="liangdu"
+email="liangdu1992@gmail.com"
+verion_location=internal/version
+cd $verion_location
 cat << EOF | gofmt > version.go
 package version
 
 const (
     Version = "$version"
     Compile = "$compile"
+    Author= "$author"
+    Email="$email"
 )
 EOF
+cd - 

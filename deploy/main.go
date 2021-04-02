@@ -1,10 +1,12 @@
+
 package main
 
 	
 import (
-	"os"
+	
 	"fmt"
-	"version"
+	"os"
+//	"perch/internal/version"
 	
 )
 var (
@@ -16,5 +18,5 @@ var (
   )
 func main() {
     fmt.Println("hello world")
-	//fmt.Fprintf(os.Stderr, "Git Commit: %s\n", gitCommit)
+	fmt.Fprintf(os.Stderr, "Git Commit: %s\n", gitAuthor)
 }

@@ -25,7 +25,7 @@ require (
 	github.com/golang/protobuf v1.4.3
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/googleapis/gnostic v0.5.1 // indirect
-	github.com/gorilla/handlers v1.5.0
+	github.com/gorilla/handlers v1.5.0 // indirect
 	github.com/gorilla/mux v1.7.4
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2 // indirect
 	github.com/icrowley/fake v0.0.0-20180203215853-4178557ae428
