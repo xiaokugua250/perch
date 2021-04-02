@@ -66,7 +66,7 @@
 * [ ] 基于RBAC的用户管理
     * [ ] 采用[casbin](https://casbin.org/) 进行混合rbac和restful权限管理
 * [x] 基于Makefile和Dockerfile的服务构建
-    * [ ] 编译golang项目时打包版本信息
+    * [x] 编译golang项目时打包版本信息[采用build.sh 脚本生成api版本信息]
 * [ ] web 框架调整和优化
     * [x] 基于`mux`的微服务框架
     * [x] 日志功能

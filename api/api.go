@@ -3,9 +3,9 @@ package api
 import (
 	"context"
 	"net/http"
+	"perch/internal/version"
 	"perch/web/metric"
 	"perch/web/model"
-	"perch/interal/version"
 )
 
 func ServiceHealthHandler(w http.ResponseWriter, r *http.Request) {
@@ -30,7 +30,7 @@ func ServiceVersionandler(w http.ResponseWriter, r *http.Request) {
 		)
 
 		response.Code = http.StatusOK
-		response.Spec = map[string]string{"version": version.Version}
+		response.Spec = map[string]string{"version": version.Version, "compile": version.Compile, "author": version.Author, "email": version.Email}
 		response.Message = "ok"
 		return nil
 	})
