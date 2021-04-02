@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"version"
+	"perch/internal/version"
 )
 
 func main() {
 
-	fmt.Println("hello world", version.Compile)
+	fmt.Println("hello world", version)
 }
