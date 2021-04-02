@@ -30,7 +30,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 		go informer.(v1.NodeInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
 		if !cache.WaitForCacheSync(stopChan, informer.(v1.NodeInformer).Informer().HasSynced) {
-			runtime.HandleError(fmt.Errorf("Timed out waiting for caches to sync"))
+			runtime.HandleError(fmt.Errorf("timed out waiting for caches to sync"))
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
 		return informer.(v1.NodeInformer).Lister().List(selector)
@@ -39,7 +39,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 		go informer.(v1.NamespaceInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
 		if !cache.WaitForCacheSync(stopChan, informer.(v1.NamespaceInformer).Informer().HasSynced) {
-			runtime.HandleError(fmt.Errorf("Timed out waiting for caches to sync"))
+			runtime.HandleError(fmt.Errorf("timed out waiting for caches to sync"))
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
 		return informer.(v1.NamespaceInformer).Lister().List(selector)
@@ -48,7 +48,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 		go informer.(v1.ConfigMapInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
 		if !cache.WaitForCacheSync(stopChan, informer.(v1.ConfigMapInformer).Informer().HasSynced) {
-			runtime.HandleError(fmt.Errorf("Timed out waiting for caches to sync"))
+			runtime.HandleError(fmt.Errorf("timed out waiting for caches to sync"))
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
 		return informer.(v1.ConfigMapInformer).Lister().List(selector)
@@ -57,7 +57,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 		go informer.(v1.ServiceInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
 		if !cache.WaitForCacheSync(stopChan, informer.(v1.ServiceInformer).Informer().HasSynced) {
-			runtime.HandleError(fmt.Errorf("Timed out waiting for caches to sync"))
+			runtime.HandleError(fmt.Errorf("timed out waiting for caches to sync"))
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
 		return informer.(v1.ServiceInformer).Lister().List(selector)
@@ -66,7 +66,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 		go informer.(v1.ServiceAccountInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
 		if !cache.WaitForCacheSync(stopChan, informer.(v1.ServiceAccountInformer).Informer().HasSynced) {
-			runtime.HandleError(fmt.Errorf("Timed out waiting for caches to sync"))
+			runtime.HandleError(fmt.Errorf("timed out waiting for caches to sync"))
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
 		return informer.(v1.ServiceAccountInformer).Lister().List(selector)
@@ -86,7 +86,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 		//go informer.(batchv1.JobInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
 		if !cache.WaitForCacheSync(stopChan, Jobinformer.HasSynced) {
-			runtime.HandleError(fmt.Errorf("Timed out waiting for caches to sync"))
+			runtime.HandleError(fmt.Errorf("timed out waiting for caches to sync"))
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
 
@@ -98,7 +98,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 		go BatchJobinformer.Run(stopChan)
 		//go informer.Informer().Run(stopChan)
 		if !cache.WaitForCacheSync(stopChan, BatchJobinformer.HasSynced) {
-			runtime.HandleError(fmt.Errorf("Timed out waiting for caches to sync"))
+			runtime.HandleError(fmt.Errorf("timed out waiting for caches to sync"))
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
 
@@ -108,7 +108,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 		go informer.(appv1.DeploymentInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
 		if !cache.WaitForCacheSync(stopChan, informer.(appv1.DeploymentInformer).Informer().HasSynced) {
-			runtime.HandleError(fmt.Errorf("Timed out waiting for caches to sync"))
+			runtime.HandleError(fmt.Errorf("timed out waiting for caches to sync"))
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
 		return informer.(appv1.DeploymentInformer).Lister().List(selector)
@@ -128,7 +128,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 		go informer.(appv1.ReplicaSetInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
 		if !cache.WaitForCacheSync(stopChan, informer.(appv1.ReplicaSetInformer).Informer().HasSynced) {
-			runtime.HandleError(fmt.Errorf("Timed out waiting for caches to sync"))
+			runtime.HandleError(fmt.Errorf("timed out waiting for caches to sync"))
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
 		return informer.(appv1.ReplicaSetInformer).Lister().List(selector)
@@ -137,8 +137,8 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 		go informer.(appv1.StatefulSetInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
 		if !cache.WaitForCacheSync(stopChan, informer.(appv1.StatefulSetInformer).Informer().HasSynced) {
-			runtime.HandleError(fmt.Errorf("Timed out waiting for caches to sync"))
-			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
+			runtime.HandleError(fmt.Errorf("timed out waiting for caches to sync"))
+			return nil, errors.New("timed out waiting for caches to sync,failed to get  resources information...")
 		}
 		return informer.(appv1.StatefulSetInformer).Lister().List(selector)
 	case KubernetesPv:
@@ -146,7 +146,7 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 		go informer.(v1.PersistentVolumeInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
 		if !cache.WaitForCacheSync(stopChan, informer.(v1.PersistentVolumeInformer).Informer().HasSynced) {
-			runtime.HandleError(fmt.Errorf("Timed out waiting for caches to sync"))
+			runtime.HandleError(fmt.Errorf("timed out waiting for caches to sync"))
 			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
 		}
 		return informer.(v1.PersistentVolumeInformer).Lister().List(selector)
@@ -155,8 +155,8 @@ func (k8sClientSet *ClientSet) K8sResourceListWithInformer(resouceType string, n
 		go informer.(v1.PersistentVolumeClaimInformer).Informer().Run(stopChan)
 		//go informer.Informer().Run(stopChan)
 		if !cache.WaitForCacheSync(stopChan, informer.(v1.PersistentVolumeClaimInformer).Informer().HasSynced) {
-			runtime.HandleError(fmt.Errorf("Timed out waiting for caches to sync"))
-			return nil, errors.New("Timed out waiting for caches to sync,failed to get  resources information...")
+			runtime.HandleError(fmt.Errorf("timed out waiting for caches to sync"))
+			return nil, errors.New("timed out waiting for caches to sync,failed to get  resources information...")
 		}
 		return informer.(v1.PersistentVolumeClaimInformer).Lister().List(selector)
 	default:

@@ -17,7 +17,7 @@ type pageInfo struct {
 }
 
 func CreateCollySpider(writer http.ResponseWriter, request *http.Request) {
-	metric.ProcessMetricFunc(writer, request, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, respone *model.ResultResponse) error {
+	metric.ProcessMetricFunc(writer, request, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, respone *model.ResultResponse) error {
 
 		URL := request.URL.Query().Get("url")
 		if URL == "" {

@@ -18,7 +18,7 @@ import (
 )
 
 func GetFakeUsersHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			//resourceDocs []resource.ResourceBlogs
 			//err          error
@@ -47,7 +47,7 @@ func GetFakeUsersHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetFakeEmailsHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			//resourceDocs []resource.ResourceBlogs
 			//err          error
@@ -67,7 +67,7 @@ func GetFakeEmailsHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetFakeCrediCardHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			//resourceDocs []resource.ResourceBlogs
 			//err          error
@@ -86,7 +86,7 @@ func GetFakeCrediCardHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetFakeIPHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			//resourceDocs []resource.ResourceBlogs
 			//err          error
@@ -107,7 +107,7 @@ func GetFakeIPHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetFakeLocHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			//resourceDocs []resource.ResourceBlogs
 			//err          error
@@ -138,7 +138,7 @@ func GetFakeLocHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func GetFakeTimesHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			//resourceDocs []resource.ResourceBlogs
 			//err          error

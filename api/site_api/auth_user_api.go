@@ -15,7 +15,7 @@ import (
 )
 
 func PlatAuthUsersGetHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			user []rbac.AuthUser
 
@@ -43,7 +43,7 @@ func PlatAuthUsersGetHandler(w http.ResponseWriter, r *http.Request) {
 
 //todo 需要获取到用户角色，权限等信息
 func PlatSpecAuthUserGetHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			user      rbac.AuthUser
 			userRoles []rbac.AuthRBACRoles
@@ -83,7 +83,7 @@ func PlatSpecAuthUserGetHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func PlatAuthUserUpdateHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			user   rbac.AuthUser
 			userID int
@@ -118,7 +118,7 @@ func PlatAuthUserUpdateHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func PlatAuthUserDeleteHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			user   rbac.AuthUser
 			userID int
@@ -148,7 +148,7 @@ func PlatAuthUserDeleteHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 func PlatAuthUserCreateHandler(w http.ResponseWriter, r *http.Request) {
-	metric.ProcessMetricFunc(w, r, nil, metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
+	metric.ProcessMetricFunc(w, r, nil, &metric.MiddlewarePlugins{}, func(ctx context.Context, bean interface{}, response *model.ResultResponse) error {
 		var (
 			user        rbac.AuthUser
 			currentUser rbac.AuthUser
