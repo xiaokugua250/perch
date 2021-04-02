@@ -1,0 +1,16 @@
+domain: perch.io
+layout:
+- go.kubebuilder.io/v3
+projectName: perch
+repo: perch
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: perch.io
+  group: webapps
+  kind: PerchApps
+  path: perch/api/v1
+  version: v1
+version: "3"
