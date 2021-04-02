@@ -32,7 +32,10 @@ type CasbinRule struct {
 	V4    string `gorm:"size:32;uniqueIndex:unique_index"`
 	V5    string `gorm:"size:32;uniqueIndex:unique_index"`
 }
-
+// TableName overrides the table name used by User to `profiles`
+func (CasbinRule) TableName() string {
+	return "casbin_rule"
+  }
 /**
 初始化casbin 配置
 */

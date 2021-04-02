@@ -44,7 +44,7 @@ func init() {
 	} else {
 		DefaultconfigsDir = "configs"
 		if runtime.GOOS != "windows" {
-			DefaultconfigsDir = "/configs"
+			//DefaultconfigsDir = "/configs"
 		}
 	}
 
