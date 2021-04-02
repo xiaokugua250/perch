@@ -37,13 +37,17 @@ if [ $? -ne 0 ]; then
 fi
 
 compile=`date +"%F %T %z"`" by "`go version`
-
+buildAt =`date + "%F %T %Z"`
+arch=$(uname -m)
 cat << EOF | gofmt > version.go
 package version
 
 const (
     Version = "$version"
     Compile = "$compile"
+    BuildAt = "$buildAt"
+    Arch = "$arch"
+
 )
 EOF
 
