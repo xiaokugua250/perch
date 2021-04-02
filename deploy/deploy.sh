@@ -30,6 +30,7 @@ for file in ${TARGET_BIN_DIR}/*;
     docker build -t github.com/perch/"${service,,}":"${VERSION}" -f ${RESOURCES_DIR}/Dockerfile_tmp ./${RESOURCES_DIR} && # {service,,}將大寫改造成小寫
     rm -rf ${RESOURCES_DIR}/Dockerfile_tmp
   done
+
 version=`git log --date=iso --pretty=format:"%cd @%h" -1`
 if [ $? -ne 0 ]; then
     version="not a git repo"
@@ -50,7 +51,6 @@ const (
     Email="$email"
 )
 EOF
-cd -
 
 echo "begin to make project..."
 #make
