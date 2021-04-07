@@ -4,36 +4,37 @@
 <!-- TOC -->
 
 - [数据库知识综合](#数据库知识综合)
-  - [数据库基础](#数据库基础)
-  - [SQL](#sql)
-  - [SQL 操作过程中的性能优化方法](#sql-操作过程中的性能优化方法)
-  - [MySQL相关](#mysql相关)
-    - [MySQL 性能优化](#mysql-性能优化)
-    - [MySQL复制原理及流程](#mysql复制原理及流程)
-    - [MySQL 事务与日志](#mysql-事务与日志)
-    - [MySQL数据库引擎](#mysql数据库引擎)
-    - [MySQL数据库suoysuoy](#mysql数据库suoysuoy)
-    - [MySQL数据维护](#mysql数据维护)
-  - [MySQL异常处理](#mysql异常处理)
-  - [参考](#参考)
-- [[14]. https://www.vertabelo.com/blog/  all-about-indexes-part-2-mysql-index-structure-and-performance/](#14-httpswwwvertabelocomblog--all-about-indexes-part-2-mysql-index-structure-and-performance)
+    - [数据库基础](#数据库基础)
+    - [SQL](#sql)
+    - [SQL 操作过程中的性能优化方法](#sql-操作过程中的性能优化方法)
+    - [MySQL相关](#mysql相关)
+        - [MySQL 性能优化](#mysql-性能优化)
+        - [MySQL复制原理及流程](#mysql复制原理及流程)
+        - [MySQL 事务与日志](#mysql-事务与日志)
+            - [MySQL事务](#mysql事务)
+            - [日志](#日志)
+        - [MySQL数据库引擎](#mysql数据库引擎)
+        - [MySQL数据库suoysuoy](#mysql数据库suoysuoy)
+        - [MySQL数据维护](#mysql数据维护)
+    - [MySQL异常处理](#mysql异常处理)
+    - [参考](#参考)
 - [数据库知识综合](#数据库知识综合-1)
-  - [数据库基础](#数据库基础-1)
-  - [SQL](#sql-1)
-  - [SQL 操作过程中的性能优化方法](#sql-操作过程中的性能优化方法-1)
-  - [MySQL相关](#mysql相关-1)
-    - [MySQL架构](#mysql架构)
-    - [MySQL 性能优化](#mysql-性能优化-1)
-    - [MySQL复制原理及流程](#mysql复制原理及流程-1)
-    - [MySQL 事务与日志](#mysql-事务与日志-1)
-    - [MySQL数据库引擎](#mysql数据库引擎-1)
-    - [MySQL数据维护](#mysql数据维护-1)
-    - [MySQL索引](#mysql索引)
-    - [MySQL数据库锁](#mysql数据库锁)
-    - [MySQL MVCC](#mysql-mvcc)
-  - [MySQL异常处理](#mysql异常处理-1)
-    - [MySQL周边工具](#mysql周边工具)
-  - [参考](#参考-1)
+    - [数据库基础](#数据库基础-1)
+    - [SQL](#sql-1)
+    - [SQL 操作过程中的性能优化方法](#sql-操作过程中的性能优化方法-1)
+    - [MySQL相关](#mysql相关-1)
+        - [MySQL架构](#mysql架构)
+        - [MySQL 性能优化](#mysql-性能优化-1)
+        - [MySQL复制原理及流程](#mysql复制原理及流程-1)
+        - [MySQL 事务与日志](#mysql-事务与日志-1)
+        - [MySQL数据库引擎](#mysql数据库引擎-1)
+        - [MySQL数据维护](#mysql数据维护-1)
+        - [MySQL索引](#mysql索引)
+        - [MySQL数据库锁](#mysql数据库锁)
+        - [MySQL MVCC](#mysql-mvcc)
+    - [MySQL异常处理](#mysql异常处理-1)
+        - [MySQL周边工具](#mysql周边工具)
+    - [参考](#参考-1)
 
 <!-- /TOC -->
 
@@ -513,6 +514,16 @@ mysqlcheck -o –all-databases 会让 ibdata1 不断增大，真正的优化只�
 延时性  
 5.5 是单线程复制， 5.6 是多库复制（对于单库或者单表的并发操作是没用的）， 5.7 是真正意义的多线程复制，它的原理是基于 group commit， 只要 master 上面的事务是 group commit 的，那 slave 上面也可以通过多个 worker线程去并发执行。 和 MairaDB10.0.0.5 引入多线程复制的原理基本一样。  
 ### MySQL 事务与日志
+#### MySQL事务
+1.事务的ACID
+- 事务具有四个特征：原子性（ Atomicity ）、一致性（ Consistency ）、隔离性（ Isolation ）和持续性（ Durability ）。这四个特性简称为 ACID 特性。
+
+- 原子性：事务是数据库的逻辑工作单位，事务中包含的各操作要么都做，要么都不做
+- 一致性：事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态。因此当数据库只包含成功事务提交的结果时，就说数据库处于一致性状态。如果数据库系统 运行中发生故障，有些事务尚未完成就被迫中断，这些未完成事务对数据库所做的修改有一部分已写入物理数据库，这时数据库就处于一种不正确的状态，或者说是不一致的状态。
+- 隔离性：一个事务的执行不能其它事务干扰。即一个事务内部的操作及使用的数据对其它并发事务是隔离的，并发执行的各个事务之间不能互相干扰。
+- 持续性：也称永久性，指一个事务一旦提交，它对数据库中的数据的改变就应该是永久性的。接下来的其它操作或故障不应该对其执行结果有任何影响。
+
+#### 日志
 - 日志类型  
   > 1.redo  
   2.undo  
