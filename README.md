@@ -96,4 +96,7 @@ https://github.com/golang-standards/project-layout
 
 
 ## 参考资料
-[1].http://www.hatlonely.com/2018/06/21/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BB%84%E4%BB%B6%E4%B9%8B%E9%99%90%E6%B5%81%E5%99%A8%E4%B8%8E%E7%86%94%E6%96%AD%E5%99%A8/
+[1].http://www.hatlonely.com/2018/06/21/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BB%84%E4%BB%B6%E4%B9%8B%E9%99%90%E6%B5%81%E5%99%A8%E4%B8%8E%E7%86%94%E6%96%AD%E5%99%A8/  
+[2].https://mojotv.cn/go/prometheus-client-for-go   
+[3].https://pkg.go.dev/golang.org/x/time/rate  
+[4].https://github.com/didip/tollbooth  
