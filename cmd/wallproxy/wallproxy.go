@@ -58,6 +58,10 @@ type proxyServer struct {
 
 func (proxy *proxyServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodConnect { //代理模式
+	/*	w.Header().Set("Content-Type", "text/html; charset=ascii")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Headers","Content-Type,access-control-allow-origin, access-control-allow-headers")
+*/
 		handleWithProxy(w, r)
 		log.Printf("handle http  request %s with proxy...\n", r.RequestURI)
 	} else {
