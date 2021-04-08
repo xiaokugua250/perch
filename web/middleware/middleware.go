@@ -68,7 +68,8 @@ func RateLimiterMiddlerwareByIp(next http.Handler) http.Handler {
 }
 
 /**
-添加速率控制插件
+添加速率控制插件 /
+参考：https://lailin.xyz/post/go-training-week6-4-leaky-bucket.html
 */
 func RateLimiterMiddlerware(next http.Handler) http.Handler {
 
