@@ -19,29 +19,20 @@ import (
 	"os"
 	"os/signal"
 	"runtime"
-	"strconv"
 	"syscall"
 	"time"
 )
 
 var (
-	proxyserver *proxyServer
-	configs     ServerConfig
-	configfile  string
+	proxyserver = &proxyServer{}
+
+	configfile string
 )
 
 const (
-	protocol_http = iota + 1
-	protocol_https
+	protocol_http  = "http"
+	protocol_https = "https"
 )
-
-type ServerConfig struct {
-	serverIP    string `yaml:"ip"`
-	serverPort  string `yaml:"ip"`
-	protocol    int    `yaml:"ip"`
-	sslKeyfile  string `yaml:"ip"`
-	sslCertfile string `yaml:"ip"`
-}
 
 func LoadServerConfigs(configfile string) error {
 	var (
@@ -51,18 +42,18 @@ func LoadServerConfigs(configfile string) error {
 	if err != nil {
 		return err
 	}
-	if err = yaml.Unmarshal(conifgyaml, &configs); err != nil {
+	if err = yaml.Unmarshal(conifgyaml, &proxyserver); err != nil {
 		return err
 	}
 	return nil
 }
 
 type proxyServer struct {
-	serverIP    string
-	serverPort  string
-	protocol    int
-	sslKeyfile  string
-	sslCertfile string
+	ServerIP    string `yaml:"ip"`
+	ServerPort  string `yaml:"port"`
+	Protocol    string `yaml:"protocol"`
+	SSLKeyfile  string `yaml:"keyfile"`
+	SSLCertfile string `yaml:"certfile"`
 }
 
 func (proxy *proxyServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -77,14 +68,17 @@ func (proxy *proxyServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func setup() {
 	var (
-		configfile string
-		err        error
+		//configfile string
+		err error
 	)
 	if runtime.GOOS == "windows" {
 		//todo
 	} else if runtime.GOOS == "linux" {
 		//todo
-		configfile = "/etc/wallproxy/server.yaml"
+		if configfile != "" {
+			configfile = "/etc/wallproxy/configs.yaml"
+		}
+
 	} else {
 		log.Fatalf("current os %s not support...", runtime.GOOS)
 	}
@@ -93,11 +87,11 @@ func setup() {
 		log.Fatalf("load configfile failed,error is %s", err.Error())
 	}
 	proxyserver = &proxyServer{
-		serverIP:    configs.serverIP,
-		serverPort:  configs.serverPort,
-		protocol:    configs.protocol,
-		sslKeyfile:  configs.sslKeyfile,
-		sslCertfile: configs.sslCertfile,
+		ServerIP:    proxyserver.ServerIP,
+		ServerPort:  proxyserver.ServerPort,
+		Protocol:    proxyserver.Protocol,
+		SSLKeyfile:  proxyserver.SSLKeyfile,
+		SSLCertfile: proxyserver.SSLCertfile,
 	}
 }
 
@@ -105,12 +99,20 @@ func main() {
 	//webserver.Init()
 
 	app := &cli.App{
-		Name:  "wallproxy",
-		Usage: "cross the wall...",
+		Name:     "wallproxy",
+		Usage:    "cross the wall...",
+		Version:  "v1.0.0",
+		Compiled: time.Now(),
+		Authors: []*cli.Author{
+			&cli.Author{
+				Name:  "liangdu",
+				Email: "liangdu1992@gmail.com",
+			},
+		},
 		Flags: []cli.Flag{
 			&cli.StringFlag{
-				Name:        "configs",
-				Value:       "/etc/wallproxy/server.yaml",
+				Name: "configs",
+				//Value:       "/etc/wallproxy/configs.yaml",
 				Usage:       "server proxy config file",
 				Destination: &configfile,
 			},
@@ -118,39 +120,44 @@ func main() {
 				Name:        "ip",
 				Value:       "0.0.0.0",
 				Usage:       "server proxy server ip",
-				Destination: &configs.serverIP,
+				Destination: &proxyserver.ServerIP,
 			},
 			&cli.StringFlag{
 				Name:        "port",
 				Value:       "2578",
 				Usage:       "server proxy server port",
-				Destination: &configs.serverPort,
+				Destination: &proxyserver.ServerPort,
 			},
 			&cli.StringFlag{
 				Name:        "protocol",
-				Value:       strconv.Itoa(protocol_https),
+				Value:       protocol_http,
 				Usage:       "server proxy server protocol",
-				Destination: &configfile,
+				Destination: &proxyserver.Protocol,
 			},
 			&cli.StringFlag{
 				Name:        "sslkeys",
 				Value:       "",
 				Usage:       "server proxy ssl keys",
-				Destination: &configfile,
+				Destination: &proxyserver.SSLKeyfile,
 			},
 			&cli.StringFlag{
 				Name:        "sslcerts",
 				Value:       "",
 				Usage:       "server proxy ssl certs",
-				Destination: &configfile,
+				Destination: &proxyserver.SSLCertfile,
 			},
 		},
 		Action: func(c *cli.Context) error {
+
 			fmt.Println("enjoy freedom...")
-			if c.NArg() <= 0 {
+			if configfile != "" {
 				setup()
 			}
+			startUp()
 
+			if c.NArg() <= 0 {
+				return nil
+			}
 			return nil
 		},
 	}
@@ -160,13 +167,23 @@ func main() {
 		log.Fatal(err)
 	}
 
-	httpAddr := proxyserver.serverIP + ":" + proxyserver.serverPort
+}
+
+func startUp() {
+	httpAddr := proxyserver.ServerIP + ":" + proxyserver.ServerPort
 
 	//templ := `{{ .Title "Banner" "" 4 }}`
 	banner.Init(colorable.NewColorableStdout(), true, true, bytes.NewBufferString(fmt.Sprintf("{{ .Title \" %s \" \"\" 4 }}", "proxy_server")))
 	fmt.Println()
 	log.Println(" proxy service starting...")
-	log.Println("service listening on：http://" + httpAddr)
+	if proxyserver.Protocol == protocol_http {
+		log.Println("service listening on:http://" + httpAddr)
+	} else if proxyserver.Protocol == protocol_https {
+		log.Println("service listening on: https://" + httpAddr)
+	} else {
+		log.Println("service listening on:", proxyserver.Protocol+"://"+httpAddr)
+	}
+
 	// 设置和启动服务
 	server := &http.Server{
 		Addr:    httpAddr,
@@ -178,10 +195,10 @@ func main() {
 	}
 	errChan := make(chan error, 1)
 	go func() {
-		if proxyserver.protocol == protocol_http {
+		if proxyserver.Protocol == protocol_http {
 			errChan <- server.ListenAndServe()
 		} else {
-			errChan <- server.ListenAndServeTLS(proxyserver.sslCertfile, proxyserver.sslKeyfile)
+			errChan <- server.ListenAndServeTLS(proxyserver.SSLCertfile, proxyserver.SSLKeyfile)
 		}
 
 		log.Println(" proxy server shutting down....")
