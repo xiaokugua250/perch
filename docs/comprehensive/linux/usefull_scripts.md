@@ -364,6 +364,7 @@ echo "over" # 表示脚本运行结束
 ```
 参考
 [1].https://taoyan.netlify.app/post/2020-01-02.%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/
+[2].https://jerkwin.github.io/2013/12/14/Bash%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0%E6%89%B9%E9%87%8F%E4%BD%9C%E4%B8%9A%E5%B9%B6%E8%A1%8C%E5%8C%96/
 
 4 系统信息查看
 4.1 获取系统基本信息
