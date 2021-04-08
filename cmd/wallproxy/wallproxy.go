@@ -1,7 +1,7 @@
 /**
 正向代理
 */
-package wallproxy
+package main
 
 import (
 	"bytes"
@@ -10,6 +10,7 @@ import (
 	"github.com/dimiro1/banner"
 	"github.com/mattn/go-colorable"
 	log "github.com/sirupsen/logrus"
+	"github.com/urfave/cli/v2"
 	"gopkg.in/yaml.v2"
 	"io"
 	"io/ioutil"
@@ -18,15 +19,15 @@ import (
 	"os"
 	"os/signal"
 	"runtime"
+	"strconv"
 	"syscall"
 	"time"
 )
 
 var (
-	serverIP    string
-	serverPort  string
 	proxyserver *proxyServer
 	configs     ServerConfig
+	configfile  string
 )
 
 const (
@@ -74,7 +75,7 @@ func (proxy *proxyServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func init() {
+func setup() {
 	var (
 		configfile string
 		err        error
@@ -100,8 +101,65 @@ func init() {
 	}
 }
 
-func Setup() {
+func main() {
 	//webserver.Init()
+
+	app := &cli.App{
+		Name:  "wallproxy",
+		Usage: "cross the wall...",
+		Flags: []cli.Flag{
+			&cli.StringFlag{
+				Name:        "configs",
+				Value:       "/etc/wallproxy/server.yaml",
+				Usage:       "server proxy config file",
+				Destination: &configfile,
+			},
+			&cli.StringFlag{
+				Name:        "ip",
+				Value:       "0.0.0.0",
+				Usage:       "server proxy server ip",
+				Destination: &configs.serverIP,
+			},
+			&cli.StringFlag{
+				Name:        "port",
+				Value:       "2578",
+				Usage:       "server proxy server port",
+				Destination: &configs.serverPort,
+			},
+			&cli.StringFlag{
+				Name:        "protocol",
+				Value:       strconv.Itoa(protocol_https),
+				Usage:       "server proxy server protocol",
+				Destination: &configfile,
+			},
+			&cli.StringFlag{
+				Name:        "sslkeys",
+				Value:       "",
+				Usage:       "server proxy ssl keys",
+				Destination: &configfile,
+			},
+			&cli.StringFlag{
+				Name:        "sslcerts",
+				Value:       "",
+				Usage:       "server proxy ssl certs",
+				Destination: &configfile,
+			},
+		},
+		Action: func(c *cli.Context) error {
+			fmt.Println("enjoy freedom...")
+			if c.NArg() <= 0 {
+				setup()
+			}
+
+			return nil
+		},
+	}
+
+	err := app.Run(os.Args)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	httpAddr := proxyserver.serverIP + ":" + proxyserver.serverPort
 
 	//templ := `{{ .Title "Banner" "" 4 }}`
