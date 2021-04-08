@@ -57,11 +57,12 @@ type proxyServer struct {
 }
 
 func (proxy *proxyServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+
 	if r.Method == http.MethodConnect { //代理模式
-	/*	w.Header().Set("Content-Type", "text/html; charset=ascii")
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Headers","Content-Type,access-control-allow-origin, access-control-allow-headers")
-*/
+		/*	w.Header().Set("Content-Type", "text/html; charset=ascii")
+			w.Header().Set("Access-Control-Allow-Origin", "*")
+			w.Header().Set("Access-Control-Allow-Headers","Content-Type,access-control-allow-origin, access-control-allow-headers")
+		*/
 		handleWithProxy(w, r)
 		log.Printf("handle http  request %s with proxy...\n", r.RequestURI)
 	} else {
@@ -191,7 +192,7 @@ func startUp() {
 	// 设置和启动服务
 	server := &http.Server{
 		Addr:    httpAddr,
-		Handler: proxyserver,
+		Handler: AuthMiddlerware(proxyserver),
 
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  time.Second * 15,
@@ -286,4 +287,20 @@ func transfer(destination io.WriteCloser, source io.ReadCloser) {
 }
 func clean() {
 
+}
+
+/**
+
+认证中间件
+*/
+func AuthMiddlerware(next http.Handler) http.Handler {
+
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// todo Do stuff here
+
+		//log.Println(r.RequestURI)
+		// Call the next handler, which can be another middleware in the chain, or the final handler.
+		next.ServeHTTP(w, r)
+
+	})
 }
