@@ -491,3 +491,24 @@ echo "向设备发起的I/O服务时间均值："$disk_sda_svctm
 disk_sda_util=`iostat -kx | grep sda| awk '{print $12}'`  
 echo "向设备发起I/O请求的CPU时间百分占比："$disk_sda_util  
 ```
+
+
+5 系统重定向
+5.1 文本替换处理
+```
+for f in dos-file*.txt
+do tr -d '\r' < $f >> big-unix-file.txt
+done
+```
+5.2 管道文本处理
+```
+tr -d '\r' < dos-file.txt | sort > unix-file.txt
+```
+
+5.3 sed 替换脚本
+```
+find /home/tolstoy -type d -print  | # 查找所有目录
+    sed 's;/home/tolstoy/;/home/lt/;' |  # 修改名称，注意：此处使用分号做定界符
+        sed 's/^/mkdir /' | # 插入mkdir 命令
+        sh -x   # 以shell 跟踪模式运行
+```
