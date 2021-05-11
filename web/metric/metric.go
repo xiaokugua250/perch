@@ -46,7 +46,7 @@ func ProcessMetricFunc(w http.ResponseWriter, r *http.Request, bean interface{},
 		}
 
 		//todo 可以根据需求将所需要记录的日志记录下来
-		log.Printf(" %s\t%s\t%s\t%d\t%+v\t%s\t\n", r.Method, r.URL, r.UserAgent(), response.Code, response, r.RemoteAddr)
+		//log.Printf(" %s\t%s\t%s\t%d\t%+v\t%s\t\n", r.Method, r.URL, r.UserAgent(), response.Code, response, r.RemoteAddr)
 	}()
 
 	if middlePlugin.AuthToken { //验证token

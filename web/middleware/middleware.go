@@ -6,11 +6,13 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"golang.org/x/time/rate"
+	"io/ioutil"
 	"log"
 	"net"
 	"net/http"
 	"perch/web/auth"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 )
@@ -92,27 +94,50 @@ type LogResponseWriter struct {
 	buf        bytes.Buffer
 }
 
+func NewLogResponseWriter(w http.ResponseWriter) *LogResponseWriter {
+	return &LogResponseWriter{ResponseWriter: w}
+}
+
+func (w *LogResponseWriter) WriteHeader(code int) {
+	w.statusCode = code
+	w.ResponseWriter.WriteHeader(code)
+}
+
+func (w *LogResponseWriter) Write(body []byte) (int, error) {
+	w.buf.Write(body)
+	return w.ResponseWriter.Write(body)
+}
+
+type LogMiddleware struct {
+	logger *log.Logger
+}
+
 func LoggingMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Do stuff here
-		start := time.Now()
-		//log.Println(r.RequestURI)
-		// Call the next handler, which can be another middleware in the chain, or the final handler.
 
-		next.ServeHTTP(w, r)
-		//str :=httptest.NewRecorder().Body.String()
+		startTime := time.Now()
+		buf, err := ioutil.ReadAll(r.Body)
+		if err != nil {
 
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		reader := ioutil.NopCloser(bytes.NewBuffer(buf))
+		r.Body = reader
+		logRespWriter := NewLogResponseWriter(w)
+		next.ServeHTTP(logRespWriter, r)
+
+		// todo使用\s 会取消掉日志记录中转义符
 		log.Printf(
-			"%s\t%s\t%v\t%s\t%s",
-			//r.Response.Status,
-
+			"%s\t %s\t %s\t  %s\t  %q\t  %q\t %s\t ",
+			requestGetRemoteAddress(r),
 			r.Method,
-			r.RequestURI,
+			r.URL,
 			r.UserAgent(),
-			r.RemoteAddr,
-			time.Since(start),
+			string(buf),
+			logRespWriter.buf.String(),
+			time.Since(startTime),
 		)
-		//handlers.CombinedLoggingHandler(os.Stdout, next)
 
 	})
 }
@@ -224,4 +249,31 @@ func (amw *authenticationMiddleware) Middleware(next http.Handler) http.Handler 
 			http.Error(w, "Forbidden", http.StatusForbidden)
 		}
 	})
+}
+
+func ipAddrFromRemoteAddr(s string) string {
+	idx := strings.LastIndex(s, ":")
+	if idx == -1 {
+		return s
+	}
+	return s[:idx]
+}
+
+func requestGetRemoteAddress(r *http.Request) string {
+	hdr := r.Header
+	hdrRealIP := hdr.Get("X-Real-Ip")
+	hdrForwardedFor := hdr.Get("X-Forwarded-For")
+	if hdrRealIP == "" && hdrForwardedFor == "" {
+		return ipAddrFromRemoteAddr(r.RemoteAddr)
+	}
+	if hdrForwardedFor != "" {
+		// X-Forwarded-For is potentially a list of addresses separated with ","
+		parts := strings.Split(hdrForwardedFor, ",")
+		for i, p := range parts {
+			parts[i] = strings.TrimSpace(p)
+		}
+		// TODO: should return first non-local address
+		return parts[0]
+	}
+	return hdrRealIP
 }

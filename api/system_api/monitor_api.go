@@ -21,7 +21,7 @@ func SysBasicInfoHandler(w http.ResponseWriter, r *http.Request) {
 			sysBasicInfo system.HostAdvancedInfo
 			err          error
 		)
-
+		response.Kind = "sysinfo basic"
 		sysBasicInfo, err = system.SysHostAdvancedInfo()
 		if err != nil {
 			response.Code = http.StatusInternalServerError
@@ -29,11 +29,9 @@ func SysBasicInfoHandler(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		response.Kind = "sysinfo basic"
-
 		response.Code = http.StatusOK
 		response.Spec = sysBasicInfo
-		response.Message = " sys basic info"
+		response.Message = "sys basic info"
 		return nil
 	})
 }

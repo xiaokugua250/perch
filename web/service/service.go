@@ -48,11 +48,10 @@ func (webserver *WebServer) GenRouter() *mux.Router {
 	//router.Use(middleware.CROSMiddleware)
 	router.Use(middleware.CROSMiddleware)
 	router.Use(middleware.MetricMiddleWare)
-	//router.Use(middleware.LoggingMiddleware)
+	router.Use(middleware.LoggingMiddleware)
 	router.Use(middleware.RateLimiterMiddlerware)
 	router.Use(middleware.PrometheusMiddleware)
 
-	//append(webserver.Router, ,)
 	webserver.Router = append(webserver.Router, WebRouter{RouterPath: "/version", RouterHandlerFunc: api.ServiceVersionandler, RouterMethod: http.MethodGet})
 	webserver.Router = append(webserver.Router, WebRouter{RouterPath: "/health", RouterHandlerFunc: api.ServiceHealthHandler, RouterMethod: http.MethodGet})
 	for _, r := range webserver.Router {
